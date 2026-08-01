@@ -2,17 +2,16 @@
 
 with lib;
 
-{
+let thunkSource = import ../libs/thunk.nix;
+
+in {
 
   options = {
 
     thunks = mapAttrs
-      ( name: value: mkOption {
+      ( _: value: mkOption {
           type = types.path;
-          default =
-            if name == "nix-thunk"
-            then (import ../deps/nix-thunk {}).thunkSource value
-            else config.importing."nix-thunk".thunkSource value;
+          default = thunkSource value;
       }) config.pins;
 
   };
