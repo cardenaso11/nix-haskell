@@ -111,8 +111,12 @@ in {
     in ''
       ${mkFilterLdflags "_filter_native_ldflags" "${prefixPattern}" false}
 
-      export NIX_LDFLAGS_UNFILTERED="$NIX_LDFLAGS"
-      export NIX_LDFLAGS_FOR_TARGET_UNFILTERED="$NIX_LDFLAGS_FOR_TARGET"
+      # Capture the unfiltered flags only once. Re-evaluating the hook in the
+      # same shell must not overwrite them with the already-filtered values, or
+      # the wrapper below ends up filtering a filtered list and keeps nothing.
+      # `-` rather than `:-`, so a genuinely empty capture is preserved.
+      export NIX_LDFLAGS_UNFILTERED="''${NIX_LDFLAGS_UNFILTERED-$NIX_LDFLAGS}"
+      export NIX_LDFLAGS_FOR_TARGET_UNFILTERED="''${NIX_LDFLAGS_FOR_TARGET_UNFILTERED-$NIX_LDFLAGS_FOR_TARGET}"
       export NIX_LDFLAGS="$(_filter_native_ldflags "$NIX_LDFLAGS")"
       export NIX_LDFLAGS_FOR_TARGET="$(_filter_native_ldflags "$NIX_LDFLAGS_FOR_TARGET")"
     '');
