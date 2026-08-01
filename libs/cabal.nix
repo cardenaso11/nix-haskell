@@ -12,7 +12,13 @@ let # source-repository-package
                 else package-repo;
           condition = if !hasOutPath && builtins.isAttrs package-repo && package-repo ? condition then package-repo.condition else null;
           resolved = if hasOutPath then package-repo else { inherit name; outPath = builtins.path { path = src; inherit name; }; };
-          input = builtins.unsafeDiscardStringContext src;
+          # Same string as before, but with its context intact, so that a
+          # derivation embedding it (see libs/src-driver.nix) registers a
+          # reference to the source it names. `input` is only ever used as an
+          # attribute name, where context is not permitted -- that is the one
+          # place it still has to be discarded.
+          location = "${src}";
+          input = builtins.unsafeDiscardStringContext location;
       in {
         inputMap.${input} = resolved // { rev = "HEAD"; };
         cabalProject =
@@ -20,14 +26,14 @@ let # source-repository-package
           then ''
             source-repository-package
               type: git
-              location: ${input}
+              location: ${location}
               tag: HEAD
           ''
           else ''
             if ${condition}
               source-repository-package
                 type: git
-                location: ${input}
+                location: ${location}
                 tag: HEAD
           '';
       };
