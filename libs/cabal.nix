@@ -2,20 +2,24 @@
 
 with pkgs.lib;
 
-let # source-repository-package
-    # :: String -> (Path || { src :: Path; condition :: String || Null } || { outPath :: Path; ... })
+let thunkSource = import ./thunk.nix;
+
+    # source-repository-package
+    # :: String -> (Path || Thunk || { src :: Path || Thunk; condition :: String || Null } || { outPath :: Path; ... })
     # -> { inputMap."Path" :: AttrSet; cabalProject :: String }
     source-repository-package = name: package-repo:
       let hasOutPath = builtins.isAttrs package-repo && package-repo ? outPath;
-          src = if hasOutPath then package-repo
-                else if builtins.isAttrs package-repo && package-repo ? src then package-repo.src
-                else package-repo;
+          src = thunkSource
+            ( if hasOutPath then package-repo
+              else if builtins.isAttrs package-repo && package-repo ? src then package-repo.src
+              else package-repo
+            );
           condition = if !hasOutPath && builtins.isAttrs package-repo && package-repo ? condition then package-repo.condition else null;
           resolved = if hasOutPath then package-repo else { inherit name; outPath = builtins.path { path = src; inherit name; }; };
           # Same string as before, but with its context intact, so that a
           # derivation embedding it (see libs/src-driver.nix) registers a
           # reference to the source it names. `input` is only ever used as an
-          # attribute name, where context is not permitted -- that is the one
+          # attribute name, where context is not permitted, and that is the one
           # place it still has to be discarded.
           location = "${src}";
           input = builtins.unsafeDiscardStringContext location;

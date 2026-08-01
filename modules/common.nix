@@ -364,6 +364,11 @@ with lib;
     source-repository-packages = mkOption {
       type = types.attrsOf (types.either types.path types.attrs);
       default = {};
+      description = ''
+        Local packages to add to the project as `source-repository-package`
+        stanzas. A source is anything `inputs` accepts, so a packed thunk
+        directory can be given as-is and is resolved to the source it pins.
+      '';
       example = literalMD ''
         ```
         {
