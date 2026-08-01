@@ -368,6 +368,9 @@ with lib;
         Local packages to add to the project as `source-repository-package`
         stanzas. A source is anything `inputs` accepts, so a packed thunk
         directory can be given as-is and is resolved to the source it pins.
+
+        `subdir` selects packages within the source, so a multi-package
+        repository needs one entry rather than one per package.
       '';
       example = literalMD ''
         ```

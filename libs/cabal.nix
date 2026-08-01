@@ -15,6 +15,9 @@ let thunkSource = import ./thunk.nix;
               else package-repo
             );
           condition = if !hasOutPath && builtins.isAttrs package-repo && package-repo ? condition then package-repo.condition else null;
+          subdirs =
+            let s = if !hasOutPath && builtins.isAttrs package-repo then package-repo.subdir or null else null;
+            in if s == null then [] else toList s;
           resolved = if hasOutPath then package-repo else { inherit name; outPath = builtins.path { path = src; inherit name; }; };
           # Same string as before, but with its context intact, so that a
           # derivation embedding it (see libs/src-driver.nix) registers a
@@ -32,6 +35,7 @@ let thunkSource = import ./thunk.nix;
               type: git
               location: ${location}
               tag: HEAD
+              ${optionalString (subdirs != []) "subdir: ${concatStringsSep " " subdirs}"}
           ''
           else ''
             if ${condition}
@@ -39,6 +43,7 @@ let thunkSource = import ./thunk.nix;
                 type: git
                 location: ${location}
                 tag: HEAD
+                ${optionalString (subdirs != []) "subdir: ${concatStringsSep " " subdirs}"}
           '';
       };
 
