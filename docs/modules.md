@@ -61,6 +61,149 @@ lazy attribute set of raw value
 
 
 
+## cabalProject
+
+
+
+Content of the ` cabal.project ` file\. Passed through to haskell\.nix\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## cabalProjectFileName
+
+
+
+Name of the cabal project file\. Passed through to haskell\.nix\.
+
+
+
+*Type:*
+string
+
+
+
+*Default:*
+` "cabal.project" `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## cabalProjectFreeze
+
+
+
+Content of the ` cabal.project.freeze ` file\. Passed through to haskell\.nix\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## cabalProjectLocal
+
+
+
+Content of the ` cabal.project.local ` file\. Passed through to haskell\.nix\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## clean-src
+
+
+
+Filter ` src ` through the ` .gitignore ` it carries before copying it into
+the store, so build artifacts (` dist-newstyle `, ` result `, ` .git `) do not
+become part of every derivation that names the project source, and a
+rebuild does not rehash them\. Only applies when ` src ` is a path; a
+derivation is used as-is\.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` true `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## clean-src-patterns
+
+
+
+Extra gitignore-syntax patterns applied on top of the tree’s own
+` .gitignore ` when ` clean-src ` is enabled\. Useful for artifacts that only
+a nested ` .gitignore ` lists, since those patterns are not read\.
+
+
+
+*Type:*
+strings concatenated with “\\n”
+
+
+
+*Default:*
+` "" `
+
+
+
+*Example:*
+
+```
+''
+  dist-wasm
+  dist-js
+''
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
 ## compiler-nix-name
 
 
@@ -268,6 +411,30 @@ config."haskell-nix".nixpkgs.haskell-nix
 
 
 
+## haskell-nix\.input
+
+
+
+This option has no description\.
+
+
+
+*Type:*
+raw value
+
+
+
+*Default:*
+
+```
+import config.inputs."haskell-nix" { inherit system; }
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+
+
+
 ## haskell-nix\.lib
 
 
@@ -332,7 +499,7 @@ raw value
 *Default:*
 
 ```
-config.importing."haskell-nix".nixpkgsArgs
+config."haskell-nix".input.nixpkgsArgs
 ```
 
 *Declared by:*
@@ -356,7 +523,7 @@ raw value
 *Default:*
 
 ```
-config.importing."haskell-nix".sources.nixpkgs-unstable
+config."haskell-nix".input.sources.nixpkgs-unstable
 ```
 
 *Declared by:*
@@ -1662,107 +1829,6 @@ config.haskell-nix.haskell-nix.project config.haskell-nix.options
 
 
 
-## importing\.haskell-nix
-
-
-
-This option has no description\.
-
-
-
-*Type:*
-raw value
-
-
-
-*Default:*
-
-```
-import config.thunks."haskell-nix" { inherit system; }
-```
-
-*Declared by:*
- - [<nix-haskell>/modules/importing\.nix](file://<nix-haskell>/modules/importing.nix)
-
-
-
-## importing\.nix-thunk
-
-
-
-This option has no description\.
-
-
-
-*Type:*
-raw value
-
-
-
-*Default:*
-
-```
-import config.thunks."nix-thunk" {
-  haskell-nix = import (config.thunks."nix-thunk" + "/dep/haskell.nix") { inherit system; };
-}
-```
-
-*Declared by:*
- - [<nix-haskell>/modules/importing\.nix](file://<nix-haskell>/modules/importing.nix)
-
-
-
-## importing\.nixpkgs
-
-
-
-This option has no description\.
-
-
-
-*Type:*
-raw value
-
-
-
-*Default:*
-
-```
-import config.thunks."nixpkgs" { inherit system; }
-```
-
-*Declared by:*
- - [<nix-haskell>/modules/importing\.nix](file://<nix-haskell>/modules/importing.nix)
-
-
-
-## importing\.reflex-platform
-
-
-
-This option has no description\.
-
-
-
-*Type:*
-raw value
-
-
-
-*Default:*
-
-```
-import config.thunks."reflex-platform" {
-  inherit system;
-  haskell-nix = import (config.thunks."reflex-platform" + "/dep/haskell.nix") { inherit system; };
-}
-```
-
-*Declared by:*
- - [<nix-haskell>/modules/importing\.nix](file://<nix-haskell>/modules/importing.nix)
-
-
-
 ## index-state
 
 
@@ -1822,6 +1888,30 @@ attribute set
 
 
 
+## inputs
+
+
+
+Sources of dependencies, keyed the way flake inputs are\. An entry
+accepts whatever a flake input can be: a flake input, a store path, a
+checkout, or a packed thunk\. Entries beyond the ones in ` pins/ ` may be
+added freely\.
+
+
+
+*Type:*
+attribute set of raw value
+
+
+
+*Default:*
+` { } `
+
+*Declared by:*
+ - [<nix-haskell>/modules/inputs\.nix](file://<nix-haskell>/modules/inputs.nix)
+
+
+
 ## isGhcjs
 
 
@@ -1857,6 +1947,41 @@ boolean
 
 
 
+## isWasm
+
+
+
+Whether the project targets WASM (either natively or via cross-compilation)\.
+Used to conditionally include WebAssembly runtime dependencies\.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+
+```
+''
+  let # Create probe set mapping each platform name to itself
+      # e.g., { ghcjs = "ghcjs"; wasi32 = "wasi32"; mingwW64 = "mingwW64"; ... }
+      probeSet = genAttrs (builtins.attrNames pkgs.pkgsCross) (name: name);
+      # Get list of selected platform names as strings
+      selected = config.shell.crossPlatforms probeSet;
+  in # Native WASM: the shell itself is for a WASM platform
+        pkgs.stdenv.hostPlatform.isWasm
+     # Cross-compilation: a WASM target is among the selected cross targets
+     || builtins.any (name: hasInfix "wasm" name || hasPrefix "wasi" name) selected;
+''
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/cross/wasm](file://<nix-haskell>/modules/cross/wasm)
+
+
+
 ## modules
 
 
@@ -1879,6 +2004,8 @@ list of (submodule) *(read only)*
 
 
 ## modules\.\*\.enableDeadCodeElimination
+
+
 
 If set, enables split sections for link-time dead-code stripping\. Only applies to Linux
 
@@ -2098,7 +2225,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -2119,7 +2246,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -2140,7 +2267,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -2161,7 +2288,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -2182,7 +2309,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -2203,7 +2330,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -2224,7 +2351,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -2245,7 +2372,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -2261,7 +2388,7 @@ This option has no description\.
 string
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -2277,7 +2404,7 @@ This option has no description\.
 string
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -2298,7 +2425,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -2319,7 +2446,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -2335,7 +2462,7 @@ This option has no description\.
 string
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -2356,7 +2483,7 @@ string
 ` "" `
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -2377,7 +2504,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -2393,7 +2520,7 @@ This option has no description\.
 string
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -2414,7 +2541,7 @@ string
 ` "MinimalDetails" `
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -2435,7 +2562,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -2456,7 +2583,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -2477,7 +2604,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -2493,7 +2620,7 @@ This option has no description\.
 string
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -2514,7 +2641,7 @@ string
 ` "\${config.package.identifier.name}-\${config.package.identifier.version}" `
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -2530,7 +2657,7 @@ This option has no description\.
 string
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -2546,7 +2673,7 @@ This option has no description\.
 string
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -2567,7 +2694,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -2588,7 +2715,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -2609,7 +2736,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -2625,7 +2752,7 @@ This option has no description\.
 string
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -2646,7 +2773,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -2662,7 +2789,7 @@ This option has no description\.
 string
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -2683,7 +2810,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -2699,7 +2826,7 @@ This option has no description\.
 string
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -2720,7 +2847,7 @@ string
 ` "" `
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -2736,7 +2863,7 @@ This option has no description\.
 string
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -2757,7 +2884,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -2773,7 +2900,7 @@ The merged dependencies of all other components
 submodule
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -2794,7 +2921,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -2815,7 +2942,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -2836,7 +2963,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -2857,7 +2984,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -2878,7 +3005,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -2899,7 +3026,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -2920,7 +3047,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -2941,7 +3068,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -2962,7 +3089,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -2983,7 +3110,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -3004,7 +3131,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -3025,7 +3152,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -3046,7 +3173,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -3067,7 +3194,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -3088,7 +3215,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -3110,7 +3237,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -3131,7 +3258,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -3152,7 +3279,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -3173,7 +3300,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -3194,7 +3321,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -3215,7 +3342,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -3236,7 +3363,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -3257,7 +3384,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -3278,7 +3405,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -3299,7 +3426,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -3320,7 +3447,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -3341,7 +3468,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -3362,7 +3489,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -3383,7 +3510,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -3404,7 +3531,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -3425,7 +3552,7 @@ list of (null or package)
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -3446,7 +3573,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -3467,7 +3594,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -3493,7 +3620,7 @@ list of unspecified value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -3514,7 +3641,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -3535,7 +3662,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -3556,7 +3683,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -3577,7 +3704,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -3598,7 +3725,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -3619,7 +3746,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -3640,7 +3767,7 @@ list of (null or package or list of package)
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -3661,7 +3788,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -3682,7 +3809,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -3703,7 +3830,7 @@ list of list of package
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -3724,7 +3851,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -3745,7 +3872,7 @@ null or (list of unspecified value)
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -3766,7 +3893,7 @@ list of (submodule)
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -3787,7 +3914,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -3803,7 +3930,7 @@ This option has no description\.
 unspecified value
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -3819,7 +3946,7 @@ This option has no description\.
 string
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -3840,7 +3967,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -3861,7 +3988,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -3882,7 +4009,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -3903,7 +4030,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -3924,7 +4051,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -3945,7 +4072,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -3966,7 +4093,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -3987,7 +4114,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -4008,7 +4135,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -4029,7 +4156,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -4050,7 +4177,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -4071,7 +4198,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -4092,7 +4219,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -4113,7 +4240,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -4134,7 +4261,7 @@ null or strings concatenated with “\\n”
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -4155,7 +4282,7 @@ null or string
 ` "default" `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4176,7 +4303,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4197,7 +4324,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4218,7 +4345,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4239,7 +4366,7 @@ unspecified value
 ` "" `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4260,7 +4387,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4286,7 +4413,7 @@ list of string
 ` "echo" `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -4307,7 +4434,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4328,7 +4455,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4349,13 +4476,11 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
 ## modules\.\*\.packages\.\<name>\.components\.benchmarks
-
-
 
 This option has no description\.
 
@@ -4370,7 +4495,7 @@ attribute set of (submodule)
 ` { } `
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -4391,7 +4516,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4412,7 +4537,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4433,7 +4558,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4454,7 +4579,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4475,7 +4600,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4496,7 +4621,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4517,7 +4642,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4538,7 +4663,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4559,7 +4684,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -4580,7 +4705,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -4601,7 +4726,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4622,11 +4747,13 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
 ## modules\.\*\.packages\.\<name>\.components\.benchmarks\.\<name>\.cmmSources
+
+
 
 This option has no description\.
 
@@ -4641,7 +4768,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -4662,7 +4789,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4683,7 +4810,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4705,7 +4832,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -4726,7 +4853,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -4747,7 +4874,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -4768,7 +4895,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4789,7 +4916,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4810,7 +4937,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4831,7 +4958,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4852,7 +4979,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4873,7 +5000,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4894,7 +5021,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4915,7 +5042,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4936,7 +5063,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4957,7 +5084,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4978,7 +5105,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -4999,7 +5126,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -5020,7 +5147,7 @@ list of (null or package)
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -5041,7 +5168,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -5062,7 +5189,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -5088,7 +5215,7 @@ list of unspecified value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -5109,7 +5236,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -5130,7 +5257,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -5151,7 +5278,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -5172,7 +5299,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -5193,7 +5320,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -5214,7 +5341,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -5235,7 +5362,7 @@ list of (null or package or list of package)
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -5256,7 +5383,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -5277,7 +5404,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -5298,7 +5425,7 @@ list of list of package
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -5319,7 +5446,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -5340,7 +5467,7 @@ null or (list of unspecified value)
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -5361,7 +5488,7 @@ list of (submodule)
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -5382,7 +5509,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -5398,7 +5525,7 @@ This option has no description\.
 unspecified value
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -5414,7 +5541,7 @@ This option has no description\.
 string
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -5435,7 +5562,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -5456,7 +5583,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -5477,7 +5604,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -5498,7 +5625,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -5519,7 +5646,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -5540,7 +5667,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -5561,7 +5688,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -5582,7 +5709,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -5603,7 +5730,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -5624,7 +5751,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -5645,7 +5772,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -5666,7 +5793,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -5687,7 +5814,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -5708,7 +5835,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -5729,7 +5856,7 @@ null or strings concatenated with “\\n”
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -5750,7 +5877,7 @@ null or string
 ` "default" `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -5771,7 +5898,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -5792,7 +5919,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -5813,7 +5940,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -5834,7 +5961,7 @@ unspecified value
 ` "" `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -5855,7 +5982,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -5881,7 +6008,7 @@ list of string
 ` "echo" `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -5902,7 +6029,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -5923,7 +6050,7 @@ attribute set of (submodule)
 ` { } `
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -5944,7 +6071,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -5965,7 +6092,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -5986,7 +6113,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -6007,13 +6134,11 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
 ## modules\.\*\.packages\.\<name>\.components\.exes\.\<name>\.enableProfiling
-
-
 
 This option has no description\.
 
@@ -6028,7 +6153,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -6049,7 +6174,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -6070,7 +6195,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -6091,7 +6216,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -6112,7 +6237,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -6133,7 +6258,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -6154,7 +6279,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -6175,7 +6300,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -6196,7 +6321,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -6217,7 +6342,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -6238,7 +6363,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -6260,7 +6385,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -6281,7 +6406,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -6302,7 +6427,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -6323,7 +6448,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -6344,7 +6469,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -6365,7 +6490,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -6386,7 +6511,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -6407,7 +6532,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -6428,7 +6553,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -6449,7 +6574,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -6470,7 +6595,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -6491,7 +6616,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -6512,7 +6637,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -6533,7 +6658,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -6554,11 +6679,13 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
 ## modules\.\*\.packages\.\<name>\.components\.exes\.\<name>\.frameworks
+
+
 
 This option has no description\.
 
@@ -6573,7 +6700,7 @@ list of (null or package)
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -6594,7 +6721,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -6615,7 +6742,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -6641,7 +6768,7 @@ list of unspecified value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -6662,7 +6789,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -6683,7 +6810,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -6704,7 +6831,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -6725,7 +6852,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -6746,7 +6873,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -6767,7 +6894,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -6788,7 +6915,7 @@ list of (null or package or list of package)
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -6809,7 +6936,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -6830,7 +6957,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -6851,7 +6978,7 @@ list of list of package
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -6872,7 +6999,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -6893,7 +7020,7 @@ null or (list of unspecified value)
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -6914,7 +7041,7 @@ list of (submodule)
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -6935,7 +7062,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -6951,7 +7078,7 @@ This option has no description\.
 unspecified value
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -6967,7 +7094,7 @@ This option has no description\.
 string
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -6988,7 +7115,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -7009,7 +7136,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -7030,7 +7157,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -7051,7 +7178,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -7072,7 +7199,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -7093,7 +7220,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -7114,7 +7241,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -7135,7 +7262,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -7156,7 +7283,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -7177,7 +7304,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -7198,7 +7325,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -7219,7 +7346,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -7240,7 +7367,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -7261,7 +7388,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -7282,7 +7409,7 @@ null or strings concatenated with “\\n”
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -7303,7 +7430,7 @@ null or string
 ` "default" `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -7324,7 +7451,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -7345,7 +7472,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -7366,7 +7493,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -7387,7 +7514,7 @@ unspecified value
 ` "" `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -7408,7 +7535,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -7434,7 +7561,7 @@ list of string
 ` "echo" `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -7455,7 +7582,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -7476,7 +7603,7 @@ attribute set of (submodule)
 ` { } `
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -7497,7 +7624,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -7518,7 +7645,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -7539,7 +7666,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -7560,7 +7687,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -7581,7 +7708,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -7602,7 +7729,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -7623,7 +7750,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -7644,7 +7771,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -7665,7 +7792,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -7686,7 +7813,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -7707,7 +7834,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -7728,7 +7855,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -7749,7 +7876,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -7770,7 +7897,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -7791,7 +7918,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -7813,7 +7940,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -7834,7 +7961,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -7855,7 +7982,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -7876,7 +8003,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -7897,7 +8024,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -7918,7 +8045,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -7939,7 +8066,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -7960,7 +8087,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -7981,7 +8108,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -8002,7 +8129,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -8023,7 +8150,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -8044,7 +8171,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -8065,7 +8192,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -8086,7 +8213,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -8107,7 +8234,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -8128,7 +8255,7 @@ list of (null or package)
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -8149,7 +8276,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -8170,7 +8297,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -8196,7 +8323,7 @@ list of unspecified value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -8217,7 +8344,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -8238,7 +8365,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -8259,7 +8386,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -8280,7 +8407,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -8301,7 +8428,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -8322,7 +8449,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -8343,7 +8470,7 @@ list of (null or package or list of package)
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -8364,7 +8491,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -8385,7 +8512,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -8406,7 +8533,7 @@ list of list of package
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -8427,7 +8554,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -8448,7 +8575,7 @@ null or (list of unspecified value)
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -8469,7 +8596,7 @@ list of (submodule)
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -8490,7 +8617,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -8506,7 +8633,7 @@ This option has no description\.
 unspecified value
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -8522,7 +8649,7 @@ This option has no description\.
 string
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -8543,13 +8670,11 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
 ## modules\.\*\.packages\.\<name>\.components\.foreignlibs\.\<name>\.postCheck
-
-
 
 This option has no description\.
 
@@ -8564,7 +8689,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -8585,7 +8710,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -8606,7 +8731,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -8627,7 +8752,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -8648,11 +8773,13 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
 ## modules\.\*\.packages\.\<name>\.components\.foreignlibs\.\<name>\.postUnpack
+
+
 
 This option has no description\.
 
@@ -8667,7 +8794,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -8688,7 +8815,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -8709,7 +8836,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -8730,7 +8857,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -8751,7 +8878,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -8772,7 +8899,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -8793,7 +8920,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -8814,7 +8941,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -8835,7 +8962,7 @@ null or strings concatenated with “\\n”
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -8856,7 +8983,7 @@ null or string
 ` "default" `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -8877,7 +9004,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -8898,7 +9025,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -8919,7 +9046,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -8940,7 +9067,7 @@ unspecified value
 ` "" `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -8961,7 +9088,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -8987,7 +9114,7 @@ list of string
 ` "echo" `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -9008,7 +9135,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -9029,7 +9156,7 @@ null or (submodule)
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -9050,7 +9177,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -9071,7 +9198,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -9092,7 +9219,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -9113,7 +9240,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -9134,7 +9261,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -9155,7 +9282,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -9176,7 +9303,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -9197,7 +9324,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -9218,7 +9345,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -9239,7 +9366,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -9260,7 +9387,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -9281,7 +9408,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -9302,7 +9429,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -9323,7 +9450,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -9344,7 +9471,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -9366,7 +9493,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -9387,7 +9514,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -9408,7 +9535,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -9429,7 +9556,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -9450,7 +9577,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -9471,7 +9598,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -9492,7 +9619,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -9513,7 +9640,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -9534,7 +9661,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -9555,7 +9682,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -9576,7 +9703,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -9597,7 +9724,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -9618,7 +9745,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -9639,7 +9766,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -9660,7 +9787,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -9681,7 +9808,7 @@ list of (null or package)
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -9702,7 +9829,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -9723,7 +9850,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -9749,7 +9876,7 @@ list of unspecified value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -9770,7 +9897,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -9791,7 +9918,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -9812,7 +9939,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -9833,7 +9960,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -9854,7 +9981,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -9875,7 +10002,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -9896,7 +10023,7 @@ list of (null or package or list of package)
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -9917,7 +10044,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -9938,7 +10065,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -9959,7 +10086,7 @@ list of list of package
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -9980,7 +10107,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -10001,7 +10128,7 @@ null or (list of unspecified value)
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -10022,7 +10149,7 @@ list of (submodule)
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -10043,7 +10170,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -10059,7 +10186,7 @@ This option has no description\.
 unspecified value
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -10075,7 +10202,7 @@ This option has no description\.
 string
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -10096,7 +10223,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -10117,7 +10244,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -10138,7 +10265,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -10159,7 +10286,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -10180,7 +10307,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -10201,7 +10328,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -10222,7 +10349,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -10243,7 +10370,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -10264,7 +10391,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -10285,7 +10412,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -10306,7 +10433,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -10327,7 +10454,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -10348,7 +10475,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -10369,7 +10496,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -10390,7 +10517,7 @@ null or strings concatenated with “\\n”
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -10411,7 +10538,7 @@ null or string
 ` "default" `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -10432,7 +10559,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -10453,7 +10580,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -10474,7 +10601,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -10495,7 +10622,7 @@ unspecified value
 ` "" `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -10516,7 +10643,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -10542,7 +10669,7 @@ list of string
 ` "echo" `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -10563,7 +10690,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -10606,7 +10733,7 @@ null or (submodule)
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -10627,7 +10754,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -10648,7 +10775,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -10669,7 +10796,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -10690,7 +10817,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -10711,7 +10838,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -10732,7 +10859,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -10753,7 +10880,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -10774,7 +10901,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -10795,7 +10922,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -10816,7 +10943,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -10837,13 +10964,11 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
 ## modules\.\*\.packages\.\<name>\.components\.setup\.cSources
-
-
 
 This option has no description\.
 
@@ -10858,7 +10983,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -10879,7 +11004,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -10900,7 +11025,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -10921,7 +11046,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -10943,11 +11068,13 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
 ## modules\.\*\.packages\.\<name>\.components\.setup\.cxxSources
+
+
 
 This option has no description\.
 
@@ -10962,7 +11089,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -10983,7 +11110,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -11004,7 +11131,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -11025,7 +11152,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -11046,7 +11173,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -11067,7 +11194,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -11088,7 +11215,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -11109,7 +11236,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -11130,7 +11257,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -11151,7 +11278,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -11172,7 +11299,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -11193,7 +11320,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -11214,7 +11341,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -11235,7 +11362,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -11256,7 +11383,7 @@ list of (null or package)
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -11277,7 +11404,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -11298,7 +11425,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -11324,7 +11451,7 @@ list of unspecified value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -11345,7 +11472,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -11366,7 +11493,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -11387,7 +11514,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -11408,7 +11535,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -11429,7 +11556,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -11450,7 +11577,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -11471,7 +11598,7 @@ list of (null or package or list of package)
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -11492,7 +11619,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -11513,7 +11640,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -11534,7 +11661,7 @@ list of list of package
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -11555,7 +11682,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -11576,7 +11703,7 @@ null or (list of unspecified value)
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -11597,7 +11724,7 @@ list of (submodule)
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -11618,7 +11745,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -11634,7 +11761,7 @@ This option has no description\.
 unspecified value
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -11650,7 +11777,7 @@ This option has no description\.
 string
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -11671,7 +11798,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -11692,7 +11819,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -11713,7 +11840,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -11734,7 +11861,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -11755,7 +11882,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -11776,7 +11903,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -11797,7 +11924,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -11818,7 +11945,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -11839,7 +11966,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -11860,7 +11987,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -11881,7 +12008,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -11902,7 +12029,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -11923,7 +12050,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -11944,7 +12071,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -11965,7 +12092,7 @@ null or strings concatenated with “\\n”
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -11986,7 +12113,7 @@ null or string
 ` "default" `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -12007,7 +12134,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -12028,7 +12155,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -12049,7 +12176,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -12070,7 +12197,7 @@ unspecified value
 ` "" `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -12091,7 +12218,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -12117,7 +12244,7 @@ list of string
 ` "echo" `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -12138,7 +12265,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -12159,7 +12286,7 @@ attribute set of (submodule)
 ` { } `
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -12180,7 +12307,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -12201,7 +12328,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -12222,7 +12349,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -12243,7 +12370,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -12264,7 +12391,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -12285,7 +12412,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -12306,7 +12433,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -12327,7 +12454,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -12348,7 +12475,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -12369,7 +12496,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -12390,7 +12517,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -12411,7 +12538,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -12432,7 +12559,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -12453,7 +12580,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -12474,7 +12601,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -12496,7 +12623,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -12517,7 +12644,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -12538,7 +12665,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -12559,7 +12686,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -12580,7 +12707,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -12601,7 +12728,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -12622,7 +12749,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -12643,7 +12770,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -12664,7 +12791,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -12685,7 +12812,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -12706,7 +12833,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -12727,7 +12854,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -12748,7 +12875,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -12769,13 +12896,11 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
 ## modules\.\*\.packages\.\<name>\.components\.sublibs\.\<name>\.extraSrcFiles
-
-
 
 This option has no description\.
 
@@ -12790,7 +12915,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -12811,7 +12936,7 @@ list of (null or package)
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -12832,7 +12957,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -12853,7 +12978,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -12879,11 +13004,13 @@ list of unspecified value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
 ## modules\.\*\.packages\.\<name>\.components\.sublibs\.\<name>\.includeDirs
+
+
 
 This option has no description\.
 
@@ -12898,7 +13025,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -12919,7 +13046,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -12940,7 +13067,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -12961,7 +13088,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -12982,7 +13109,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -13003,7 +13130,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -13024,7 +13151,7 @@ list of (null or package or list of package)
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -13045,7 +13172,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -13066,7 +13193,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -13087,7 +13214,7 @@ list of list of package
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -13108,7 +13235,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -13129,7 +13256,7 @@ null or (list of unspecified value)
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -13150,7 +13277,7 @@ list of (submodule)
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -13171,7 +13298,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -13187,7 +13314,7 @@ This option has no description\.
 unspecified value
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -13203,7 +13330,7 @@ This option has no description\.
 string
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -13224,7 +13351,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -13245,7 +13372,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -13266,7 +13393,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -13287,7 +13414,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -13308,7 +13435,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -13329,7 +13456,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -13350,7 +13477,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -13371,7 +13498,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -13392,7 +13519,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -13413,7 +13540,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -13434,7 +13561,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -13455,7 +13582,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -13476,7 +13603,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -13497,7 +13624,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -13518,7 +13645,7 @@ null or strings concatenated with “\\n”
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -13539,7 +13666,7 @@ null or string
 ` "default" `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -13560,7 +13687,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -13581,7 +13708,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -13602,7 +13729,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -13623,7 +13750,7 @@ unspecified value
 ` "" `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -13644,7 +13771,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -13670,7 +13797,7 @@ list of string
 ` "echo" `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -13691,7 +13818,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -13712,7 +13839,7 @@ attribute set of (submodule)
 ` { } `
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -13733,7 +13860,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -13754,7 +13881,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -13775,7 +13902,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -13796,7 +13923,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -13817,7 +13944,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -13838,7 +13965,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -13859,7 +13986,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -13880,7 +14007,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -13901,7 +14028,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -13922,7 +14049,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -13943,7 +14070,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -13964,7 +14091,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -13985,7 +14112,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -14006,7 +14133,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -14027,7 +14154,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -14049,7 +14176,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -14070,7 +14197,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -14091,7 +14218,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -14112,7 +14239,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -14133,7 +14260,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -14154,7 +14281,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -14175,7 +14302,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -14196,7 +14323,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -14217,7 +14344,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -14238,7 +14365,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -14259,7 +14386,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -14280,7 +14407,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -14301,7 +14428,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -14322,7 +14449,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -14343,7 +14470,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -14364,7 +14491,7 @@ list of (null or package)
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -14385,7 +14512,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -14406,7 +14533,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -14432,7 +14559,7 @@ list of unspecified value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -14453,7 +14580,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -14474,7 +14601,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -14495,7 +14622,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -14516,7 +14643,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -14537,7 +14664,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -14558,7 +14685,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -14579,7 +14706,7 @@ list of (null or package or list of package)
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -14600,7 +14727,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -14621,7 +14748,7 @@ list of unspecified value
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -14642,7 +14769,7 @@ list of list of package
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -14663,7 +14790,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -14684,7 +14811,7 @@ null or (list of unspecified value)
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -14705,7 +14832,7 @@ list of (submodule)
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -14726,7 +14853,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -14742,7 +14869,7 @@ This option has no description\.
 unspecified value
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -14758,7 +14885,7 @@ This option has no description\.
 string
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -14779,7 +14906,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -14800,7 +14927,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -14821,7 +14948,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -14842,7 +14969,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -14863,13 +14990,11 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
 ## modules\.\*\.packages\.\<name>\.components\.tests\.\<name>\.postPatch
-
-
 
 This option has no description\.
 
@@ -14884,7 +15009,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -14905,7 +15030,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -14926,7 +15051,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component\.nix](file://<nix-haskell>/modules/component.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component.nix)
 
 
 
@@ -14947,7 +15072,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -14968,11 +15093,13 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
 ## modules\.\*\.packages\.\<name>\.components\.tests\.\<name>\.preConfigure
+
+
 
 This option has no description\.
 
@@ -14987,7 +15114,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -15008,7 +15135,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -15029,7 +15156,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -15050,7 +15177,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -15071,7 +15198,7 @@ null or strings concatenated with “\\n”
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -15092,7 +15219,7 @@ null or string
 ` "default" `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -15113,7 +15240,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -15134,7 +15261,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -15155,7 +15282,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -15176,7 +15303,7 @@ unspecified value
 ` "" `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -15197,7 +15324,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -15223,7 +15350,7 @@ list of string
 ` "echo" `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -15244,7 +15371,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -15265,7 +15392,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -15286,7 +15413,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -15308,7 +15435,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -15329,7 +15456,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -15350,7 +15477,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -15371,7 +15498,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -15392,7 +15519,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -15413,7 +15540,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -15434,7 +15561,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -15455,7 +15582,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -15476,7 +15603,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -15497,7 +15624,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -15518,7 +15645,7 @@ boolean
 ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -15539,7 +15666,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -15555,7 +15682,7 @@ This option has no description\.
 attribute set of boolean
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -15576,7 +15703,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -15597,7 +15724,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -15618,7 +15745,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -15639,7 +15766,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -15660,7 +15787,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -15681,7 +15808,7 @@ string
 ` "\${config.package.identifier.name}-\${config.package.identifier.version}" `
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -15702,7 +15829,7 @@ list of (unspecified value or absolute path)
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -15723,7 +15850,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -15744,7 +15871,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -15765,7 +15892,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -15786,7 +15913,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -15807,7 +15934,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -15828,7 +15955,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -15849,7 +15976,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -15870,7 +15997,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -15891,7 +16018,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -15912,7 +16039,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -15933,7 +16060,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -15954,7 +16081,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -15975,7 +16102,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -15996,7 +16123,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -16017,7 +16144,7 @@ null or strings concatenated with “\\n”
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -16038,7 +16165,7 @@ null or string
 ` "default" `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -16059,7 +16186,7 @@ null or signed integer
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -16080,7 +16207,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -16101,7 +16228,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -16122,7 +16249,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -16143,7 +16270,7 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -16164,7 +16291,7 @@ null or string
 ` null `
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -16185,7 +16312,7 @@ unspecified value
 ` "" `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -16214,7 +16341,7 @@ null or absolute path or package
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/package\.nix](file://<nix-haskell>/modules/package.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package.nix)
 
 
 
@@ -16235,13 +16362,11 @@ list of string
 ` [ ] `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
 ## modules\.\*\.packages\.\<name>\.testWrapper
-
-
 
 A command to run for executing tests in checkPhase, which takes the original test command as its arguments\.
 
@@ -16261,7 +16386,7 @@ list of string
 ` "echo" `
 
 *Declared by:*
- - [<nix-haskell>/modules/package-options\.nix](file://<nix-haskell>/modules/package-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/package-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/package-options.nix)
 
 
 
@@ -16282,7 +16407,7 @@ boolean
 ` false `
 
 *Declared by:*
- - [<nix-haskell>/modules/component-options\.nix](file://<nix-haskell>/modules/component-options.nix)
+ - [<nix-haskell>/pins/haskell-nix/modules/component-options\.nix](file://<nix-haskell>/pins/haskell-nix/modules/component-options.nix)
 
 
 
@@ -16578,8 +16703,6 @@ boolean
 
 
 ## modules\.\*\.doHyperlinkSource
-
-
 
 Link documentation to the source code\.
 
@@ -16920,6 +17043,8 @@ null or string
 
 
 ## modules\.\*\.postCheck
+
+
 
 This option has no description\.
 
@@ -17356,7 +17481,7 @@ boolean
 
 
 *Default:*
-` false `
+` true `
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -17398,7 +17523,7 @@ null or string
 
 
 *Default:*
-` "5sby6vklbavvmvag3208grwvs5k57i5i-source" `
+` "q0ra12zkz2sbc8jiwcpa5gd21m9l5ifw-source" `
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -17570,90 +17695,6 @@ list of unspecified value
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
-
-
-
-## pins\.haskell-nix
-
-
-
-This option has no description\.
-
-
-
-*Type:*
-absolute path
-
-
-
-*Default:*
-` <nix-haskell>/pins/haskell.nix `
-
-*Declared by:*
- - [<nix-haskell>/modules/pins\.nix](file://<nix-haskell>/modules/pins.nix)
-
-
-
-## pins\.nix-thunk
-
-
-
-This option has no description\.
-
-
-
-*Type:*
-absolute path
-
-
-
-*Default:*
-` <nix-haskell>/deps/nix-thunk `
-
-*Declared by:*
- - [<nix-haskell>/modules/pins\.nix](file://<nix-haskell>/modules/pins.nix)
-
-
-
-## pins\.nixpkgs
-
-
-
-This option has no description\.
-
-
-
-*Type:*
-absolute path
-
-
-
-*Default:*
-` <nix-haskell>/pins/nixpkgs `
-
-*Declared by:*
- - [<nix-haskell>/modules/pins\.nix](file://<nix-haskell>/modules/pins.nix)
-
-
-
-## pins\.reflex-platform
-
-
-
-This option has no description\.
-
-
-
-*Type:*
-absolute path
-
-
-
-*Default:*
-` <nix-haskell>/pins/reflex-platform `
-
-*Declared by:*
- - [<nix-haskell>/modules/pins\.nix](file://<nix-haskell>/modules/pins.nix)
 
 
 
@@ -18107,7 +18148,12 @@ boolean
 
 
 
-This option has no description\.
+Local packages to add to the project as ` source-repository-package `
+stanzas\. A source is anything ` inputs ` accepts, so a packed thunk
+directory can be given as-is and is resolved to the source it pins\.
+
+` subdir ` selects packages within the source, so a multi-package
+repository needs one entry rather than one per package\.
 
 
 
@@ -18187,6 +18233,36 @@ absolute path or package
 
 
 
+## src-cleaned
+
+
+
+` src ` with build artifacts filtered out, or ` src ` itself when
+` clean-src ` is disabled\. This is what the project is actually built
+from\.
+
+
+
+*Type:*
+absolute path or package *(read only)*
+
+
+
+*Default:*
+
+```
+  import ../libs/clean-source.nix { inherit pkgs; } {
+    src = config.src;
+    name = config.name;
+    patterns = config.clean-src-patterns;
+  }
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
 ## src-driver
 
 
@@ -18205,7 +18281,7 @@ absolute path *(read only)*
 ```
   import ../libs/src-driver.nix {
     inherit pkgs;
-    src = config.src;
+    src = config.src-cleaned;
     extraCabalProject =
          [config.source-repository-packages-driver.cabalProject]
       ++ config.extraCabalProject or [];
@@ -18239,90 +18315,6 @@ string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/pins\.nix](file://<nix-haskell>/modules/pins.nix)
-
-
-
-## thunks\.haskell-nix
-
-
-
-This option has no description\.
-
-
-
-*Type:*
-absolute path
-
-
-
-*Default:*
-` "<nix-haskell>" `
-
-*Declared by:*
- - [<nix-haskell>/modules/thunks\.nix](file://<nix-haskell>/modules/thunks.nix)
-
-
-
-## thunks\.nix-thunk
-
-
-
-This option has no description\.
-
-
-
-*Type:*
-absolute path
-
-
-
-*Default:*
-` "<nix-haskell>" `
-
-*Declared by:*
- - [<nix-haskell>/modules/thunks\.nix](file://<nix-haskell>/modules/thunks.nix)
-
-
-
-## thunks\.nixpkgs
-
-
-
-This option has no description\.
-
-
-
-*Type:*
-absolute path
-
-
-
-*Default:*
-` "<nix-haskell>" `
-
-*Declared by:*
- - [<nix-haskell>/modules/thunks\.nix](file://<nix-haskell>/modules/thunks.nix)
-
-
-
-## thunks\.reflex-platform
-
-
-
-This option has no description\.
-
-
-
-*Type:*
-absolute path
-
-
-
-*Default:*
-` "<nix-haskell>" `
-
-*Declared by:*
- - [<nix-haskell>/modules/thunks\.nix](file://<nix-haskell>/modules/thunks.nix)
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
 
 
