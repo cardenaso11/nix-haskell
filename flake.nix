@@ -5,13 +5,14 @@
     # Nix, add ?submodules=1 to the flake URL).
     self.submodules = true;
 
-    flake-compat.url = "github:NixOS/flake-compat";
-    nixpkgs.url = "path:./pins/nixpkgs";
-    haskell-nix.url = "path:./pins/haskell-nix";
+    nixpkgs.url = "git+file:./pins/nixpkgs?shallow=1";
+    haskell-nix.url = "git+file:./pins/haskell-nix?shallow=1";
     reflex-platform = {
-      url = "path:./pins/reflex-platform";
+      url = "git+file:./pins/reflex-platform?shallow=1";
       flake = false;
     };
+
+    flake-compat.url = "github:NixOS/flake-compat";
   };
 
   outputs = inputs@{ self, nixpkgs, ... }:
