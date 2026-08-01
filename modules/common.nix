@@ -21,6 +21,59 @@ with lib;
       example = "./.";
     };
 
+    clean-src = mkOption {
+      type = types.bool;
+      default = true;
+      description = ''
+        Filter `src` through the `.gitignore` it carries before copying it into
+        the store, so build artifacts (`dist-newstyle`, `result`, `.git`) do not
+        become part of every derivation that names the project source, and a
+        rebuild does not rehash them. Only applies when `src` is a path; a
+        derivation is used as-is.
+      '';
+    };
+
+    clean-src-patterns = mkOption {
+      type = types.lines;
+      default = "";
+      description = ''
+        Extra gitignore-syntax patterns applied on top of the tree's own
+        `.gitignore` when `clean-src` is enabled. Useful for artifacts that only
+        a nested `.gitignore` lists, since those patterns are not read.
+      '';
+      example = ''
+        dist-wasm
+        dist-js
+      '';
+    };
+
+    src-cleaned = mkOption {
+      type = types.either types.path types.package;
+      readOnly = true;
+      default =
+        if config.clean-src
+        then import ../libs/clean-source.nix { inherit pkgs; } {
+               src = config.src;
+               name = config.name;
+               patterns = config.clean-src-patterns;
+             }
+        else config.src;
+      defaultText = literalMD ''
+      ```
+        import ../libs/clean-source.nix { inherit pkgs; } {
+          src = config.src;
+          name = config.name;
+          patterns = config.clean-src-patterns;
+        }
+      ```
+      '';
+      description = ''
+        `src` with build artifacts filtered out, or `src` itself when
+        `clean-src` is disabled. This is what the project is actually built
+        from.
+      '';
+    };
+
     compiler-nix-name = mkOption {
       type = types.str;
       description = ''
@@ -265,7 +318,7 @@ with lib;
       type = types.path;
       default = import ../libs/src-driver.nix {
         inherit pkgs;
-        src = config.src;
+        src = config.src-cleaned;
         extraCabalProject =
           ( if config.source-repository-packages-driver.cabalProject != null && config.source-repository-packages-driver.cabalProject != ""
             then config.source-repository-packages-driver.cabalProject
@@ -277,7 +330,7 @@ with lib;
       ```
         import ../libs/src-driver.nix {
           inherit pkgs;
-          src = config.src;
+          src = config.src-cleaned;
           extraCabalProject =
                [config.source-repository-packages-driver.cabalProject]
             ++ config.extraCabalProject or [];
