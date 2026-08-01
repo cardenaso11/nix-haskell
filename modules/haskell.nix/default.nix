@@ -2,30 +2,38 @@
 
 with lib;
 
-let haskell-nix = import config.inputs."haskell-nix" { inherit system; };
-
-in {
+{
 
   options = {
 
     "haskell-nix" = {
 
-      nixpkgsSource = mkOption {
+      input = mkOption {
         type = types.raw;
-        default = haskell-nix.sources.nixpkgs-unstable;
+        default = import config.inputs."haskell-nix" { inherit system; };
         defaultText = literalMD ''
           ```
-          (import config.inputs."haskell-nix" { inherit system; }).sources.nixpkgs-unstable
+          import config.inputs."haskell-nix" { inherit system; }
+          ```
+        '';
+      };
+
+      nixpkgsSource = mkOption {
+        type = types.raw;
+        default = config."haskell-nix".input.sources.nixpkgs-unstable;
+        defaultText = literalMD ''
+          ```
+          config."haskell-nix".input.sources.nixpkgs-unstable
           ```
         '';
       };
 
       nixpkgsArgs = mkOption {
         type = types.raw;
-        default = haskell-nix.nixpkgsArgs;
+        default = config."haskell-nix".input.nixpkgsArgs;
         defaultText = literalMD ''
           ```
-          (import config.inputs."haskell-nix" { inherit system; }).nixpkgsArgs
+          config."haskell-nix".input.nixpkgsArgs
           ```
         '';
       };
