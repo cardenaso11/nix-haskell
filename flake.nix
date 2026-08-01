@@ -1,10 +1,15 @@
 {
   inputs = {
+    # Dependencies are git submodules under pins/; this makes nix fetch them
+    # automatically when the flake is fetched over git (Nix 2.27+; on older
+    # Nix, add ?submodules=1 to the flake URL).
+    self.submodules = true;
+
     flake-compat.url = "github:NixOS/flake-compat";
-    nixpkgs.url = "github:NixOS/nixpkgs/26ef669cffa904b6f6832ab57b77892a37c1a671";
-    haskell-nix.url = "github:input-output-hk/haskell.nix/07e888ef7c26b62c4f2a843ed305c6e09b0a6828";
+    nixpkgs.url = "path:./pins/nixpkgs";
+    haskell-nix.url = "path:./pins/haskell-nix";
     reflex-platform = {
-      url = "github:reflex-frp/reflex-platform/4482ecb04c5939ac77c26d769d149dee12051a13";
+      url = "path:./pins/reflex-platform";
       flake = false;
     };
   };
