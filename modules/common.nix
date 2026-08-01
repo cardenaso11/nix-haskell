@@ -6,6 +6,14 @@ with lib;
 
   options = {
 
+    system = mkOption {
+      type = types.str;
+      default = builtins.currentSystem;
+      defaultText = ''
+        builtins.currentSystem
+      '';
+    };
+
     name = mkOption {
       type = types.nullOr types.str;
       default = if isPath config.src
@@ -174,18 +182,18 @@ with lib;
           imports = [
             ({...}@project_args:
               let options_modules = [
-                    (config.thunks."haskell-nix" + "/modules/cabal.nix")
-                    (config.thunks."haskell-nix" + "/modules/component-options.nix")
-                    (config.thunks."haskell-nix" + "/modules/hackage.nix")
-                    (config.thunks."haskell-nix" + "/modules/package-options.nix")
-                    (config.thunks."haskell-nix" + "/modules/plan.nix")
+                    (config.inputs."haskell-nix" + "/modules/cabal.nix")
+                    (config.inputs."haskell-nix" + "/modules/component-options.nix")
+                    (config.inputs."haskell-nix" + "/modules/hackage.nix")
+                    (config.inputs."haskell-nix" + "/modules/package-options.nix")
+                    (config.inputs."haskell-nix" + "/modules/plan.nix")
                   ];
                   #configs_modules = [
-                  #  (config.thunks."haskell-nix" + "/modules/configuration-nix.nix")
+                  #  (config.inputs."haskell-nix" + "/modules/configuration-nix.nix")
                   #];
                   module_args = project_args // {
-                    pkgs = import (config.thunks."haskell-nix" + "/lib/system-pkgs.nix") config."haskell-nix".nixpkgs;
-                    pkgconfPkgs = import (config.thunks."haskell-nix" + "/lib/pkgconf-nixpkgs-map.nix") config."haskell-nix".nixpkgs;
+                    pkgs = import (config.inputs."haskell-nix" + "/lib/system-pkgs.nix") config."haskell-nix".nixpkgs;
+                    pkgconfPkgs = import (config.inputs."haskell-nix" + "/lib/pkgconf-nixpkgs-map.nix") config."haskell-nix".nixpkgs;
                     haskellLib = config."haskell-nix".lib;
                   };
                   options = zipAttrsWith (name: vals: last vals) (map (module: (import module module_args).options) options_modules);
@@ -227,11 +235,11 @@ with lib;
         imports = [
           ({...}@project_args:
             let modules = [
-                  (config.thunks."haskell-nix" + "/modules/shell.nix")
+                  (config.inputs."haskell-nix" + "/modules/shell.nix")
                 ];
                 module_args = project_args // {
-                  pkgs = import (config.thunks."haskell-nix" + "/lib/system-pkgs.nix") config."haskell-nix".nixpkgs;
-                  pkgconfPkgs = import (config.thunks."haskell-nix" + "/lib/pkgconf-nixpkgs-map.nix") config."haskell-nix".nixpkgs;
+                  pkgs = import (config.inputs."haskell-nix" + "/lib/system-pkgs.nix") config."haskell-nix".nixpkgs;
+                  pkgconfPkgs = import (config.inputs."haskell-nix" + "/lib/pkgconf-nixpkgs-map.nix") config."haskell-nix".nixpkgs;
                   haskellLib = config."haskell-nix".lib;
                 };
                 options = zipAttrsWith (name: vals: last vals) (map (module: ((import module { projectConfig = config."haskell-nix".options; }) module_args).options) modules);

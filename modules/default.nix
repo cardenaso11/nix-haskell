@@ -8,10 +8,8 @@
 
     ./cross
 
-    ./importing.nix
+    ./inputs.nix
     ./optimizations.nix
-    ./pins.nix
-    ./thunks.nix
   ];
 
 }

@@ -147,24 +147,25 @@ haskell-nix.options = {
 ```
 
 
-### Pins and dependency overrides
+### Inputs
 
-Override pinned dependencies at three levels:
+Dependencies live under `inputs`, one entry per submodule in `pins/`. An entry
+accepts whatever a flake input can be: a flake input, a store path, a checkout,
+or a packed thunk.
 
 ```nix
 {
-  # Pin: path to source
-  pins.haskell-nix = ./dep/your-haskell-nix;
-
-  # Thunk: evaluated thunk source
-  thunks.reflex-platform = thunkSource ./dep/your-reflex-platform;
-
-  # Import: fully evaluated package
-  importing.reflex-platform = import your-reflex-platform {};
+  inputs.haskell-nix = ./dep/your-haskell-nix;
+  inputs.reflex-platform = inputs.reflex-platform;   # a flake input
 }
 ```
 
-Available pins: `nixpkgs`, `haskell-nix`, `reflex-platform`, `nix-thunk`.
+The submodules in `pins/` supply `nixpkgs`, `haskell-nix` and `reflex-platform`.
+Entries of your own can be added freely, and are resolved the same way.
+
+Flake inputs are picked up automatically, so `inputs.nixpkgs` follows the
+consuming flake's `nixpkgs` without any wiring. Precedence runs
+`pins/` < flake inputs < whatever you set explicitly.
 
 
 ### Override
@@ -188,10 +189,9 @@ Overrides use recursive merge — lists are concatenated, attrsets are merged re
 ### Full example
 
 ```nix
-{ config, nix-haskell-patches, ... }:
+{ nix-haskell-libs, nix-haskell-patches, ... }:
 
-let nix-thunk = config.importing.nix-thunk;
-    deps = with nix-thunk; mapSubdirectories thunkSource ./deps;
+let deps = import "${nix-haskell-libs}/thunks.nix" ./deps;
 
 in {
   imports = [

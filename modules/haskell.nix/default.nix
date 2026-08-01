@@ -2,7 +2,9 @@
 
 with lib;
 
-{
+let haskell-nix = import config.inputs."haskell-nix" { inherit system; };
+
+in {
 
   options = {
 
@@ -10,20 +12,20 @@ with lib;
 
       nixpkgsSource = mkOption {
         type = types.raw;
-        default = config.importing."haskell-nix".sources.nixpkgs-unstable;
+        default = haskell-nix.sources.nixpkgs-unstable;
         defaultText = literalMD ''
           ```
-          config.importing."haskell-nix".sources.nixpkgs-unstable
+          (import config.inputs."haskell-nix" { inherit system; }).sources.nixpkgs-unstable
           ```
         '';
       };
 
       nixpkgsArgs = mkOption {
         type = types.raw;
-        default = config.importing."haskell-nix".nixpkgsArgs;
+        default = haskell-nix.nixpkgsArgs;
         defaultText = literalMD ''
           ```
-          config.importing."haskell-nix".nixpkgsArgs
+          (import config.inputs."haskell-nix" { inherit system; }).nixpkgsArgs
           ```
         '';
       };
@@ -64,9 +66,9 @@ with lib;
           imports = [
             ({...}@project_args:
               let modules = [
-                    (config.thunks."haskell-nix" + "/modules/cabal-project.nix")
-                    (config.thunks."haskell-nix" + "/modules/project-common.nix")
-                    (config.thunks."haskell-nix" + "/modules/project.nix")
+                    (config.inputs."haskell-nix" + "/modules/cabal-project.nix")
+                    (config.inputs."haskell-nix" + "/modules/project-common.nix")
+                    (config.inputs."haskell-nix" + "/modules/project.nix")
                   ];
                   module_args = project_args // { pkgs = config."haskell-nix".nixpkgs; haskellLib = config."haskell-nix".lib; };
                   options = zipAttrsWith (name: vals: last vals) (map (module: (import module module_args).options) modules);

@@ -1,7 +1,6 @@
-{ config, nix-haskell-patches, ... }:
+{ nix-haskell-libs, nix-haskell-patches, ... }:
 
-let nix-thunk = config.importing.nix-thunk;
-    deps = with nix-thunk; mapSubdirectories thunkSource ./deps;
+let deps = import "${nix-haskell-libs}/thunks.nix" ./deps;
 
 in {
   imports = [

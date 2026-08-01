@@ -17,16 +17,18 @@ pkgs.lib.evalModules {
     }
     ({ config, ... }: {
       _module.args.system = pkgs.lib.mkDefault config.system;
-      _module.args.pkgs = pkgs.lib.mkDefault config.importing.nixpkgs;
+      _module.args.pkgs = pkgs.lib.mkDefault
+        (import config.inputs.nixpkgs { inherit (config) system; });
     })
 
-    ({ lib, options, ... }: {
-      config.pins = lib.mapAttrs (_: lib.mkDefault) (builtins.intersectAttrs options.pins inputs);
+    ({ lib, ... }: {
+      config.inputs = lib.mapAttrs (_: lib.mkDefault) inputs;
     })
 
   ] ++ pkgs.lib.toList module;
 
   specialArgs = {
+    nix-haskell-libs = ./libs;
     nix-haskell-modules = ./modules;
     nix-haskell-patches = ./modules/patches;
   };

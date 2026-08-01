@@ -1,0 +1,12 @@
+[submodule "pins/reflex-platform"]
+	path = pins/reflex-platform
+	url = https://github.com/reflex-frp/reflex-platform
+	shallow = true
+[submodule "pins/nixpkgs"]
+	path = pins/nixpkgs
+	url = https://github.com/NixOS/nixpkgs
+	shallow = true
+[submodule "pins/haskell-nix"]
+	path = pins/haskell-nix
+	url = https://github.com/input-output-hk/haskell.nix
+	shallow = true

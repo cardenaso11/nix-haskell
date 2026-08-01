@@ -63,7 +63,7 @@ let eval = import ./eval.nix { inherit system pkgs inputs; };
 in {
   inherit config haskell-nix;
 
-  nixpkgs = config.importing.nixpkgs;
+  nixpkgs = evaluated._module.args.pkgs;
 
   manual = docs;
 } // mapAttrs (_: value: { haskell-nix = value; }) haskell-nix
