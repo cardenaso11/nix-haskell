@@ -16,7 +16,19 @@ let eval = import ./eval.nix { inherit system pkgs inputs; };
     config = evaluated.config;
     options = evaluated.options;
 
-    docs = import ./docs.nix { inherit pkgs options; };
+    # haskell.nix declares `modules.*.packages` only for the names in
+    # `package-keys`, which is empty here, so the tree would go undocumented.
+    # Widened for the manual only, by splicing a config module into the
+    # submodule type rather than changing what a project evaluates.
+    docs = import ./docs.nix {
+      inherit pkgs;
+      options = options // {
+        modules = options.modules // {
+          type = options.modules.type.substSubModules
+            (options.modules.type.getSubModules ++ [ { use-package-keys = false; } ]);
+        };
+      };
+    };
 
     haskell-nix =
       let mkProject = x:
