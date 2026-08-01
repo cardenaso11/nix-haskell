@@ -189,11 +189,9 @@ Overrides use recursive merge — lists are concatenated, attrsets are merged re
 ### Full example
 
 ```nix
-{ nix-haskell-libs, nix-haskell-patches, ... }:
+{ nix-haskell-patches, ... }:
 
-let deps = import "${nix-haskell-libs}/thunks.nix" ./deps;
-
-in {
+{
   imports = [
     "${nix-haskell-patches}/js/splitmix"
   ];
@@ -203,8 +201,10 @@ in {
   compiler-nix-name = "ghc914";
 
   source-repository-packages = {
-    reflex-dom = deps.reflex-dom + "/reflex-dom";
-    reflex-dom-core = deps.reflex-dom + "/reflex-dom-core";
+    reflex-dom = {
+      src = ./deps/reflex-dom;
+      subdir = [ "reflex-dom" "reflex-dom-core" ];
+    };
   };
 
   extraSrcFiles = {
