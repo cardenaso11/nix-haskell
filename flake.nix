@@ -15,11 +15,9 @@
     flake-compat.url = "github:NixOS/flake-compat";
   };
 
-  outputs = inputs@{ self, nixpkgs, ... }:
-    let eachSystem = nixpkgs.lib.genAttrs
-          [ "x86_64-linux"
-            "aarch64-linux"
-          ];
+  outputs = inputs@{ self, ... }:
+    let nixpkgs = if inputs ? "nixpkgs" then inputs.nixpkgs else builtins.getFlake "nixpkgs";
+        eachSystem = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
     in {
       lib = eachSystem (system:
         let pkgs = import nixpkgs { inherit system; };
