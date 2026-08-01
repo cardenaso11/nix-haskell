@@ -14,7 +14,6 @@ pkgs.lib.evalModules {
 
     {
       config.system = pkgs.lib.mkDefault system;
-      config.importing.nixpkgs = pkgs.lib.mkDefault pkgs;
     }
     ({ config, ... }: {
       _module.args.system = pkgs.lib.mkDefault config.system;
