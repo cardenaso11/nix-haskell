@@ -25,10 +25,10 @@ let eval = import ../eval.nix { inherit system pkgs inputs; };
 
     hello = eval (import ../examples/hello/project.nix);
 
-    common = import ../libs/common-option-names.nix {
+    common = import ../libs/option-names.nix {
       inherit (pkgs) lib;
       options = fixture.options;
-      driverNamespaces = drivers;
+      excludes = drivers;
     };
 
     translation-totality =
