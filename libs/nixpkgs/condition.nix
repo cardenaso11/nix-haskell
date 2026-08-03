@@ -4,15 +4,18 @@
 # cannot evaluate (impl(..), flag(..)) is assumed true, with a warning.
 #
 # `hostMap` is haskell.nix's platform mapping (lib/host-map.nix applied to
-# the target stdenv): the cabal names of the platform, e.g.
-# { os = "Linux"; arch = "X86_64"; }.
+# the target stdenv): the cabal names of the platform.
+#
+# Example:
+#
+#   import ./condition.nix {
+#     inherit lib;
+#     hostMap = { os = "Linux"; arch = "X86_64"; };
+#   } "!arch(javascript) && os(linux)"
+#   => true
 { lib, hostMap }:
 
-let inherit (lib) toLower warn any all hasPrefix removePrefix stringToCharacters;
-
-    trim = s:
-      let m = builtins.match "[[:space:]]*(.*[^[:space:]])?[[:space:]]*" s;
-      in if m == null || builtins.head m == null then "" else builtins.head m;
+let inherit (lib) toLower warn any all hasPrefix removePrefix stringToCharacters trim;
 
     # Split `s` on the two-character operator `sep` at parenthesis depth 0.
     splitTop = sep: s:

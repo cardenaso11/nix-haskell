@@ -2,22 +2,13 @@
 
 with pkgs.lib;
 
-let thunkSource = import ./thunk.nix;
+let decode = import ./source-repository-package.nix;
 
     # source-repository-package
     # :: String -> (Path || Thunk || { src :: Path || Thunk; condition :: String || Null } || { outPath :: Path; ... })
     # -> { inputMap."Path" :: AttrSet; cabalProject :: String }
     source-repository-package = name: package-repo:
-      let hasOutPath = builtins.isAttrs package-repo && package-repo ? outPath;
-          src = thunkSource
-            ( if hasOutPath then package-repo
-              else if builtins.isAttrs package-repo && package-repo ? src then package-repo.src
-              else package-repo
-            );
-          condition = if !hasOutPath && builtins.isAttrs package-repo && package-repo ? condition then package-repo.condition else null;
-          subdirs =
-            let s = if !hasOutPath && builtins.isAttrs package-repo then package-repo.subdir or null else null;
-            in if s == null then [] else toList s;
+      let inherit (decode package-repo) hasOutPath src condition subdirs;
           resolved = if hasOutPath then package-repo else { inherit name; outPath = builtins.path { path = src; inherit name; }; };
           # Same string as before, but with its context intact, so that a
           # derivation embedding it (see libs/src-driver.nix) registers a

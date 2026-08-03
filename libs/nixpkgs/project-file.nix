@@ -8,6 +8,18 @@
 # root of the source (haskell.nix's own `packages: ./*.cabal` default), from
 # an explicit `nixpkgs.options.packages` map, or from the cabal plan when
 # `nixpkgs.options.use-plan` is set.
+#
+# Example:
+#
+#   discover { src = ./hello; }
+#   => { hello = { subdir = "."; src = ./hello; }; }
+#
+#   discover { src = ./monorepo; explicit = { frontend.subdir = "frontend"; }; }
+#   => { frontend = { subdir = "frontend"; src = ./monorepo/frontend; }; }
+#
+#   sourceRepoStanzas ./project        # stanzas of its cabal.project
+#   => [ { url = "https://github.com/reflex-frp/reflex-dom";
+#          ref = "master"; sha256 = null; subdirs = [ "reflex-dom" ]; } ]
 { pkgs, parser }:
 
 with pkgs.lib;

@@ -8,6 +8,14 @@
 #
 # Each driver calls this with the GHCs of the cross platforms selected by
 # `shell.crossPlatforms` and adds the results to its shell's buildInputs.
+#
+# Example:
+#
+#   import ./cross-wrappers.nix { inherit pkgs lib; } wasiCrossGhc
+#   => [ <a "wasm32-unknown-wasi" script in a derivation> ]
+#
+#   import ./cross-wrappers.nix { inherit pkgs lib; } nativeGhc
+#   => [ ]                                     # no target prefix, no wrapper
 { pkgs, lib }:
 
 ghc:

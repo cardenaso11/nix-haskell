@@ -25,9 +25,12 @@ let cfg = config."haskell-nix";
     # inner `config` is haskell.nix's own, so `? name` skips packages absent
     # from the project, as the common option promises.
     packagesField = field: translate:
-      let relevant = filterAttrs
-            (_: t: t.${field} != null && t.${field} != [] && t.${field} != {})
-            config.packages;
+      let isSet = value: all id
+            [ (value != null)
+              (value != [])
+              (value != {})
+            ];
+          relevant = filterAttrs (_: tweaks: isSet tweaks.${field}) config.packages;
       in mkIf (relevant != {}) {
         modules = [
           ({ config, ... }: {

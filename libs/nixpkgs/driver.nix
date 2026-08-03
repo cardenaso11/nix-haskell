@@ -16,7 +16,7 @@ let compose = pkgs.haskell.lib.compose;
     hostMap = import (haskell-nix-src + "/lib/host-map.nix") pkgs.stdenv;
     project-file = import ./project-file.nix { inherit pkgs parser; };
     conditionHolds = import ./condition.nix { inherit lib hostMap; };
-    thunkSource = import ../thunk.nix;
+    decodeSrp = import ../source-repository-package.nix;
 
 
 
@@ -51,24 +51,15 @@ let compose = pkgs.haskell.lib.compose;
 
     srpOptionPackages =
       let entry = attrName: spec:
-            let hasOutPath = builtins.isAttrs spec && spec ? outPath;
-                src = thunkSource
-                  ( if hasOutPath then spec
-                    else if builtins.isAttrs spec && spec ? src then spec.src
-                    else spec );
-                condition =
-                  if !hasOutPath && builtins.isAttrs spec && spec ? condition
-                  then spec.condition else null;
-                subdirs =
-                  let s = if !hasOutPath && builtins.isAttrs spec then spec.subdir or null else null;
-                  in if s == null then [ "." ] else lib.toList s;
+            let inherit (decodeSrp spec) src condition subdirs;
                 pkgAt = d:
                   let dir = if d == "." then src else src + "/${d}";
                       name = project-file.packageNameIn dir;
                   in if name == null
                      then throw "nix-haskell (nixpkgs driver): no cabal package in ${toString dir} (source-repository-packages.${attrName})"
                      else lib.nameValuePair name dir;
-            in lib.optionals (condition == null || conditionHolds condition) (map pkgAt subdirs);
+            in lib.optionals (condition == null || conditionHolds condition)
+                 (map pkgAt (if subdirs == [] then [ "." ] else subdirs));
       in builtins.listToAttrs
            (lib.concatLists (lib.mapAttrsToList entry config.source-repository-packages));
 
@@ -198,11 +189,11 @@ let compose = pkgs.haskell.lib.compose;
     # a solver and are ignored.
     toolAliases = { cabal = pkgs.cabal-install; };
     resolveTool = name: _:
-      ocfg.tool-packages.${name}
-        or (toolAliases.${name}
-        or (pkgs.${name}
-        or (hp.${name}
-        or (throw "nix-haskell (nixpkgs driver): cannot find the shell tool \"${name}\"; set nixpkgs.options.tool-packages.\"${name}\""))));
+      let sources = [ ocfg.tool-packages toolAliases pkgs hp ];
+          found = lib.findFirst (set: set ? ${name}) null sources;
+      in if found == null
+         then throw "nix-haskell (nixpkgs driver): cannot find the shell tool \"${name}\"; set nixpkgs.options.tool-packages.\"${name}\""
+         else found.${name};
 
     crossWrappers =
       let mkWrappers = import ../cross-wrappers.nix { inherit pkgs lib; };

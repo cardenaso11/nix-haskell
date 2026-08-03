@@ -193,9 +193,14 @@ with lib;
               `null` (all local packages that are not
               `source-repository-packages` are selected)
             '';
-            apply = x:
-              if x == null then null
-              else ps: concatMap (p: if (! builtins.isString p) then [ p ] else let v = ps.${p} or null; in optional (v != null) v) (x ps);
+            apply = selection:
+              let resolveEntry = ps: entry:
+                    if ! builtins.isString entry then [ entry ]
+                    else let package = ps.${entry} or null;
+                         in optional (package != null) package;
+              in if selection == null
+                 then null
+                 else ps: concatMap (resolveEntry ps) (selection ps);
             description = ''
               Package selection function. It takes a set of Haskell packages and returns a subset of these packages with all of their dependencies included in `ghc-pkg list`.
               It can take either a `package` or name (`string`) of a package which availability can depend on the platform.
