@@ -109,7 +109,12 @@ packages = {
 };
 ```
 
-Fields: `flags`, `patches`, `ghcOptions`, `doCheck`, `doHaddock`, `src`.
+Fields: `flags`, `patches`, `ghcOptions`, `configureFlags`,
+`setupBuildFlags`, `setupHaddockFlags`, `doCheck`, `doHaddock`, `doCoverage`,
+`doHoogle`, `doHyperlinkSource`, `doQuickjump`, `dontStrip`,
+`enableDeadCodeElimination`, `enableLibraryProfiling`, `enableProfiling`,
+`profilingDetail`, `enableShared`, `enableStatic`,
+`enableSeparateDataOutput`, `enableLibraryForGhci`, `src`.
 
 #### Source repository packages
 

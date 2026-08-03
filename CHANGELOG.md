@@ -8,8 +8,13 @@
   nixpkgs (`haskell.packages.<compiler>`, `callCabal2nix`, `shellFor`).
   Driver knobs live under `nixpkgs.options`; the result is at
   `(nix-haskell m).nixpkgs.project` and `project.nixpkgs`.
-- Driver-neutral common options `ghcOptions` and `packages.<name>.{flags,
-  patches, ghcOptions, doCheck, doHaddock, src}`.
+- Driver-neutral common options `ghcOptions` and `packages.<name>.*`:
+  `flags`, `patches`, `ghcOptions`, `configureFlags`, `setupBuildFlags`,
+  `setupHaddockFlags`, `doCheck`, `doHaddock`, `doCoverage`, `doHoogle`,
+  `doHyperlinkSource`, `doQuickjump`, `dontStrip`,
+  `enableDeadCodeElimination`, `enableLibraryProfiling`, `enableProfiling`,
+  `profilingDetail`, `enableShared`, `enableStatic`,
+  `enableSeparateDataOutput`, `enableLibraryForGhci`, `src`.
 - A per-driver `translation` table (internal) recording how every common
   option is honored, and flake `checks`:
   `translation-totality`, `every-option-<driver>`, `hello-<driver>`.

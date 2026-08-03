@@ -143,11 +143,32 @@ let compose = pkgs.haskell.lib.compose;
 
     generatedNames = lib.attrNames discovered ++ lib.attrNames srpPackages;
 
+    # Common `packages` fields that set one mkDerivation argument each,
+    # mapped to the argument's name (see generic-builder.nix).
+    packagesFieldArgs = {
+      doCheck = "doCheck";
+      doHaddock = "doHaddock";
+      doCoverage = "doCoverage";
+      doHoogle = "doHoogle";
+      doHyperlinkSource = "hyperlinkSource";
+      doQuickjump = "doHaddockQuickjump";
+      dontStrip = "dontStrip";
+      enableDeadCodeElimination = "enableDeadCodeElimination";
+      enableLibraryProfiling = "enableLibraryProfiling";
+      profilingDetail = "profilingDetail";
+      enableShared = "enableSharedLibraries";
+      enableStatic = "enableStaticLibraries";
+      enableSeparateDataOutput = "enableSeparateDataOutput";
+      enableLibraryForGhci = "enableLibraryForGhci";
+    };
+
     # Overlay attribute names must never depend on package values, or the
     # fixpoint recurses: presence (super ? name) decides the names, nulls are
     # passed through in the values.
     packageTweaksOverlay = _: super:
-      let tweak = name: t: if super.${name} == null then null else lib.pipe super.${name} (
+      let setArg = attr: value: compose.overrideCabal (drv: { ${attr} = value; });
+          appendArg = attr: values: compose.overrideCabal (drv: { ${attr} = drv.${attr} or [] ++ values; });
+          tweak = name: t: if super.${name} == null then null else lib.pipe super.${name} (
             lib.optional (t.patches != []) (compose.appendPatches t.patches)
             # flags of generated packages were already applied through cabal2nix
             ++ lib.optionals (t.flags != {} && !(lib.elem name generatedNames))
@@ -155,10 +176,17 @@ let compose = pkgs.haskell.lib.compose;
                    (f: enabled: (if enabled then compose.enableCabalFlag else compose.disableCabalFlag) f)
                    t.flags)
             ++ map (f: compose.appendConfigureFlag "--ghc-option=${f}") t.ghcOptions
-            ++ lib.optional (t.doCheck == true) compose.doCheck
-            ++ lib.optional (t.doCheck == false) compose.dontCheck
-            ++ lib.optional (t.doHaddock == true) compose.doHaddock
-            ++ lib.optional (t.doHaddock == false) compose.dontHaddock
+            ++ lib.optional (t.configureFlags != []) (compose.appendConfigureFlags t.configureFlags)
+            ++ lib.optional (t.setupBuildFlags != []) (appendArg "buildFlags" t.setupBuildFlags)
+            ++ lib.optional (t.setupHaddockFlags != []) (appendArg "haddockFlags" t.setupHaddockFlags)
+            ++ lib.concatLists (lib.mapAttrsToList
+                 (field: attr: lib.optional (t.${field} != null) (setArg attr t.${field}))
+                 packagesFieldArgs)
+            ++ lib.optional (t.enableProfiling != null)
+                 (compose.overrideCabal (drv: {
+                   enableLibraryProfiling = t.enableProfiling;
+                   enableExecutableProfiling = t.enableProfiling;
+                 }))
             ++ lib.optional (t.src != null) (compose.overrideSrc { inherit (t) src; }));
       # tweaks for packages absent from the set are silently ignored
       in lib.mapAttrs tweak

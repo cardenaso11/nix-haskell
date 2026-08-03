@@ -25,6 +25,102 @@ unconditionally.
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
+.SS packages.<name>.enableDeadCodeElimination
+Whether to eliminate unused code at link time.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.enableLibraryForGhci
+Whether to build a pre\-linked object of the library for loading into
+GHCi.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.enableLibraryProfiling
+Whether to build the package\(cqs library with profiling support.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.enableProfiling
+Whether to build the whole package with profiling support.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.enableSeparateDataOutput
+Whether to install the package\(cqs data files into a separate output.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.enableShared
+Whether to build a shared library.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.enableStatic
+Whether to build a static library.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.configureFlags
+Extra flags passed to \f[CR]Setup configure\f[R].
+.PP
+\f[I]Type:\f[R] list of string
+.PP
+\f[I]Default:\f[R] \f[CR][ ]\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
 .SS packages.<name>.doCheck
 Whether to run the package\(cqs test suites.
 \f[CR]null\f[R] leaves the default in place.
@@ -37,8 +133,70 @@ Whether to run the package\(cqs test suites.
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
+.SS packages.<name>.doCoverage
+Whether to generate a coverage report for the package.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
 .SS packages.<name>.doHaddock
 Whether to build the package\(cqs documentation.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.doHoogle
+Whether to generate a hoogle index for the package\(cqs documentation.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.doHyperlinkSource
+Whether to generate hyperlinked source code alongside the package\(cqs
+documentation.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.doQuickjump
+Whether to generate the quickjump index of the package\(cqs
+documentation.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.dontStrip
+Whether to skip stripping the produced binaries.
 \f[CR]null\f[R] leaves the default in place.
 .PP
 \f[I]Type:\f[R] null or boolean
@@ -76,6 +234,42 @@ GHC flags for this package only.
 Patches applied to the package source.
 .PP
 \f[I]Type:\f[R] list of absolute path
+.PP
+\f[I]Default:\f[R] \f[CR][ ]\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.profilingDetail
+The profiling detail level.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or string
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Example:\f[R] \f[CR]\(dqtoplevel\-functions\(dq\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.setupBuildFlags
+Extra flags passed to \f[CR]Setup build\f[R].
+.PP
+\f[I]Type:\f[R] list of string
+.PP
+\f[I]Default:\f[R] \f[CR][ ]\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.setupHaddockFlags
+Extra flags passed to \f[CR]Setup haddock\f[R].
+.PP
+\f[I]Type:\f[R] list of string
 .PP
 \f[I]Default:\f[R] \f[CR][ ]\f[R]
 .PP
@@ -1185,7 +1379,7 @@ Optional name for better error messages.
 \f[I]Type:\f[R] null or string
 .PP
 \f[I]Default:\f[R]
-\f[CR]\(dqf2i4a1bpx5jgj59ni59vxhzm7dahzf42\-source\(dq\f[R]
+\f[CR]\(dqrr9p6np5m2wlwp42ygd7ksdlgrh8vafv\-source\(dq\f[R]
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix

@@ -133,6 +133,27 @@ with lib;
               GHC flags for this package only.
             '';
           };
+          configureFlags = mkOption {
+            type = types.listOf types.str;
+            default = [];
+            description = ''
+              Extra flags passed to `Setup configure`.
+            '';
+          };
+          setupBuildFlags = mkOption {
+            type = types.listOf types.str;
+            default = [];
+            description = ''
+              Extra flags passed to `Setup build`.
+            '';
+          };
+          setupHaddockFlags = mkOption {
+            type = types.listOf types.str;
+            default = [];
+            description = ''
+              Extra flags passed to `Setup haddock`.
+            '';
+          };
           doCheck = mkOption {
             type = types.nullOr types.bool;
             default = null;
@@ -147,6 +168,110 @@ with lib;
             description = ''
               Whether to build the package's documentation. `null` leaves the
               default in place.
+            '';
+          };
+          doCoverage = mkOption {
+            type = types.nullOr types.bool;
+            default = null;
+            description = ''
+              Whether to generate a coverage report for the package. `null`
+              leaves the default in place.
+            '';
+          };
+          doHoogle = mkOption {
+            type = types.nullOr types.bool;
+            default = null;
+            description = ''
+              Whether to generate a hoogle index for the package's
+              documentation. `null` leaves the default in place.
+            '';
+          };
+          doHyperlinkSource = mkOption {
+            type = types.nullOr types.bool;
+            default = null;
+            description = ''
+              Whether to generate hyperlinked source code alongside the
+              package's documentation. `null` leaves the default in place.
+            '';
+          };
+          doQuickjump = mkOption {
+            type = types.nullOr types.bool;
+            default = null;
+            description = ''
+              Whether to generate the quickjump index of the package's
+              documentation. `null` leaves the default in place.
+            '';
+          };
+          dontStrip = mkOption {
+            type = types.nullOr types.bool;
+            default = null;
+            description = ''
+              Whether to skip stripping the produced binaries. `null` leaves
+              the default in place.
+            '';
+          };
+          enableDeadCodeElimination = mkOption {
+            type = types.nullOr types.bool;
+            default = null;
+            description = ''
+              Whether to eliminate unused code at link time. `null` leaves the
+              default in place.
+            '';
+          };
+          enableLibraryProfiling = mkOption {
+            type = types.nullOr types.bool;
+            default = null;
+            description = ''
+              Whether to build the package's library with profiling support.
+              `null` leaves the default in place.
+            '';
+          };
+          enableProfiling = mkOption {
+            type = types.nullOr types.bool;
+            default = null;
+            description = ''
+              Whether to build the whole package with profiling support.
+              `null` leaves the default in place.
+            '';
+          };
+          profilingDetail = mkOption {
+            type = types.nullOr types.str;
+            default = null;
+            description = ''
+              The profiling detail level. `null` leaves the default in place.
+            '';
+            example = "toplevel-functions";
+          };
+          enableShared = mkOption {
+            type = types.nullOr types.bool;
+            default = null;
+            description = ''
+              Whether to build a shared library. `null` leaves the default in
+              place.
+            '';
+          };
+          enableStatic = mkOption {
+            type = types.nullOr types.bool;
+            default = null;
+            description = ''
+              Whether to build a static library. `null` leaves the default in
+              place.
+            '';
+          };
+          enableSeparateDataOutput = mkOption {
+            type = types.nullOr types.bool;
+            default = null;
+            description = ''
+              Whether to install the package's data files into a separate
+              output. `null` leaves the default in place.
+            '';
+          };
+          enableLibraryForGhci = mkOption {
+            type = types.nullOr types.bool;
+            default = null;
+            description = ''
+              Whether to build a pre-linked object of the library for loading
+              into GHCi. `null` leaves the default in place.
             '';
           };
           src = mkOption {

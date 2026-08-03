@@ -32,6 +32,181 @@ attribute set of (submodule)
 
 
 
+## packages\.\<name>\.enableDeadCodeElimination
+
+
+
+Whether to eliminate unused code at link time\. ` null ` leaves the
+default in place\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.enableLibraryForGhci
+
+
+
+Whether to build a pre-linked object of the library for loading
+into GHCi\. ` null ` leaves the default in place\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.enableLibraryProfiling
+
+
+
+Whether to build the package’s library with profiling support\.
+` null ` leaves the default in place\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.enableProfiling
+
+
+
+Whether to build the whole package with profiling support\.
+` null ` leaves the default in place\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.enableSeparateDataOutput
+
+
+
+Whether to install the package’s data files into a separate
+output\. ` null ` leaves the default in place\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.enableShared
+
+
+
+Whether to build a shared library\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.enableStatic
+
+
+
+Whether to build a static library\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.configureFlags
+
+
+
+Extra flags passed to ` Setup configure `\.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
 ## packages\.\<name>\.doCheck
 
 
@@ -54,12 +229,122 @@ null or boolean
 
 
 
+## packages\.\<name>\.doCoverage
+
+
+
+Whether to generate a coverage report for the package\. ` null `
+leaves the default in place\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
 ## packages\.\<name>\.doHaddock
 
 
 
 Whether to build the package’s documentation\. ` null ` leaves the
 default in place\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.doHoogle
+
+
+
+Whether to generate a hoogle index for the package’s
+documentation\. ` null ` leaves the default in place\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.doHyperlinkSource
+
+
+
+Whether to generate hyperlinked source code alongside the
+package’s documentation\. ` null ` leaves the default in place\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.doQuickjump
+
+
+
+Whether to generate the quickjump index of the package’s
+documentation\. ` null ` leaves the default in place\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.dontStrip
+
+
+
+Whether to skip stripping the produced binaries\. ` null ` leaves
+the default in place\.
 
 
 
@@ -129,6 +414,74 @@ Patches applied to the package source\.
 
 *Type:*
 list of absolute path
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.profilingDetail
+
+
+
+The profiling detail level\. ` null ` leaves the default in place\.
+
+
+
+*Type:*
+null or string
+
+
+
+*Default:*
+` null `
+
+
+
+*Example:*
+` "toplevel-functions" `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.setupBuildFlags
+
+
+
+Extra flags passed to ` Setup build `\.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.setupHaddockFlags
+
+
+
+Extra flags passed to ` Setup haddock `\.
+
+
+
+*Type:*
+list of string
 
 
 
@@ -1998,7 +2351,7 @@ null or string
 
 
 *Default:*
-` "f2i4a1bpx5jgj59ni59vxhzm7dahzf42-source" `
+` "rr9p6np5m2wlwp42ygd7ksdlgrh8vafv-source" `
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)

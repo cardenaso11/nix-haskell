@@ -40,6 +40,24 @@ let cfg = config."haskell-nix";
         ];
       };
 
+    # Per-package fields translated verbatim into a haskell.nix module; the
+    # names are haskell.nix's own. Only `src` needs special handling and has
+    # an explicit entry in the table.
+    packagesFieldNames = [
+      "flags" "patches" "ghcOptions"
+      "configureFlags" "setupBuildFlags" "setupHaddockFlags"
+      "doCheck" "doHaddock" "doCoverage" "doHoogle" "doHyperlinkSource" "doQuickjump"
+      "dontStrip" "enableDeadCodeElimination"
+      "enableLibraryProfiling" "enableProfiling" "profilingDetail"
+      "enableShared" "enableStatic"
+      "enableSeparateDataOutput" "enableLibraryForGhci"
+    ];
+
+    packagesTranslation = listToAttrs (map (field: nameValuePair "packages.*.${field}" {
+      set = packagesField field (t: { ${field} = t.${field}; });
+      via = "a `packages.<name>.${field}` module";
+    }) packagesFieldNames);
+
 in {
 
   options = {
@@ -224,26 +242,6 @@ in {
           };
           ghcOptions.via = "a project-wide `ghcOptions` module";
 
-          "packages.*.flags" = {
-            set = packagesField "flags" (t: { flags = t.flags; });
-            via = "a `packages.<name>.flags` module";
-          };
-          "packages.*.patches" = {
-            set = packagesField "patches" (t: { patches = t.patches; });
-            via = "a `packages.<name>.patches` module";
-          };
-          "packages.*.ghcOptions" = {
-            set = packagesField "ghcOptions" (t: { ghcOptions = t.ghcOptions; });
-            via = "a `packages.<name>.ghcOptions` module";
-          };
-          "packages.*.doCheck" = {
-            set = packagesField "doCheck" (t: { doCheck = t.doCheck; });
-            via = "a `packages.<name>.doCheck` module";
-          };
-          "packages.*.doHaddock" = {
-            set = packagesField "doHaddock" (t: { doHaddock = t.doHaddock; });
-            via = "a `packages.<name>.doHaddock` module";
-          };
           "packages.*.src" = {
             set = packagesField "src" (t: { src = mkForce t.src; });
             via = "a `packages.<name>.src` module";
@@ -279,7 +277,7 @@ in {
           isGhcjs.via = "adds nodejs to the common `shell.buildInputs`";
           isWasm.via = "adds nodejs to the common `shell.buildInputs`";
 
-        };
+        } // packagesTranslation;
       };
 
 
