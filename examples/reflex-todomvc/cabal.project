@@ -2,6 +2,12 @@ packages: .
 
 allow-newer: *:*
 
+-- prim-uniq 0.2 predates the EqP/OrdP superclasses of some 1.1;
+-- reflex 0.9.4.1 predates the class hierarchy of semialign 1.4
+constraints:
+    some < 1.1
+  , semialign < 1.4
+
 if !arch(wasm32)
   package reflex-dom
     flags: +use-warp -webkit2gtk
