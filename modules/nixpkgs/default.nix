@@ -312,6 +312,12 @@ in {
       nixpkgs = common.config;
     }
 
+    {
+      # no stackage snapshot covers ghc 9.14 yet, so the nixpkgs ghc914
+      # package set has neither consistent bounds nor cached builds
+      nixpkgs.compiler-nix-name = mkDefault "ghc912";
+    }
+
   ];
 
 }

@@ -8,6 +8,7 @@
   nixpkgs (`haskell.packages.<compiler>`, `callCabal2nix`, `shellFor`).
   Driver knobs live under `nixpkgs.options`; the result is at
   `(nix-haskell m).nixpkgs.project` and `project.nixpkgs`.
+  `compiler-nix-name` defaults to `ghc912` for this driver.
 - Driver-neutral common options `ghcOptions`, `cabalProject`,
   `cabalProjectLocal`, `cabalProjectFileName`, `extraCabalProject`,
   `inputMap`, `sha256map` and `packages.<name>.*`:

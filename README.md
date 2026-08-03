@@ -350,7 +350,6 @@ was introduced:
 
   name = "reflex-todomvc";
   src = ./.;
-  compiler-nix-name = "ghc914";
 
   source-repository-packages = {
     reflex-dom = {

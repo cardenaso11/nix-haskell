@@ -7,7 +7,6 @@
 
   name = "reflex-todomvc";
   src = ./.;
-  compiler-nix-name = "ghc914";
 
   source-repository-packages = {
     reflex-dom = {
@@ -30,10 +29,6 @@
   };
 
   nixpkgs = {
-    # no stackage snapshot covers ghc 9.14 yet, so the nixpkgs ghc914
-    # package set has neither consistent bounds nor cached builds
-    compiler-nix-name = "ghc912";
-
     # without a solver, the arch-conditional flag stanzas of cabal.project
     # cannot be followed; assign the flags for this driver directly
     packages = {
