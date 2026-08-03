@@ -57,8 +57,6 @@ in {
   };
 
   config = lib.mkIf (flags != []) {
-    overrides = [
-      { ghcOptions = flags; }
-    ];
+    ghcOptions = flags;
   };
 }

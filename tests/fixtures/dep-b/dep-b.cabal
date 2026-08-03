@@ -1,0 +1,12 @@
+cabal-version:      2.4
+name:               dep-b
+version:            0.1.0.0
+synopsis:           nix-haskell totality-test dependency (hackage-overlays)
+license:            BSD-3-Clause
+build-type:         Simple
+
+library
+    exposed-modules:  DepB
+    hs-source-dirs:   src
+    build-depends:    base
+    default-language: Haskell2010

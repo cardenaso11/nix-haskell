@@ -7,10 +7,6 @@
 
     nixpkgs.url = ./pins/nixpkgs;
     haskell-nix.url = ./pins/haskell-nix;
-    reflex-platform = {
-      url = ./pins/reflex-platform;
-      flake = false;
-    };
 
     flake-compat.url = "github:NixOS/flake-compat";
   };
@@ -35,6 +31,13 @@
           manual-view = project.manual.view;
           manual-md = project.manual.md;
           manual-man = project.manual.man;
+        }
+      );
+
+      checks = eachSystem (system:
+        import ./tests {
+          inherit system inputs;
+          pkgs = import nixpkgs { inherit system; };
         }
       );
     };

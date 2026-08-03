@@ -16,7 +16,7 @@
     };
   };
 
-  extraSrcFiles = {
+  haskell-nix.extraSrcFiles = {
     library.extraSrcFiles = [
       "static/style.css"
     ];
@@ -25,10 +25,11 @@
     ];
   };
 
+  haskell-nix.options.shell.withHaddock = false;
+
   shell = {
     crossPlatforms = ps: with ps; [ ghcjs wasi32 ];
     packages = ps: with ps; [ reflex-todomvc ];
-    withHaddock = false;
     withHoogle = false;
   };
 

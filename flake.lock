@@ -607,24 +607,11 @@
         "type": "github"
       }
     },
-    "reflex-platform": {
-      "flake": false,
-      "locked": {
-        "path": "pins/reflex-platform",
-        "type": "path"
-      },
-      "original": {
-        "path": "pins/reflex-platform",
-        "type": "path"
-      },
-      "parent": []
-    },
     "root": {
       "inputs": {
         "flake-compat": "flake-compat",
         "haskell-nix": "haskell-nix",
-        "nixpkgs": "nixpkgs",
-        "reflex-platform": "reflex-platform"
+        "nixpkgs": "nixpkgs"
       }
     },
     "stackage": {

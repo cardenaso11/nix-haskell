@@ -1,3 +1,10 @@
+# Driver-neutral project options.
+#
+# Every option in this module is honored by every driver: the totality check
+# in tests/ compares these options against each driver's `translation` table,
+# so adding an option here requires teaching all drivers about it. Anything
+# only one backend can honor belongs in the driver's own module instead.
+
 { config, lib, pkgs, ... }:
 
 with lib;
@@ -92,282 +99,197 @@ with lib;
       defaultText = "ghc914";
     };
 
-    cabalProject = mkOption {
-      type = types.nullOr types.lines;
-      default = null;
-      description = ''
-        Content of the `cabal.project` file. Passed through to haskell.nix.
-      '';
-    };
-
-    cabalProjectLocal = mkOption {
-      type = types.nullOr types.lines;
-      default = null;
-      description = ''
-        Content of the `cabal.project.local` file. Passed through to haskell.nix.
-      '';
-    };
-
-    cabalProjectFreeze = mkOption {
-      type = types.nullOr types.lines;
-      default = null;
-      description = ''
-        Content of the `cabal.project.freeze` file. Passed through to haskell.nix.
-      '';
-    };
-
-    cabalProjectFileName = mkOption {
-      type = types.str;
-      default = "cabal.project";
-      description = ''
-        Name of the cabal project file. Passed through to haskell.nix.
-      '';
-    };
-
-    extraCabalProject = mkOption {
-      type = types.listOf types.lines;
+    ghcOptions = mkOption {
+      type = types.listOf types.str;
       default = [];
       description = ''
-        Lines to append to `cabal.project`.
+        GHC flags applied project-wide.
       '';
+      example = [ "-O2" "-fexpose-all-unfoldings" ];
     };
 
-    extraSrcFiles = mkOption {
-      type = types.attrs;
+    packages = mkOption {
+      type = types.attrsOf (types.submodule {
+        options = {
+          flags = mkOption {
+            type = types.attrsOf types.bool;
+            default = {};
+            description = ''
+              Cabal flag assignments for the package (`true` enables,
+              `false` disables).
+            '';
+          };
+          patches = mkOption {
+            type = types.listOf types.path;
+            default = [];
+            description = ''
+              Patches applied to the package source.
+            '';
+          };
+          ghcOptions = mkOption {
+            type = types.listOf types.str;
+            default = [];
+            description = ''
+              GHC flags for this package only.
+            '';
+          };
+          doCheck = mkOption {
+            type = types.nullOr types.bool;
+            default = null;
+            description = ''
+              Whether to run the package's test suites. `null` leaves the
+              default in place.
+            '';
+          };
+          doHaddock = mkOption {
+            type = types.nullOr types.bool;
+            default = null;
+            description = ''
+              Whether to build the package's documentation. `null` leaves the
+              default in place.
+            '';
+          };
+          src = mkOption {
+            type = types.nullOr (types.either types.path types.package);
+            default = null;
+            description = ''
+              Replacement source for the package.
+            '';
+          };
+        };
+      });
       default = {};
       description = ''
-        ExtraSrcFiles to include in the project builds
-      '';
-    };
-
-    inputMap = mkOption {
-      type = types.attrs;
-      default = {};
-      apply = x: config.source-repository-packages-driver.inputMap // x;
-      description = ''
-        Specifies the contents of urls in the cabal.project file.
-        The `.rev` attribute is checked against the `tag` for `source-repository-packages`.
+        Per-package customization, keyed by cabal package name. Entries for
+        packages that do not exist in the final package set are silently
+        ignored, so platform-conditional packages can be customized
+        unconditionally.
       '';
       example = literalMD ''
         ```
-          inputMap = {
-            "{url}/{rev/ref}" = dep_src;
-            "https://github.com/obsidiansystems/obelisk-oauth.git/a528c0542e9c30851e7c4542468a053fa5e482ef" = thunkSource ./dep/{thunk};
-          };
-        ```
-      '';
-    };
-
-    sha256map = mkOption {
-      type = types.nullOr (types.attrsOf (types.either types.str (types.attrsOf types.str)));
-      default = null;
-      description = ''
-        An alternative to adding `--sha256` comments into the cabal.project file.
-      '';
-      example = literalMD ''
-        ```
-          sha256map = {
-            "url"."rev/ref" = "hash"
-            "https://github.com/jgm/pandoc-citeproc"."0.17" = "0dxx8cp2xndpw3jwiawch2dkrkp15mil7pyx7dvd810pwc22pm2q";
-            "https://github.com/obsidiansystems/obelisk-oauth.git"."a528c0542e9c30851e7c4542468a053fa5e482ef" = lib.fakeHash;
-          };
-        ```
-      '';
-    };
-
-    modules = mkOption {
-      readOnly = true;
-      type = types.listOf (
-        types.submodule {
-          imports = [
-            ({...}@project_args:
-              let options_modules = [
-                    (config.inputs."haskell-nix" + "/modules/cabal.nix")
-                    (config.inputs."haskell-nix" + "/modules/component-options.nix")
-                    (config.inputs."haskell-nix" + "/modules/hackage.nix")
-                    (config.inputs."haskell-nix" + "/modules/package-options.nix")
-                    (config.inputs."haskell-nix" + "/modules/plan.nix")
-                  ];
-                  #configs_modules = [
-                  #  (config.inputs."haskell-nix" + "/modules/configuration-nix.nix")
-                  #];
-                  module_args = project_args // {
-                    pkgs = import (config.inputs."haskell-nix" + "/lib/system-pkgs.nix") config."haskell-nix".nixpkgs;
-                    pkgconfPkgs = import (config.inputs."haskell-nix" + "/lib/pkgconf-nixpkgs-map.nix") config."haskell-nix".nixpkgs;
-                    haskellLib = config."haskell-nix".lib;
-                  };
-                  options = zipAttrsWith (name: vals: last vals) (map (module: (import module module_args).options) options_modules);
-                  #configs = zipAttrsWith (name: vals: last vals) (map (module: (import module module_args).config) configs_modules);
-              in {
-                inherit options;
-                #config = configs;
-              }
-            )
-          ];
+        {
+          splitmix.patches = [ ./splitmix-js.patch ];
+          reflex-dom-core.doCheck = false;
+          my-app.flags.production = true;
         }
-      );
-      default = [];
-      apply = x:
-          lib.optional (config.extraSrcFiles != {}) {
-              packages."${config.name}".components = config.extraSrcFiles;
-            }
-          ++ x
-          ++ config.overrides or []
-          ++ config.hackage-driver.package-overlays or []
-          ++ config.source-repository-packages-driver.overrides or [];
-      description = ''
-        `modules` option definitions (readonly). To actually change them use `overrides`.
-      '';
-    };
-
-    overrides = mkOption {
-      type = types.listOf types.unspecified;
-      default = [];
-      description = ''
-        `modules` overrides.
+        ```
       '';
     };
 
 
 
     shell = mkOption {
-      type = types.submodule {
-        imports = [
-          ({...}@project_args:
-            let modules = [
-                  (config.inputs."haskell-nix" + "/modules/shell.nix")
-                ];
-                module_args = project_args // {
-                  pkgs = import (config.inputs."haskell-nix" + "/lib/system-pkgs.nix") config."haskell-nix".nixpkgs;
-                  pkgconfPkgs = import (config.inputs."haskell-nix" + "/lib/pkgconf-nixpkgs-map.nix") config."haskell-nix".nixpkgs;
-                  haskellLib = config."haskell-nix".lib;
-                };
-                options = zipAttrsWith (name: vals: last vals) (map (module: ((import module { projectConfig = config."haskell-nix".options; }) module_args).options) modules);
-            in {
-              options = recursiveUpdate options {
-                # Override types.str → types.lines so multiple modules can merge shellHook.
-                shellHook = mkOption {
-                  type = types.lines;
-                  default = options.shellHook.default or "";
-                  description = options.shellHook.description or "Shell hook to run when entering the shell.";
-                };
-                crossPlatforms = (options.crossPlatforms or {}) // {
-                  defaultText = literalMD ''
-                    ```
-                    ps: []
-                    ```
-                  '';
-                };
-                packages = mkOption {
-                  type = types.unspecified;
-                  default = ps: builtins.filter (p: (p.isLocal or false) && !(config.source-repository-packages ? ${p.identifier.name or ""})) (builtins.attrValues ps);
-                  apply = x: ps: concatMap (p: if (! builtins.isString p) then [ p ] else let v = ps.${p} or null; in optional (v != null) v) (x ps);
-                  description = ''
-                    Package selection function. It takes a list of Haskell packages and returns a subset of these packages with all of their dependencies included in `ghc-pkg list`.
-                    It can take either a `package` or name (`string`) of a package which availability can depend on the platform.
-                  '';
-                  example = literalMD ''
-                    ```
-                    ps: with ps; [
-                      common
-                      frontend
-                      "backend" # Provided by name so that it is only included when it's among `ps`
-                    ]
-                    ```
-                  '';
-                };
-              };
-            }
-          )
-        ];
-      };
-    };
-
-
-
-    index-state = mkOption {
-      type = types.nullOr types.str;
-      default = null;
-      description = ''
-        Hackage index-state.
-      '';
-      example = "2019-10-10T00:00:00Z";
-    };
-
-    extra-hackage-tarballs = mkOption {
-      type = types.nullOr types.attrs;
       default = {};
-      apply = x: (if config.hackage-overlays == [] then {} else config.hackage-driver.extra-hackage-tarballs) // x;
       description = ''
-        Additional Hackage tarball indices to pass to haskell.nix. Automatically includes tarballs from `hackage-overlays` when set.
+        Development shell configuration.
       '';
-    };
+      type = types.submodule {
+        options = {
 
-    extra-hackages = mkOption {
-      type = types.nullOr (types.listOf types.unspecified);
-      default = [];
-      apply = x: (if config.hackage-overlays == [] then [] else config.hackage-driver.extra-hackages) ++ x;
-      description = ''
-        Additional Hackage package sets for the cabal solver. Automatically includes packages from `hackage-overlays` when set.
-      '';
-    };
+          packages = mkOption {
+            type = types.nullOr types.unspecified;
+            default = null;
+            defaultText = literalMD ''
+              `null` (all local packages that are not
+              `source-repository-packages` are selected)
+            '';
+            apply = x:
+              if x == null then null
+              else ps: concatMap (p: if (! builtins.isString p) then [ p ] else let v = ps.${p} or null; in optional (v != null) v) (x ps);
+            description = ''
+              Package selection function. It takes a set of Haskell packages and returns a subset of these packages with all of their dependencies included in `ghc-pkg list`.
+              It can take either a `package` or name (`string`) of a package which availability can depend on the platform.
+            '';
+            example = literalMD ''
+              ```
+              ps: with ps; [
+                common
+                frontend
+                "backend" # Provided by name so that it is only included when it's among `ps`
+              ]
+              ```
+            '';
+          };
 
-    pkg-def-extras = mkOption {
-      type = types.nullOr (types.listOf types.unspecified);
-      default = [];
-      description = ''
-        Extra package definition functions to pass to haskell.nix.
-      '';
-    };
+          tools = mkOption {
+            type = types.attrsOf types.raw;
+            default = {};
+            description = ''
+              Haskell tools available in the shell, keyed by executable name.
+              The value is a version request such as `"latest"`, a version
+              string, or a tool argument set.
+            '';
+            example = literalMD ''
+              ```
+              { cabal = "latest"; haskell-language-server = "latest"; }
+              ```
+            '';
+          };
 
+          buildInputs = mkOption {
+            type = types.listOf types.package;
+            default = [];
+            description = ''
+              Extra packages available in the shell.
+            '';
+          };
 
+          nativeBuildInputs = mkOption {
+            type = types.listOf types.package;
+            default = [];
+            description = ''
+              Extra native packages available in the shell.
+            '';
+          };
 
-    src-driver = mkOption {
-      type = types.path;
-      default = import ../libs/src-driver.nix {
-        inherit pkgs;
-        src = config.src-cleaned;
-        extraCabalProject =
-          ( if config.source-repository-packages-driver.cabalProject != null && config.source-repository-packages-driver.cabalProject != ""
-            then config.source-repository-packages-driver.cabalProject
-            else []
-          )
-          ++ config.extraCabalProject or [];
-      };
-      defaultText = literalMD ''
-      ```
-        import ../libs/src-driver.nix {
-          inherit pkgs;
-          src = config.src-cleaned;
-          extraCabalProject =
-               [config.source-repository-packages-driver.cabalProject]
-            ++ config.extraCabalProject or [];
+          shellHook = mkOption {
+            type = types.lines;
+            default = "";
+            description = ''
+              Shell hook to run when entering the shell.
+            '';
+          };
+
+          withHoogle = mkOption {
+            type = types.bool;
+            default = false;
+            description = ''
+              Provide a hoogle database over the shell's package set.
+            '';
+          };
+
+          crossPlatforms = mkOption {
+            type = types.unspecified;
+            default = _: [];
+            defaultText = literalMD ''
+              ```
+              ps: []
+              ```
+            '';
+            description = ''
+              Selector for cross-compilation targets, over an attribute set
+              keyed by `pkgs.pkgsCross` platform names.
+            '';
+            example = literalMD ''
+              ```
+              ps: with ps; [ ghcjs wasi32 ]
+              ```
+            '';
+          };
+
         };
-      ```
-      '';
-      readOnly = true;
+      };
     };
 
 
-
-    source-repository-packages-driver = mkOption {
-      type = types.attrs;
-      default = (import ../libs/cabal.nix { inherit pkgs; }).source-repository-packages config.source-repository-packages;
-      defaultText = literalMD ''
-      ```
-      (import ../libs/cabal.nix { inherit pkgs; }).source-repository-packages config.source-repository-packages;
-      ```
-      '';
-      readOnly = true;
-    };
 
     source-repository-packages = mkOption {
       type = types.attrsOf (types.either types.path types.attrs);
       default = {};
       description = ''
-        Local packages to add to the project as `source-repository-package`
-        stanzas. A source is anything `inputs` accepts, so a packed thunk
-        directory can be given as-is and is resolved to the source it pins.
+        Local packages to add to the project. A source is anything `inputs`
+        accepts, so a packed thunk directory can be given as-is and is
+        resolved to the source it pins.
 
         `subdir` selects packages within the source, so a multi-package
         repository needs one entry rather than one per package.
@@ -391,38 +313,13 @@ with lib;
 
 
 
-    hackage-driver = mkOption {
-      type = types.attrs;
-      default = import ../libs/hackage-driver.nix {
-        pkgs = config."haskell-nix".nixpkgs;
-        compiler-nix-name = config.compiler-nix-name;
-        modules = config.hackage-overlays;
-      };
-      defaultText = literalMD ''
-      ```
-        import ../libs/hackage-driver.nix {
-          pkgs = config."haskell-nix".nixpkgs;
-          compiler-nix-name = config.compiler-nix-name;
-          modules = config.hackage-overlays;
-        };
-      ```
-      '';
-      readOnly = true;
-      description = ''
-        Internal driver that generates a fake Hackage index from `hackage-overlays`.
-      '';
-    };
-
     hackage-overlays = mkOption {
       type = types.listOf types.attrs;
       default = [];
       description = ''
-        Overlays for hackage, to pass to the cabal solver.
-
-        This will automatically pull and put the defined packages into a "fake" hackage. This allows the cabal solver see packages that can't be conventially added to cabal.project.
-        A good example of this is obelisk-generated-static.
-
-        This is a purely helper-code for the nix-side of haskell.nix
+        Packages to make visible to dependency resolution without being
+        published to Hackage. A good example of this is
+        obelisk-generated-static.
       '';
       example = literalMD ''
         ```
@@ -450,27 +347,8 @@ with lib;
 
     shell = {
 
-      crossPlatforms = mkDefault (_: []);
-
       tools = {
         cabal = mkDefault "latest";
-        hoogle = mkDefault {
-          version = "5.0.19.0";
-          cabalProjectLocal = ''
-            if impl(ghc == 9.14.*)
-              allow-newer:
-                  *:base
-                , *:template-haskell
-                , *:ghc-experimental
-                , *:ghc-internal
-                , *:containers
-              constraints:
-                  base < 4.23
-                , template-haskell < 2.25
-                , ghc-experimental < 9.1500
-                , ghc-internal < 9.1500
-          '';
-        };
       };
 
     };

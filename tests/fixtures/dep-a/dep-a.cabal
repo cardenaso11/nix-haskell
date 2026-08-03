@@ -1,0 +1,12 @@
+cabal-version:      2.4
+name:               dep-a
+version:            0.1.0.0
+synopsis:           nix-haskell totality-test dependency (source-repository-packages)
+license:            BSD-3-Clause
+build-type:         Simple
+
+library
+    exposed-modules:  DepA
+    hs-source-dirs:   src
+    build-depends:    base
+    default-language: Haskell2010

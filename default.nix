@@ -14,54 +14,44 @@ let eval = import ./eval.nix { inherit system pkgs inputs; };
 
     evaluated = eval module;
     config = evaluated.config;
-    options = evaluated.options;
 
-    # haskell.nix declares `modules.*.packages` only for the names in
-    # `package-keys`, which is empty here, so the tree would go undocumented.
-    # Widened for the manual only, by splicing a config module into the
-    # submodule type rather than changing what a project evaluates.
     docs = import ./docs.nix {
       inherit pkgs;
-      options = options // {
-        modules = options.modules // {
-          type = options.modules.type.substSubModules
-            (options.modules.type.getSubModules ++ [ { use-package-keys = false; } ]);
-        };
-      };
+      options = evaluated.options;
     };
 
-    haskell-nix =
-      let mkProject = x:
-            let xs = toList x;
-                evaled = eval xs;
-                proj = evaled.config.haskell-nix.project;
-            in {
-              config = evaled.config;
-              override = y:
-                let ys = toList y;
-                in mkProject (xs ++ ys);
-            } // proj;
-      in rec {
-        project = mkProject module;
+    mkProject = driver: x:
+      let xs = toList x;
+          evaled = eval xs;
+      in {
+        config = evaled.config;
+        override = y: mkProject driver (xs ++ toList y);
+      } // evaled.config.${driver}.project;
+
+    syntheticSrc = packages: pkgs.writeTextFile {
+      name = "ghc-with-packages-src";
+      destination = "/ghc-with-packages.cabal";
+      text = ''
+        cabal-version: 2.4
+        name: ghc-with-packages
+        version: 0
+
+        library
+          build-depends: ${builtins.concatStringsSep ", " packages}
+      '';
+    };
+
+    drivers = {
+
+      haskell-nix = {
+        project = mkProject "haskell-nix" module;
 
         ghcWithPackages = m: packages:
           let ms = toList m;
-              syntheticSrc = pkgs.writeTextFile {
-                name = "ghc-with-packages-src";
-                destination = "/ghc-with-packages.cabal";
-                text = ''
-                  cabal-version: 2.4
-                  name: ghc-with-packages
-                  version: 0
-
-                  library
-                    build-depends: ${builtins.concatStringsSep ", " packages}
-                '';
-              };
-              proj = mkProject ([{
+              proj = mkProject "haskell-nix" ([{
                 name = "ghc-with-packages";
-                src = syntheticSrc;
-                cabalProjectLocal = ''
+                src = syntheticSrc packages;
+                haskell-nix.options.cabalProjectLocal = ''
                   extra-packages: ${builtins.concatStringsSep ", " packages}
                 '';
               }] ++ ms);
@@ -71,11 +61,31 @@ let eval = import ./eval.nix { inherit system pkgs inputs; };
           in proj.ghcWithPackages (ps: map (n: ps.${n}) (filter (n: !(elem n preExistingPkgsNames)) packages));
       };
 
+      nixpkgs = {
+        project = mkProject "nixpkgs" module;
+
+        ghcWithPackages = m: packages:
+          let proj = mkProject "nixpkgs" ([{
+                name = "ghc-with-packages";
+                src = syntheticSrc packages;
+              }] ++ toList m);
+          in proj.haskellPackages.ghcWithPackages (ps:
+               # boot libraries are null in the set and must not reach the wrapper
+               filter (p: p != null)
+                 (map (n: ps.${n} or (throw "ghcWithPackages: unknown package ${n}")) packages));
+      };
+
+    };
+
 
 in {
-  inherit config haskell-nix;
+  inherit config;
 
-  nixpkgs = evaluated._module.args.pkgs;
+  pkgs = evaluated._module.args.pkgs;
 
   manual = docs;
-} // mapAttrs (_: value: { haskell-nix = value; }) haskell-nix
+} // drivers
+  // {
+    project = mapAttrs (_: driver: driver.project) drivers;
+    ghcWithPackages = mapAttrs (_: driver: driver.ghcWithPackages) drivers;
+  }

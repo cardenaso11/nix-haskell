@@ -1,20 +1,10 @@
 { ... }:
 
-let # Keep only overrides whose package name exists in the project,
-    # so overrides for absent packages are silently skipped.
-    mkOptionalPackages = { config, lib }:
-      lib.filterAttrs (name: _: config.packages ? ${name});
+{
 
-in {
-
-  config.overrides = [
-    ({ config, lib, ... }: {
-      packages = mkOptionalPackages { inherit config lib; } {
-        jsaddle-wasm.patches = [
-          ./jsaddle-wasm-initialSyncDepth.patch
-        ];
-      };
-    })
+  # Ignored when the project does not contain jsaddle-wasm.
+  config.packages.jsaddle-wasm.patches = [
+    ./jsaddle-wasm-initialSyncDepth.patch
   ];
 
 }

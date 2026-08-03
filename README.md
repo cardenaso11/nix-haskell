@@ -1,8 +1,20 @@
 ## Nix-Haskell
 
-A NixOS-style module system for building Haskell projects with [haskell.nix](https://github.com/input-output-hk/haskell.nix). Provides declarative configuration for compilers, dependencies, cross-compilation, and development shells.
+A NixOS-style module system for building Haskell projects. One declarative
+project configuration drives interchangeable build backends ("drivers"):
 
-> **Note:** Currently only the `haskell.nix` driver is implemented. Support for other drivers (e.g. `nixpkgs` haskellPackages, `cabal2nix`, `reflex-platform`) is planned.
+- **haskell.nix**: [IOG's haskell.nix](https://github.com/input-output-hk/haskell.nix).
+  Full cabal solving against a pinned Hackage, per-component builds,
+  first-class cross-compilation.
+- **nixpkgs**: the Haskell infrastructure of nixpkgs
+  (`haskell.packages.<compiler>`, `callCabal2nix`, `shellFor`). No solver;
+  dependency versions come from the nixpkgs package set, and most of the
+  dependency closure comes straight from cache.nixos.org.
+
+Every option of the common module is honored by every driver; a check
+enforces that totality (see [Checks](#checks)). Driver-specific
+configuration lives under the driver's own namespace (`haskell-nix.*`,
+`nixpkgs.*`).
 
 
 ### Quick start
@@ -16,13 +28,25 @@ The result is an attribute set:
 
 ```nix
 {
-  config       # Evaluated module configuration
-  nixpkgs      # The nixpkgs package set
-  haskell-nix  # haskell.nix project builder (with .override support)
-  project      # Convenience aliases (project.haskell-nix)
-  manual       # Documentation (manual.man, manual.md, manual.view)
+  config           # Evaluated module configuration
+  pkgs             # The nixpkgs package set of the evaluation
+  haskell-nix      # haskell.nix driver (.project, .ghcWithPackages)
+  nixpkgs          # nixpkgs driver (.project, .ghcWithPackages)
+  project          # Per-driver projects (project.haskell-nix, project.nixpkgs)
+  ghcWithPackages  # Per-driver ghcWithPackages
+  manual           # Documentation (manual.man, manual.md, manual.view)
 }
 ```
+
+Both projects support `.override` for composing additional configuration:
+
+```nix
+let project = (nix-haskell ./project.nix).nixpkgs.project;
+in project.override { ghcOptions = [ "-O2" ]; }
+```
+
+Overrides use recursive merge: lists are concatenated, attrsets are merged
+recursively.
 
 
 ### Flake usage
@@ -45,14 +69,15 @@ All attributes from `default.nix` are available as functions in `lib.<system>`:
 ```nix
 lib.config module       # (nix-haskell module).config
 lib.haskell-nix module  # (nix-haskell module).haskell-nix
-lib.manual module       # (nix-haskell module).manual
+lib.nixpkgs module      # (nix-haskell module).nixpkgs
 # etc.
 ```
 
 
-### Module options
+### Common options
 
-#### Project
+Applicable to every driver. The full reference is in the
+[manual](docs/modules.md).
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
@@ -60,22 +85,43 @@ lib.manual module       # (nix-haskell module).manual
 | `src` | `path` | — | Project source directory |
 | `system` | `str` | `builtins.currentSystem` | Build system |
 | `compiler-nix-name` | `str` | `"ghc914"` | GHC compiler version |
-
-#### Cabal configuration
-
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
+| `clean-src` | `bool` | `true` | Filter `src` through its `.gitignore` |
+| `clean-src-patterns` | `lines` | `""` | Extra gitignore patterns |
+| `ghcOptions` | `listOf str` | `[]` | Project-wide GHC flags |
+| `packages` | `attrsOf submodule` | `{}` | Per-package customization |
 | `source-repository-packages` | `attrsOf (path \| attrs)` | `{}` | Local packages to include |
-| `extraCabalProject` | `listOf lines` | `[]` | Lines appended to `cabal.project` |
-| `index-state` | `nullOr str` | `null` | Hackage index snapshot |
-| `inputMap` | `attrs` | `{}` | URL to local source mappings |
-| `sha256map` | `nullOr attrs` | `null` | SHA256 map for cabal sources |
+| `hackage-overlays` | `listOf attrs` | `[]` | Packages not on Hackage |
+| `shell` | `submodule` | | Development shell |
+| `optimizations` | `submodule` | off | GHC optimization flag presets |
+| `inputs` | `attrsOf raw` | `pins/` | Dependency sources |
 
-`source-repository-packages` accepts either a path or an attrset with `src` and optional `condition`:
+#### Per-package customization
+
+Tweaks for any package in the final package set, keyed by cabal package
+name. Entries for packages that do not exist are silently ignored:
+
+```nix
+packages = {
+  splitmix.patches = [ ./splitmix-js.patch ];
+  reflex-dom-core.doCheck = false;
+  my-app.flags.production = true;
+  my-app.ghcOptions = [ "-Werror" ];
+};
+```
+
+Fields: `flags`, `patches`, `ghcOptions`, `doCheck`, `doHaddock`, `src`.
+
+#### Source repository packages
+
+`source-repository-packages` accepts either a path or an attrset with `src`,
+optional `subdir` and optional `condition`:
 
 ```nix
 source-repository-packages = {
-  reflex-dom = deps.reflex-dom + "/reflex-dom";
+  reflex-dom = {
+    src = ./deps/reflex-dom;
+    subdir = [ "reflex-dom" "reflex-dom-core" ];
+  };
   obelisk-backend = {
     src = deps.obelisk + "/lib/backend";
     condition = "!arch(javascript)";
@@ -83,18 +129,9 @@ source-repository-packages = {
 };
 ```
 
-#### Extra source files
-
-```nix
-extraSrcFiles = {
-  library.extraSrcFiles = [ "static/style.css" ];
-  exes.my-app.extraSrcFiles = [ "static/style.css" ];
-};
-```
-
 #### Hackage overlays
 
-Make custom packages visible to the cabal solver:
+Make custom packages visible to dependency resolution:
 
 ```nix
 hackage-overlays = [
@@ -106,22 +143,6 @@ hackage-overlays = [
 ];
 ```
 
-#### Overrides
-
-haskell.nix module overrides. Lists are concatenated when composed (not replaced):
-
-```nix
-overrides = [
-  ({ pkgs, lib, ... }: {
-    enableDeadCodeElimination = true;
-    packages = {
-      obelisk-command.components.library.build-tools = with pkgs; [ ghcid jre openssh ];
-      reflex-dom-core.components.tests.gc.buildable = lib.mkForce false;
-    };
-  })
-];
-```
-
 #### Shell
 
 ```nix
@@ -129,22 +150,121 @@ shell = {
   crossPlatforms = ps: with ps; [ ghcjs wasi32 ];
   packages = ps: with ps; [ common frontend "backend" ];
   tools = { cabal = "latest"; };
-  withHaddock = false;
+  buildInputs = [ pkgs.postgresql ];
+  shellHook = "echo hello";
   withHoogle = false;
 };
 ```
 
-When GHCJS is in `crossPlatforms`, Node.js is automatically added to `buildInputs`.
+`crossPlatforms` selects over `pkgs.pkgsCross` platform names. When GHCJS or
+WASM targets are selected, Node.js is automatically added to `buildInputs`.
 
-#### haskell.nix options
 
-Pass options directly to the underlying haskell.nix project:
+### The haskell.nix driver
 
 ```nix
-haskell-nix.options = {
-  # haskell.nix specific configuration
+(nix-haskell ./project.nix).haskell-nix.project
+```
+
+The project is haskell.nix's: `hsPkgs.<pkg>.components.exes.<exe>`,
+`projectCross.<platform>`, `shell`, etc.
+
+Driver configuration:
+
+| Option | Description |
+|--------|-------------|
+| `haskell-nix.options.*` | Any haskell.nix project option (`cabalProject`, `cabalProjectLocal`, `index-state`, `sha256map`, `inputMap`, `extra-hackages`, `pkg-def-extras`, `shell.exactDeps`, `shell.withHaddock`, ...) |
+| `haskell-nix.overrides` | haskell.nix `modules` to add to the project (lists concatenate when composed) |
+| `haskell-nix.extraCabalProject` | Lines appended to `cabal.project` |
+| `haskell-nix.extraSrcFiles` | Extra files for the strictly tracked component builds |
+
+```nix
+haskell-nix.overrides = [
+  ({ pkgs, lib, ... }: {
+    packages.obelisk-command.components.library.build-tools = with pkgs; [ ghcid ];
+    packages.reflex-dom-core.components.tests.gc.buildable = lib.mkForce false;
+  })
+];
+```
+
+
+### The nixpkgs driver
+
+```nix
+(nix-haskell ./project.nix).nixpkgs.project
+```
+
+The project:
+
+```nix
+{
+  packages          # The project's own packages (packages.<name>)
+  haskellPackages   # The full extended package set
+  shell             # shellFor development shell
+  projectCross      # Per pkgsCross platform (best effort)
+  ghcWithPackages
+}
+```
+
+haskell.nix's `hsPkgs.<name>.components.exes.<exe>` corresponds to
+`packages.<name>` here, with the executable at `$out/bin/<exe>`.
+
+Driver configuration:
+
+| Option | Description |
+|--------|-------------|
+| `nixpkgs.compiler` | `haskell.packages` set name, when `compiler-nix-name` has no nixpkgs equivalent |
+| `nixpkgs.options.overrides` | Overlays over the package set, applied last |
+| `nixpkgs.options.packages` | Explicit local package map (bypasses discovery) |
+| `nixpkgs.options.use-plan` | Take the project structure from the cabal plan of the haskell.nix driver |
+| `nixpkgs.options.extra-package-defaults` | Jailbreak/check/haddock defaults for fetched packages |
+| `nixpkgs.options.tool-packages` | Overrides for `shell.tools` resolution |
+| `nixpkgs.options.shellFor-args` | Extra `shellFor` arguments |
+
+Local packages are the package at the root of `src` by default.
+`source-repository-package` stanzas in the project's `cabal.project` are
+parsed (with haskell.nix's parser) and honored. For multi-package projects
+either list the packages explicitly:
+
+```nix
+nixpkgs.options.packages = {
+  common.subdir = "common";
+  frontend.subdir = "frontend";
 };
 ```
+
+or set `nixpkgs.options.use-plan = true` to reuse cabal's own reading of
+`cabal.project` (exact globs, `optional-packages`, conditionals) at the cost
+of evaluating the haskell.nix toolchain.
+
+Caveats, by construction of nixpkgs' Haskell infrastructure:
+
+- No version solving: dependency versions are those of the nixpkgs pin.
+  `index-state`, `sha256map` and friends do not exist here.
+- Test suites run inside the package build; disable per package with
+  `packages.<name>.doCheck = false`.
+- `ghcOptions` applies to the project's own packages only, so the binary
+  cache stays valid for the dependency closure.
+- `shell.tools` versions are not solvable; tools resolve by name from `pkgs`
+  and the package set.
+- Cross-compilation mirrors `pkgs.pkgsCross`, which supports far fewer
+  targets than haskell.nix.
+
+
+### Checks
+
+Every driver declares a `translation` table: one entry per common option,
+recording how it is honored. `nix flake check` verifies:
+
+- `translation-totality`: the table keys of every driver equal the set of
+  user-settable common options, in both directions. Adding a common option
+  without teaching every driver about it fails evaluation.
+- `every-option-<driver>`: a fixture setting every common option
+  instantiates through the driver's whole translation.
+- `hello-<driver>`: a hello example actually builds with each driver.
+
+The haskell.nix checks want the IOG binary cache (configured in the flake's
+`nixConfig`; pass `--accept-flake-config` if it is not in your nix.conf).
 
 
 ### Inputs
@@ -156,34 +276,35 @@ or a packed thunk.
 ```nix
 {
   inputs.haskell-nix = ./dep/your-haskell-nix;
-  inputs.reflex-platform = inputs.reflex-platform;   # a flake input
+  inputs.nixpkgs = inputs.nixpkgs;   # a flake input
 }
 ```
 
-The submodules in `pins/` supply `nixpkgs`, `haskell-nix` and `reflex-platform`.
-Entries of your own can be added freely, and are resolved the same way.
+The submodules in `pins/` supply `nixpkgs` and `haskell-nix`. Entries of your
+own can be added freely, and are resolved the same way.
 
 Flake inputs are picked up automatically, so `inputs.nixpkgs` follows the
 consuming flake's `nixpkgs` without any wiring. Precedence runs
 `pins/` < flake inputs < whatever you set explicitly.
 
 
-### Override
+### Migration from the single-driver layout
 
-The `haskell-nix.project` output supports `.override` for composing additional configuration:
+The result attrset and some option spellings changed when the nixpkgs driver
+was introduced:
 
-```nix
-let project = (nix-haskell ./project.nix).haskell-nix.project;
-in project.override (inputs: {
-  overrides = [
-    ({ pkgs, ... }: {
-      packages.my-pkg.components.library.build-tools = [ pkgs.zlib ];
-    })
-  ];
-})
-```
-
-Overrides use recursive merge — lists are concatenated, attrsets are merged recursively.
+| Old | New |
+|-----|-----|
+| `(nix-haskell m).nixpkgs` (the package set) | `(nix-haskell m).pkgs` |
+| `overrides` | `haskell-nix.overrides` |
+| `extraCabalProject` | `haskell-nix.extraCabalProject` |
+| `extraSrcFiles` | `haskell-nix.extraSrcFiles` |
+| `cabalProject`, `cabalProjectLocal`, `cabalProjectFreeze`, `cabalProjectFileName` | `haskell-nix.options.<same>` |
+| `index-state`, `sha256map`, `inputMap` | `haskell-nix.options.<same>` |
+| `extra-hackages`, `extra-hackage-tarballs`, `pkg-def-extras` | `haskell-nix.options.<same>` |
+| `shell.withHaddock`, `shell.exactDeps`, `shell.allToolDeps`, ... | `haskell-nix.options.shell.<same>` |
+| `overrides = [ { ghcOptions = [...]; } ]` | `ghcOptions = [...]` |
+| `overrides = [ { packages.<n>.patches = [...]; } ]` | `packages.<n>.patches = [...]` |
 
 
 ### Full example
@@ -207,15 +328,16 @@ Overrides use recursive merge — lists are concatenated, attrsets are merged re
     };
   };
 
-  extraSrcFiles = {
+  haskell-nix.extraSrcFiles = {
     library.extraSrcFiles = [ "static/style.css" ];
     exes.reflex-todomvc.extraSrcFiles = [ "static/style.css" ];
   };
 
+  haskell-nix.options.shell.withHaddock = false;
+
   shell = {
     crossPlatforms = ps: with ps; [ ghcjs wasi32 ];
     packages = ps: with ps; [ reflex-todomvc ];
-    withHaddock = false;
     withHoogle = false;
   };
 }
