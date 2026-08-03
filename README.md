@@ -395,3 +395,10 @@ nix run --no-write-lock-file github:reflex-frp/nix-haskell#manual-view
 ```
 
 or [docs/modules.md](docs/modules.md)
+
+
+> **P.S.** The name is nothing clever: just the generic `{tool}-{lang}`
+> pattern (nix-haskell, nix-rust, ...). The resemblance to
+> [haskell.nix](https://github.com/input-output-hk/haskell.nix), which
+> serves as one of the drivers here, is a coincidence of convention, not
+> imitation.
