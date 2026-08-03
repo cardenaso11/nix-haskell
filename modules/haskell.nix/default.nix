@@ -14,12 +14,22 @@ with lib;
 
 let cfg = config."haskell-nix";
 
+    # The common options, re-declared under this driver's namespace and
+    # seeded from the top-level values: setting e.g.
+    # `haskell-nix.packages.foo.flags` overrides the common value for this
+    # driver only. The driver reads all common configuration through the
+    # mirror.
+    common = import ../../libs/driver-common.nix {
+      inherit lib pkgs cfg;
+      topConfig = config;
+    };
+
     # Wrapper scripts for the cross platforms selected by
     # `shell.crossPlatforms`, built from this driver's own cross projects.
     crossWrappers =
       let mkWrappers = import ../../libs/cross-wrappers.nix { inherit pkgs lib; };
       in concatMap (p: mkWrappers p.shell.ghc)
-           (config.shell.crossPlatforms cfg.project.projectCross);
+           (cfg.shell.crossPlatforms cfg.project.projectCross);
 
     # One haskell.nix module per field of the common `packages` option. The
     # inner `config` is haskell.nix's own, so `? name` skips packages absent
@@ -30,7 +40,7 @@ let cfg = config."haskell-nix";
               (value != [])
               (value != {})
             ];
-          relevant = filterAttrs (_: tweaks: isSet tweaks.${field}) config.packages;
+          relevant = filterAttrs (_: tweaks: isSet tweaks.${field}) cfg.packages;
       in mkIf (relevant != {}) {
         modules = [
           ({ config, ... }: {
@@ -65,9 +75,7 @@ let cfg = config."haskell-nix";
 
 in {
 
-  options = {
-
-    "haskell-nix" = {
+  options."haskell-nix" = common.options // {
 
       input = mkOption {
         type = types.raw;
@@ -157,13 +165,13 @@ in {
         internal = true;
         default = import ../../libs/src-driver.nix {
           inherit pkgs;
-          src = config.src-cleaned;
+          src = cfg.src-cleaned;
           extraCabalProject =
             ( if config."haskell-nix".source-repository-packages-driver.cabalProject != null && config."haskell-nix".source-repository-packages-driver.cabalProject != ""
               then config."haskell-nix".source-repository-packages-driver.cabalProject
               else []
             )
-            ++ config.extraCabalProject;
+            ++ cfg.extraCabalProject;
         };
         description = ''
           `src-cleaned` with `extraCabalProject` lines and generated
@@ -175,7 +183,7 @@ in {
         type = types.attrs;
         readOnly = true;
         internal = true;
-        default = (import ../../libs/cabal.nix { inherit pkgs; }).source-repository-packages config.source-repository-packages;
+        default = (import ../../libs/cabal.nix { inherit pkgs; }).source-repository-packages cfg.source-repository-packages;
         description = ''
           `source-repository-package` stanzas and the `inputMap` entries
           pinning their sources, generated from `source-repository-packages`.
@@ -189,7 +197,7 @@ in {
         default = import ../../libs/hackage-driver.nix {
           pkgs = config."haskell-nix".nixpkgs;
           compiler-nix-name = config."haskell-nix".options.compiler-nix-name;
-          modules = config.hackage-overlays;
+          modules = cfg.hackage-overlays;
         };
         description = ''
           A generated hackage index that makes `hackage-overlays` visible to
@@ -212,7 +220,7 @@ in {
 
           system.via = "the haskell.nix checkout is imported for `system`";
 
-          name.set = mkIf (config.name != null) { name = config.name; };
+          name.set = mkIf (cfg.name != null) { name = cfg.name; };
           name.via = "project `name`";
 
           src.set = { src = mkForce cfg.src-driver; };
@@ -221,49 +229,49 @@ in {
           clean-src.via = "consumed by `src-cleaned`, which feeds the src-driver";
           clean-src-patterns.via = "consumed by `src-cleaned`, which feeds the src-driver";
 
-          compiler-nix-name.set = { compiler-nix-name = config.compiler-nix-name; };
+          compiler-nix-name.set = { compiler-nix-name = cfg.compiler-nix-name; };
           compiler-nix-name.via = "project `compiler-nix-name`";
 
-          cabalProject.set = mkIf (config.cabalProject != null) {
+          cabalProject.set = mkIf (cfg.cabalProject != null) {
             # the project file (carrying the src-driver's generated stanzas)
             # is ignored when cabalProject is set, so they move into it
             cabalProject = concatStringsSep "\n" (
-              [ config.cabalProject ]
+              [ cfg.cabalProject ]
               ++ ( let stanzas = cfg.source-repository-packages-driver.cabalProject;
                    in if stanzas != null && stanzas != "" then stanzas else [] )
-              ++ config.extraCabalProject
+              ++ cfg.extraCabalProject
             );
           };
           cabalProject.via = "project `cabalProject`, with the generated source-repository-package stanzas and `extraCabalProject` appended";
 
-          cabalProjectLocal.set = mkIf (config.cabalProjectLocal != null) {
-            cabalProjectLocal = config.cabalProjectLocal;
+          cabalProjectLocal.set = mkIf (cfg.cabalProjectLocal != null) {
+            cabalProjectLocal = cfg.cabalProjectLocal;
           };
           cabalProjectLocal.via = "project `cabalProjectLocal`";
 
-          cabalProjectFileName.set = { cabalProjectFileName = config.cabalProjectFileName; };
+          cabalProjectFileName.set = { cabalProjectFileName = cfg.cabalProjectFileName; };
           cabalProjectFileName.via = "project `cabalProjectFileName`";
 
           extraCabalProject.via = "appended to cabal.project by the src-driver, or to `cabalProject` when that is set";
 
-          inputMap.set = mkIf (config.inputMap != {}) { inputMap = config.inputMap; };
+          inputMap.set = mkIf (cfg.inputMap != {}) { inputMap = cfg.inputMap; };
           inputMap.via = "project `inputMap`, merged with the generated source-repository-package entries";
 
-          sha256map.set = mkIf (config.sha256map != null) { sha256map = config.sha256map; };
+          sha256map.set = mkIf (cfg.sha256map != null) { sha256map = cfg.sha256map; };
           sha256map.via = "project `sha256map`";
 
           source-repository-packages.set = { inputMap = cfg.source-repository-packages-driver.inputMap; };
           source-repository-packages.via = "`source-repository-package` stanzas appended by the src-driver, with `inputMap` pinning their sources";
 
-          hackage-overlays.set = mkIf (config.hackage-overlays != []) {
+          hackage-overlays.set = mkIf (cfg.hackage-overlays != []) {
             extra-hackage-tarballs = cfg.hackage-driver.extra-hackage-tarballs;
             extra-hackages = cfg.hackage-driver.extra-hackages;
             modules = cfg.hackage-driver.package-overlays;
           };
           hackage-overlays.via = "the hackage-driver's generated hackage index, package sets and src overrides";
 
-          ghcOptions.set = mkIf (config.ghcOptions != []) {
-            modules = [ { ghcOptions = config.ghcOptions; } ];
+          ghcOptions.set = mkIf (cfg.ghcOptions != []) {
+            modules = [ { ghcOptions = cfg.ghcOptions; } ];
           };
           ghcOptions.via = "a project-wide `ghcOptions` module";
 
@@ -274,27 +282,27 @@ in {
 
           "shell.packages".set = {
             shell.packages =
-              if config.shell.packages != null
-              then config.shell.packages
+              if cfg.shell.packages != null
+              then cfg.shell.packages
               else ps: builtins.filter
-                (p: (p.isLocal or false) && !(config.source-repository-packages ? ${p.identifier.name or ""}))
+                (p: (p.isLocal or false) && !(cfg.source-repository-packages ? ${p.identifier.name or ""}))
                 (builtins.attrValues ps);
           };
           "shell.packages".via = "`shell.packages`, defaulting to the project's local packages";
 
-          "shell.tools".set = { shell.tools = config.shell.tools; };
+          "shell.tools".set = { shell.tools = cfg.shell.tools; };
           "shell.tools".via = "`shell.tools`";
 
-          "shell.buildInputs".set = { shell.buildInputs = config.shell.buildInputs ++ crossWrappers; };
+          "shell.buildInputs".set = { shell.buildInputs = cfg.shell.buildInputs ++ crossWrappers; };
           "shell.buildInputs".via = "`shell.buildInputs`, with cross wrapper scripts appended";
 
-          "shell.nativeBuildInputs".set = { shell.nativeBuildInputs = config.shell.nativeBuildInputs; };
+          "shell.nativeBuildInputs".set = { shell.nativeBuildInputs = cfg.shell.nativeBuildInputs; };
           "shell.nativeBuildInputs".via = "`shell.nativeBuildInputs`";
 
           "shell.shellHook".via = "appended to the project shell with overrideAttrs, deferring its evaluation";
           "shell.withHoogle".via = "applied to the project shell with overrideAttrs, deferring its evaluation";
 
-          "shell.crossPlatforms".set = { shell.crossPlatforms = config.shell.crossPlatforms; };
+          "shell.crossPlatforms".set = { shell.crossPlatforms = cfg.shell.crossPlatforms; };
           "shell.crossPlatforms".via = "`shell.crossPlatforms` (haskell.nix cross projects are keyed by the same `pkgsCross` names)";
 
           inputs.via = "`inputs.haskell-nix` supplies the haskell.nix checkout the driver imports";
@@ -315,7 +323,7 @@ in {
             # translation's definitions; defaults of haskell.nix options
             # derive from src, so it needs one here. The translation's
             # mkForce wins in the real evaluation.
-            { config.src = mkDefault config.src-cleaned; }
+            { config.src = mkDefault cfg.src-cleaned; }
             ({...}@project_args:
               let modules = [
                     (config.inputs."haskell-nix" + "/modules/cabal-project.nix")
@@ -357,8 +365,8 @@ in {
           let p = config.haskell-nix.haskell-nix.project config.haskell-nix.options;
           in p // {
             shell = p.shell.overrideAttrs (old: {
-              shellHook = old.shellHook + config.shell.shellHook;
-              withHoogle = old.withHoogle or config.shell.withHoogle;
+              shellHook = old.shellHook + cfg.shell.shellHook;
+              withHoogle = old.withHoogle or cfg.shell.withHoogle;
             });
           };
         defaultText = literalMD ''
@@ -369,11 +377,17 @@ in {
         type = types.raw;
       };
 
-    };
-
   };
 
   config = mkMerge [
+
+    {
+      "haskell-nix" = common.seeds;
+    }
+
+    {
+      "haskell-nix" = common.config;
+    }
 
     {
       haskell-nix.options = mkMerge (
@@ -381,7 +395,7 @@ in {
           { hsPkgs = mkDefault null; }
           { modules = cfg.overrides; }
           (mkIf (cfg.extraSrcFiles != {}) {
-            modules = [ { packages.${config.name}.components = cfg.extraSrcFiles; } ];
+            modules = [ { packages.${cfg.name}.components = cfg.extraSrcFiles; } ];
           })
         ]
         ++ map (t: mkIf (t.set != null) t.set) (attrValues cfg.translation)

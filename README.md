@@ -16,6 +16,15 @@ enforces that totality (see [Checks](#checks)). Driver-specific
 configuration lives under the driver's own namespace (`haskell-nix.*`,
 `nixpkgs.*`).
 
+The common options are also mirrored under each driver's namespace, seeded
+with the project-wide values: a definition there overrides the common value
+for that driver only.
+
+```nix
+packages.reflex-dom.flags.webkit2gtk = false;          # both drivers
+nixpkgs.packages.reflex-dom.flags.webkit2gtk = false;  # nixpkgs driver only
+```
+
 
 ### Quick start
 
@@ -262,7 +271,9 @@ Caveats, by construction of nixpkgs' Haskell infrastructure:
 
 - No version solving: dependency versions are those of the nixpkgs pin.
   `index-state` and `cabalProjectFreeze` do not exist here, and only the
-  `source-repository-package` stanzas of the project text are interpreted.
+  `source-repository-package` stanzas of the project text are interpreted;
+  arch-conditional `package` flag stanzas are not. Flags that differ per
+  driver go into the mirrored `nixpkgs.packages.<name>.flags`.
 - Test suites run inside the package build; disable per package with
   `packages.<name>.doCheck = false`.
 - `ghcOptions` applies to the project's own packages only, so the binary

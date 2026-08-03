@@ -1,4 +1,4 @@
-{ config, nix-haskell-patches, ... }:
+{ nix-haskell-patches, ... }:
 
 {
   imports = [
@@ -30,10 +30,21 @@
   };
 
   nixpkgs = {
-    # webkitgtk (via jsaddle-webkit2gtk) still links libsoup 2
-    pkgs = import config.inputs.nixpkgs {
-      inherit (config) system;
-      config.permittedInsecurePackages = [ "libsoup-2.74.3" ];
+    # no stackage snapshot covers ghc 9.14 yet, so the nixpkgs ghc914
+    # package set has neither consistent bounds nor cached builds
+    compiler-nix-name = "ghc912";
+
+    # without a solver, the arch-conditional flag stanzas of cabal.project
+    # cannot be followed; assign the flags for this driver directly
+    packages = {
+      reflex-dom.flags = {
+        use-warp = true;
+        webkit2gtk = false;
+      };
+      reflex-todomvc.flags.webkitgtk = false;
+
+      # the nixpkgs package set already carries the upstream splitmix fix
+      splitmix.patches = [];
     };
     options.overrides = [
       # test dependency of reflex-dom-core, lives in the reflex-dom

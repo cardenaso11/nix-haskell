@@ -96,6 +96,9 @@
 
   optimizations.expose-all-unfoldings = true;
 
+  haskell-nix.packages.every-option.doQuickjump = true;
+  nixpkgs.packages.every-option.doHoogle = true;
+
   inputs.every-option-fixture = ./dep-a;
 
   isGhcjs = false;

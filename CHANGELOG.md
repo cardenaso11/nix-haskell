@@ -21,6 +21,9 @@
 - A per-driver `translation` table (internal) recording how every common
   option is honored, and flake `checks`:
   `translation-totality`, `every-option-<driver>`, `hello-<driver>`.
+- The common options are mirrored under each driver namespace, seeded from
+  the project-wide values, so any common option can be overridden for one
+  driver only (e.g. `nixpkgs.packages.<name>.flags`).
 - `examples/hello`, buildable with both drivers.
 
 ### Changed (breaking)

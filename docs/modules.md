@@ -15,7 +15,10 @@ attribute set of (submodule)
 
 
 *Default:*
-` { } `
+
+```nix
+{ }
+```
 
 
 
@@ -49,7 +52,10 @@ null or boolean
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -71,7 +77,10 @@ null or boolean
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -93,7 +102,10 @@ null or boolean
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -115,7 +127,10 @@ null or boolean
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -137,7 +152,10 @@ null or boolean
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -159,7 +177,10 @@ null or boolean
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -181,7 +202,10 @@ null or boolean
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -202,7 +226,10 @@ list of string
 
 
 *Default:*
-` [ ] `
+
+```nix
+[ ]
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -224,7 +251,10 @@ null or boolean
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -246,7 +276,10 @@ null or boolean
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -268,7 +301,10 @@ null or boolean
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -290,7 +326,10 @@ null or boolean
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -312,7 +351,10 @@ null or boolean
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -334,7 +376,10 @@ null or boolean
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -356,7 +401,10 @@ null or boolean
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -378,7 +426,10 @@ attribute set of boolean
 
 
 *Default:*
-` { } `
+
+```nix
+{ }
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -399,7 +450,10 @@ list of string
 
 
 *Default:*
-` [ ] `
+
+```nix
+[ ]
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -421,13 +475,16 @@ null or (list of string)
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 
 
 *Example:*
 
-```
+```nix
 [
   "format"
 ]
@@ -452,7 +509,10 @@ list of absolute path
 
 
 *Default:*
-` [ ] `
+
+```nix
+[ ]
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -475,7 +535,10 @@ null or strings concatenated with “\\n”
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -498,7 +561,10 @@ null or strings concatenated with “\\n”
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -521,7 +587,10 @@ null or strings concatenated with “\\n”
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -544,7 +613,10 @@ null or strings concatenated with “\\n”
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -567,7 +639,10 @@ null or strings concatenated with “\\n”
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -590,7 +665,10 @@ null or strings concatenated with “\\n”
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -613,7 +691,10 @@ null or strings concatenated with “\\n”
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -636,7 +717,10 @@ null or strings concatenated with “\\n”
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -659,7 +743,10 @@ null or strings concatenated with “\\n”
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -682,7 +769,10 @@ null or strings concatenated with “\\n”
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -705,7 +795,10 @@ null or strings concatenated with “\\n”
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -728,7 +821,10 @@ null or strings concatenated with “\\n”
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -751,7 +847,10 @@ null or strings concatenated with “\\n”
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -774,7 +873,10 @@ null or strings concatenated with “\\n”
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -795,12 +897,18 @@ null or string
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 
 
 *Example:*
-` "toplevel-functions" `
+
+```nix
+"toplevel-functions"
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -821,7 +929,10 @@ list of string
 
 
 *Default:*
-` [ ] `
+
+```nix
+[ ]
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -842,7 +953,10 @@ list of string
 
 
 *Default:*
-` [ ] `
+
+```nix
+[ ]
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -863,7 +977,10 @@ null or absolute path or package
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -928,6 +1045,14 @@ For NixOS, the default value for this option includes at least this argument:
 *Type:*
 lazy attribute set of raw value
 
+
+
+*Default:*
+
+```nix
+{ }
+```
+
 *Declared by:*
  - [\<nixpkgs/lib/modules\.nix>](https://github.com/NixOS/nixpkgs/blob//lib/modules.nix)
 
@@ -948,7 +1073,10 @@ null or strings concatenated with “\\n”
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -969,7 +1097,10 @@ string
 
 
 *Default:*
-` "cabal.project" `
+
+```nix
+"cabal.project"
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -990,7 +1121,10 @@ null or strings concatenated with “\\n”
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -1015,7 +1149,10 @@ boolean
 
 
 *Default:*
-` true `
+
+```nix
+true
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -1038,13 +1175,16 @@ strings concatenated with “\\n”
 
 
 *Default:*
-` "" `
+
+```nix
+""
+```
 
 
 
 *Example:*
 
-```
+```nix
 ''
   dist-wasm
   dist-js
@@ -1070,12 +1210,18 @@ string
 
 
 *Default:*
-` "ghc914" `
+
+```nix
+"ghc914"
+```
 
 
 
 *Example:*
-` "ghc884" `
+
+```nix
+"ghc884"
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -1096,7 +1242,10 @@ list of strings concatenated with “\\n”
 
 
 *Default:*
-` [ ] `
+
+```nix
+[ ]
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -1117,13 +1266,16 @@ list of string
 
 
 *Default:*
-` [ ] `
+
+```nix
+[ ]
+```
 
 
 
 *Example:*
 
-```
+```nix
 [
   "-O2"
   "-fexpose-all-unfoldings"
@@ -1151,7 +1303,10 @@ list of (attribute set)
 
 
 *Default:*
-` [ ] `
+
+```nix
+[ ]
+```
 
 
 
@@ -1191,7 +1346,10 @@ attribute set
 
 
 *Default:*
-` { } `
+
+```nix
+{ }
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -1356,7 +1514,40 @@ submodule
 
 
 *Default:*
-` { } `
+
+```nix
+{ }
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+
+
+
+## haskell-nix\.options\.builderVersion
+
+
+
+Selects which component builder is used for per-component derivations\.
+
+ - ` 1 ` (default) — the Setup\.hs-based builder (comp-builder\.nix)\.
+ - ` 2 ` — the cabal v2-build-based slicing builder
+   (comp-v2-builder\.nix)\.
+   This is project-wide\.  Set it on the project module to switch
+   builders; there is no per-component opt-in\.
+
+
+
+*Type:*
+signed integer
+
+
+
+*Default:*
+
+```nix
+1
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -1377,7 +1568,10 @@ null or strings concatenated with “\\n”
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -1398,7 +1592,10 @@ string
 
 
 *Default:*
-` "cabal.project" `
+
+```nix
+"cabal.project"
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -1414,12 +1611,15 @@ This option has no description\.
 
 
 *Type:*
-null or strings concatenated with “\\n”
+strings concatenated with “\\n”
 
 
 
 *Default:*
-` null `
+
+```nix
+""
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -1435,12 +1635,15 @@ This option has no description\.
 
 
 *Type:*
-null or strings concatenated with “\\n”
+strings concatenated with “\\n”
 
 
 
 *Default:*
-` null `
+
+```nix
+""
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -1461,7 +1664,10 @@ null or boolean
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -1498,7 +1704,10 @@ unspecified value
 
 
 *Default:*
-` <function> `
+
+```nix
+<function>
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -1523,7 +1732,10 @@ null or strings concatenated with " "
 
 
 *Default:*
-` "" `
+
+```nix
+""
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -1544,7 +1756,10 @@ unspecified value
 
 
 *Default:*
-` <function> `
+
+```nix
+<function>
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -1610,7 +1825,10 @@ absolute path or package
 
 
 *Default:*
-` <nix-haskell> `
+
+```nix
+<nix-haskell>
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -1635,7 +1853,10 @@ string
 
 
 *Default:*
-` "x86_64-linux" `
+
+```nix
+"x86_64-linux"
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -1656,7 +1877,10 @@ null or (attribute set)
 
 
 *Default:*
-` { } `
+
+```nix
+{ }
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -1677,7 +1901,10 @@ null or (list of unspecified value)
 
 
 *Default:*
-` [ ] `
+
+```nix
+[ ]
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -1698,7 +1925,10 @@ submodule
 
 
 *Default:*
-` { } `
+
+```nix
+{ }
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -1719,7 +1949,10 @@ unspecified value
 
 
 *Default:*
-` <function> `
+
+```nix
+<function>
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -1742,7 +1975,10 @@ unspecified value
 
 
 *Default:*
-` { } `
+
+```nix
+{ }
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -1763,7 +1999,10 @@ unspecified value
 
 
 *Default:*
-` <function> `
+
+```nix
+<function>
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -1785,7 +2024,10 @@ boolean
 
 
 *Default:*
-` false `
+
+```nix
+false
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -1819,7 +2061,10 @@ attribute set of unspecified value
 
 
 *Default:*
-` { } `
+
+```nix
+{ }
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -1840,7 +2085,10 @@ null or package
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -1861,7 +2109,10 @@ null or package
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -1898,7 +2149,10 @@ boolean
 
 
 *Default:*
-` false `
+
+```nix
+false
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -1919,7 +2173,10 @@ null or string
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -1940,7 +2197,10 @@ null or string
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -1966,7 +2226,10 @@ null or (attribute set)
 
 
 *Default:*
-` { } `
+
+```nix
+{ }
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -1987,7 +2250,10 @@ null or absolute path or package
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -2008,7 +2274,10 @@ null or (list of unspecified value)
 
 
 *Default:*
-` [ ] `
+
+```nix
+[ ]
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -2029,7 +2298,10 @@ null or string
 
 
 *Default:*
-` "haskell-project" `
+
+```nix
+"haskell-project"
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -2050,7 +2322,10 @@ null or package
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -2071,7 +2346,10 @@ null or (list of unspecified value)
 
 
 *Default:*
-` [ ] `
+
+```nix
+[ ]
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -2092,7 +2370,10 @@ null or string
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -2115,7 +2396,10 @@ list of package
 
 
 *Default:*
-` [ ] `
+
+```nix
+[ ]
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -2136,7 +2420,10 @@ null or string
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -2162,7 +2449,7 @@ null or (attribute set of (string or attribute set of string))
 
 *Default:*
 
-```
+```nix
 {
   "https://github.com/pepeiborra/ekg-json" = {
     "7a0af7a8fd38045fd15fb13445bdcc7085325460" = "sha256-fVwKxGgM0S4Kv/4egVAAiAjV7QB5PBqMVMCfsv7otIQ=";
@@ -2191,7 +2478,10 @@ submodule
 
 
 *Default:*
-` { } `
+
+```nix
+{ }
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -2212,7 +2502,10 @@ unspecified value
 
 
 *Default:*
-` false `
+
+```nix
+false
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -2233,7 +2526,10 @@ unspecified value
 
 
 *Default:*
-` true `
+
+```nix
+true
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -2254,7 +2550,10 @@ unspecified value
 
 
 *Default:*
-` <function> `
+
+```nix
+<function>
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -2275,7 +2574,10 @@ unspecified value
 
 
 *Default:*
-` <function> `
+
+```nix
+<function>
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -2299,7 +2601,10 @@ boolean
 
 
 *Default:*
-` true `
+
+```nix
+true
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -2320,7 +2625,10 @@ list of unspecified value
 
 
 *Default:*
-` [ ] `
+
+```nix
+[ ]
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -2341,7 +2649,10 @@ unspecified value
 
 
 *Default:*
-` <function> `
+
+```nix
+<function>
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -2362,7 +2673,10 @@ unspecified value
 
 
 *Default:*
-` <function> `
+
+```nix
+<function>
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -2383,7 +2697,47 @@ boolean
 
 
 *Default:*
-` false `
+
+```nix
+false
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+
+
+
+## haskell-nix\.options\.shell\.exposePackagesVia
+
+
+
+How the v2 shell’s pre-built library deps are made visible to
+tools the user runs\.  One of:
+
+ - “cabal-store” (default) — the composed store is copied
+   into ` ~/.cabal/store/<ghc>-inplace/ ` via a shellHook
+   (or the explicit ` haskell-nix-cabal-store-sync ` command)\.
+   ` cabal v2-build ` then reuses the units directly\.  The
+   shell’s ` ghc ` is left plain, so ` runghc `/` ghci ` will not
+   see the deps\.
+ - “ghc-pkg” — the shell’s ` ghc ` is wrapped with
+   GHC_ENVIRONMENT pointing at the composed store’s
+   package\.db, so ` ghc `/` ghci `/` runghc `/` ghc-pkg ` see every
+   dep directly\.  No files are written outside the shell\.
+   Only affects ` shellFor ` under ` builderVersion = 2 `\.
+
+
+
+*Type:*
+one of “cabal-store”, “ghc-pkg”
+
+
+
+*Default:*
+
+```nix
+"cabal-store"
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -2404,7 +2758,10 @@ list of unspecified value
 
 
 *Default:*
-` [ ] `
+
+```nix
+[ ]
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -2425,7 +2782,10 @@ null or string
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -2446,7 +2806,10 @@ list of unspecified value
 
 
 *Default:*
-` [ ] `
+
+```nix
+[ ]
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -2467,7 +2830,10 @@ attribute set of unspecified value
 
 
 *Default:*
-` { } `
+
+```nix
+{ }
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -2488,7 +2854,10 @@ string
 
 
 *Default:*
-` "" `
+
+```nix
+""
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -2509,7 +2878,10 @@ attribute set of unspecified value
 
 
 *Default:*
-` { } `
+
+```nix
+{ }
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -2530,7 +2902,10 @@ boolean
 
 
 *Default:*
-` true `
+
+```nix
+true
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -2551,7 +2926,10 @@ boolean
 
 
 *Default:*
-` true `
+
+```nix
+true
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -2572,7 +2950,10 @@ attribute set of function that evaluates to a(n) (attribute set)
 
 
 *Default:*
-` { } `
+
+```nix
+{ }
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -2609,7 +2990,52 @@ boolean
 
 
 *Default:*
-` false `
+
+```nix
+false
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+
+
+
+## haskell-nix\.options\.useLocalGhcLib
+
+
+
+Expose the GHC compiler tree (configured-src + generated, the
+` compiler/ ` subdir thereof) to the planner as a regular
+reinstallable package source\.  Use this when the project
+depends on / constrains the ` ghc ` package — e\.g\.
+` ghc-lib-reinstallable `\.
+
+The project-level wiring differs by builder:
+
+ - Cabal projects (see ` modules/cabal-project.nix `) inject a
+   ` source-repository-package ` block into ` cabalProjectLocal `
+   so cabal hashes the wrapped repo’s content into
+   ` pkg-src-sha256 `\.  Both plan-to-nix and the v2 slice see
+   the same repo, so UnitIds align\.
+ - Stack projects (see ` modules/stack-project.nix `) re-add
+   the post-plan ` packages.ghc.src ` override that
+   ` modules/configuration-nix.nix ` used to apply
+   unconditionally — stack only supports the v1 builder for
+   now, so the post-plan override is harmless (v1 doesn’t
+   enforce UnitId alignment)\.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+
+```nix
+false
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -2632,7 +3058,10 @@ list of unspecified value
 
 
 *Default:*
-` [ ] `
+
+```nix
+[ ]
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
@@ -2679,7 +3108,10 @@ attribute set
 
 
 *Default:*
-` { } `
+
+```nix
+{ }
+```
 
 
 
@@ -2714,7 +3146,10 @@ attribute set of raw value
 
 
 *Default:*
-` { } `
+
+```nix
+{ }
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/inputs\.nix](file://<nix-haskell>/modules/inputs.nix)
@@ -2737,7 +3172,7 @@ boolean
 
 *Default:*
 
-```
+```nix
 ''
   let # Create probe set mapping each platform name to itself
       # e.g., { ghcjs = "ghcjs"; wasi32 = "wasi32"; mingwW64 = "mingwW64"; ... }
@@ -2772,7 +3207,7 @@ boolean
 
 *Default:*
 
-```
+```nix
 ''
   let # Create probe set mapping each platform name to itself
       # e.g., { ghcjs = "ghcjs"; wasi32 = "wasi32"; mingwW64 = "mingwW64"; ... }
@@ -2805,7 +3240,10 @@ null or string
 
 
 *Default:*
-` "i20qmhiwvzrc9ffp0dmq8qs2pbi71cvf-source" `
+
+```nix
+"cb6mcjq6y1d6mzqzha35f8avygld3xjw-source"
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -2829,7 +3267,7 @@ string
 *Default:*
 
 ```
-config.compiler-nix-name
+config.nixpkgs.compiler-nix-name
 ```
 
 *Declared by:*
@@ -2876,7 +3314,10 @@ submodule
 
 
 *Default:*
-` { } `
+
+```nix
+{ }
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
@@ -2898,7 +3339,10 @@ null or (attribute set of (submodule))
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 
 
@@ -2930,7 +3374,10 @@ string
 
 
 *Default:*
-` "." `
+
+```nix
+"."
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
@@ -2954,7 +3401,10 @@ submodule
 
 
 *Default:*
-` { } `
+
+```nix
+{ }
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
@@ -2975,7 +3425,10 @@ boolean
 
 
 *Default:*
-` false `
+
+```nix
+false
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
@@ -2996,7 +3449,10 @@ boolean
 
 
 *Default:*
-` false `
+
+```nix
+false
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
@@ -3017,7 +3473,10 @@ boolean
 
 
 *Default:*
-` true `
+
+```nix
+true
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
@@ -3040,7 +3499,10 @@ list of raw value
 
 
 *Default:*
-` [ ] `
+
+```nix
+[ ]
+```
 
 
 
@@ -3070,7 +3532,10 @@ attribute set
 
 
 *Default:*
-` { } `
+
+```nix
+{ }
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
@@ -3094,7 +3559,10 @@ attribute set of package
 
 
 *Default:*
-` { } `
+
+```nix
+{ }
+```
 
 
 
@@ -3129,7 +3597,10 @@ boolean
 
 
 *Default:*
-` false `
+
+```nix
+false
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
@@ -3192,8 +3663,6 @@ import <nix-haskell>/libs/nixpkgs/driver.nix {
 
 ## optimizations\.O2
 
-
-
 Enable -O2 optimization level\.
 
 
@@ -3204,7 +3673,10 @@ boolean
 
 
 *Default:*
-` false `
+
+```nix
+false
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/optimizations\.nix](file://<nix-haskell>/modules/optimizations.nix)
@@ -3225,7 +3697,10 @@ boolean
 
 
 *Default:*
-` false `
+
+```nix
+false
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/optimizations\.nix](file://<nix-haskell>/modules/optimizations.nix)
@@ -3246,7 +3721,10 @@ boolean
 
 
 *Default:*
-` false `
+
+```nix
+false
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/optimizations\.nix](file://<nix-haskell>/modules/optimizations.nix)
@@ -3254,6 +3732,8 @@ boolean
 
 
 ## optimizations\.expose-all-unfoldings
+
+
 
 Enable -fexpose-all-unfoldings for cross-module optimization\.
 
@@ -3265,7 +3745,10 @@ boolean
 
 
 *Default:*
-` false `
+
+```nix
+false
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/optimizations\.nix](file://<nix-haskell>/modules/optimizations.nix)
@@ -3286,7 +3769,10 @@ boolean
 
 
 *Default:*
-` false `
+
+```nix
+false
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/optimizations\.nix](file://<nix-haskell>/modules/optimizations.nix)
@@ -3307,7 +3793,10 @@ boolean
 
 
 *Default:*
-` false `
+
+```nix
+false
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/optimizations\.nix](file://<nix-haskell>/modules/optimizations.nix)
@@ -3328,7 +3817,10 @@ boolean
 
 
 *Default:*
-` false `
+
+```nix
+false
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/optimizations\.nix](file://<nix-haskell>/modules/optimizations.nix)
@@ -3349,7 +3841,10 @@ null or (attribute set of (string or attribute set of string))
 
 
 *Default:*
-` null `
+
+```nix
+null
+```
 
 
 
@@ -3382,7 +3877,10 @@ submodule
 
 
 *Default:*
-` { } `
+
+```nix
+{ }
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -3438,7 +3936,10 @@ list of package
 
 
 *Default:*
-` [ ] `
+
+```nix
+[ ]
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -3492,7 +3993,10 @@ list of package
 
 
 *Default:*
-` [ ] `
+
+```nix
+[ ]
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -3513,7 +4017,10 @@ strings concatenated with “\\n”
 
 
 *Default:*
-` "" `
+
+```nix
+""
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -3536,7 +4043,10 @@ attribute set of raw value
 
 
 *Default:*
-` { } `
+
+```nix
+{ }
+```
 
 
 
@@ -3565,7 +4075,10 @@ boolean
 
 
 *Default:*
-` false `
+
+```nix
+false
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -3591,7 +4104,10 @@ attribute set of (absolute path or (attribute set))
 
 
 *Default:*
-` { } `
+
+```nix
+{ }
+```
 
 
 
@@ -3630,7 +4146,10 @@ absolute path or package
 
 
 *Example:*
-` "./." `
+
+```nix
+"./."
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -3682,7 +4201,7 @@ string
 
 *Default:*
 
-```
+```nix
 ''
   builtins.currentSystem
 ''

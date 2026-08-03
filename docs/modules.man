@@ -9,7 +9,11 @@ unconditionally.
 .PP
 \f[I]Type:\f[R] attribute set of (submodule)
 .PP
-\f[I]Default:\f[R] \f[CR]{ }\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
 .PP
 \f[I]Example:\f[R]
 .IP
@@ -31,7 +35,11 @@ Whether to eliminate unused code at link time.
 .PP
 \f[I]Type:\f[R] null or boolean
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -44,7 +52,11 @@ GHCi.
 .PP
 \f[I]Type:\f[R] null or boolean
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -56,7 +68,11 @@ Whether to build the package\(cqs library with profiling support.
 .PP
 \f[I]Type:\f[R] null or boolean
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -68,7 +84,11 @@ Whether to build the whole package with profiling support.
 .PP
 \f[I]Type:\f[R] null or boolean
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -80,7 +100,11 @@ Whether to install the package\(cqs data files into a separate output.
 .PP
 \f[I]Type:\f[R] null or boolean
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -92,7 +116,11 @@ Whether to build a shared library.
 .PP
 \f[I]Type:\f[R] null or boolean
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -104,7 +132,11 @@ Whether to build a static library.
 .PP
 \f[I]Type:\f[R] null or boolean
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -115,7 +147,11 @@ Extra flags passed to \f[CR]Setup configure\f[R].
 .PP
 \f[I]Type:\f[R] list of string
 .PP
-\f[I]Default:\f[R] \f[CR][ ]\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+[ ]
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -127,7 +163,11 @@ Whether to run the package\(cqs test suites.
 .PP
 \f[I]Type:\f[R] null or boolean
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -139,7 +179,11 @@ Whether to generate a coverage report for the package.
 .PP
 \f[I]Type:\f[R] null or boolean
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -151,7 +195,11 @@ Whether to build the package\(cqs documentation.
 .PP
 \f[I]Type:\f[R] null or boolean
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -163,7 +211,11 @@ Whether to generate a hoogle index for the package\(cqs documentation.
 .PP
 \f[I]Type:\f[R] null or boolean
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -176,7 +228,11 @@ documentation.
 .PP
 \f[I]Type:\f[R] null or boolean
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -189,7 +245,11 @@ documentation.
 .PP
 \f[I]Type:\f[R] null or boolean
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -201,7 +261,11 @@ Whether to skip stripping the produced binaries.
 .PP
 \f[I]Type:\f[R] null or boolean
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -213,7 +277,11 @@ Cabal flag assignments for the package (\f[CR]true\f[R] enables,
 .PP
 \f[I]Type:\f[R] attribute set of boolean
 .PP
-\f[I]Default:\f[R] \f[CR]{ }\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -224,7 +292,11 @@ GHC flags for this package only.
 .PP
 \f[I]Type:\f[R] list of string
 .PP
-\f[I]Default:\f[R] \f[CR][ ]\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+[ ]
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -236,7 +308,11 @@ Hardening flags to disable when building the package.
 .PP
 \f[I]Type:\f[R] null or (list of string)
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Example:\f[R]
 .IP
@@ -255,7 +331,11 @@ Patches applied to the package source.
 .PP
 \f[I]Type:\f[R] list of absolute path
 .PP
-\f[I]Default:\f[R] \f[CR][ ]\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+[ ]
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -267,7 +347,11 @@ Shell code run after the build phase.
 .PP
 \f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -279,7 +363,11 @@ Shell code run after the check phase.
 .PP
 \f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -291,7 +379,11 @@ Shell code run after the configure phase.
 .PP
 \f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -303,7 +395,11 @@ Shell code run after the haddock phase.
 .PP
 \f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -315,7 +411,11 @@ Shell code run after the install phase.
 .PP
 \f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -327,7 +427,11 @@ Shell code run after the patch phase.
 .PP
 \f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -339,7 +443,11 @@ Shell code run after the unpack phase.
 .PP
 \f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -351,7 +459,11 @@ Shell code run before the build phase.
 .PP
 \f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -363,7 +475,11 @@ Shell code run before the check phase.
 .PP
 \f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -375,7 +491,11 @@ Shell code run before the configure phase.
 .PP
 \f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -387,7 +507,11 @@ Shell code run before the haddock phase.
 .PP
 \f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -399,7 +523,11 @@ Shell code run before the install phase.
 .PP
 \f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -411,7 +539,11 @@ Shell code run before the patch phase.
 .PP
 \f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -423,7 +555,11 @@ Shell code run before the unpack phase.
 .PP
 \f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -435,9 +571,17 @@ The profiling detail level.
 .PP
 \f[I]Type:\f[R] null or string
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
-\f[I]Example:\f[R] \f[CR]\(dqtoplevel\-functions\(dq\f[R]
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqtoplevel\-functions\(dq
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -448,7 +592,11 @@ Extra flags passed to \f[CR]Setup build\f[R].
 .PP
 \f[I]Type:\f[R] list of string
 .PP
-\f[I]Default:\f[R] \f[CR][ ]\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+[ ]
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -459,7 +607,11 @@ Extra flags passed to \f[CR]Setup haddock\f[R].
 .PP
 \f[I]Type:\f[R] list of string
 .PP
-\f[I]Default:\f[R] \f[CR][ ]\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+[ ]
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -470,7 +622,11 @@ Replacement source for the package.
 .PP
 \f[I]Type:\f[R] null or absolute path or package
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -534,6 +690,12 @@ argument:
 .PP
 \f[I]Type:\f[R] lazy attribute set of raw value
 .PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
 .UR https://github.com/NixOS/nixpkgs/blob//lib/modules.nix
 <nixpkgs/lib/modules.nix>
@@ -544,7 +706,11 @@ Content of the \f[CR]cabal.project\f[R] file.
 .PP
 \f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -555,7 +721,11 @@ Name of the cabal project file.
 .PP
 \f[I]Type:\f[R] string
 .PP
-\f[I]Default:\f[R] \f[CR]\(dqcabal.project\(dq\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+\(dqcabal.project\(dq
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -566,7 +736,11 @@ Content of the \f[CR]cabal.project.local\f[R] file.
 .PP
 \f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -582,7 +756,11 @@ Only applies when \f[CR]src\f[R] is a path; a derivation is used as\-is.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
-\f[I]Default:\f[R] \f[CR]true\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+true
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -596,7 +774,11 @@ since those patterns are not read.
 .PP
 \f[I]Type:\f[R] strings concatenated with \(lq\(rsn\(rq
 .PP
-\f[I]Default:\f[R] \f[CR]\(dq\(dq\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+\(dq\(dq
+.EE
 .PP
 \f[I]Example:\f[R]
 .IP
@@ -616,9 +798,17 @@ The name of the ghc compiler to use.
 .PP
 \f[I]Type:\f[R] string
 .PP
-\f[I]Default:\f[R] \f[CR]\(dqghc914\(dq\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+\(dqghc914\(dq
+.EE
 .PP
-\f[I]Example:\f[R] \f[CR]\(dqghc884\(dq\f[R]
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqghc884\(dq
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -629,7 +819,11 @@ Lines to append to \f[CR]cabal.project\f[R].
 .PP
 \f[I]Type:\f[R] list of strings concatenated with \(lq\(rsn\(rq
 .PP
-\f[I]Default:\f[R] \f[CR][ ]\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+[ ]
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -640,7 +834,11 @@ GHC flags applied project\-wide.
 .PP
 \f[I]Type:\f[R] list of string
 .PP
-\f[I]Default:\f[R] \f[CR][ ]\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+[ ]
+.EE
 .PP
 \f[I]Example:\f[R]
 .IP
@@ -662,7 +860,11 @@ A good example of this is obelisk\-generated\-static.
 .PP
 \f[I]Type:\f[R] list of (attribute set)
 .PP
-\f[I]Default:\f[R] \f[CR][ ]\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+[ ]
+.EE
 .PP
 \f[I]Example:\f[R]
 .IP
@@ -690,7 +892,11 @@ ExtraSrcFiles to include in the project builds.
 .PP
 \f[I]Type:\f[R] attribute set
 .PP
-\f[I]Default:\f[R] \f[CR]{ }\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -791,7 +997,35 @@ This option has no description.
 .PP
 \f[I]Type:\f[R] submodule
 .PP
-\f[I]Default:\f[R] \f[CR]{ }\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/haskell.nix
+/modules/haskell.nix
+.UE \c
+.SS haskell\-nix.options.builderVersion
+Selects which component builder is used for per\-component derivations.
+.IP \(bu 2
+\f[CR]1\f[R] (default) \(em the Setup.hs\-based builder
+(comp\-builder.nix).
+.IP \(bu 2
+\f[CR]2\f[R] \(em the cabal v2\-build\-based slicing builder
+(comp\-v2\-builder.nix).
+This is project\-wide.
+Set it on the project module to switch builders; there is no
+per\-component opt\-in.
+.PP
+\f[I]Type:\f[R] signed integer
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+1
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -802,7 +1036,11 @@ This option has no description.
 .PP
 \f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -813,7 +1051,11 @@ This option has no description.
 .PP
 \f[I]Type:\f[R] string
 .PP
-\f[I]Default:\f[R] \f[CR]\(dqcabal.project\(dq\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+\(dqcabal.project\(dq
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -822,9 +1064,13 @@ This option has no description.
 .SS haskell\-nix.options.cabalProjectFreeze
 This option has no description.
 .PP
-\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+\f[I]Type:\f[R] strings concatenated with \(lq\(rsn\(rq
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+\(dq\(dq
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -833,9 +1079,13 @@ This option has no description.
 .SS haskell\-nix.options.cabalProjectLocal
 This option has no description.
 .PP
-\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+\f[I]Type:\f[R] strings concatenated with \(lq\(rsn\(rq
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+\(dq\(dq
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -847,7 +1097,11 @@ material
 .PP
 \f[I]Type:\f[R] null or boolean
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -868,7 +1122,11 @@ Use GHC from pkgs.haskell instead of pkgs.haskell\-nix
 .PP
 \f[I]Type:\f[R] unspecified value
 .PP
-\f[I]Default:\f[R] \f[CR]<function>\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+<function>
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -884,7 +1142,11 @@ to be chosen, then we can use
 .PP
 \f[I]Type:\f[R] null or strings concatenated with \(rq \(rq
 .PP
-\f[I]Default:\f[R] \f[CR]\(dq\(dq\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+\(dq\(dq
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -895,7 +1157,11 @@ This option has no description.
 .PP
 \f[I]Type:\f[R] unspecified value
 .PP
-\f[I]Default:\f[R] \f[CR]<function>\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+<function>
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -939,7 +1205,11 @@ A version of the source that does not require building
 .PP
 \f[I]Type:\f[R] absolute path or package
 .PP
-\f[I]Default:\f[R] \f[CR]<nix\-haskell>\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+<nix\-haskell>
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -955,7 +1225,11 @@ evaluation of the haskell project to work.
 .PP
 \f[I]Type:\f[R] string
 .PP
-\f[I]Default:\f[R] \f[CR]\(dqx86_64\-linux\(dq\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+\(dqx86_64\-linux\(dq
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -966,7 +1240,11 @@ This option has no description.
 .PP
 \f[I]Type:\f[R] null or (attribute set)
 .PP
-\f[I]Default:\f[R] \f[CR]{ }\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -977,7 +1255,11 @@ This option has no description.
 .PP
 \f[I]Type:\f[R] null or (list of unspecified value)
 .PP
-\f[I]Default:\f[R] \f[CR][ ]\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+[ ]
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -988,7 +1270,11 @@ Default arguments to use for the \f[CR]p.flake\f[R].
 .PP
 \f[I]Type:\f[R] submodule
 .PP
-\f[I]Default:\f[R] \f[CR]{ }\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -999,7 +1285,11 @@ This option has no description.
 .PP
 \f[I]Type:\f[R] unspecified value
 .PP
-\f[I]Default:\f[R] \f[CR]<function>\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+<function>
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1012,7 +1302,11 @@ on by default.
 .PP
 \f[I]Type:\f[R] unspecified value
 .PP
-\f[I]Default:\f[R] \f[CR]{ }\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1023,7 +1317,11 @@ This option has no description.
 .PP
 \f[I]Type:\f[R] unspecified value
 .PP
-\f[I]Default:\f[R] \f[CR]<function>\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+<function>
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1035,7 +1333,11 @@ include code coverage reports.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
-\f[I]Default:\f[R] \f[CR]false\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+false
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1059,7 +1361,11 @@ Then use it with:
 .PP
 \f[I]Type:\f[R] attribute set of unspecified value
 .PP
-\f[I]Default:\f[R] \f[CR]{ }\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1070,7 +1376,11 @@ Deprecated in favour of \f[CR]compiler\-nix\-name\f[R]
 .PP
 \f[I]Type:\f[R] null or package
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1081,7 +1391,11 @@ Used when we need to set ghc explicitly during bootstrapping
 .PP
 \f[I]Type:\f[R] null or package
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1102,7 +1416,11 @@ it is present.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
-\f[I]Default:\f[R] \f[CR]false\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+false
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1113,7 +1431,11 @@ The hash of the truncated hackage index\-state
 .PP
 \f[I]Type:\f[R] null or string
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1125,7 +1447,11 @@ Hackage index\-state, eg.
 .PP
 \f[I]Type:\f[R] null or string
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1142,7 +1468,11 @@ also be looked up in the \f[CR]inputMap\f[R].
 .PP
 \f[I]Type:\f[R] null or (attribute set)
 .PP
-\f[I]Default:\f[R] \f[CR]{ }\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1153,7 +1483,11 @@ Location of a materialized copy of the nix files
 .PP
 \f[I]Type:\f[R] null or absolute path or package
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1164,7 +1498,11 @@ This option has no description.
 .PP
 \f[I]Type:\f[R] null or (list of unspecified value)
 .PP
-\f[I]Default:\f[R] \f[CR][ ]\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+[ ]
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1175,7 +1513,11 @@ Optional name for better error messages
 .PP
 \f[I]Type:\f[R] null or string
 .PP
-\f[I]Default:\f[R] \f[CR]\(dqhaskell\-project\(dq\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+\(dqhaskell\-project\(dq
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1186,7 +1528,11 @@ nix\-tools to use when converting the \f[CR]plan.json\f[R] to nix
 .PP
 \f[I]Type:\f[R] null or package
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1197,7 +1543,11 @@ This option has no description.
 .PP
 \f[I]Type:\f[R] null or (list of unspecified value)
 .PP
-\f[I]Default:\f[R] \f[CR][ ]\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+[ ]
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1209,7 +1559,11 @@ fixed output derivation)
 .PP
 \f[I]Type:\f[R] null or string
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1223,7 +1577,11 @@ See Note [prebuilt dependencies] for more details
 .PP
 \f[I]Type:\f[R] list of package
 .PP
-\f[I]Default:\f[R] \f[CR][ ]\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+[ ]
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1234,7 +1592,11 @@ This option has no description.
 .PP
 \f[I]Type:\f[R] null or string
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1271,7 +1633,11 @@ use shell = { tools.cabal = {}; crossPlatforms = p: [ p.ghcjs ]; }
 .PP
 \f[I]Type:\f[R] submodule
 .PP
-\f[I]Default:\f[R] \f[CR]{ }\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1282,7 +1648,11 @@ This option has no description.
 .PP
 \f[I]Type:\f[R] unspecified value
 .PP
-\f[I]Default:\f[R] \f[CR]false\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+false
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1293,7 +1663,11 @@ This option has no description.
 .PP
 \f[I]Type:\f[R] unspecified value
 .PP
-\f[I]Default:\f[R] \f[CR]true\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+true
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1304,7 +1678,11 @@ This option has no description.
 .PP
 \f[I]Type:\f[R] unspecified value
 .PP
-\f[I]Default:\f[R] \f[CR]<function>\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+<function>
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1315,7 +1693,11 @@ This option has no description.
 .PP
 \f[I]Type:\f[R] unspecified value
 .PP
-\f[I]Default:\f[R] \f[CR]<function>\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+<function>
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1329,7 +1711,11 @@ build the tools used by every \f[CR]stackage\f[R] package).
 .PP
 \f[I]Type:\f[R] boolean
 .PP
-\f[I]Default:\f[R] \f[CR]true\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+true
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1340,7 +1726,11 @@ This option has no description.
 .PP
 \f[I]Type:\f[R] list of unspecified value
 .PP
-\f[I]Default:\f[R] \f[CR][ ]\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+[ ]
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1351,7 +1741,11 @@ This option has no description.
 .PP
 \f[I]Type:\f[R] unspecified value
 .PP
-\f[I]Default:\f[R] \f[CR]<function>\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+<function>
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1362,7 +1756,11 @@ This option has no description.
 .PP
 \f[I]Type:\f[R] unspecified value
 .PP
-\f[I]Default:\f[R] \f[CR]<function>\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+<function>
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1373,7 +1771,42 @@ This option has no description.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
-\f[I]Default:\f[R] \f[CR]false\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+false
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/haskell.nix
+/modules/haskell.nix
+.UE \c
+.SS haskell\-nix.options.shell.exposePackagesVia
+How the v2 shell\(cqs pre\-built library deps are made visible to tools
+the user runs.
+One of:
+.IP \(bu 2
+\(lqcabal\-store\(rq (default) \(em the composed store is copied into
+\f[CR]\(ti/.cabal/store/<ghc>\-inplace/\f[R] via a shellHook (or the
+explicit \f[CR]haskell\-nix\-cabal\-store\-sync\f[R] command).
+\f[CR]cabal v2\-build\f[R] then reuses the units directly.
+The shell\(cqs \f[CR]ghc\f[R] is left plain, so
+\f[CR]runghc\f[R]/\f[CR]ghci\f[R] will not see the deps.
+.IP \(bu 2
+\(lqghc\-pkg\(rq \(em the shell\(cqs \f[CR]ghc\f[R] is wrapped with
+GHC_ENVIRONMENT pointing at the composed store\(cqs package.db, so
+\f[CR]ghc\f[R]/\f[CR]ghci\f[R]/\f[CR]runghc\f[R]/\f[CR]ghc\-pkg\f[R] see
+every dep directly.
+No files are written outside the shell.
+Only affects \f[CR]shellFor\f[R] under \f[CR]builderVersion = 2\f[R].
+.PP
+\f[I]Type:\f[R] one of \(lqcabal\-store\(rq, \(lqghc\-pkg\(rq
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+\(dqcabal\-store\(dq
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1384,7 +1817,11 @@ This option has no description.
 .PP
 \f[I]Type:\f[R] list of unspecified value
 .PP
-\f[I]Default:\f[R] \f[CR][ ]\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+[ ]
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1395,7 +1832,11 @@ This option has no description.
 .PP
 \f[I]Type:\f[R] null or string
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1406,7 +1847,11 @@ This option has no description.
 .PP
 \f[I]Type:\f[R] list of unspecified value
 .PP
-\f[I]Default:\f[R] \f[CR][ ]\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+[ ]
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1417,7 +1862,11 @@ This option has no description.
 .PP
 \f[I]Type:\f[R] attribute set of unspecified value
 .PP
-\f[I]Default:\f[R] \f[CR]{ }\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1428,7 +1877,11 @@ This option has no description.
 .PP
 \f[I]Type:\f[R] string
 .PP
-\f[I]Default:\f[R] \f[CR]\(dq\(dq\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+\(dq\(dq
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1439,7 +1892,11 @@ This option has no description.
 .PP
 \f[I]Type:\f[R] attribute set of unspecified value
 .PP
-\f[I]Default:\f[R] \f[CR]{ }\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1450,7 +1907,11 @@ This option has no description.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
-\f[I]Default:\f[R] \f[CR]true\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+true
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1461,7 +1922,11 @@ This option has no description.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
-\f[I]Default:\f[R] \f[CR]true\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+true
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1473,7 +1938,11 @@ This option has no description.
 \f[I]Type:\f[R] attribute set of function that evaluates to a(n)
 (attribute set)
 .PP
-\f[I]Default:\f[R] \f[CR]{ }\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1493,7 +1962,45 @@ This option has no description.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
-\f[I]Default:\f[R] \f[CR]false\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+false
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/haskell.nix
+/modules/haskell.nix
+.UE \c
+.SS haskell\-nix.options.useLocalGhcLib
+Expose the GHC compiler tree (configured\-src + generated, the
+\f[CR]compiler/\f[R] subdir thereof) to the planner as a regular
+reinstallable package source.
+Use this when the project depends on / constrains the \f[CR]ghc\f[R]
+package \(em e.g.
+\f[CR]ghc\-lib\-reinstallable\f[R].
+.PP
+The project\-level wiring differs by builder:
+.IP \(bu 2
+Cabal projects (see \f[CR]modules/cabal\-project.nix\f[R]) inject a
+\f[CR]source\-repository\-package\f[R] block into
+\f[CR]cabalProjectLocal\f[R] so cabal hashes the wrapped repo\(cqs
+content into \f[CR]pkg\-src\-sha256\f[R].
+Both plan\-to\-nix and the v2 slice see the same repo, so UnitIds align.
+.IP \(bu 2
+Stack projects (see \f[CR]modules/stack\-project.nix\f[R]) re\-add the
+post\-plan \f[CR]packages.ghc.src\f[R] override that
+\f[CR]modules/configuration\-nix.nix\f[R] used to apply unconditionally
+\(em stack only supports the v1 builder for now, so the post\-plan
+override is harmless (v1 doesn\(cqt enforce UnitId alignment).
+.PP
+\f[I]Type:\f[R] boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+false
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1506,7 +2013,11 @@ Lists are concatenated when composed (not replaced).
 .PP
 \f[I]Type:\f[R] list of unspecified value
 .PP
-\f[I]Default:\f[R] \f[CR][ ]\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+[ ]
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
@@ -1535,7 +2046,11 @@ The \f[CR].rev\f[R] attribute is checked against the \f[CR]tag\f[R] for
 .PP
 \f[I]Type:\f[R] attribute set
 .PP
-\f[I]Default:\f[R] \f[CR]{ }\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
 .PP
 \f[I]Example:\f[R]
 .IP
@@ -1558,7 +2073,11 @@ Entries beyond the ones in \f[CR]pins/\f[R] may be added freely.
 .PP
 \f[I]Type:\f[R] attribute set of raw value
 .PP
-\f[I]Default:\f[R] \f[CR]{ }\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/inputs.nix
@@ -1624,7 +2143,10 @@ Optional name for better error messages.
 \f[I]Type:\f[R] null or string
 .PP
 \f[I]Default:\f[R]
-\f[CR]\(dqi20qmhiwvzrc9ffp0dmq8qs2pbi71cvf\-source\(dq\f[R]
+.IP
+.EX
+\(dqcb6mcjq6y1d6mzqzha35f8avygld3xjw\-source\(dq
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -1640,7 +2162,7 @@ equivalent.
 \f[I]Default:\f[R]
 .IP
 .EX
-config.compiler\-nix\-name
+config.nixpkgs.compiler\-nix\-name
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
@@ -1668,7 +2190,11 @@ nixpkgs\-specific project options.
 .PP
 \f[I]Type:\f[R] submodule
 .PP
-\f[I]Default:\f[R] \f[CR]{ }\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/nixpkgs
@@ -1681,7 +2207,11 @@ Overrides discovery entirely.
 .PP
 \f[I]Type:\f[R] null or (attribute set of (submodule))
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Example:\f[R]
 .IP
@@ -1701,7 +2231,11 @@ Directory of the package within the project source.
 .PP
 \f[I]Type:\f[R] string
 .PP
-\f[I]Default:\f[R] \f[CR]\(dq.\(dq\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+\(dq.\(dq
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/nixpkgs
@@ -1714,7 +2248,11 @@ Without a solver their version bounds routinely need loosening.
 .PP
 \f[I]Type:\f[R] submodule
 .PP
-\f[I]Default:\f[R] \f[CR]{ }\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/nixpkgs
@@ -1725,7 +2263,11 @@ Run their test suites.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
-\f[I]Default:\f[R] \f[CR]false\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+false
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/nixpkgs
@@ -1736,7 +2278,11 @@ Build their documentation.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
-\f[I]Default:\f[R] \f[CR]false\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+false
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/nixpkgs
@@ -1747,7 +2293,11 @@ Lift version bounds (\f[CR]haskell.lib.doJailbreak\f[R]).
 .PP
 \f[I]Type:\f[R] boolean
 .PP
-\f[I]Default:\f[R] \f[CR]true\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+true
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/nixpkgs
@@ -1760,7 +2310,11 @@ The escape hatch for anything the common options do not cover.
 .PP
 \f[I]Type:\f[R] list of raw value
 .PP
-\f[I]Default:\f[R] \f[CR][ ]\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+[ ]
+.EE
 .PP
 \f[I]Example:\f[R]
 .IP
@@ -1778,7 +2332,11 @@ Extra arguments passed to \f[CR]shellFor\f[R] verbatim
 .PP
 \f[I]Type:\f[R] attribute set
 .PP
-\f[I]Default:\f[R] \f[CR]{ }\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/nixpkgs
@@ -1792,7 +2350,11 @@ a single version.
 .PP
 \f[I]Type:\f[R] attribute set of package
 .PP
-\f[I]Default:\f[R] \f[CR]{ }\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
 .PP
 \f[I]Example:\f[R]
 .IP
@@ -1815,7 +2377,11 @@ The packages are still built from nixpkgs.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
-\f[I]Default:\f[R] \f[CR]false\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+false
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/nixpkgs
@@ -1863,7 +2429,11 @@ Enable \-O2 optimization level.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
-\f[I]Default:\f[R] \f[CR]false\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+false
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/optimizations.nix
@@ -1874,7 +2444,11 @@ Enable all optimization flags.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
-\f[I]Default:\f[R] \f[CR]false\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+false
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/optimizations.nix
@@ -1885,7 +2459,11 @@ Enable \-fcross\-module\-specialise.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
-\f[I]Default:\f[R] \f[CR]false\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+false
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/optimizations.nix
@@ -1896,7 +2474,11 @@ Enable \-fexpose\-all\-unfoldings for cross\-module optimization.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
-\f[I]Default:\f[R] \f[CR]false\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+false
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/optimizations.nix
@@ -1907,7 +2489,11 @@ Enable \-flate\-specialise.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
-\f[I]Default:\f[R] \f[CR]false\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+false
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/optimizations.nix
@@ -1918,7 +2504,11 @@ Enable \-fspecialise.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
-\f[I]Default:\f[R] \f[CR]false\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+false
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/optimizations.nix
@@ -1929,7 +2519,11 @@ Enable \-fspecialise\-aggressively.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
-\f[I]Default:\f[R] \f[CR]false\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+false
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/optimizations.nix
@@ -1942,7 +2536,11 @@ cabal.project file.
 \f[I]Type:\f[R] null or (attribute set of (string or attribute set of
 string))
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
 .PP
 \f[I]Example:\f[R]
 .IP
@@ -1963,7 +2561,11 @@ Development shell configuration.
 .PP
 \f[I]Type:\f[R] submodule
 .PP
-\f[I]Default:\f[R] \f[CR]{ }\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -2001,7 +2603,11 @@ Extra packages available in the shell.
 .PP
 \f[I]Type:\f[R] list of package
 .PP
-\f[I]Default:\f[R] \f[CR][ ]\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+[ ]
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -2034,7 +2640,11 @@ Extra native packages available in the shell.
 .PP
 \f[I]Type:\f[R] list of package
 .PP
-\f[I]Default:\f[R] \f[CR][ ]\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+[ ]
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -2045,7 +2655,11 @@ Shell hook to run when entering the shell.
 .PP
 \f[I]Type:\f[R] strings concatenated with \(lq\(rsn\(rq
 .PP
-\f[I]Default:\f[R] \f[CR]\(dq\(dq\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+\(dq\(dq
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -2058,7 +2672,11 @@ version string, or a tool argument set.
 .PP
 \f[I]Type:\f[R] attribute set of raw value
 .PP
-\f[I]Default:\f[R] \f[CR]{ }\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
 .PP
 \f[I]Example:\f[R]
 .IP
@@ -2075,7 +2693,11 @@ Provide a hoogle database over the shell\(cqs package set.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
-\f[I]Default:\f[R] \f[CR]false\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+false
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -2091,7 +2713,11 @@ multi\-package repository needs one entry rather than one per package.
 .PP
 \f[I]Type:\f[R] attribute set of (absolute path or (attribute set))
 .PP
-\f[I]Default:\f[R] \f[CR]{ }\f[R]
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
 .PP
 \f[I]Example:\f[R]
 .IP
@@ -2118,7 +2744,11 @@ This option has no description.
 .PP
 \f[I]Type:\f[R] absolute path or package
 .PP
-\f[I]Example:\f[R] \f[CR]\(dq./.\(dq\f[R]
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dq./.\(dq
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix

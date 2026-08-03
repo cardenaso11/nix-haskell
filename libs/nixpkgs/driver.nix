@@ -21,7 +21,8 @@
 { pkgs, haskellPackages, lib, config }:
 
 let compose = pkgs.haskell.lib.compose;
-    ocfg = config.nixpkgs.options;
+    cfg = config.nixpkgs;
+    ocfg = cfg.options;
 
     haskell-nix-src = config.inputs."haskell-nix";
     parser = import (haskell-nix-src + "/lib/cabal-project-parser.nix") { inherit pkgs; };
@@ -50,11 +51,11 @@ let compose = pkgs.haskell.lib.compose;
     discovered =
       if ocfg.packages != null
       then lib.mapAttrs (_: p: { inherit (p) src; external = false; })
-             (project-file.discover { src = config.src-cleaned; explicit = ocfg.packages; })
+             (project-file.discover { src = cfg.src-cleaned; explicit = ocfg.packages; })
       else if ocfg.use-plan
       then planPackages
       else lib.mapAttrs (_: p: { inherit (p) src; external = false; })
-             (project-file.discover { src = config.src-cleaned; });
+             (project-file.discover { src = cfg.src-cleaned; });
 
 
 
@@ -73,20 +74,20 @@ let compose = pkgs.haskell.lib.compose;
             in lib.optionals (condition == null || conditionHolds condition)
                  (map pkgAt (if subdirs == [] then [ "." ] else subdirs));
       in builtins.listToAttrs
-           (lib.concatLists (lib.mapAttrsToList entry config.source-repository-packages));
+           (lib.concatLists (lib.mapAttrsToList entry cfg.source-repository-packages));
 
     # The project text the stanzas are read from: the project file (or the
     # cabalProject option, which replaces it), cabal.project.local and the
     # extraCabalProject lines.
     projectText =
       let base =
-            if config.cabalProject != null
-            then config.cabalProject
-            else project-file.projectFileText config.cabalProjectFileName config.src-cleaned;
+            if cfg.cabalProject != null
+            then cfg.cabalProject
+            else project-file.projectFileText cfg.cabalProjectFileName cfg.src-cleaned;
       in lib.concatStringsSep "\n" (
            lib.optional (base != null) base
-           ++ lib.optional (config.cabalProjectLocal != null) config.cabalProjectLocal
-           ++ config.extraCabalProject);
+           ++ lib.optional (cfg.cabalProjectLocal != null) cfg.cabalProjectLocal
+           ++ cfg.extraCabalProject);
 
     # Stanzas written in the project's own cabal.project. Sources resolve
     # through inputMap first, then fetchgit (hashes from --sha256 comments or
@@ -95,8 +96,8 @@ let compose = pkgs.haskell.lib.compose;
       let fetch = r:
             let url = builtins.unsafeDiscardStringContext r.url;
                 rev = builtins.unsafeDiscardStringContext (r.rev or r.ref or "");
-            in config.inputMap."${url}/${rev}"
-                 or (config.inputMap.${url}
+            in cfg.inputMap."${url}/${rev}"
+                 or (cfg.inputMap.${url}
                  or (if (r.sha256 or null) != null
                      then pkgs.fetchgit { url = r.url; rev = r.rev or r.ref; inherit (r) sha256; }
                      else builtins.fetchGit
@@ -113,7 +114,7 @@ let compose = pkgs.haskell.lib.compose;
                      else lib.nameValuePair name dir;
             in map pkgAt r.subdirs;
       in builtins.listToAttrs
-           (lib.concatLists (map entry (project-file.sourceRepoStanzas config.sha256map projectText)));
+           (lib.concatLists (map entry (project-file.sourceRepoStanzas cfg.sha256map projectText)));
 
     srpPackages =
       lib.optionalAttrs (!ocfg.use-plan) (srpOptionPackages // srpStanzaPackages);
@@ -129,7 +130,7 @@ let compose = pkgs.haskell.lib.compose;
     # arguments even with --no-check: a test dependency absent from the
     # package set still needs an explicit null override.
     cabal2nixOptions = name: external:
-      let t = config.packages.${name} or {};
+      let t = cfg.packages.${name} or {};
           d = ocfg.extra-package-defaults;
           noCheck = (t.doCheck or null) == false
             || (external && !d.check && (t.doCheck or null) == null);
@@ -155,14 +156,14 @@ let compose = pkgs.haskell.lib.compose;
     hackageOverlay = self: _:
       builtins.listToAttrs
         (map (o: lib.nameValuePair o.name (self.callCabal2nixWithOptions o.name o.src (cabal2nixOptions o.name true) {}))
-          config.hackage-overlays);
+          cfg.hackage-overlays);
 
     # Packages rooted outside the project source get pragmatic defaults:
     # without a solver their version bounds routinely need loosening.
     externalNames =
       lib.attrNames (lib.filterAttrs (_: p: p.external) discovered)
       ++ lib.attrNames srpPackages
-      ++ map (o: o.name) config.hackage-overlays;
+      ++ map (o: o.name) cfg.hackage-overlays;
 
     extraDefaultsOverlay = _: super:
       let d = ocfg.extra-package-defaults;
@@ -224,7 +225,7 @@ let compose = pkgs.haskell.lib.compose;
             ++ lib.optional (t.src != null) (compose.overrideSrc { inherit (t) src; }));
       # tweaks for packages absent from the set are silently ignored
       in lib.mapAttrs tweak
-           (lib.filterAttrs (name: _: super ? ${name}) config.packages);
+           (lib.filterAttrs (name: _: super ? ${name}) cfg.packages);
 
     # Project-wide ghcOptions apply to the project's own packages: applying
     # them to the whole set would invalidate the binary cache for the entire
@@ -232,11 +233,11 @@ let compose = pkgs.haskell.lib.compose;
     ghcOptionsOverlay = _: super:
       lib.genAttrs (lib.attrNames discovered)
         (name: lib.pipe super.${name}
-          (map (f: compose.appendConfigureFlag "--ghc-option=${f}") config.ghcOptions));
+          (map (f: compose.appendConfigureFlag "--ghc-option=${f}") cfg.ghcOptions));
 
     hp = haskellPackages.extend (lib.composeManyExtensions (
       [ localPackagesOverlay srpOverlay hackageOverlay extraDefaultsOverlay packageTweaksOverlay ]
-      ++ lib.optional (config.ghcOptions != []) ghcOptionsOverlay
+      ++ lib.optional (cfg.ghcOptions != []) ghcOptionsOverlay
       ++ ocfg.overrides));
 
 
@@ -253,10 +254,10 @@ let compose = pkgs.haskell.lib.compose;
         (name: hp.${name} // { isLocal = true; identifier = { inherit name; }; });
 
     selection =
-      if config.shell.packages != null
-      then config.shell.packages
+      if cfg.shell.packages != null
+      then cfg.shell.packages
       else ps: builtins.filter
-        (p: (p.isLocal or false) && !(config.source-repository-packages ? ${p.identifier.name or ""}))
+        (p: (p.isLocal or false) && !(cfg.source-repository-packages ? ${p.identifier.name or ""}))
         (builtins.attrValues ps);
 
     # Tools are resolved by name; version requests cannot be honored without
@@ -273,18 +274,18 @@ let compose = pkgs.haskell.lib.compose;
       let mkWrappers = import ../cross-wrappers.nix { inherit pkgs lib; };
           probe = lib.genAttrs (builtins.attrNames pkgs.pkgsCross) (n: n);
       in lib.concatMap (platform: mkWrappers projectCross.${platform}.haskellPackages.ghc)
-           (config.shell.crossPlatforms probe);
+           (cfg.shell.crossPlatforms probe);
 
     shell = hp.shellFor ({
       packages = _: selection selectionSet;
-      withHoogle = config.shell.withHoogle;
+      withHoogle = cfg.shell.withHoogle;
       nativeBuildInputs =
-        lib.mapAttrsToList resolveTool config.shell.tools
-        ++ config.shell.nativeBuildInputs
+        lib.mapAttrsToList resolveTool cfg.shell.tools
+        ++ cfg.shell.nativeBuildInputs
         ++ crossWrappers;
-      buildInputs = config.shell.buildInputs;
-      shellHook = config.shell.shellHook;
-    } // lib.optionalAttrs (config.name != null) { name = "${config.name}-shell"; }
+      buildInputs = cfg.shell.buildInputs;
+      shellHook = cfg.shell.shellHook;
+    } // lib.optionalAttrs (cfg.name != null) { name = "${cfg.name}-shell"; }
       // ocfg.shellFor-args);
 
 
@@ -295,8 +296,8 @@ let compose = pkgs.haskell.lib.compose;
       import ./driver.nix {
         pkgs = pkgs.pkgsCross.${platform};
         haskellPackages =
-          pkgs.pkgsCross.${platform}.haskell.packages.${config.nixpkgs.compiler}
-            or (throw "nix-haskell (nixpkgs driver): pkgsCross.${platform} has no haskell.packages.${config.nixpkgs.compiler}");
+          pkgs.pkgsCross.${platform}.haskell.packages.${cfg.compiler}
+            or (throw "nix-haskell (nixpkgs driver): pkgsCross.${platform} has no haskell.packages.${cfg.compiler}");
         inherit lib config;
       });
 

@@ -13,11 +13,21 @@
 
 with lib;
 
-{
+let cfg = config.nixpkgs;
 
-  options = {
+    # The common options, re-declared under this driver's namespace and
+    # seeded from the top-level values: setting e.g.
+    # `nixpkgs.packages.foo.flags` overrides the common value for this
+    # driver only. The driver reads all common configuration through the
+    # mirror.
+    common = import ../../libs/driver-common.nix {
+      inherit lib pkgs cfg;
+      topConfig = config;
+    };
 
-    nixpkgs = {
+in {
+
+  options.nixpkgs = common.options // {
 
       pkgs = mkOption {
         type = types.raw;
@@ -34,10 +44,10 @@ with lib;
 
       compiler = mkOption {
         type = types.str;
-        default = config.compiler-nix-name;
+        default = cfg.compiler-nix-name;
         defaultText = literalMD ''
           ```
-          config.compiler-nix-name
+          config.nixpkgs.compiler-nix-name
           ```
         '';
         description = ''
@@ -290,8 +300,18 @@ with lib;
         '';
       };
 
-    };
-
   };
+
+  config = mkMerge [
+
+    {
+      nixpkgs = common.seeds;
+    }
+
+    {
+      nixpkgs = common.config;
+    }
+
+  ];
 
 }
