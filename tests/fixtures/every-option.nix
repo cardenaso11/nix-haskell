@@ -14,6 +14,18 @@
 
   ghcOptions = [ "-O1" ];
 
+  cabalProject = ''
+    packages: .
+  '';
+  cabalProjectLocal = ''
+    -- every-option cabal.project.local
+  '';
+  cabalProjectFileName = "cabal.project";
+  extraCabalProject = [ "-- appended by every-option" ];
+  inputMap."https://example.invalid/dep-a" = ./dep-a;
+  sha256map."https://example.invalid/dep-a"."main" =
+    "0000000000000000000000000000000000000000000000000000";
+
   packages = {
     every-option = {
       flags.demo = true;
@@ -37,6 +49,21 @@
       enableStatic = true;
       enableSeparateDataOutput = false;
       enableLibraryForGhci = false;
+      hardeningDisable = [ "format" ];
+      preUnpack = "echo every-option pre-unpack";
+      postUnpack = "echo every-option post-unpack";
+      prePatch = "echo every-option pre-patch";
+      postPatch = "echo every-option post-patch";
+      preConfigure = "echo every-option pre-configure";
+      postConfigure = "echo every-option post-configure";
+      preBuild = "echo every-option pre-build";
+      postBuild = "echo every-option post-build";
+      preCheck = "echo every-option pre-check";
+      postCheck = "echo every-option post-check";
+      preHaddock = "echo every-option pre-haddock";
+      postHaddock = "echo every-option post-haddock";
+      preInstall = "echo every-option pre-install";
+      postInstall = "echo every-option post-install";
       src = ./every-option;
     };
     absent-package.doCheck = false;

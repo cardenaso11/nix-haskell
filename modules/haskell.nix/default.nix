@@ -51,6 +51,11 @@ let cfg = config."haskell-nix";
       "enableLibraryProfiling" "enableProfiling" "profilingDetail"
       "enableShared" "enableStatic"
       "enableSeparateDataOutput" "enableLibraryForGhci"
+      "hardeningDisable"
+      "preUnpack" "postUnpack" "prePatch" "postPatch"
+      "preConfigure" "postConfigure" "preBuild" "postBuild"
+      "preCheck" "postCheck" "preHaddock" "postHaddock"
+      "preInstall" "postInstall"
     ];
 
     packagesTranslation = listToAttrs (map (field: nameValuePair "packages.*.${field}" {
@@ -136,14 +141,6 @@ in {
         '';
       };
 
-      extraCabalProject = mkOption {
-        type = types.listOf types.lines;
-        default = [];
-        description = ''
-          Lines to append to `cabal.project`.
-        '';
-      };
-
       extraSrcFiles = mkOption {
         type = types.attrs;
         default = {};
@@ -166,7 +163,7 @@ in {
               then config."haskell-nix".source-repository-packages-driver.cabalProject
               else []
             )
-            ++ config."haskell-nix".extraCabalProject;
+            ++ config.extraCabalProject;
         };
         description = ''
           `src-cleaned` with `extraCabalProject` lines and generated
@@ -226,6 +223,34 @@ in {
 
           compiler-nix-name.set = { compiler-nix-name = config.compiler-nix-name; };
           compiler-nix-name.via = "project `compiler-nix-name`";
+
+          cabalProject.set = mkIf (config.cabalProject != null) {
+            # the project file (carrying the src-driver's generated stanzas)
+            # is ignored when cabalProject is set, so they move into it
+            cabalProject = concatStringsSep "\n" (
+              [ config.cabalProject ]
+              ++ ( let stanzas = cfg.source-repository-packages-driver.cabalProject;
+                   in if stanzas != null && stanzas != "" then stanzas else [] )
+              ++ config.extraCabalProject
+            );
+          };
+          cabalProject.via = "project `cabalProject`, with the generated source-repository-package stanzas and `extraCabalProject` appended";
+
+          cabalProjectLocal.set = mkIf (config.cabalProjectLocal != null) {
+            cabalProjectLocal = config.cabalProjectLocal;
+          };
+          cabalProjectLocal.via = "project `cabalProjectLocal`";
+
+          cabalProjectFileName.set = { cabalProjectFileName = config.cabalProjectFileName; };
+          cabalProjectFileName.via = "project `cabalProjectFileName`";
+
+          extraCabalProject.via = "appended to cabal.project by the src-driver, or to `cabalProject` when that is set";
+
+          inputMap.set = mkIf (config.inputMap != {}) { inputMap = config.inputMap; };
+          inputMap.via = "project `inputMap`, merged with the generated source-repository-package entries";
+
+          sha256map.set = mkIf (config.sha256map != null) { sha256map = config.sha256map; };
+          sha256map.via = "project `sha256map`";
 
           source-repository-packages.set = { inputMap = cfg.source-repository-packages-driver.inputMap; };
           source-repository-packages.via = "`source-repository-package` stanzas appended by the src-driver, with `inputMap` pinning their sources";

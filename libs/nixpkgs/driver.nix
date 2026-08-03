@@ -75,15 +75,34 @@ let compose = pkgs.haskell.lib.compose;
       in builtins.listToAttrs
            (lib.concatLists (lib.mapAttrsToList entry config.source-repository-packages));
 
-    # Stanzas written in the project's own cabal.project.
+    # The project text the stanzas are read from: the project file (or the
+    # cabalProject option, which replaces it), cabal.project.local and the
+    # extraCabalProject lines.
+    projectText =
+      let base =
+            if config.cabalProject != null
+            then config.cabalProject
+            else project-file.projectFileText config.cabalProjectFileName config.src-cleaned;
+      in lib.concatStringsSep "\n" (
+           lib.optional (base != null) base
+           ++ lib.optional (config.cabalProjectLocal != null) config.cabalProjectLocal
+           ++ config.extraCabalProject);
+
+    # Stanzas written in the project's own cabal.project. Sources resolve
+    # through inputMap first, then fetchgit (hashes from --sha256 comments or
+    # sha256map, applied by the parser), then plain fetchGit.
     srpStanzaPackages =
       let fetch = r:
-            if (r.sha256 or null) != null
-            then pkgs.fetchgit { url = r.url; rev = r.rev or r.ref; inherit (r) sha256; }
-            else builtins.fetchGit
-              ({ url = r.url; }
-               // lib.optionalAttrs (r ? rev) { inherit (r) rev; }
-               // lib.optionalAttrs (r ? ref) { inherit (r) ref; });
+            let url = builtins.unsafeDiscardStringContext r.url;
+                rev = builtins.unsafeDiscardStringContext (r.rev or r.ref or "");
+            in config.inputMap."${url}/${rev}"
+                 or (config.inputMap.${url}
+                 or (if (r.sha256 or null) != null
+                     then pkgs.fetchgit { url = r.url; rev = r.rev or r.ref; inherit (r) sha256; }
+                     else builtins.fetchGit
+                       ({ url = r.url; }
+                        // lib.optionalAttrs (r ? rev) { inherit (r) rev; }
+                        // lib.optionalAttrs (r ? ref) { inherit (r) ref; })));
           entry = r:
             let src = fetch r;
                 pkgAt = d:
@@ -94,7 +113,7 @@ let compose = pkgs.haskell.lib.compose;
                      else lib.nameValuePair name dir;
             in map pkgAt r.subdirs;
       in builtins.listToAttrs
-           (lib.concatLists (map entry (project-file.sourceRepoStanzas config.src-cleaned)));
+           (lib.concatLists (map entry (project-file.sourceRepoStanzas config.sha256map projectText)));
 
     srpPackages =
       lib.optionalAttrs (!ocfg.use-plan) (srpOptionPackages // srpStanzaPackages);
@@ -160,7 +179,11 @@ let compose = pkgs.haskell.lib.compose;
       enableStatic = "enableStaticLibraries";
       enableSeparateDataOutput = "enableSeparateDataOutput";
       enableLibraryForGhci = "enableLibraryForGhci";
-    };
+    } // lib.genAttrs
+      ( [ "hardeningDisable" ]
+        ++ lib.concatMap (phase: [ "pre${phase}" "post${phase}" ])
+             [ "Unpack" "Patch" "Configure" "Build" "Check" "Haddock" "Install" ] )
+      lib.id;
 
     # Overlay attribute names must never depend on package values, or the
     # fixpoint recurses: presence (super ? name) decides the names, nulls are

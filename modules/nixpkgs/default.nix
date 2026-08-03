@@ -209,6 +209,13 @@ with lib;
 
           compiler-nix-name.via = "selects `pkgs.haskell.packages.<name>` (overridable with `nixpkgs.compiler`)";
 
+          cabalProject.via = "replaces the project file as the text whose source-repository-package stanzas are honored";
+          cabalProjectLocal.via = "appended to the project text before stanza parsing";
+          cabalProjectFileName.via = "the project file read for stanzas";
+          extraCabalProject.via = "appended to the project text before stanza parsing";
+          inputMap.via = "stanza urls (or url/rev) resolve through it before fetching";
+          sha256map.via = "hashes for fetching stanza sources, like `--sha256` comments";
+
           source-repository-packages.via = "callCabal2nix on the resolved sources, one entry per `subdir`; `condition` is evaluated against the target platform (haskell.nix's host-map); stanzas in cabal.project are parsed by haskell.nix's parser and fetched";
 
           hackage-overlays.via = "callCabal2nix entries in the package set";
@@ -251,7 +258,11 @@ with lib;
           isGhcjs.via = "adds nodejs to the common `shell.buildInputs`";
           isWasm.via = "adds nodejs to the common `shell.buildInputs`";
 
-        };
+        } // listToAttrs (map
+          (field: nameValuePair "packages.*.${field}" { via = "mkDerivation `${field}`"; })
+          ( [ "hardeningDisable" ]
+            ++ concatMap (phase: [ "pre${phase}" "post${phase}" ])
+                 [ "Unpack" "Patch" "Configure" "Build" "Check" "Haddock" "Install" ] ));
       };
 
 

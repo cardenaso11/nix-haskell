@@ -8,13 +8,16 @@
   nixpkgs (`haskell.packages.<compiler>`, `callCabal2nix`, `shellFor`).
   Driver knobs live under `nixpkgs.options`; the result is at
   `(nix-haskell m).nixpkgs.project` and `project.nixpkgs`.
-- Driver-neutral common options `ghcOptions` and `packages.<name>.*`:
+- Driver-neutral common options `ghcOptions`, `cabalProject`,
+  `cabalProjectLocal`, `cabalProjectFileName`, `extraCabalProject`,
+  `inputMap`, `sha256map` and `packages.<name>.*`:
   `flags`, `patches`, `ghcOptions`, `configureFlags`, `setupBuildFlags`,
   `setupHaddockFlags`, `doCheck`, `doHaddock`, `doCoverage`, `doHoogle`,
   `doHyperlinkSource`, `doQuickjump`, `dontStrip`,
   `enableDeadCodeElimination`, `enableLibraryProfiling`, `enableProfiling`,
   `profilingDetail`, `enableShared`, `enableStatic`,
-  `enableSeparateDataOutput`, `enableLibraryForGhci`, `src`.
+  `enableSeparateDataOutput`, `enableLibraryForGhci`, `hardeningDisable`,
+  `src` and the phase hooks (`preUnpack` through `postInstall`).
 - A per-driver `translation` table (internal) recording how every common
   option is honored, and flake `checks`:
   `translation-totality`, `every-option-<driver>`, `hello-<driver>`.
@@ -26,10 +29,10 @@
   the raw package set moved to `(nix-haskell m).pkgs`.
 - haskell.nix-specific options moved under the driver namespace, without
   aliases. See the migration table in the README:
-  `overrides`, `extraCabalProject`, `extraSrcFiles` are now
-  `haskell-nix.<same>`; `cabalProject*`, `index-state`, `sha256map`,
-  `inputMap`, `extra-hackages`, `extra-hackage-tarballs`, `pkg-def-extras`
-  are now `haskell-nix.options.<same>`; haskell.nix-only shell options
+  `overrides` and `extraSrcFiles` are now `haskell-nix.<same>`;
+  `cabalProjectFreeze`, `index-state`, `extra-hackages`,
+  `extra-hackage-tarballs`, `pkg-def-extras` are now
+  `haskell-nix.options.<same>`; haskell.nix-only shell options
   (`withHaddock`, `exactDeps`, ...) are now `haskell-nix.options.shell.<same>`.
 - The common `shell` submodule is declared natively (no longer typed by
   haskell.nix's shell module): `packages`, `tools`, `buildInputs`,

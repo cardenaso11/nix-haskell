@@ -88,6 +88,12 @@ Applicable to every driver. The full reference is in the
 | `clean-src` | `bool` | `true` | Filter `src` through its `.gitignore` |
 | `clean-src-patterns` | `lines` | `""` | Extra gitignore patterns |
 | `ghcOptions` | `listOf str` | `[]` | Project-wide GHC flags |
+| `cabalProject` | `nullOr lines` | `null` | `cabal.project` content (replaces the file) |
+| `cabalProjectLocal` | `nullOr lines` | `null` | `cabal.project.local` content |
+| `cabalProjectFileName` | `str` | `"cabal.project"` | Name of the project file |
+| `extraCabalProject` | `listOf lines` | `[]` | Lines appended to `cabal.project` |
+| `inputMap` | `attrs` | `{}` | URL to source mappings |
+| `sha256map` | `nullOr attrs` | `null` | Hashes for sources named in `cabal.project` |
 | `packages` | `attrsOf submodule` | `{}` | Per-package customization |
 | `source-repository-packages` | `attrsOf (path \| attrs)` | `{}` | Local packages to include |
 | `hackage-overlays` | `listOf attrs` | `[]` | Packages not on Hackage |
@@ -114,7 +120,15 @@ Fields: `flags`, `patches`, `ghcOptions`, `configureFlags`,
 `doHoogle`, `doHyperlinkSource`, `doQuickjump`, `dontStrip`,
 `enableDeadCodeElimination`, `enableLibraryProfiling`, `enableProfiling`,
 `profilingDetail`, `enableShared`, `enableStatic`,
-`enableSeparateDataOutput`, `enableLibraryForGhci`, `src`.
+`enableSeparateDataOutput`, `enableLibraryForGhci`, `hardeningDisable`,
+`src`, and the phase hooks `preUnpack`, `postUnpack`, `prePatch`,
+`postPatch`, `preConfigure`, `postConfigure`, `preBuild`, `postBuild`,
+`preCheck`, `postCheck`, `preHaddock`, `postHaddock`, `preInstall`,
+`postInstall`.
+
+One divergence to be aware of with the hooks: haskell.nix runs them for
+each component derivation of the package, nixpkgs once in the single
+package derivation.
 
 #### Source repository packages
 
@@ -178,9 +192,8 @@ Driver configuration:
 
 | Option | Description |
 |--------|-------------|
-| `haskell-nix.options.*` | Any haskell.nix project option (`cabalProject`, `cabalProjectLocal`, `index-state`, `sha256map`, `inputMap`, `extra-hackages`, `pkg-def-extras`, `shell.exactDeps`, `shell.withHaddock`, ...) |
+| `haskell-nix.options.*` | Any haskell.nix project option (`index-state`, `cabalProjectFreeze`, `extra-hackages`, `pkg-def-extras`, `shell.exactDeps`, `shell.withHaddock`, ...) |
 | `haskell-nix.overrides` | haskell.nix `modules` to add to the project (lists concatenate when composed) |
-| `haskell-nix.extraCabalProject` | Lines appended to `cabal.project` |
 | `haskell-nix.extraSrcFiles` | Extra files for the strictly tracked component builds |
 
 ```nix
@@ -227,9 +240,12 @@ Driver configuration:
 | `nixpkgs.options.shellFor-args` | Extra `shellFor` arguments |
 
 Local packages are the package at the root of `src` by default.
-`source-repository-package` stanzas in the project's `cabal.project` are
-parsed (with haskell.nix's parser) and honored. For multi-package projects
-either list the packages explicitly:
+`source-repository-package` stanzas in the project text (the project file
+or `cabalProject`, plus `cabalProjectLocal` and `extraCabalProject`) are
+parsed with haskell.nix's parser and honored: sources resolve through
+`inputMap`, then `fetchgit` with hashes from `--sha256` comments or
+`sha256map`. For multi-package projects either list the packages
+explicitly:
 
 ```nix
 nixpkgs.options.packages = {
@@ -245,7 +261,8 @@ of evaluating the haskell.nix toolchain.
 Caveats, by construction of nixpkgs' Haskell infrastructure:
 
 - No version solving: dependency versions are those of the nixpkgs pin.
-  `index-state`, `sha256map` and friends do not exist here.
+  `index-state` and `cabalProjectFreeze` do not exist here, and only the
+  `source-repository-package` stanzas of the project text are interpreted.
 - Test suites run inside the package build; disable per package with
   `packages.<name>.doCheck = false`.
 - `ghcOptions` applies to the project's own packages only, so the binary
@@ -302,10 +319,8 @@ was introduced:
 |-----|-----|
 | `(nix-haskell m).nixpkgs` (the package set) | `(nix-haskell m).pkgs` |
 | `overrides` | `haskell-nix.overrides` |
-| `extraCabalProject` | `haskell-nix.extraCabalProject` |
 | `extraSrcFiles` | `haskell-nix.extraSrcFiles` |
-| `cabalProject`, `cabalProjectLocal`, `cabalProjectFreeze`, `cabalProjectFileName` | `haskell-nix.options.<same>` |
-| `index-state`, `sha256map`, `inputMap` | `haskell-nix.options.<same>` |
+| `cabalProjectFreeze`, `index-state` | `haskell-nix.options.<same>` |
 | `extra-hackages`, `extra-hackage-tarballs`, `pkg-def-extras` | `haskell-nix.options.<same>` |
 | `shell.withHaddock`, `shell.exactDeps`, `shell.allToolDeps`, ... | `haskell-nix.options.shell.<same>` |
 | `overrides = [ { ghcOptions = [...]; } ]` | `ghcOptions = [...]` |

@@ -1,5 +1,7 @@
 ## packages
 
+
+
 Per-package customization, keyed by cabal package name\. Entries for
 packages that do not exist in the final package set are silently
 ignored, so platform-conditional packages can be customized
@@ -404,6 +406,38 @@ list of string
 
 
 
+## packages\.\<name>\.hardeningDisable
+
+
+
+Hardening flags to disable when building the package\. ` null `
+leaves the default in place\.
+
+
+
+*Type:*
+null or (list of string)
+
+
+
+*Default:*
+` null `
+
+
+
+*Example:*
+
+```
+[
+  "format"
+]
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
 ## packages\.\<name>\.patches
 
 
@@ -419,6 +453,328 @@ list of absolute path
 
 *Default:*
 ` [ ] `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.postBuild
+
+
+
+Shell code run after the
+build phase\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.postCheck
+
+
+
+Shell code run after the
+check phase\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.postConfigure
+
+
+
+Shell code run after the
+configure phase\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.postHaddock
+
+
+
+Shell code run after the
+haddock phase\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.postInstall
+
+
+
+Shell code run after the
+install phase\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.postPatch
+
+
+
+Shell code run after the
+patch phase\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.postUnpack
+
+
+
+Shell code run after the
+unpack phase\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.preBuild
+
+
+
+Shell code run before the
+build phase\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.preCheck
+
+
+
+Shell code run before the
+check phase\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.preConfigure
+
+
+
+Shell code run before the
+configure phase\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.preHaddock
+
+
+
+Shell code run before the
+haddock phase\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.preInstall
+
+
+
+Shell code run before the
+install phase\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.prePatch
+
+
+
+Shell code run before the
+patch phase\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.preUnpack
+
+
+
+Shell code run before the
+unpack phase\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+` null `
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -577,6 +933,70 @@ lazy attribute set of raw value
 
 
 
+## cabalProject
+
+
+
+Content of the ` cabal.project ` file\. ` null ` uses the file carried by
+the source\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## cabalProjectFileName
+
+
+
+Name of the cabal project file\.
+
+
+
+*Type:*
+string
+
+
+
+*Default:*
+` "cabal.project" `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## cabalProjectLocal
+
+
+
+Content of the ` cabal.project.local ` file\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
 ## clean-src
 
 
@@ -662,6 +1082,27 @@ string
 
 
 
+## extraCabalProject
+
+
+
+Lines to append to ` cabal.project `\.
+
+
+
+*Type:*
+list of strings concatenated with “\\n”
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
 ## ghcOptions
 
 
@@ -733,27 +1174,6 @@ list of (attribute set)
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
-
-
-
-## haskell-nix\.extraCabalProject
-
-
-
-Lines to append to ` cabal.project `\.
-
-
-
-*Type:*
-list of strings concatenated with “\\n”
-
-
-
-*Default:*
-` [ ] `
-
-*Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
 
 
 
@@ -2243,6 +2663,40 @@ config.haskell-nix.haskell-nix.project config.haskell-nix.options
 
 
 
+## inputMap
+
+
+
+Specifies the contents of urls in the cabal\.project file, so sources
+named there resolve without fetching\.
+The ` .rev ` attribute is checked against the ` tag ` for ` source-repository-packages `\.
+
+
+
+*Type:*
+attribute set
+
+
+
+*Default:*
+` { } `
+
+
+
+*Example:*
+
+```
+  inputMap = {
+    "{url}/{rev/ref}" = dep_src;
+    "https://github.com/obsidiansystems/obelisk-oauth.git/a528c0542e9c30851e7c4542468a053fa5e482ef" = thunkSource ./dep/{thunk};
+  };
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
 ## inputs
 
 
@@ -2351,7 +2805,7 @@ null or string
 
 
 *Default:*
-` "rr9p6np5m2wlwp42ygd7ksdlgrh8vafv-source" `
+` "i20qmhiwvzrc9ffp0dmq8qs2pbi71cvf-source" `
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -2801,8 +3255,6 @@ boolean
 
 ## optimizations\.expose-all-unfoldings
 
-
-
 Enable -fexpose-all-unfoldings for cross-module optimization\.
 
 
@@ -2880,6 +3332,39 @@ boolean
 
 *Declared by:*
  - [<nix-haskell>/modules/optimizations\.nix](file://<nix-haskell>/modules/optimizations.nix)
+
+
+
+## sha256map
+
+
+
+An alternative to adding ` --sha256 ` comments into the cabal\.project file\.
+
+
+
+*Type:*
+null or (attribute set of (string or attribute set of string))
+
+
+
+*Default:*
+` null `
+
+
+
+*Example:*
+
+```
+  sha256map = {
+    "url"."rev/ref" = "hash"
+    "https://github.com/jgm/pandoc-citeproc"."0.17" = "0dxx8cp2xndpw3jwiawch2dkrkp15mil7pyx7dvd810pwc22pm2q";
+    "https://github.com/obsidiansystems/obelisk-oauth.git"."a528c0542e9c30851e7c4542468a053fa5e482ef" = lib.fakeHash;
+  };
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
 
 
 

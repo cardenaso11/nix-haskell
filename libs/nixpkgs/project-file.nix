@@ -17,7 +17,7 @@
 #   discover { src = ./monorepo; explicit = { frontend.subdir = "frontend"; }; }
 #   => { frontend = { subdir = "frontend"; src = ./monorepo/frontend; }; }
 #
-#   sourceRepoStanzas ./project        # stanzas of its cabal.project
+#   sourceRepoStanzas null (projectFileText "cabal.project" ./project)
 #   => [ { url = "https://github.com/reflex-frp/reflex-dom";
 #          ref = "master"; sha256 = null; subdirs = [ "reflex-dom" ]; } ]
 #
@@ -52,14 +52,19 @@ let inline-cabal-project = (import ../cabal.nix { inherit pkgs; }).inline-cabal-
               else head matches
          else null;
 
-    # source-repository-package stanzas of the project file (with `import:`
-    # lines inlined): [ { url; ref or rev; sha256; subdirs; } ]
-    sourceRepoStanzas = src:
-      if builtins.pathExists (src + "/cabal.project")
-      then concatMap (b: optional (b ? sourceRepo) b.sourceRepo)
-             (parser.parseSourceRepositoryPackages "cabal.project" null {}
-               (inline-cabal-project src "cabal.project")).sourceRepos
-      else [];
+    # The project file with `import:` lines inlined, or null when the source
+    # carries none.
+    projectFileText = fileName: src:
+      if builtins.pathExists (src + "/${fileName}")
+      then inline-cabal-project src fileName
+      else null;
+
+    # source-repository-package stanzas of project text:
+    # [ { url; ref or rev; sha256; subdirs; } ]
+    # Hashes resolve through `--sha256` comments or the given sha256map.
+    sourceRepoStanzas = sha256map: text:
+      concatMap (b: optional (b ? sourceRepo) b.sourceRepo)
+        (parser.parseSourceRepositoryPackages "cabal.project" sha256map {} text).sourceRepos;
 
     # Local packages: { <package-name> = { subdir; src; }; }. An explicit map
     # (keyed by package name) takes precedence; otherwise the package at the
@@ -76,5 +81,5 @@ let inline-cabal-project = (import ../cabal.nix { inherit pkgs; }).inline-cabal-
          else rootPackage;
 
 in {
-  inherit packageNameIn discover sourceRepoStanzas;
+  inherit packageNameIn discover projectFileText sourceRepoStanzas;
 }

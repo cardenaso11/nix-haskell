@@ -230,12 +230,200 @@ GHC flags for this package only.
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
+.SS packages.<name>.hardeningDisable
+Hardening flags to disable when building the package.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or (list of string)
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[
+  \(dqformat\(dq
+]
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
 .SS packages.<name>.patches
 Patches applied to the package source.
 .PP
 \f[I]Type:\f[R] list of absolute path
 .PP
 \f[I]Default:\f[R] \f[CR][ ]\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.postBuild
+Shell code run after the build phase.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.postCheck
+Shell code run after the check phase.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.postConfigure
+Shell code run after the configure phase.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.postHaddock
+Shell code run after the haddock phase.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.postInstall
+Shell code run after the install phase.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.postPatch
+Shell code run after the patch phase.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.postUnpack
+Shell code run after the unpack phase.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.preBuild
+Shell code run before the build phase.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.preCheck
+Shell code run before the check phase.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.preConfigure
+Shell code run before the configure phase.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.preHaddock
+Shell code run before the haddock phase.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.preInstall
+Shell code run before the install phase.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.prePatch
+Shell code run before the patch phase.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.preUnpack
+Shell code run before the unpack phase.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -350,6 +538,40 @@ argument:
 .UR https://github.com/NixOS/nixpkgs/blob//lib/modules.nix
 <nixpkgs/lib/modules.nix>
 .UE \c
+.SS cabalProject
+Content of the \f[CR]cabal.project\f[R] file.
+\f[CR]null\f[R] uses the file carried by the source.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS cabalProjectFileName
+Name of the cabal project file.
+.PP
+\f[I]Type:\f[R] string
+.PP
+\f[I]Default:\f[R] \f[CR]\(dqcabal.project\(dq\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS cabalProjectLocal
+Content of the \f[CR]cabal.project.local\f[R] file.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
 .SS clean\-src
 Filter \f[CR]src\f[R] through the \f[CR].gitignore\f[R] it carries
 before copying it into the store, so build artifacts
@@ -397,6 +619,17 @@ The name of the ghc compiler to use.
 \f[I]Default:\f[R] \f[CR]\(dqghc914\(dq\f[R]
 .PP
 \f[I]Example:\f[R] \f[CR]\(dqghc884\(dq\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS extraCabalProject
+Lines to append to \f[CR]cabal.project\f[R].
+.PP
+\f[I]Type:\f[R] list of strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R] \f[CR][ ]\f[R]
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -451,17 +684,6 @@ A good example of this is obelisk\-generated\-static.
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
-.UE \c
-.SS haskell\-nix.extraCabalProject
-Lines to append to \f[CR]cabal.project\f[R].
-.PP
-\f[I]Type:\f[R] list of strings concatenated with \(lq\(rsn\(rq
-.PP
-\f[I]Default:\f[R] \f[CR][ ]\f[R]
-.PP
-\f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.extraSrcFiles
 ExtraSrcFiles to include in the project builds.
@@ -1305,6 +1527,29 @@ config.haskell\-nix.haskell\-nix.project config.haskell\-nix.options
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
 /modules/haskell.nix
 .UE \c
+.SS inputMap
+Specifies the contents of urls in the cabal.project file, so sources
+named there resolve without fetching.
+The \f[CR].rev\f[R] attribute is checked against the \f[CR]tag\f[R] for
+\f[CR]source\-repository\-packages\f[R].
+.PP
+\f[I]Type:\f[R] attribute set
+.PP
+\f[I]Default:\f[R] \f[CR]{ }\f[R]
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+  inputMap = {
+    \(dq{url}/{rev/ref}\(dq = dep_src;
+    \(dqhttps://github.com/obsidiansystems/obelisk\-oauth.git/a528c0542e9c30851e7c4542468a053fa5e482ef\(dq = thunkSource ./dep/{thunk};
+  };
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
 .SS inputs
 Sources of dependencies, keyed the way flake inputs are.
 An entry accepts whatever a flake input can be: a flake input, a store
@@ -1379,7 +1624,7 @@ Optional name for better error messages.
 \f[I]Type:\f[R] null or string
 .PP
 \f[I]Default:\f[R]
-\f[CR]\(dqrr9p6np5m2wlwp42ygd7ksdlgrh8vafv\-source\(dq\f[R]
+\f[CR]\(dqi20qmhiwvzrc9ffp0dmq8qs2pbi71cvf\-source\(dq\f[R]
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -1689,6 +1934,29 @@ Enable \-fspecialise\-aggressively.
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/optimizations.nix
 /modules/optimizations.nix
+.UE \c
+.SS sha256map
+An alternative to adding \f[CR]\-\-sha256\f[R] comments into the
+cabal.project file.
+.PP
+\f[I]Type:\f[R] null or (attribute set of (string or attribute set of
+string))
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+  sha256map = {
+    \(dqurl\(dq.\(dqrev/ref\(dq = \(dqhash\(dq
+    \(dqhttps://github.com/jgm/pandoc\-citeproc\(dq.\(dq0.17\(dq = \(dq0dxx8cp2xndpw3jwiawch2dkrkp15mil7pyx7dvd810pwc22pm2q\(dq;
+    \(dqhttps://github.com/obsidiansystems/obelisk\-oauth.git\(dq.\(dqa528c0542e9c30851e7c4542468a053fa5e482ef\(dq = lib.fakeHash;
+  };
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
 .UE \c
 .SS shell
 Development shell configuration.

@@ -108,6 +108,74 @@ with lib;
       example = [ "-O2" "-fexpose-all-unfoldings" ];
     };
 
+    cabalProject = mkOption {
+      type = types.nullOr types.lines;
+      default = null;
+      description = ''
+        Content of the `cabal.project` file. `null` uses the file carried by
+        the source.
+      '';
+    };
+
+    cabalProjectLocal = mkOption {
+      type = types.nullOr types.lines;
+      default = null;
+      description = ''
+        Content of the `cabal.project.local` file.
+      '';
+    };
+
+    cabalProjectFileName = mkOption {
+      type = types.str;
+      default = "cabal.project";
+      description = ''
+        Name of the cabal project file.
+      '';
+    };
+
+    extraCabalProject = mkOption {
+      type = types.listOf types.lines;
+      default = [];
+      description = ''
+        Lines to append to `cabal.project`.
+      '';
+    };
+
+    inputMap = mkOption {
+      type = types.attrs;
+      default = {};
+      description = ''
+        Specifies the contents of urls in the cabal.project file, so sources
+        named there resolve without fetching.
+        The `.rev` attribute is checked against the `tag` for `source-repository-packages`.
+      '';
+      example = literalMD ''
+        ```
+          inputMap = {
+            "{url}/{rev/ref}" = dep_src;
+            "https://github.com/obsidiansystems/obelisk-oauth.git/a528c0542e9c30851e7c4542468a053fa5e482ef" = thunkSource ./dep/{thunk};
+          };
+        ```
+      '';
+    };
+
+    sha256map = mkOption {
+      type = types.nullOr (types.attrsOf (types.either types.str (types.attrsOf types.str)));
+      default = null;
+      description = ''
+        An alternative to adding `--sha256` comments into the cabal.project file.
+      '';
+      example = literalMD ''
+        ```
+          sha256map = {
+            "url"."rev/ref" = "hash"
+            "https://github.com/jgm/pandoc-citeproc"."0.17" = "0dxx8cp2xndpw3jwiawch2dkrkp15mil7pyx7dvd810pwc22pm2q";
+            "https://github.com/obsidiansystems/obelisk-oauth.git"."a528c0542e9c30851e7c4542468a053fa5e482ef" = lib.fakeHash;
+          };
+        ```
+      '';
+    };
+
     packages = mkOption {
       type = types.attrsOf (types.submodule {
         options = {
@@ -274,6 +342,15 @@ with lib;
               into GHCi. `null` leaves the default in place.
             '';
           };
+          hardeningDisable = mkOption {
+            type = types.nullOr (types.listOf types.str);
+            default = null;
+            description = ''
+              Hardening flags to disable when building the package. `null`
+              leaves the default in place.
+            '';
+            example = [ "format" ];
+          };
           src = mkOption {
             type = types.nullOr (types.either types.path types.package);
             default = null;
@@ -281,7 +358,22 @@ with lib;
               Replacement source for the package.
             '';
           };
-        };
+        } // (
+          # Hooks around the build phases: preUnpack, postUnpack, ...,
+          # preInstall, postInstall.
+          let hook = pre: phase:
+                nameValuePair "${if pre then "pre" else "post"}${phase}" (mkOption {
+                  type = types.nullOr types.lines;
+                  default = null;
+                  description = ''
+                    Shell code run ${if pre then "before" else "after"} the
+                    ${toLower phase} phase. `null` leaves the default in
+                    place.
+                  '';
+                });
+          in listToAttrs (concatMap (phase: [ (hook true phase) (hook false phase) ])
+               [ "Unpack" "Patch" "Configure" "Build" "Check" "Haddock" "Install" ])
+        );
       });
       default = {};
       description = ''
