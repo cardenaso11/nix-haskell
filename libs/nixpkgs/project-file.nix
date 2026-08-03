@@ -20,6 +20,9 @@
 #   sourceRepoStanzas ./project        # stanzas of its cabal.project
 #   => [ { url = "https://github.com/reflex-frp/reflex-dom";
 #          ref = "master"; sha256 = null; subdirs = [ "reflex-dom" ]; } ]
+#
+#   packageNameIn ./hello              # holds hello.cabal (or package.yaml)
+#   => "hello"
 { pkgs, parser }:
 
 with pkgs.lib;

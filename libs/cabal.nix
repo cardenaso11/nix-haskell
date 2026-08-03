@@ -7,6 +7,21 @@ let decode = import ./source-repository-package.nix;
     # source-repository-package
     # :: String -> (Path || Thunk || { src :: Path || Thunk; condition :: String || Null } || { outPath :: Path; ... })
     # -> { inputMap."Path" :: AttrSet; cabalProject :: String }
+    #
+    # Example:
+    #
+    #   source-repository-package "reflex-dom"
+    #     { src = ./dep/reflex-dom; subdir = "reflex-dom"; condition = "!arch(javascript)"; }
+    #   => { inputMap."/nix/store/<hash>-reflex-dom" = { name = "reflex-dom"; outPath = <path>; rev = "HEAD"; };
+    #        cabalProject = ''
+    #          if !arch(javascript)
+    #            source-repository-package
+    #              type: git
+    #              location: /nix/store/<hash>-reflex-dom
+    #              tag: HEAD
+    #              subdir: reflex-dom
+    #        '';
+    #      }
     source-repository-package = name: package-repo:
       let inherit (decode package-repo) hasOutPath src condition subdirs;
           resolved = if hasOutPath then package-repo else { inherit name; outPath = builtins.path { path = src; inherit name; }; };
@@ -39,7 +54,14 @@ let decode = import ./source-repository-package.nix;
       };
 
     # source-repository-packages
-    # :: AttrSet (String -> Path || ...) -> { inputMap :: AttrSet; cabalProject :: String }
+    # :: AttrSet (String -> Path || ...) -> { inputMap :: AttrSet; cabalProject :: [String] }
+    #
+    # Example:
+    #
+    #   source-repository-packages { reflex = ./dep/reflex; reflex-dom = ./dep/reflex-dom; }
+    #   => { inputMap = { "/nix/store/<hash>-reflex" = { ... }; "/nix/store/<hash>-reflex-dom" = { ... }; };
+    #        cabalProject = [ <reflex stanza> <reflex-dom stanza> ];
+    #      }
     source-repository-packages = package-repos:
       let packages = mapAttrsToList source-repository-package package-repos;
           zipPackages = builtins.zipAttrsWith
@@ -64,6 +86,12 @@ let decode = import ./source-repository-package.nix;
     # :: Path (base directory)
     # -> Path (project file)
     # -> String
+    #
+    # Example:
+    #
+    #   inline-cabal-project ./project "cabal.project"   # contains "import: extra.project"
+    #   => the text of cabal.project, with the import line replaced by the
+    #      text of extra.project (recursively; https urls are fetched)
     inline-cabal-project = dir: file:
       let path = dir + "/${file}";
           content =

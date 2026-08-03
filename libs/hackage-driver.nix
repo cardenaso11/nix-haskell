@@ -8,6 +8,19 @@
 # https://github.com/ilyakooo0/haskell-nix-extra-hackage/blob/master/default.nix
 # https://github.com/mlabs-haskell/mlabs-tooling.nix/blob/main/mk-hackage.nix
 # Makes it a bit more basic
+#
+# Example:
+#
+#   import ./hackage-driver.nix {
+#     inherit pkgs;
+#     compiler-nix-name = "ghc9124";
+#     modules = [ { name = "dep-b"; version = "0.1.0.0"; src = ./dep-b; } ];
+#   }
+#   => { extra-hackage-tarballs.overlay = <01-index.tar.gz with dep-b>;
+#        extra-hackages = [ <imported hackage-to-nix output> ];
+#        package-overlays = [ { packages.dep-b.src = <mkForce ./dep-b>; } ];
+#        ...
+#      }
 { pkgs, compiler-nix-name ? "ghc925",  modules ? [ ]  }: let
   packageDef = { name, version, src, signatures ? [ ], type ? "Targets", expires ? null }: {
     inherit signatures;

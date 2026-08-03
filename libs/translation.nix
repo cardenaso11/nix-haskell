@@ -7,6 +7,16 @@
 # fails evaluation. `shell` and `packages` sub-options get their own keys
 # ("shell.tools", "packages.*.flags", ...) so new sub-options trip the check
 # too.
+#
+# Example of a value of this type:
+#
+#   {
+#     compiler-nix-name = {
+#       set = { compiler-nix-name = config.compiler-nix-name; };
+#       via = "project `compiler-nix-name`";
+#     };
+#     clean-src.via = "consumed by `src-cleaned`";   # set = null: no payload
+#   }
 { lib }:
 
 with lib;

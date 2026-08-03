@@ -12,6 +12,14 @@
 # can be pulled in through `ignoreFiles`, but their anchored patterns are
 # reinterpreted against the root, so pass the bare ones through `patterns`
 # instead when that matters.
+#
+# Example:
+#
+#   import ./clean-source.nix { inherit pkgs; } { src = ./.; patterns = "dist-js"; }
+#   => <a store copy of ./. without .git, the gitignored files and dist-js>
+#
+#   import ./clean-source.nix { inherit pkgs; } { src = <derivation or store path>; }
+#   => the src, untouched
 { pkgs }:
 
 { src

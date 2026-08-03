@@ -6,6 +6,18 @@
 # cabal-project-parser for source-repository-package stanzas, host-map for
 # cabal's platform names, and (with `nixpkgs.options.use-plan`) the cabal
 # plan of the haskell.nix driver for the definitive local package set.
+#
+# Example:
+#
+#   import ./driver.nix { inherit pkgs haskellPackages lib config; }
+#   => { packages.hello = <derivation>;
+#        haskellPackages = <the extended package set>;
+#        hsPkgs = <alias of haskellPackages>;
+#        shell = <shellFor derivation>;
+#        projectCross.<platform> = <the same shape, built with pkgsCross>;
+#        ghcWithPackages = <function>;
+#        pkgs = <the nixpkgs used>;
+#      }
 { pkgs, haskellPackages, lib, config }:
 
 let compose = pkgs.haskell.lib.compose;
