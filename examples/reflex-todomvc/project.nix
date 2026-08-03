@@ -41,11 +41,14 @@
       # the nixpkgs package set already carries the upstream splitmix fix
       splitmix.patches = [];
     };
+
     options.overrides = [
       # test dependency of reflex-dom-core, lives in the reflex-dom
       # repository; never built since checks are off for fetched packages
       (self: super: { chrome-test-utils = null; })
     ];
+
+    shell.crossPlatforms = ps: with ps; [ ghcjs ];
   };
 
   shell = {
