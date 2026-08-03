@@ -270,10 +270,26 @@ let compose = pkgs.haskell.lib.compose;
          then throw "nix-haskell (nixpkgs driver): cannot find the shell tool \"${name}\"; set nixpkgs.options.tool-packages.\"${name}\""
          else found.${name};
 
+    # The wrapped cross compiler carries the dependencies of the shell
+    # selection in its package database, like shellFor's environment does for
+    # the native compiler: without a hackage index in the shell, cabal can
+    # only resolve against installed packages. Setup dependencies are left
+    # out; they build on the native side.
+    crossGhcEnv = platform:
+      let chp = projectCross.${platform}.haskellPackages;
+          selected = map (p: chp.${p.identifier.name}) (selection selectionSet);
+          notSelected = d: lib.all (p: (d.outPath or null) != p.outPath) selected;
+          depsOf = p: lib.concatLists (lib.attrValues (lib.filterAttrs
+            (n: _: n == "buildDepends"
+              || (lib.hasSuffix "HaskellDepends" n && n != "setupHaskellDepends"))
+            p.getCabalDeps));
+      in chp.ghcWithPackages
+           (_: lib.filter (d: d != null && notSelected d) (lib.concatMap depsOf selected));
+
     crossWrappers =
       let mkWrappers = import ../cross-wrappers.nix { inherit pkgs lib; };
           probe = lib.genAttrs (builtins.attrNames pkgs.pkgsCross) (n: n);
-      in lib.concatMap (platform: mkWrappers projectCross.${platform}.haskellPackages.ghc)
+      in lib.concatMap (platform: mkWrappers (crossGhcEnv platform))
            (cfg.shell.crossPlatforms probe);
 
     shell = hp.shellFor ({
