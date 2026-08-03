@@ -123,27 +123,38 @@ let compose = pkgs.haskell.lib.compose;
     # ---- The package set: one fixpoint extension over the base set ----
 
     # Cabal flags of generated packages go through cabal2nix, so the
-    # dependency graph is computed under the right flag assignment.
-    cabal2nixFlags = name:
-      let flags = (config.packages.${name} or {}).flags or {};
-      in lib.concatStringsSep " "
-           (lib.mapAttrsToList
+    # dependency graph is computed under the right flag assignment, and
+    # disabled tests and documentation are baked into the generated
+    # expression. Note that cabal2nix keeps test dependencies as required
+    # arguments even with --no-check: a test dependency absent from the
+    # package set still needs an explicit null override.
+    cabal2nixOptions = name: external:
+      let t = config.packages.${name} or {};
+          d = ocfg.extra-package-defaults;
+          noCheck = (t.doCheck or null) == false
+            || (external && !d.check && (t.doCheck or null) == null);
+          noHaddock = (t.doHaddock or null) == false
+            || (external && !d.haddock && (t.doHaddock or null) == null);
+      in lib.concatStringsSep " " (
+           lib.mapAttrsToList
              (f: enabled: "--flag=${lib.optionalString (!enabled) "-"}${f}")
-             flags);
+             (t.flags or {})
+           ++ lib.optional noCheck "--no-check"
+           ++ lib.optional noHaddock "--no-haddock");
 
     localPackagesOverlay = self: _:
       lib.mapAttrs
-        (name: p: self.callCabal2nixWithOptions name p.src (cabal2nixFlags name) {})
+        (name: p: self.callCabal2nixWithOptions name p.src (cabal2nixOptions name p.external) {})
         discovered;
 
     srpOverlay = self: _:
       lib.mapAttrs
-        (name: dir: self.callCabal2nixWithOptions name dir (cabal2nixFlags name) {})
+        (name: dir: self.callCabal2nixWithOptions name dir (cabal2nixOptions name true) {})
         srpPackages;
 
     hackageOverlay = self: _:
       builtins.listToAttrs
-        (map (o: lib.nameValuePair o.name (self.callCabal2nix o.name o.src {}))
+        (map (o: lib.nameValuePair o.name (self.callCabal2nixWithOptions o.name o.src (cabal2nixOptions o.name true) {}))
           config.hackage-overlays);
 
     # Packages rooted outside the project source get pragmatic defaults:
