@@ -330,7 +330,7 @@ was introduced:
 ### Full example
 
 ```nix
-{ nix-haskell-patches, ... }:
+{ config, nix-haskell-patches, ... }:
 
 {
   imports = [
@@ -346,6 +346,19 @@ was introduced:
       src = ./deps/reflex-dom;
       subdir = [ "reflex-dom" "reflex-dom-core" ];
     };
+  };
+
+  nixpkgs = {
+    # webkitgtk (via jsaddle-webkit2gtk) still links libsoup 2
+    pkgs = import config.inputs.nixpkgs {
+      inherit (config) system;
+      config.permittedInsecurePackages = [ "libsoup-2.74.3" ];
+    };
+    options.overrides = [
+      # test dependency of reflex-dom-core, lives in the reflex-dom
+      # repository; never built since checks are off for fetched packages
+      (self: super: { chrome-test-utils = null; })
+    ];
   };
 
   haskell-nix.extraSrcFiles = {

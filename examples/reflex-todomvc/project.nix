@@ -10,7 +10,6 @@
   compiler-nix-name = "ghc914";
 
   nixpkgs = {
-    compiler = "ghc912";
     # webkitgtk (via jsaddle-webkit2gtk) still links libsoup 2
     pkgs = import config.inputs.nixpkgs {
       inherit (config) system;
