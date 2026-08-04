@@ -24,6 +24,9 @@ let compose = pkgs.haskell.lib.compose;
     cfg = config.nixpkgs;
     ocfg = cfg.options;
 
+    # The `compiler` option resolved per platform.
+    resolveCompiler = (import ../compiler.nix { inherit lib; } cfg.compiler).resolve;
+
     haskell-nix-src = config.inputs."haskell-nix";
     parser = import (haskell-nix-src + "/lib/cabal-project-parser.nix") { inherit pkgs; };
     hostMap = import (haskell-nix-src + "/lib/host-map.nix") pkgs.stdenv;
@@ -311,9 +314,11 @@ let compose = pkgs.haskell.lib.compose;
     projectCross = lib.genAttrs (builtins.attrNames pkgs.pkgsCross) (platform:
       import ./driver.nix {
         pkgs = pkgs.pkgsCross.${platform};
-        haskellPackages =
-          pkgs.pkgsCross.${platform}.haskell.packages.${cfg.compiler}
-            or (throw "nix-haskell (nixpkgs driver): pkgsCross.${platform} has no haskell.packages.${cfg.compiler}");
+        haskellPackages = import ./haskell-packages.nix {
+          inherit lib;
+          pkgs = pkgs.pkgsCross.${platform};
+          compiler = resolveCompiler platform;
+        };
         inherit lib config;
       });
 

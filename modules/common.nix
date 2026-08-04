@@ -9,7 +9,9 @@
 
 with lib;
 
-{
+let mkDriverDefault = import ../libs/driver-default.nix { inherit lib; };
+
+in {
 
   options = {
 
@@ -89,12 +91,37 @@ with lib;
       '';
     };
 
-    compiler-nix-name = mkOption {
-      type = types.str;
+    compiler = mkOption {
+      type = let spec = types.either types.str types.package;
+             in types.either spec (types.attrsOf spec);
       description = ''
-        The name of the ghc compiler to use.
+        The GHC to build with: either the name of a compiler in the driver's
+        package sets (`haskell-nix.compiler.<name>` for the haskell.nix
+        driver, `pkgs.haskell.packages.<name>` for the nixpkgs driver), or a
+        compiler package used directly, such as a bindist or a cross
+        compiler. A package must carry a `version` attribute (or an explicit
+        `compiler-nix-name` attribute), from which the drivers derive the
+        package-set name ("9.12.2" -> "ghc9122").
+
+        Either form can also be given per platform, as an attrset keyed by
+        the native system and `pkgsCross` names (the keys of
+        `shell.crossPlatforms` and `projectCross`). Each platform resolves
+        its own entry; a platform without one fails when accessed.
       '';
-      example = "ghc884";
+      example = literalExpression ''
+        "ghc912"
+        # or a package:
+        inputs.ghc-wasm-meta.packages.''${system}.all_9_12
+        # or a package with an explicit package-set name:
+        inputs.ghc-wasm-meta.packages.''${system}.all_9_12 // {
+          compiler-nix-name = "ghc9122";
+        }
+        # or per platform:
+        {
+          x86_64-linux = "ghc912";
+          wasi32 = inputs.ghc-wasm-meta.packages.x86_64-linux.all_9_12;
+        }
+      '';
       default = "ghc914";
       defaultText = "ghc914";
     };
@@ -570,7 +597,9 @@ with lib;
     shell = {
 
       tools = {
-        cabal = mkDefault "latest";
+        # re-applied inside each driver's mirror, where it must stay below
+        # the seeds carrying the top-level values
+        cabal = mkDriverDefault "latest";
       };
 
     };

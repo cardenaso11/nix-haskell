@@ -11,8 +11,8 @@
 # Example of a value of this type:
 #
 #   {
-#     compiler-nix-name = {
-#       set = { compiler-nix-name = config.compiler-nix-name; };
+#     compiler = {
+#       set = { compiler-nix-name = compiler.name; };
 #       via = "project `compiler-nix-name`";
 #     };
 #     clean-src.via = "consumed by `src-cleaned`";   # set = null: no payload

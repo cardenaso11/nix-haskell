@@ -93,7 +93,7 @@ Applicable to every driver. The full reference is in the
 | `name` | `nullOr str` | from `src` | Project name |
 | `src` | `path` | — | Project source directory |
 | `system` | `str` | `builtins.currentSystem` | Build system |
-| `compiler-nix-name` | `str` | `"ghc914"` | GHC compiler version |
+| `compiler` | `str \| package`, optionally per platform | `"ghc914"` | GHC: a name in the driver's package sets, or a compiler package used directly |
 | `clean-src` | `bool` | `true` | Filter `src` through its `.gitignore` |
 | `clean-src-patterns` | `lines` | `""` | Extra gitignore patterns |
 | `ghcOptions` | `listOf str` | `[]` | Project-wide GHC flags |
@@ -240,7 +240,7 @@ Driver configuration:
 
 | Option | Description |
 |--------|-------------|
-| `nixpkgs.compiler` | `haskell.packages` set name, when `compiler-nix-name` has no nixpkgs equivalent |
+| `nixpkgs.compiler` | Per-driver override of the common `compiler`, when it has no nixpkgs equivalent |
 | `nixpkgs.options.overrides` | Overlays over the package set, applied last |
 | `nixpkgs.options.packages` | Explicit local package map (bypasses discovery) |
 | `nixpkgs.options.use-plan` | Take the project structure from the cabal plan of the haskell.nix driver |

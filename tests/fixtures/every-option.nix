@@ -10,7 +10,7 @@
   clean-src-patterns = ''
     dist-newstyle
   '';
-  compiler-nix-name = "ghc912";
+  compiler = "ghc912";
 
   ghcOptions = [ "-O1" ];
 

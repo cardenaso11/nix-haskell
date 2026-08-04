@@ -9,7 +9,7 @@
 # host-map) are reused for project interpretation; its toolchain is only
 # involved when `nixpkgs.options.use-plan` opts into cabal-exact discovery.
 
-{ config, lib, pkgs, ... }:
+{ config, options, lib, pkgs, ... }:
 
 with lib;
 
@@ -23,7 +23,13 @@ let cfg = config.nixpkgs;
     common = import ../../libs/driver-common.nix {
       inherit lib pkgs cfg;
       topConfig = config;
+      topOptions = options;
     };
+    mkDriverDefault = common.mkDriverDefault;
+
+    # The `compiler` option's native entry, resolved to a name and an
+    # optional package.
+    compiler = (import ../../libs/compiler.nix { inherit lib; } cfg.compiler).resolve cfg.system;
 
 in {
 
@@ -42,31 +48,19 @@ in {
         '';
       };
 
-      compiler = mkOption {
-        type = types.str;
-        default = cfg.compiler-nix-name;
-        defaultText = literalMD ''
-          ```
-          config.nixpkgs.compiler-nix-name
-          ```
-        '';
-        description = ''
-          Name of the `haskell.packages` set to use. An escape hatch for when
-          `compiler-nix-name` has no nixpkgs equivalent.
-        '';
-      };
-
       haskellPackages = mkOption {
         type = types.raw;
-        default =
-          config.nixpkgs.pkgs.haskell.packages.${config.nixpkgs.compiler}
-            or (throw ("nix-haskell (nixpkgs driver): pkgs.haskell.packages has no \"${config.nixpkgs.compiler}\""
-              + " (available: ${concatStringsSep ", " (filter (hasPrefix "ghc") (attrNames config.nixpkgs.pkgs.haskell.packages))});"
-              + " set nixpkgs.compiler or nixpkgs.haskellPackages"));
+        default = import ../../libs/nixpkgs/haskell-packages.nix {
+          inherit lib compiler;
+          pkgs = config.nixpkgs.pkgs;
+        };
         defaultText = literalMD ''
           ```
           config.nixpkgs.pkgs.haskell.packages.''${config.nixpkgs.compiler}
           ```
+          A package compiler overrides that set's `ghc` instead, falling
+          back to `pkgs.haskellPackages` when no set matches its derived
+          name.
         '';
         description = ''
           The base Haskell package set, before the project's packages and
@@ -217,7 +211,7 @@ in {
           clean-src.via = "consumed by `src-cleaned`, which local packages are built from";
           clean-src-patterns.via = "consumed by `src-cleaned`, which local packages are built from";
 
-          compiler-nix-name.via = "selects `pkgs.haskell.packages.<name>` (overridable with `nixpkgs.compiler`)";
+          compiler.via = "selects `pkgs.haskell.packages.<name>`; a package overrides that set's `ghc` (per-driver override: `nixpkgs.compiler`)";
 
           cabalProject.via = "replaces the project file as the text whose source-repository-package stanzas are honored";
           cabalProjectLocal.via = "appended to the project text before stanza parsing";
@@ -315,7 +309,7 @@ in {
     {
       # no stackage snapshot covers ghc 9.14 yet, so the nixpkgs ghc914
       # package set has neither consistent bounds nor cached builds
-      nixpkgs.compiler-nix-name = mkDefault "ghc912";
+      nixpkgs.compiler = mkDriverDefault "ghc912";
     }
 
   ];

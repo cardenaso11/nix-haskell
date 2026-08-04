@@ -13,7 +13,6 @@
 #
 #   import ./hackage-driver.nix {
 #     inherit pkgs;
-#     compiler-nix-name = "ghc9124";
 #     modules = [ { name = "dep-b"; version = "0.1.0.0"; src = ./dep-b; } ];
 #   }
 #   => { extra-hackage-tarballs.overlay = <01-index.tar.gz with dep-b>;
@@ -21,7 +20,7 @@
 #        package-overlays = [ { packages.dep-b.src = <mkForce ./dep-b>; } ];
 #        ...
 #      }
-{ pkgs, compiler-nix-name ? "ghc925",  modules ? [ ]  }: let
+{ pkgs, modules ? [ ] }: let
   packageDef = { name, version, src, signatures ? [ ], type ? "Targets", expires ? null }: {
     inherit signatures;
     signed = {
@@ -62,7 +61,7 @@
   genHackageForNix = hackagetar: pkgs.runCommand "hackage-for-nix" { } ''
     cp ${hackagetar} 01-index.tar.gz
     ${pkgs.gzip}/bin/gunzip 01-index.tar.gz
-    ${pkgs.haskell-nix.nix-tools.${compiler-nix-name}}/bin/hackage-to-nix $out 01-index.tar "https://hackagefornix/"
+    ${pkgs.haskell-nix.nix-tools.exes.hackage-to-nix}/bin/hackage-to-nix $out 01-index.tar "https://hackagefornix/"
   '';
 
   hackageOverlay = defs: rec {

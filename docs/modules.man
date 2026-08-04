@@ -793,10 +793,24 @@ since those patterns are not read.
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
-.SS compiler\-nix\-name
-The name of the ghc compiler to use.
+.SS compiler
+The GHC to build with: either the name of a compiler in the driver\(cqs
+package sets (\f[CR]haskell\-nix.compiler.<name>\f[R] for the
+haskell.nix driver, \f[CR]pkgs.haskell.packages.<name>\f[R] for the
+nixpkgs driver), or a compiler package used directly, such as a bindist
+or a cross compiler.
+A package must carry a \f[CR]version\f[R] attribute (or an explicit
+\f[CR]compiler\-nix\-name\f[R] attribute), from which the drivers derive
+the package\-set name (\(lq9.12.2\(rq \-> \(lqghc9122\(rq).
 .PP
-\f[I]Type:\f[R] string
+Either form can also be given per platform, as an attrset keyed by the
+native system and \f[CR]pkgsCross\f[R] names (the keys of
+\f[CR]shell.crossPlatforms\f[R] and \f[CR]projectCross\f[R]).
+Each platform resolves its own entry; a platform without one fails when
+accessed.
+.PP
+\f[I]Type:\f[R] string or package or attribute set of (string or
+package)
 .PP
 \f[I]Default:\f[R]
 .IP
@@ -807,7 +821,18 @@ The name of the ghc compiler to use.
 \f[I]Example:\f[R]
 .IP
 .EX
-\(dqghc884\(dq
+\(dqghc912\(dq
+\f[I]# or a package:\f[R]
+inputs.ghc\-wasm\-meta.packages.${system}.all_9_12
+\f[I]# or a package with an explicit package\-set name:\f[R]
+inputs.ghc\-wasm\-meta.packages.${system}.all_9_12 // {
+  compiler\-nix\-name = \(dqghc9122\(dq;
+}
+\f[I]# or per platform:\f[R]
+{
+  x86_64\-linux = \(dqghc912\(dq;
+  wasi32 = inputs.ghc\-wasm\-meta.packages.x86_64\-linux.all_9_12;
+}
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
@@ -2145,29 +2170,12 @@ Optional name for better error messages.
 \f[I]Default:\f[R]
 .IP
 .EX
-\(dqcb6mcjq6y1d6mzqzha35f8avygld3xjw\-source\(dq
+\(dqiwy8z2di3y028vklncpjlxnb8zivzwnq\-source\(dq
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
-.UE \c
-.SS nixpkgs.compiler
-Name of the \f[CR]haskell.packages\f[R] set to use.
-An escape hatch for when \f[CR]compiler\-nix\-name\f[R] has no nixpkgs
-equivalent.
-.PP
-\f[I]Type:\f[R] string
-.PP
-\f[I]Default:\f[R]
-.IP
-.EX
-config.nixpkgs.compiler\-nix\-name
-.EE
-.PP
-\f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
 .UE \c
 .SS nixpkgs.haskellPackages
 The base Haskell package set, before the project\(cqs packages and
@@ -2180,6 +2188,10 @@ overrides are layered on top.
 .EX
 config.nixpkgs.pkgs.haskell.packages.${config.nixpkgs.compiler}
 .EE
+.PP
+A package compiler overrides that set\(cqs \f[CR]ghc\f[R] instead,
+falling back to \f[CR]pkgs.haskellPackages\f[R] when no set matches its
+derived name.
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/nixpkgs

@@ -1196,16 +1196,27 @@ strings concatenated with “\\n”
 
 
 
-## compiler-nix-name
+## compiler
 
 
 
-The name of the ghc compiler to use\.
+The GHC to build with: either the name of a compiler in the driver’s
+package sets (` haskell-nix.compiler.<name> ` for the haskell\.nix
+driver, ` pkgs.haskell.packages.<name> ` for the nixpkgs driver), or a
+compiler package used directly, such as a bindist or a cross
+compiler\. A package must carry a ` version ` attribute (or an explicit
+` compiler-nix-name ` attribute), from which the drivers derive the
+package-set name (“9\.12\.2” -> “ghc9122”)\.
+
+Either form can also be given per platform, as an attrset keyed by
+the native system and ` pkgsCross ` names (the keys of
+` shell.crossPlatforms ` and ` projectCross `)\. Each platform resolves
+its own entry; a platform without one fails when accessed\.
 
 
 
 *Type:*
-string
+string or package or attribute set of (string or package)
 
 
 
@@ -1220,7 +1231,19 @@ string
 *Example:*
 
 ```nix
-"ghc884"
+"ghc912"
+# or a package:
+inputs.ghc-wasm-meta.packages.${system}.all_9_12
+# or a package with an explicit package-set name:
+inputs.ghc-wasm-meta.packages.${system}.all_9_12 // {
+  compiler-nix-name = "ghc9122";
+}
+# or per platform:
+{
+  x86_64-linux = "ghc912";
+  wasi32 = inputs.ghc-wasm-meta.packages.x86_64-linux.all_9_12;
+}
+
 ```
 
 *Declared by:*
@@ -3242,36 +3265,11 @@ null or string
 *Default:*
 
 ```nix
-"cb6mcjq6y1d6mzqzha35f8avygld3xjw-source"
+"7535csspmc38xp80wkn2hdg5r5k883qs-source"
 ```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
-
-
-
-## nixpkgs\.compiler
-
-
-
-Name of the ` haskell.packages ` set to use\. An escape hatch for when
-` compiler-nix-name ` has no nixpkgs equivalent\.
-
-
-
-*Type:*
-string
-
-
-
-*Default:*
-
-```
-config.nixpkgs.compiler-nix-name
-```
-
-*Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
 
 
 
@@ -3294,6 +3292,10 @@ raw value
 ```
 config.nixpkgs.pkgs.haskell.packages.${config.nixpkgs.compiler}
 ```
+
+A package compiler overrides that set’s ` ghc ` instead, falling
+back to ` pkgs.haskellPackages ` when no set matches its derived
+name\.
 
 *Declared by:*
  - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
@@ -3663,6 +3665,8 @@ import <nix-haskell>/libs/nixpkgs/driver.nix {
 
 ## optimizations\.O2
 
+
+
 Enable -O2 optimization level\.
 
 
@@ -3684,8 +3688,6 @@ false
 
 
 ## optimizations\.all
-
-
 
 Enable all optimization flags\.
 

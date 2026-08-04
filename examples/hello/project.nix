@@ -3,6 +3,6 @@
   name = "hello";
   src = ./.;
 
-  compiler-nix-name = "ghc912";
+  compiler = "ghc912";
 
 }
