@@ -42,8 +42,9 @@
   haskell.nix's shell module): `packages`, `tools`, `buildInputs`,
   `nativeBuildInputs`, `shellHook`, `withHoogle`, `crossPlatforms`.
   `shell.withHoogle` now defaults to `false`.
-- `modules/patches/*` write the common `packages.<name>.patches` option and
-  therefore apply to both drivers.
+- `modules/patches/*` are functions over an optional `drivers` list
+  selecting the drivers the patch applies to; null (the default) applies it
+  to all.
 - The `optimizations` module writes the common `ghcOptions` option.
 - The generated manual no longer documents haskell.nix's per-package
   `modules.*` option tree; those options are set through

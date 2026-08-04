@@ -2,7 +2,7 @@
 
 {
   imports = [
-    "${nix-haskell-patches}/js/splitmix"
+    (import "${nix-haskell-patches}/js/splitmix" { drivers = [ "haskell-nix" ]; })
   ];
 
   name = "reflex-todomvc";
@@ -37,9 +37,6 @@
         webkit2gtk = false;
       };
       reflex-todomvc.flags.webkitgtk = false;
-
-      # the nixpkgs package set already carries the upstream splitmix fix
-      splitmix.patches = [];
     };
 
     options.overrides = [

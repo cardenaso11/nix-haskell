@@ -345,7 +345,7 @@ was introduced:
 
 {
   imports = [
-    "${nix-haskell-patches}/js/splitmix"
+    (import "${nix-haskell-patches}/js/splitmix" { drivers = [ "haskell-nix" ]; })
   ];
 
   name = "reflex-todomvc";
