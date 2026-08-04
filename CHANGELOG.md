@@ -26,6 +26,16 @@
   the project-wide values, so any common option can be overridden for one
   driver only (e.g. `nixpkgs.packages.<name>.flags`).
 - `examples/hello`, buildable with both drivers.
+- A `ghc-wasm-meta` pin, and `haskell-nix-wasm-meta` / `nixpkgs-wasm-meta`
+  outputs in `examples/reflex-todomvc` that build the wasm target with its
+  GHC 9.12 bindist through either driver, exercising the package form of
+  `compiler`. A package compiler is given haskell.nix's `cachedDeps`, without
+  which every boot package reaches `Setup configure` unresolved. The example
+  shows what a bindist needs beyond the compiler itself: the attributes the
+  drivers read off it, its own C toolchain for the components (for the
+  nixpkgs driver, as the cross toolchain through `replaceCrossStdenv`), and
+  shared libraries, which GHC's wasm Template Haskell interpreter loads
+  instead of the socket-based external interpreter.
 
 ### Changed (breaking)
 
