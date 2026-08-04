@@ -5,8 +5,9 @@
     # Nix, add ?submodules=1 to the flake URL).
     self.submodules = true;
 
-    nixpkgs.url = ./pins/nixpkgs;
     haskell-nix.url = ./pins/haskell-nix;
+    nixpkgs.url = ./pins/nixpkgs;
+    nixpkgs-wasm-experimental.url = ./pins/nixpkgs-wasm-experimental;
 
     flake-compat.url = "github:NixOS/flake-compat";
   };

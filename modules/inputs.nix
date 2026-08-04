@@ -7,7 +7,7 @@ with lib;
   options = {
 
     inputs = mkOption {
-      type = types.attrsOf types.raw;
+      type = types.lazyAttrsOf types.raw;
       apply = mapAttrs (_: import ../libs/thunk.nix);
       default = {};
       description = ''

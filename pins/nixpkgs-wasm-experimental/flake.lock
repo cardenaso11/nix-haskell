@@ -1,0 +1,27 @@
+{
+  "nodes": {
+    "root": {
+      "inputs": {
+        "upstream": "upstream"
+      }
+    },
+    "upstream": {
+      "locked": {
+        "lastModified": 1784317943,
+        "narHash": "sha256-TzNcqiT4OtFkM+FTF4bbpZVZ+3x9v7B0mIifqgwyCC4=",
+        "owner": "georgefst",
+        "repo": "nixpkgs",
+        "rev": "1a3237b27813e77f360f9877bfae3f7640eeb6db",
+        "type": "github"
+      },
+      "original": {
+        "owner": "georgefst",
+        "repo": "nixpkgs",
+        "rev": "1a3237b27813e77f360f9877bfae3f7640eeb6db",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

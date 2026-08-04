@@ -26,6 +26,7 @@
           default = haskell-nix;
           haskell-nix = project.haskell-nix.projectCross.wasi32.hsPkgs.reflex-todomvc.components.exes.reflex-todomvc;
           nixpkgs = project.nixpkgs.projectCross.ghcjs.packages.reflex-todomvc;
+          nixpkgs-wasm-experimental = project.nixpkgs-wasm-experimental.projectCross.wasi32.packages.reflex-todomvc;
         });
 
       devShells = eachSystem (system:

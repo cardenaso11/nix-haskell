@@ -593,6 +593,20 @@
         "type": "github"
       }
     },
+    "nixpkgs-wasm-experimental": {
+      "inputs": {
+        "upstream": "upstream_2"
+      },
+      "locked": {
+        "path": "pins/nixpkgs-wasm-experimental",
+        "type": "path"
+      },
+      "original": {
+        "path": "pins/nixpkgs-wasm-experimental",
+        "type": "path"
+      },
+      "parent": []
+    },
     "old-ghc-nix": {
       "flake": false,
       "locked": {
@@ -614,7 +628,8 @@
       "inputs": {
         "flake-compat": "flake-compat",
         "haskell-nix": "haskell-nix",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "nixpkgs-wasm-experimental": "nixpkgs-wasm-experimental"
       }
     },
     "stackage": {
@@ -646,6 +661,22 @@
         "owner": "NixOS",
         "repo": "nixpkgs",
         "rev": "6d65bfc1bcef2ef39a239d38e577e92a89fb0f07",
+        "type": "github"
+      }
+    },
+    "upstream_2": {
+      "locked": {
+        "lastModified": 1784317943,
+        "narHash": "sha256-TzNcqiT4OtFkM+FTF4bbpZVZ+3x9v7B0mIifqgwyCC4=",
+        "owner": "georgefst",
+        "repo": "nixpkgs",
+        "rev": "1a3237b27813e77f360f9877bfae3f7640eeb6db",
+        "type": "github"
+      },
+      "original": {
+        "owner": "georgefst",
+        "repo": "nixpkgs",
+        "rev": "1a3237b27813e77f360f9877bfae3f7640eeb6db",
         "type": "github"
       }
     }

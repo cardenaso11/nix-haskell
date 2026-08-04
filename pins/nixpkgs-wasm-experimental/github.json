@@ -1,0 +1,8 @@
+{
+  "owner": "georgefst",
+  "repo": "nixpkgs",
+  "branch": "ghc-wasm",
+  "private": false,
+  "rev": "1a3237b27813e77f360f9877bfae3f7640eeb6db",
+  "sha256": "0bh8686am7w8k1sb1gvxgkxmk5d5vf31flz16djd2fpq4jm5qcsg"
+}
