@@ -302,7 +302,7 @@ The haskell.nix checks want the IOG binary cache (configured in the flake's
 
 ### Inputs
 
-Dependencies live under `inputs`, one entry per submodule in `pins/`. An entry
+Dependencies live under `inputs`, one entry per pin in `pins/`. An entry
 accepts whatever a flake input can be: a flake input, a store path, a checkout,
 or a packed thunk.
 
@@ -313,7 +313,7 @@ or a packed thunk.
 }
 ```
 
-The submodules in `pins/` supply `nixpkgs` and `haskell-nix`. Entries of your
+The pins in `pins/` supply `nixpkgs` and `haskell-nix`. Entries of your
 own can be added freely, and are resolved the same way.
 
 Flake inputs are picked up automatically, so `inputs.nixpkgs` follows the

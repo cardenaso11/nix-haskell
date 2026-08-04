@@ -1,6 +1,6 @@
 {
   inputs = {
-    # Dependencies are git submodules under pins/; this makes nix fetch them
+    # pins/haskell-nix is a git submodule; this makes nix fetch it
     # automatically when the flake is fetched over git (Nix 2.27+; on older
     # Nix, add ?submodules=1 to the flake URL).
     self.submodules = true;

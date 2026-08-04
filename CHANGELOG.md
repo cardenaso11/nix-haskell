@@ -49,6 +49,7 @@
 - The generated manual no longer documents haskell.nix's per-package
   `modules.*` option tree; those options are set through
   `haskell-nix.overrides` and documented by haskell.nix itself.
+- The `nixpkgs` pin is a nix-thunk instead of a git submodule.
 
 ### Removed
 
