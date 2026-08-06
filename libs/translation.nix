@@ -1,10 +1,9 @@
 # The type of a driver's `translation` table: one entry per user-settable
 # common option, stating how the driver honors it.
 #
-# The keys are the contract. The totality check (tests/) compares each
-# driver's key set against the common options in both directions, so a common
-# option a driver does not translate, or a stale entry for a removed option,
-# fails evaluation. `shell` and `packages` sub-options get their own keys
+# The keys are the contract. The totality check compares each driver's key set
+# against the common options in both directions, so a common option a driver
+# does not translate, or a stale entry for a removed option, fails evaluation. `shell` and `packages` sub-options get their own keys
 # ("shell.tools", "packages.*.flags", ...) so new sub-options trip the check
 # too.
 #

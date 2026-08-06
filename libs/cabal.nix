@@ -26,8 +26,9 @@ let decode = import ./source-repository-package.nix;
       let inherit (decode package-repo) hasOutPath src condition subdirs;
           resolved = if hasOutPath then package-repo else { inherit name; outPath = builtins.path { path = src; inherit name; }; };
           # Same string as before, but with its context intact, so that a
-          # derivation embedding it (see libs/src-driver.nix) registers a
-          # reference to the source it names. `input` is only ever used as an
+          # derivation embedding this stanza in a cabal.project registers a
+          # reference to the source it names, which is what keeps that source
+          # alive in the store. `input` is only ever used as an
           # attribute name, where context is not permitted, and that is the one
           # place it still has to be discarded.
           location = "${src}";

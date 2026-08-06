@@ -1,7 +1,7 @@
 # The project's cabal.project, as seen by the nixpkgs driver.
 #
-# All parsing is haskell.nix's (lib/cabal-project-parser.nix, passed in as
-# `parser`), combined with this repo's `import:` inlining (libs/cabal.nix).
+# All parsing is haskell.nix's, passed in as `parser`, combined with this
+# repo's own inlining of `import:` lines.
 # The `packages:` field is deliberately not interpreted: haskell.nix has no
 # nix parser for it either (real cabal reads it inside the plan derivation),
 # and this driver follows the same structure. Local packages come from the

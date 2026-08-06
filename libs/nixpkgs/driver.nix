@@ -205,8 +205,9 @@ let compose = pkgs.haskell.lib.compose;
 
     generatedNames = lib.attrNames discovered ++ lib.attrNames srpPackages;
 
-    # Common `packages` fields that set one mkDerivation argument each,
-    # mapped to the argument's name (see generic-builder.nix).
+    # Common `packages` fields that set one argument each of the Haskell
+    # mkDerivation, mapped to the name that builder knows it by, which is not
+    # always the option's own.
     packagesFieldArgs = {
       doCheck = "doCheck";
       doHaddock = "doHaddock";

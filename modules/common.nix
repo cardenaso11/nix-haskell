@@ -1,9 +1,10 @@
 # Driver-neutral project options.
 #
 # Every option in this module is honored by every driver: the totality check
-# in tests/ compares these options against each driver's `translation` table,
-# so adding an option here requires teaching all drivers about it. Anything
-# only one backend can honor belongs in the driver's own module instead.
+# compares these options against each driver's `translation` table, so adding
+# an option here without teaching every driver about it fails evaluation.
+# Anything only one backend can honor belongs in the driver's own module
+# instead.
 
 { config, lib, pkgs, ... }:
 
@@ -15,10 +16,11 @@ let mkDriverDefault = import ../libs/driver-default.nix { inherit lib; };
     # per-platform ones. Fields only one driver reads sit under that driver's
     # own key. Every default is literal, `null` or empty: what a field falls
     # back to depends on the driver (`name`) or on the package (the rest), and
-    # both are resolved per driver in libs/compiler.nix. A default resolved
-    # here could not do that job, because a driver's mirror seeds every field
-    # of a submodule option as soon as one of them is defined, which would
-    # freeze a single answer into both drivers.
+    # each driver resolves it for itself, taking the field, then the attribute
+    # the package carries, then a neutral value. A default resolved here could
+    # not do that job, because a driver's mirror seeds every field of a
+    # submodule option as soon as one of them is defined, which would freeze a
+    # single answer into both drivers.
     compilerEntry = {
 
       name = mkOption {
@@ -267,6 +269,10 @@ in {
       defaultText = ''
         builtins.currentSystem
       '';
+      description = ''
+        The system the project is built on. Each driver instantiates its
+        package set for it, and a cross target is named relative to it.
+      '';
     };
 
     name = mkOption {
@@ -282,6 +288,13 @@ in {
     src = mkOption {
       type = types.either types.path types.package;
       example = "./.";
+      description = ''
+        The project source: the tree holding the cabal project file and the
+        packages it names. A path is copied into the store, filtered first
+        when `clean-src` is enabled; a derivation or a store path is used as
+        it is, on the grounds that whatever produced it already chose what it
+        contains.
+      '';
     };
 
     clean-src = mkOption {

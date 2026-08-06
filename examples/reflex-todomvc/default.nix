@@ -17,8 +17,8 @@ let nix-haskell = import ../.. { inherit system inputs; };
 
       # What the `if !arch(wasm32)` stanza of `cabal.project` says, for the
       # driver that cannot read it: reflex-dom's warp backend needs C libraries
-      # that nixpkgs cannot cross-compile to wasi. `project.nix` assigns the
-      # other side of the same stanza, which the ghcjs target still wants.
+      # that nixpkgs cannot cross-compile to wasi. Only the wasi target turns
+      # it off, since the ghcjs one is built with the backend on.
       platforms.wasi32.packages.reflex-dom.flags.use-warp = false;
 
     };

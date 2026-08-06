@@ -2506,7 +2506,9 @@ attribute set
 
 
 
-This option has no description\.
+What the overlay adds to that package set: the compilers, the hackage
+index, and the ` project ` function the driver calls with
+` haskell-nix.options `\.
 
 
 
@@ -2530,7 +2532,10 @@ config."haskell-nix".nixpkgs.haskell-nix
 
 
 
-This option has no description\.
+The haskell\.nix checkout this driver builds with, imported for
+` system `\. Everything else the driver uses is taken out of it: the
+nixpkgs it pins, the overlay that builds a project, and the helpers
+for selecting components\.
 
 
 
@@ -2554,7 +2559,9 @@ import config.inputs."haskell-nix" { inherit system; }
 
 
 
-This option has no description\.
+haskell\.nix’s own helpers, ` haskellLib `: selecting a project’s local
+packages, collecting components and checks, and the compiler
+plumbing a bespoke compiler needs\.
 
 
 
@@ -2578,7 +2585,8 @@ config."haskell-nix".haskell-nix.haskellLib
 
 
 
-This option has no description\.
+The package set the driver builds with, and the one every native
+tool in its shell comes from\.
 
 
 
@@ -2602,7 +2610,9 @@ import config."haskell-nix".nixpkgsSource ({ inherit system; } // config."haskel
 
 
 
-This option has no description\.
+The arguments that nixpkgs is imported with: haskell\.nix’s own
+overlays, which is what puts ` haskell-nix ` into the package set, and
+the configuration its compilers are built under\.
 
 
 
@@ -2626,7 +2636,10 @@ config."haskell-nix".input.nixpkgsArgs
 
 
 
-This option has no description\.
+The nixpkgs this driver builds from, which is the one haskell\.nix
+pins rather than the project’s ` inputs.nixpkgs `: haskell\.nix’s
+overlays and its compilers are written against that revision\. The
+nixpkgs driver is the one that follows the project’s pin\.
 
 
 
@@ -4216,7 +4229,12 @@ list of unspecified value
 
 
 
-This option has no description\.
+The built project as haskell\.nix returns it: ` hsPkgs `, ` shell `,
+` projectCross ` per cross platform, ` plan-nix `, and the rest\. Its
+shell is the one haskell\.nix builds with the common
+` shell.shellHook ` appended and ` shell.withHoogle ` applied, both
+through ` overrideAttrs `, so that neither is evaluated unless the
+shell is\.
 
 
 
@@ -4386,7 +4404,7 @@ null or string
 *Default:*
 
 ```nix
-"dcrw7l0kgx3wxigbbnakh01fl40qjk69-source"
+"njzqihzyg4zggch1zssvgihnpa018mbg-source"
 ```
 
 *Declared by:*
@@ -4880,7 +4898,11 @@ attribute set of raw value
 <nix-haskell>/libs/nixpkgs/cross-pkgs.nix
 ```
 
-for every ` compiler.platforms ` entry carrying a ` toolchain `
+for every ` compiler.platforms ` entry carrying a ` toolchain `: a
+package set for that platform whose whole toolchain is the
+compiler’s own, built non-static so that the compiler’s shared
+libraries can be used\. A platform without an entry gets none, and
+the driver falls back to ` pkgs.pkgsCross.<platform> `\.
 
 *Declared by:*
  - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
@@ -6421,7 +6443,11 @@ attribute set of (absolute path or (attribute set))
 
 
 
-This option has no description\.
+The project source: the tree holding the cabal project file and the
+packages it names\. A path is copied into the store, filtered first
+when ` clean-src ` is enabled; a derivation or a store path is used as
+it is, on the grounds that whatever produced it already chose what it
+contains\.
 
 
 
@@ -6476,7 +6502,8 @@ absolute path or package *(read only)*
 
 
 
-This option has no description\.
+The system the project is built on\. Each driver instantiates its
+package set for it, and a cross target is named relative to it\.
 
 
 

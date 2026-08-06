@@ -129,7 +129,8 @@ in {
 
   inherit (commonModule) config;
 
-  # See driver-default.nix.
+  # A default a driver states for itself, weaker than the seeds above, so it
+  # applies only where the project said nothing.
   mkDriverDefault = import ./driver-default.nix { inherit lib; };
 
 }

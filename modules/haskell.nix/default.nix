@@ -5,8 +5,8 @@
 # (`overrides`, `extraCabalProject`, `extraSrcFiles`) sit directly under
 # `haskell-nix`, and `haskell-nix.translation` records how every common
 # option maps onto haskell.nix. The translation table is what actually
-# populates `haskell-nix.options`, and its keys are checked against the
-# common options by tests/.
+# populates `haskell-nix.options`, and every common option needs an entry in
+# it, or evaluation fails.
 
 { config, options, lib, pkgs, system, ... }:
 
@@ -108,6 +108,12 @@ in {
           import config.inputs."haskell-nix" { inherit system; }
           ```
         '';
+        description = ''
+          The haskell.nix checkout this driver builds with, imported for
+          `system`. Everything else the driver uses is taken out of it: the
+          nixpkgs it pins, the overlay that builds a project, and the helpers
+          for selecting components.
+        '';
       };
 
       nixpkgsSource = mkOption {
@@ -117,6 +123,12 @@ in {
           ```
           config."haskell-nix".input.sources.nixpkgs-unstable
           ```
+        '';
+        description = ''
+          The nixpkgs this driver builds from, which is the one haskell.nix
+          pins rather than the project's `inputs.nixpkgs`: haskell.nix's
+          overlays and its compilers are written against that revision. The
+          nixpkgs driver is the one that follows the project's pin.
         '';
       };
 
@@ -128,6 +140,11 @@ in {
           config."haskell-nix".input.nixpkgsArgs
           ```
         '';
+        description = ''
+          The arguments that nixpkgs is imported with: haskell.nix's own
+          overlays, which is what puts `haskell-nix` into the package set, and
+          the configuration its compilers are built under.
+        '';
       };
 
       nixpkgs = mkOption {
@@ -137,6 +154,10 @@ in {
           ```
           import config."haskell-nix".nixpkgsSource ({ inherit system; } // config."haskell-nix".nixpkgsArgs)
           ```
+        '';
+        description = ''
+          The package set the driver builds with, and the one every native
+          tool in its shell comes from.
         '';
       };
 
@@ -148,6 +169,11 @@ in {
           config."haskell-nix".nixpkgs.haskell-nix
           ```
         '';
+        description = ''
+          What the overlay adds to that package set: the compilers, the hackage
+          index, and the `project` function the driver calls with
+          `haskell-nix.options`.
+        '';
       };
 
       lib = mkOption {
@@ -157,6 +183,11 @@ in {
           ```
           config."haskell-nix".haskell-nix.haskellLib
           ```
+        '';
+        description = ''
+          haskell.nix's own helpers, `haskellLib`: selecting a project's local
+          packages, collecting components and checks, and the compiler
+          plumbing a bespoke compiler needs.
         '';
       };
 
@@ -456,6 +487,14 @@ in {
           ```
           config.haskell-nix.haskell-nix.project config.haskell-nix.options
           ```
+        '';
+        description = ''
+          The built project as haskell.nix returns it: `hsPkgs`, `shell`,
+          `projectCross` per cross platform, `plan-nix`, and the rest. Its
+          shell is the one haskell.nix builds with the common
+          `shell.shellHook` appended and `shell.withHoogle` applied, both
+          through `overrideAttrs`, so that neither is evaluated unless the
+          shell is.
         '';
         type = types.raw;
       };

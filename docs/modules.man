@@ -1686,7 +1686,9 @@ ExtraSrcFiles to include in the project builds.
 /modules/haskell.nix
 .UE \c
 .SS haskell\-nix.haskell\-nix
-This option has no description.
+What the overlay adds to that package set: the compilers, the hackage
+index, and the \f[CR]project\f[R] function the driver calls with
+\f[CR]haskell\-nix.options\f[R].
 .PP
 \f[I]Type:\f[R] raw value
 .PP
@@ -1701,7 +1703,11 @@ config.\(dqhaskell\-nix\(dq.nixpkgs.haskell\-nix
 /modules/haskell.nix
 .UE \c
 .SS haskell\-nix.input
-This option has no description.
+The haskell.nix checkout this driver builds with, imported for
+\f[CR]system\f[R].
+Everything else the driver uses is taken out of it: the nixpkgs it pins,
+the overlay that builds a project, and the helpers for selecting
+components.
 .PP
 \f[I]Type:\f[R] raw value
 .PP
@@ -1716,7 +1722,9 @@ import config.inputs.\(dqhaskell\-nix\(dq { inherit system; }
 /modules/haskell.nix
 .UE \c
 .SS haskell\-nix.lib
-This option has no description.
+haskell.nix\(cqs own helpers, \f[CR]haskellLib\f[R]: selecting a
+project\(cqs local packages, collecting components and checks, and the
+compiler plumbing a bespoke compiler needs.
 .PP
 \f[I]Type:\f[R] raw value
 .PP
@@ -1731,7 +1739,8 @@ config.\(dqhaskell\-nix\(dq.haskell\-nix.haskellLib
 /modules/haskell.nix
 .UE \c
 .SS haskell\-nix.nixpkgs
-This option has no description.
+The package set the driver builds with, and the one every native tool in
+its shell comes from.
 .PP
 \f[I]Type:\f[R] raw value
 .PP
@@ -1746,7 +1755,9 @@ import config.\(dqhaskell\-nix\(dq.nixpkgsSource ({ inherit system; } // config.
 /modules/haskell.nix
 .UE \c
 .SS haskell\-nix.nixpkgsArgs
-This option has no description.
+The arguments that nixpkgs is imported with: haskell.nix\(cqs own
+overlays, which is what puts \f[CR]haskell\-nix\f[R] into the package
+set, and the configuration its compilers are built under.
 .PP
 \f[I]Type:\f[R] raw value
 .PP
@@ -1761,7 +1772,10 @@ config.\(dqhaskell\-nix\(dq.input.nixpkgsArgs
 /modules/haskell.nix
 .UE \c
 .SS haskell\-nix.nixpkgsSource
-This option has no description.
+The nixpkgs this driver builds from, which is the one haskell.nix pins
+rather than the project\(cqs \f[CR]inputs.nixpkgs\f[R]: haskell.nix\(cqs
+overlays and its compilers are written against that revision.
+The nixpkgs driver is the one that follows the project\(cqs pin.
 .PP
 \f[I]Type:\f[R] raw value
 .PP
@@ -2807,7 +2821,13 @@ Lists are concatenated when composed (not replaced).
 /modules/haskell.nix
 .UE \c
 .SS haskell\-nix.project
-This option has no description.
+The built project as haskell.nix returns it: \f[CR]hsPkgs\f[R],
+\f[CR]shell\f[R], \f[CR]projectCross\f[R] per cross platform,
+\f[CR]plan\-nix\f[R], and the rest.
+Its shell is the one haskell.nix builds with the common
+\f[CR]shell.shellHook\f[R] appended and \f[CR]shell.withHoogle\f[R]
+applied, both through \f[CR]overrideAttrs\f[R], so that neither is
+evaluated unless the shell is.
 .PP
 \f[I]Type:\f[R] raw value
 .PP
@@ -2928,7 +2948,7 @@ Optional name for better error messages.
 \f[I]Default:\f[R]
 .IP
 .EX
-\(dqdcrw7l0kgx3wxigbbnakh01fl40qjk69\-source\(dq
+\(dqnjzqihzyg4zggch1zssvgihnpa018mbg\-source\(dq
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
@@ -3256,7 +3276,11 @@ toolchain needs, since that toolchain has to become the whole set\(cqs.
 .EE
 .PP
 for every \f[CR]compiler.platforms\f[R] entry carrying a
-\f[CR]toolchain\f[R]
+\f[CR]toolchain\f[R]: a package set for that platform whose whole
+toolchain is the compiler\(cqs own, built non\-static so that the
+compiler\(cqs shared libraries can be used.
+A platform without an entry gets none, and the driver falls back to
+\f[CR]pkgs.pkgsCross.<platform>\f[R].
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/nixpkgs
@@ -4263,7 +4287,12 @@ multi\-package repository needs one entry rather than one per package.
 /modules/common.nix
 .UE \c
 .SS src
-This option has no description.
+The project source: the tree holding the cabal project file and the
+packages it names.
+A path is copied into the store, filtered first when
+\f[CR]clean\-src\f[R] is enabled; a derivation or a store path is used
+as it is, on the grounds that whatever produced it already chose what it
+contains.
 .PP
 \f[I]Type:\f[R] absolute path or package
 .PP
@@ -4300,7 +4329,9 @@ This is what the project is actually built from.
 /modules/common.nix
 .UE \c
 .SS system
-This option has no description.
+The system the project is built on.
+Each driver instantiates its package set for it, and a cross target is
+named relative to it.
 .PP
 \f[I]Type:\f[R] string
 .PP

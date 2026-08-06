@@ -66,7 +66,11 @@ in {
           ```
           <nix-haskell>/libs/nixpkgs/cross-pkgs.nix
           ```
-          for every `compiler.platforms` entry carrying a `toolchain`
+          for every `compiler.platforms` entry carrying a `toolchain`: a
+          package set for that platform whose whole toolchain is the
+          compiler's own, built non-static so that the compiler's shared
+          libraries can be used. A platform without an entry gets none, and
+          the driver falls back to `pkgs.pkgsCross.<platform>`.
         '';
         description = ''
           Cross package sets for `project.projectCross`, keyed by
