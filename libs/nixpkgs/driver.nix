@@ -293,9 +293,8 @@ let compose = pkgs.haskell.lib.compose;
 
     # Tools are resolved by name; version requests cannot be honored without
     # a solver and are ignored.
-    toolAliases = { cabal = pkgs.cabal-install; };
     resolveTool = name: _:
-      let sources = [ ocfg.tool-packages toolAliases pkgs hp ];
+      let sources = [ ocfg.tool-packages pkgs hp ];
           found = lib.findFirst (set: set ? ${name}) null sources;
       in if found == null
          then throw "nix-haskell (nixpkgs driver): cannot find the shell tool \"${name}\"; set nixpkgs.options.tool-packages.\"${name}\""

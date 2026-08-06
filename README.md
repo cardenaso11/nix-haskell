@@ -95,6 +95,7 @@ Applicable to every driver. The full reference is in the
 | `system` | `str` | `builtins.currentSystem` | Build system |
 | `compiler` | `submodule` | the driver's own | GHC to build with: a name, a package from outside the driver's sets, per platform |
 | `clean-src` | `bool` | `true` | Filter `src` through its `.gitignore` |
+| `clean-src-ignore-files` | `listOf str` | `[ "/.gitignore" ]` | Ignore files to read, relative to the tree root |
 | `clean-src-patterns` | `lines` | `""` | Extra gitignore patterns |
 | `ghcOptions` | `listOf str` | `[]` | Project-wide GHC flags |
 | `cabalProject` | `nullOr lines` | `null` | `cabal.project` content (replaces the file) |
@@ -152,6 +153,7 @@ compiler.platforms.wasi32 = {
 | `enableShared` | both | Whether it builds shared libraries |
 | `toolchain` | both | The C tools it was configured with (`package`, `cc`, `ar`, `ld`, `strip`) |
 | `haskell-nix.libDir` | haskell.nix | Where its package database and `settings` live, relative to its store path |
+| `haskell-nix.extraNonReinstallablePkgs` | haskell.nix | Packages taken from its own database rather than built, on top of the usual ones |
 | `nixpkgs.haskellCompilerName` | nixpkgs | Its cabal name, which names package database directories and is cabal2nix's `--compiler` |
 | `nixpkgs.enableExternalInterpreter` | nixpkgs | Whether Template Haskell splices are proxied to the target |
 
@@ -327,7 +329,8 @@ Driver configuration:
 | `nixpkgs.options.packages` | Explicit local package map (bypasses discovery) |
 | `nixpkgs.options.use-plan` | Take the project structure from the cabal plan of the haskell.nix driver |
 | `nixpkgs.options.extra-package-defaults` | Jailbreak/check/haddock defaults for fetched packages |
-| `nixpkgs.options.tool-packages` | Overrides for `shell.tools` resolution |
+| `nixpkgs.options.cross-package-defaults` | Jailbreak/haddock/profiling defaults for a cross set the driver builds itself |
+| `nixpkgs.options.tool-packages` | Overrides for `shell.tools` resolution, `cabal` among them by default |
 | `nixpkgs.options.shellFor-args` | Extra `shellFor` arguments |
 
 Local packages are the package at the root of `src` by default.

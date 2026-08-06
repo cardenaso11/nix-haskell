@@ -766,11 +766,44 @@ true
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
+.SS clean\-src\-ignore\-files
+The ignore files read when \f[CR]clean\-src\f[R] is enabled, relative to
+the root of the source tree.
+Every pattern is interpreted with the root as its base, whichever file
+it came from, so an anchored pattern in a nested file
+(\f[CR]dist/*\f[R]) matches against the root rather than against the
+directory the file sits in; where that matters, give the pattern through
+\f[CR]clean\-src\-patterns\f[R] instead.
+.PP
+\f[I]Type:\f[R] list of string
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+[
+  \(dq/.gitignore\(dq
+]
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[
+  \(dq/.gitignore\(dq
+  \(dq/frontend/.gitignore\(dq
+]
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
 .SS clean\-src\-patterns
-Extra gitignore\-syntax patterns applied on top of the tree\(cqs own
-\f[CR].gitignore\f[R] when \f[CR]clean\-src\f[R] is enabled.
-Useful for artifacts that only a nested \f[CR].gitignore\f[R] lists,
-since those patterns are not read.
+Extra gitignore\-syntax patterns, applied on top of the files
+\f[CR]clean\-src\-ignore\-files\f[R] names, when \f[CR]clean\-src\f[R]
+is enabled.
+A bare pattern (\f[CR]dist\-js\f[R]) matches at any depth, which is what
+an anchored one read against the root cannot do.
 .PP
 \f[I]Type:\f[R] strings concatenated with \(lq\(rsn\(rq
 .PP
@@ -887,6 +920,36 @@ Compiler details only the haskell.nix driver reads.
 .IP
 .EX
 { }
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.haskell\-nix.extraNonReinstallablePkgs
+Packages taken from the compiler\(cqs own database rather than built, on
+top of the ones the driver already treats that way.
+A package the compiler was configured against, but which is absent from
+the lists the driver copies out of it, belongs here: a build that
+reaches for it finds nothing to depend on, and everything downstream of
+it breaks.
+A compiler whose \f[CR]text\f[R] is built against simdutf needs
+\f[CR]system\-cxx\-std\-lib\f[R] this way.
+.PP
+\f[I]Type:\f[R] list of string
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+[ ]
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[
+  \(dqsystem\-cxx\-std\-lib\(dq
+]
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
@@ -1059,6 +1122,36 @@ Compiler details only the haskell.nix driver reads.
 .IP
 .EX
 { }
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.platforms.<name>.haskell\-nix.extraNonReinstallablePkgs
+Packages taken from the compiler\(cqs own database rather than built, on
+top of the ones the driver already treats that way.
+A package the compiler was configured against, but which is absent from
+the lists the driver copies out of it, belongs here: a build that
+reaches for it finds nothing to depend on, and everything downstream of
+it breaks.
+A compiler whose \f[CR]text\f[R] is built against simdutf needs
+\f[CR]system\-cxx\-std\-lib\f[R] this way.
+.PP
+\f[I]Type:\f[R] list of string
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+[ ]
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[
+  \(dqsystem\-cxx\-std\-lib\(dq
+]
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
@@ -2835,7 +2928,7 @@ Optional name for better error messages.
 \f[I]Default:\f[R]
 .IP
 .EX
-\(dq26kghwckvga9wrdxfgzpfpffgz0x3dfl\-source\(dq
+\(dqdcrw7l0kgx3wxigbbnakh01fl40qjk69\-source\(dq
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
@@ -2911,6 +3004,73 @@ Directory of the package within the project source.
 .IP
 .EX
 \(dq.\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
+.SS nixpkgs.options.cross\-package\-defaults
+Defaults applied to every package of a cross set the driver builds
+itself, the one a compiler bringing its own toolchain needs
+(\f[CR]nixpkgs.pkgsCross\f[R]).
+They sit under the project\(cqs own \f[CR]packages.<name>\f[R] settings,
+which the driver layers on after.
+Tests and benchmarks are not among them: a cross set has no way to run
+what it builds, so they are always off there.
+.PP
+\f[I]Type:\f[R] submodule
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
+.SS nixpkgs.options.cross\-package\-defaults.haddock
+Build documentation.
+.PP
+\f[I]Type:\f[R] boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+false
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
+.SS nixpkgs.options.cross\-package\-defaults.jailbreak
+Lift version bounds (\f[CR]haskell.lib.doJailbreak\f[R]).
+A cross set has no solver to satisfy them with.
+.PP
+\f[I]Type:\f[R] boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+true
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
+.SS nixpkgs.options.cross\-package\-defaults.profiling
+Build profiling libraries.
+.PP
+\f[I]Type:\f[R] boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+false
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
@@ -3020,16 +3180,18 @@ Extra arguments passed to \f[CR]shellFor\f[R] verbatim
 .UE \c
 .SS nixpkgs.options.tool\-packages
 Overrides for \f[CR]shell.tools\f[R] resolution, keyed by tool name.
-By default a tool is looked up as \f[CR]pkgs.<name>\f[R] and then in the
-Haskell package set; version requests are ignored, since nixpkgs carries
-a single version.
+A tool is looked up here first, then as \f[CR]pkgs.<name>\f[R], then in
+the Haskell package set; version requests are ignored, since nixpkgs
+carries a single version.
+\f[CR]cabal\f[R] is here because the tool\(cqs name is not the name of
+the package carrying it; an entry of the project\(cqs own replaces it.
 .PP
 \f[I]Type:\f[R] attribute set of package
 .PP
 \f[I]Default:\f[R]
 .IP
 .EX
-{ }
+{ cabal = config.nixpkgs.pkgs.cabal\-install; }
 .EE
 .PP
 \f[I]Example:\f[R]
@@ -4128,6 +4290,7 @@ This is what the project is actually built from.
   import ../libs/clean\-source.nix { inherit pkgs; } {
     src = config.src;
     name = config.name;
+    ignoreFiles = config.clean\-src\-ignore\-files;
     patterns = config.clean\-src\-patterns;
   }
 .EE

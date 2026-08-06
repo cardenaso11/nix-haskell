@@ -249,6 +249,7 @@ in {
           src.via = "the src-driver derivation built from `src-cleaned`";
 
           clean-src.via = "consumed by `src-cleaned`, which feeds the src-driver";
+          clean-src-ignore-files.via = "consumed by `src-cleaned`, which feeds the src-driver";
           clean-src-patterns.via = "consumed by `src-cleaned`, which feeds the src-driver";
 
           "compiler.name".set =
@@ -282,10 +283,7 @@ in {
 
           "compiler.toolchain".set = mkIf compilers.anyToolchain {
             modules = [
-              (import ../../libs/haskell-nix/compiler-toolchain.nix {
-                inherit lib compilers;
-                haskell-nix-src = config.inputs."haskell-nix";
-              })
+              (import ../../libs/haskell-nix/compiler-toolchain.nix { inherit lib compilers; })
             ];
           };
           "compiler.toolchain".via = "a module giving every package the compiler's own configure flags, on the platforms whose entry carries a toolchain";
@@ -294,7 +292,15 @@ in {
           "compiler.version".via = "spliced onto the compiler as `ghc.version`; the compiler the shell tools are built with is the driver's own of that version";
           "compiler.targetPrefix".via = "spliced onto the compiler as `ghc.targetPrefix`, which names every tool the builders call";
           "compiler.enableShared".via = "spliced onto the compiler as `ghc.enableShared`, which decides every component's `shared:`";
-          "compiler.haskell-nix".via = "`libDir` is spliced onto the compiler, where the package database and `settings` are looked for";
+          "compiler.haskell-nix".set = mkIf compilers.anyExtraNonReinstallablePkgs {
+            modules = [
+              (import ../../libs/haskell-nix/non-reinstallable.nix {
+                inherit lib compilers;
+                haskell-nix-src = config.inputs."haskell-nix";
+              })
+            ];
+          };
+          "compiler.haskell-nix".via = "`libDir` is spliced onto the compiler, where the package database and `settings` are looked for; `extraNonReinstallablePkgs` is appended to `nonReinstallablePkgs` by a module, on the platforms whose entry names any";
           "compiler.nixpkgs".via = "read by the nixpkgs driver only";
           "compiler.platforms".via = "resolved per target platform by `compilerSelection` and by the toolchain module";
 

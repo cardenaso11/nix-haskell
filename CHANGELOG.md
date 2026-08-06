@@ -19,6 +19,9 @@
   `profilingDetail`, `enableShared`, `enableStatic`,
   `enableSeparateDataOutput`, `enableLibraryForGhci`, `hardeningDisable`,
   `src` and the phase hooks (`preUnpack` through `postInstall`).
+- `clean-src-ignore-files`, the ignore files consulted when `src` is filtered.
+  Only the tree's own `.gitignore` was read before, and a nested one could not
+  be named.
 - A per-driver `translation` table (internal) recording how every common
   option is honored, and flake `checks`:
   `translation-totality`, `every-option-<driver>`, `hello-<driver>`.
@@ -35,6 +38,10 @@
   reaches `Setup configure` unresolved; the nixpkgs driver builds a cross
   package set whose own toolchain it is, through `replaceCrossStdenv`.
 - `nixpkgs.pkgsCross`, the cross package sets `projectCross` builds from.
+- `nixpkgs.options.cross-package-defaults`, what is relaxed for every package
+  of a cross set the driver builds itself: version bounds, documentation and
+  profiling libraries. Tests and benchmarks are not among them, since nothing
+  in such a set can run what it builds.
 - `platforms.<platform>.packages`, per-package customization for one cross
   platform, merged over the project-wide `packages`. It is how a cabal file's
   platform conditional is expressed for the nixpkgs driver, which has no
@@ -55,7 +62,7 @@
   of the driver's own compilers, `compiler.package` and the fields around it
   for one from outside them, and `compiler.platforms.<platform>` for a cross
   target's own. Fields only one driver reads sit under that driver's key
-  (`compiler.haskell-nix.libDir`,
+  (`compiler.haskell-nix.{libDir,extraNonReinstallablePkgs}`,
   `compiler.nixpkgs.{haskellCompilerName,enableExternalInterpreter}`), and the
   `nixpkgs.compiler` escape hatch is the mirror of the same option.
 - Driver defaults of common options now sit between the mirror seeds and

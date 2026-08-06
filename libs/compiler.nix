@@ -23,7 +23,8 @@
 #     system = "x86_64-linux";
 #   };
 #   => { native = <entry>; resolve = <key: entry>;
-#        targetKey = <targetPlatform: key or null>; anyToolchain = <bool>; }
+#        targetKey = <targetPlatform: key or null>;
+#        anyToolchain = <bool>; anyExtraNonReinstallablePkgs = <bool>; }
 #   compilers.native
 #   => { name = "ghc912"; stockName = "ghc912"; package = null; annotated = null; ... }
 #   compilers.resolve "wasi32"
@@ -100,6 +101,7 @@ let crossPlatform = import ./cross-platform.nix { inherit lib; };
       in {
         inherit name stockName version targetPrefix enableShared package;
         inherit toolchain toolchainFlags;
+        inherit (spec.haskell-nix) extraNonReinstallablePkgs;
         inherit (spec.nixpkgs) enableExternalInterpreter;
 
         annotated =
@@ -111,23 +113,30 @@ let crossPlatform = import ./cross-platform.nix { inherit lib; };
             // optionalAttrs (haskellCompilerName != null) { inherit haskellCompilerName; };
       };
 
-in rec {
+    nativeEntry = entry "" (removeAttrs compiler [ "platforms" ]);
 
-  native = entry "" (removeAttrs compiler [ "platforms" ]);
+    platformEntries = mapAttrs (key: entry ".platforms.${key}") platforms;
+
+    allEntries = [ nativeEntry ] ++ attrValues platformEntries;
+
+in {
+
+  native = nativeEntry;
 
   # A platform's own entry when it has one, else the compiler above the table.
   # An entry is additive, so an ordinary cross target keeps working with only
   # one compiler declared.
   resolve = key:
-    if key == null || ! (platforms ? ${key})
-    then native
-    else entry ".platforms.${key}" platforms.${key};
+    if key == null || ! (platformEntries ? ${key})
+    then nativeEntry
+    else platformEntries.${key};
 
-  # Whether any entry brings its own toolchain, which is what decides whether
-  # a driver needs the toolchain machinery at all.
-  anyToolchain =
-    native.toolchain.package != null
-    || any (spec: spec.toolchain.package != null) (attrValues platforms);
+  # Whether any entry asks for machinery a driver only needs when a compiler
+  # is described this way: a toolchain to point builds at, boot packages to
+  # take from the compiler rather than build.
+  anyToolchain = any (e: e.toolchain.package != null) allEntries;
+
+  anyExtraNonReinstallablePkgs = any (e: e.extraNonReinstallablePkgs != []) allEntries;
 
   # The `platforms` key for a target platform, or null when no entry matches
   # and the compiler above the table applies.

@@ -44,6 +44,10 @@ let src = config.inputs.ghc-wasm-meta;
         # version-named install
         haskell-nix.libDir = "lib";
 
+        # its `text` is built against simdutf, and takes the C++ runtime that
+        # needs from the `system-cxx-std-lib` of its own database
+        haskell-nix.extraNonReinstallablePkgs = [ "system-cxx-std-lib" ];
+
         # the wasm backend runs Template Haskell itself, so splices must not be
         # proxied to the target, which has no sockets to proxy over
         nixpkgs.enableExternalInterpreter = false;

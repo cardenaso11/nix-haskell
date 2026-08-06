@@ -13,12 +13,12 @@ let mkDriverDefault = import ../libs/driver-default.nix { inherit lib; };
 
     # The fields of a compiler entry, shared by the native compiler and the
     # per-platform ones. Fields only one driver reads sit under that driver's
-    # own key. Every default is a literal `null`: what a field falls back to
-    # depends on the driver (`name`) or on the package (the rest), and both
-    # are resolved per driver in libs/compiler.nix. A default resolved here
-    # could not do that job, because a driver's mirror seeds every field of a
-    # submodule option as soon as one of them is defined, which would freeze
-    # a single answer into both drivers.
+    # own key. Every default is literal, `null` or empty: what a field falls
+    # back to depends on the driver (`name`) or on the package (the rest), and
+    # both are resolved per driver in libs/compiler.nix. A default resolved
+    # here could not do that job, because a driver's mirror seeds every field
+    # of a submodule option as soon as one of them is defined, which would
+    # freeze a single answer into both drivers.
     compilerEntry = {
 
       name = mkOption {
@@ -189,6 +189,22 @@ let mkDriverDefault = import ../libs/driver-default.nix { inherit lib; };
               '';
             };
 
+            extraNonReinstallablePkgs = mkOption {
+              type = types.listOf types.str;
+              default = [];
+              example = [ "system-cxx-std-lib" ];
+              description = ''
+                Packages taken from the compiler's own database rather than
+                built, on top of the ones the driver already treats that way.
+                A package the compiler was configured against, but which is
+                absent from the lists the driver copies out of it, belongs
+                here: a build that reaches for it finds nothing to depend on,
+                and everything downstream of it breaks. A compiler whose
+                `text` is built against simdutf needs `system-cxx-std-lib`
+                this way.
+              '';
+            };
+
           };
         };
       };
@@ -280,13 +296,28 @@ in {
       '';
     };
 
+    clean-src-ignore-files = mkOption {
+      type = types.listOf types.str;
+      default = [ "/.gitignore" ];
+      description = ''
+        The ignore files read when `clean-src` is enabled, relative to the root
+        of the source tree. Every pattern is interpreted with the root as its
+        base, whichever file it came from, so an anchored pattern in a nested
+        file (`dist/*`) matches against the root rather than against the
+        directory the file sits in; where that matters, give the pattern
+        through `clean-src-patterns` instead.
+      '';
+      example = [ "/.gitignore" "/frontend/.gitignore" ];
+    };
+
     clean-src-patterns = mkOption {
       type = types.lines;
       default = "";
       description = ''
-        Extra gitignore-syntax patterns applied on top of the tree's own
-        `.gitignore` when `clean-src` is enabled. Useful for artifacts that only
-        a nested `.gitignore` lists, since those patterns are not read.
+        Extra gitignore-syntax patterns, applied on top of the files
+        `clean-src-ignore-files` names, when `clean-src` is enabled. A bare
+        pattern (`dist-js`) matches at any depth, which is what an anchored one
+        read against the root cannot do.
       '';
       example = ''
         dist-wasm
@@ -302,6 +333,7 @@ in {
         then import ../libs/clean-source.nix { inherit pkgs; } {
                src = config.src;
                name = config.name;
+               ignoreFiles = config.clean-src-ignore-files;
                patterns = config.clean-src-patterns;
              }
         else config.src;
@@ -310,6 +342,7 @@ in {
         import ../libs/clean-source.nix { inherit pkgs; } {
           src = config.src;
           name = config.name;
+          ignoreFiles = config.clean-src-ignore-files;
           patterns = config.clean-src-patterns;
         }
       ```

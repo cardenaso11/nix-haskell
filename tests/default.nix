@@ -80,6 +80,7 @@ let eval = import ../eval.nix { inherit system pkgs inputs; };
             name = "ghc912";
             platforms.wasi32 = {
               package = stub "9.12.4.20260731";
+              haskell-nix.extraNonReinstallablePkgs = [ "system-cxx-std-lib" ];
               toolchain = {
                 package = sdk;
                 cc = "clang";
@@ -147,6 +148,10 @@ let eval = import ../eval.nix { inherit system pkgs inputs; };
                  "--with-strip=${sdk}/bin/strip"
                ])
               "the toolchain's configure flags are not what a build is given"
+            ++ optional (! (resolved cross).anyExtraNonReinstallablePkgs)
+              "boot packages named by a platform entry are not noticed"
+            ++ optional ((wasiOf cross).extraNonReinstallablePkgs != [ "system-cxx-std-lib" ])
+              "a platform entry's boot packages do not reach the driver"
             # a compiler with nothing to name it, and a platform that is not one
             ++ optional (builtins.tryEval (nativeOf (project {
                  package = derivation { name = "nameless"; builder = "/bin/sh"; inherit system; };

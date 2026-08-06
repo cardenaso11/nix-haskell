@@ -1159,13 +1159,56 @@ true
 
 
 
+## clean-src-ignore-files
+
+
+
+The ignore files read when ` clean-src ` is enabled, relative to the root
+of the source tree\. Every pattern is interpreted with the root as its
+base, whichever file it came from, so an anchored pattern in a nested
+file (` dist/* `) matches against the root rather than against the
+directory the file sits in; where that matters, give the pattern
+through ` clean-src-patterns ` instead\.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+
+```nix
+[
+  "/.gitignore"
+]
+```
+
+
+
+*Example:*
+
+```nix
+[
+  "/.gitignore"
+  "/frontend/.gitignore"
+]
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
 ## clean-src-patterns
 
 
 
-Extra gitignore-syntax patterns applied on top of the tree’s own
-` .gitignore ` when ` clean-src ` is enabled\. Useful for artifacts that only
-a nested ` .gitignore ` lists, since those patterns are not read\.
+Extra gitignore-syntax patterns, applied on top of the files
+` clean-src-ignore-files ` names, when ` clean-src ` is enabled\. A bare
+pattern (` dist-js `) matches at any depth, which is what an anchored one
+read against the root cannot do\.
 
 
 
@@ -1327,6 +1370,47 @@ submodule
 
 ```nix
 { }
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.haskell-nix\.extraNonReinstallablePkgs
+
+
+
+Packages taken from the compiler’s own database rather than
+built, on top of the ones the driver already treats that way\.
+A package the compiler was configured against, but which is
+absent from the lists the driver copies out of it, belongs
+here: a build that reaches for it finds nothing to depend on,
+and everything downstream of it breaks\. A compiler whose
+` text ` is built against simdutf needs ` system-cxx-std-lib `
+this way\.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+
+```nix
+[ ]
+```
+
+
+
+*Example:*
+
+```nix
+[
+  "system-cxx-std-lib"
+]
 ```
 
 *Declared by:*
@@ -1586,6 +1670,47 @@ submodule
 
 ```nix
 { }
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.platforms\.\<name>\.haskell-nix\.extraNonReinstallablePkgs
+
+
+
+Packages taken from the compiler’s own database rather than
+built, on top of the ones the driver already treats that way\.
+A package the compiler was configured against, but which is
+absent from the lists the driver copies out of it, belongs
+here: a build that reaches for it finds nothing to depend on,
+and everything downstream of it breaks\. A compiler whose
+` text ` is built against simdutf needs ` system-cxx-std-lib `
+this way\.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+
+```nix
+[ ]
+```
+
+
+
+*Example:*
+
+```nix
+[
+  "system-cxx-std-lib"
+]
 ```
 
 *Declared by:*
@@ -3535,6 +3660,8 @@ false
 
 ## haskell-nix\.options\.shell\.packageSetupDeps
 
+
+
 This option has no description\.
 
 
@@ -3764,8 +3891,6 @@ one of “cabal-store”, “ghc-pkg”
 
 
 ## haskell-nix\.options\.shell\.inputsFrom
-
-
 
 This option has no description\.
 
@@ -4261,7 +4386,7 @@ null or string
 *Default:*
 
 ```nix
-"26kghwckvga9wrdxfgzpfpffgz0x3dfl-source"
+"dcrw7l0kgx3wxigbbnakh01fl40qjk69-source"
 ```
 
 *Declared by:*
@@ -4374,6 +4499,108 @@ string
 
 ```nix
 "."
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
+## nixpkgs\.options\.cross-package-defaults
+
+
+
+Defaults applied to every package of a cross set the driver
+builds itself, the one a compiler bringing its own toolchain
+needs (` nixpkgs.pkgsCross `)\. They sit under the project’s own
+` packages.<name> ` settings, which the driver layers on after\.
+Tests and benchmarks are not among them: a cross set has no
+way to run what it builds, so they are always off there\.
+
+
+
+*Type:*
+submodule
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
+## nixpkgs\.options\.cross-package-defaults\.haddock
+
+
+
+Build documentation\.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+
+```nix
+false
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
+## nixpkgs\.options\.cross-package-defaults\.jailbreak
+
+
+
+Lift version bounds (` haskell.lib.doJailbreak `)\. A cross
+set has no solver to satisfy them with\.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+
+```nix
+true
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
+## nixpkgs\.options\.cross-package-defaults\.profiling
+
+
+
+Build profiling libraries\.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+
+```nix
+false
 ```
 
 *Declared by:*
@@ -4544,9 +4771,11 @@ attribute set
 
 
 Overrides for ` shell.tools ` resolution, keyed by tool name\.
-By default a tool is looked up as ` pkgs.<name> ` and then in
+A tool is looked up here first, then as ` pkgs.<name> `, then in
 the Haskell package set; version requests are ignored, since
-nixpkgs carries a single version\.
+nixpkgs carries a single version\. ` cabal ` is here because the
+tool’s name is not the name of the package carrying it; an
+entry of the project’s own replaces it\.
 
 
 
@@ -4557,8 +4786,8 @@ attribute set of package
 
 *Default:*
 
-```nix
-{ }
+```
+{ cabal = config.nixpkgs.pkgs.cabal-install; }
 ```
 
 
@@ -5062,8 +5291,6 @@ null
 
 ## platforms\.\<name>\.packages\.\<name>\.enableShared
 
-
-
 Whether to build a shared library\. ` null ` leaves the default in
 place\.
 
@@ -5444,6 +5671,8 @@ null
 
 
 ## platforms\.\<name>\.packages\.\<name>\.postCheck
+
+
 
 Shell code run after the
 check phase\. ` null ` leaves the default in
@@ -6233,6 +6462,7 @@ absolute path or package *(read only)*
   import ../libs/clean-source.nix { inherit pkgs; } {
     src = config.src;
     name = config.name;
+    ignoreFiles = config.clean-src-ignore-files;
     patterns = config.clean-src-patterns;
   }
 ```

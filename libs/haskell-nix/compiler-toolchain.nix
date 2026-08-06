@@ -12,14 +12,11 @@
 #
 # Example:
 #
-#   import ./compiler-toolchain.nix {
-#     inherit lib compilers;
-#     haskell-nix-src = config.inputs."haskell-nix";
-#   }
+#   import ./compiler-toolchain.nix { inherit lib compilers; }
 #   => <a haskell.nix module>
-{ lib, compilers, haskell-nix-src }:
+{ lib, compilers }:
 
-{ config, pkgs, ... }@args:
+{ config, pkgs, ... }:
 
 let key = compilers.targetKey pkgs.stdenv.hostPlatform;
 
@@ -35,26 +32,10 @@ in {
   # `mkIf` rather than a conditional module body: `pkgs` reaches a module
   # through `_module.args`, so deciding the module's own attributes on it is a
   # cycle.
-  config = lib.mkMerge [
-
-    (lib.mkIf ownToolchain {
-      packages = lib.genAttrs config.package-keys (_: {
-        configureFlags = compiler.toolchainFlags;
-      });
-    })
-
-    # A compiler whose `text` is built against simdutf depends on the
-    # `system-cxx-std-lib` of its own package database, which is in neither
-    # list the driver copies out of it, leaving `text` broken for everything
-    # downstream. The option replaces rather than extends, so haskell.nix's own
-    # definition is reused instead of restating its contents, which carry the
-    # packages a cross target's Template Haskell needs.
-    (lib.mkIf (ownToolchain && pkgs.stdenv.hostPlatform.isWasm) {
-      nonReinstallablePkgs =
-        (import "${haskell-nix-src}/modules/install-plan/non-reinstallable.nix" args).nonReinstallablePkgs
-        ++ [ "system-cxx-std-lib" ];
-    })
-
-  ];
+  config = lib.mkIf ownToolchain {
+    packages = lib.genAttrs config.package-keys (_: {
+      configureFlags = compiler.toolchainFlags;
+    });
+  };
 
 }

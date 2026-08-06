@@ -7,6 +7,7 @@
   name = "every-option";
   src = ./every-option;
   clean-src = true;
+  clean-src-ignore-files = [ "/.gitignore" "/nested/.gitignore" ];
   clean-src-patterns = ''
     dist-newstyle
   '';

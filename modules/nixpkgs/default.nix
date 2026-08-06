@@ -59,6 +59,7 @@ in {
             nixpkgs = config.inputs.nixpkgs;
             system = cfg.system;
             compiler = compilers.resolve platform;
+            defaults = cfg.options.cross-package-defaults;
           })
           (filterAttrs (_: spec: spec.toolchain.package != null) cfg.compiler.platforms);
         defaultText = literalMD ''
@@ -188,14 +189,55 @@ in {
               };
             };
 
+            cross-package-defaults = mkOption {
+              default = {};
+              description = ''
+                Defaults applied to every package of a cross set the driver
+                builds itself, the one a compiler bringing its own toolchain
+                needs (`nixpkgs.pkgsCross`). They sit under the project's own
+                `packages.<name>` settings, which the driver layers on after.
+                Tests and benchmarks are not among them: a cross set has no
+                way to run what it builds, so they are always off there.
+              '';
+              type = types.submodule {
+                options = {
+                  jailbreak = mkOption {
+                    type = types.bool;
+                    default = true;
+                    description = ''
+                      Lift version bounds (`haskell.lib.doJailbreak`). A cross
+                      set has no solver to satisfy them with.
+                    '';
+                  };
+                  haddock = mkOption {
+                    type = types.bool;
+                    default = false;
+                    description = "Build documentation.";
+                  };
+                  profiling = mkOption {
+                    type = types.bool;
+                    default = false;
+                    description = "Build profiling libraries.";
+                  };
+                };
+              };
+            };
+
             tool-packages = mkOption {
               type = types.attrsOf types.package;
               default = {};
+              defaultText = literalMD ''
+                ```
+                { cabal = config.nixpkgs.pkgs.cabal-install; }
+                ```
+              '';
               description = ''
                 Overrides for `shell.tools` resolution, keyed by tool name.
-                By default a tool is looked up as `pkgs.<name>` and then in
+                A tool is looked up here first, then as `pkgs.<name>`, then in
                 the Haskell package set; version requests are ignored, since
-                nixpkgs carries a single version.
+                nixpkgs carries a single version. `cabal` is here because the
+                tool's name is not the name of the package carrying it; an
+                entry of the project's own replaces it.
               '';
               example = literalMD ''
                 ```
@@ -236,6 +278,7 @@ in {
           src.via = "local packages are discovered in `src-cleaned` and built with callCabal2nix";
 
           clean-src.via = "consumed by `src-cleaned`, which local packages are built from";
+          clean-src-ignore-files.via = "consumed by `src-cleaned`, which local packages are built from";
           clean-src-patterns.via = "consumed by `src-cleaned`, which local packages are built from";
 
           "compiler.name".via = "selects `pkgs.haskell.packages.<name>`; with a package, names the set whose `ghc` it replaces";
@@ -351,6 +394,13 @@ in {
       # that rather than behind it.
       nixpkgs.compiler.name =
         mkIf (cfg.compiler.package == null) (mkDriverDefault "ghc912");
+    }
+
+    {
+      # The one shell tool whose name is not the name of the package carrying
+      # it. A definition rather than the option's `default`, so that a project
+      # naming other tools keeps this entry.
+      nixpkgs.options.tool-packages.cabal = mkOptionDefault cfg.pkgs.cabal-install;
     }
 
   ];

@@ -19,9 +19,10 @@
 #     system = "x86_64-linux";
 #     platform = "wasi32";
 #     compiler = <resolved entry with a toolchain>;
+#     defaults = { jailbreak = true; haddock = false; profiling = false; };
 #   }
 #   => <a wasi32 package set whose Haskell packages build with the bindist>
-{ lib, nixpkgs, system, platform, compiler }:
+{ lib, nixpkgs, system, platform, compiler, defaults }:
 
 let toolchain = compiler.toolchain.package;
 
@@ -52,10 +53,9 @@ let toolchain = compiler.toolchain.package;
       };
 
     # Everything the set builds is configured against the compiler's toolchain
-    # and runs its setup hook. The bounds and documentation are relaxed for the
-    # whole set, since a cross set has no solver to satisfy them and no way to
-    # run what it builds; a project's own `packages.<name>` settings still win,
-    # because the driver layers them on after this.
+    # and runs its setup hook. What is relaxed for the whole set comes in as
+    # `defaults`; a project's own `packages.<name>` settings still win, because
+    # the driver layers them on after this.
     haskellOverlay = final: prev: {
       haskell = prev.haskell // {
         packageOverrides = lib.composeManyExtensions [
@@ -70,11 +70,12 @@ let toolchain = compiler.toolchain.package;
               '';
               enableSharedLibraries = enableShared;
               enableStaticLibraries = ! enableShared;
-              enableLibraryProfiling = false;
+              enableLibraryProfiling = defaults.profiling;
+              doHaddock = defaults.haddock;
+              jailbreak = defaults.jailbreak;
+              # nothing here can run what it builds
               doCheck = false;
               doBenchmark = false;
-              doHaddock = false;
-              jailbreak = true;
             } // lib.optionalAttrs (compiler.enableExternalInterpreter != null) {
               inherit (compiler) enableExternalInterpreter;
             })).overrideAttrs (attrs: {
