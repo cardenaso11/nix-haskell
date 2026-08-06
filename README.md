@@ -384,6 +384,21 @@ recording how it is honored. `nix flake check` verifies:
 The haskell.nix checks want the IOG binary cache (configured in the flake's
 `nixConfig`; pass `--accept-flake-config` if it is not in your nix.conf).
 
+`release.nix` gathers those checks together with the reflex-todomvc example
+built for every driver, compiler and cross target it is meant to work for, each
+of them twice: as the drivers build it, and as a person would inside the
+project's shell with the cross target's own cabal. It is a tree, reached as
+`legacyPackages.<system>.release` through the flake:
+
+```bash
+nix-build release.nix -A checks
+nix-build release.nix -A reflex-todomvc.build.haskell-nix.ghc912.wasi32
+nix-build release.nix -A all      # the lot, one symlink tree
+```
+
+The matrix stays out of `nix flake check`, which builds only the repo's own
+checks and stays quick.
+
 
 ### Inputs
 

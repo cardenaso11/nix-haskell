@@ -17,7 +17,11 @@
         eachSystem = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
     in {
       legacyPackages = eachSystem (system:
-        import ./default.nix { inherit system inputs; }
+        import ./default.nix { inherit system inputs; } // {
+          # every driver, compiler and cross target this example is meant to
+          # work for, built both ways
+          release = import ./release.nix { inherit system inputs; };
+        }
       );
 
       packages = eachSystem (system:

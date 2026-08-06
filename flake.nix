@@ -34,6 +34,13 @@
         }
       );
 
+      # A tree rather than the flat set `packages` has to be, and its example
+      # matrix cross-compiles for every driver and compiler, so it stays out of
+      # `checks`, which is the repo's own and quick.
+      legacyPackages = eachSystem (system: {
+        release = import ./release.nix { inherit system inputs; };
+      });
+
       checks = eachSystem (system:
         import ./tests {
           inherit system inputs;
