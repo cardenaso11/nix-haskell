@@ -5,7 +5,7 @@ let nix-haskell = import ../.. { inherit system inputs; };
 
     # The wasm target built with ghc-wasm-meta's GHC 9.12 instead of the
     # drivers' own compilers.
-    wasm-meta = { nix-haskell-compilers, nix-haskell-patches, lib, ... }: {
+    wasm-meta = { nix-haskell-compilers, nix-haskell-patches, ... }: {
 
       imports = [
         (import "${nix-haskell-compilers}/ghc-wasm-meta" {
@@ -15,12 +15,11 @@ let nix-haskell = import ../.. { inherit system inputs; };
         (import "${nix-haskell-patches}/wasm/jsaddle-wasm" {})
       ];
 
-      # `project.nix` assigns the flags of the `if !arch(wasm32)` stanza that
-      # the nixpkgs driver cannot read, which is what its ghcjs target needs
-      # but not this one: the warp backend brings in C libraries that nixpkgs
-      # cannot cross-compile to wasi. The haskell.nix driver reads the stanza
-      # and never plans them.
-      nixpkgs.packages.reflex-dom.flags.use-warp = lib.mkForce false;
+      # What the `if !arch(wasm32)` stanza of `cabal.project` says, for the
+      # driver that cannot read it: reflex-dom's warp backend needs C libraries
+      # that nixpkgs cannot cross-compile to wasi. `project.nix` assigns the
+      # other side of the same stanza, which the ghcjs target still wants.
+      platforms.wasi32.packages.reflex-dom.flags.use-warp = false;
 
     };
 

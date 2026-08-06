@@ -4261,7 +4261,7 @@ null or string
 *Default:*
 
 ```nix
-"829rcslchahgmigj8jg81mv47bxlf0sx-source"
+"26kghwckvga9wrdxfgzpfpffgz0x3dfl-source"
 ```
 
 *Declared by:*
@@ -4853,6 +4853,1033 @@ false
 
 *Declared by:*
  - [<nix-haskell>/modules/optimizations\.nix](file://<nix-haskell>/modules/optimizations.nix)
+
+
+
+## platforms
+
+
+
+Per-platform customization, keyed by ` pkgs.pkgsCross ` platform name
+(the keys of ` shell.crossPlatforms ` and ` projectCross `)\.
+
+A cabal file or project file can make a package’s flags, and through
+them its dependencies, conditional on the platform\. The haskell\.nix
+driver follows those conditionals through its solver; the nixpkgs
+driver has none, so what they would have decided is given here\. The
+flags reach the point where a package’s dependencies are worked out,
+rather than only how it is configured\.
+
+
+
+*Type:*
+attribute set of (submodule)
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+
+
+*Example:*
+
+```
+{
+  wasi32.packages.reflex-dom.flags.use-warp = false;
+}
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages
+
+
+
+Per-package customization for this platform only, merged over the
+project-wide ` packages `\. The fields are the same\.
+
+
+
+*Type:*
+attribute set of (submodule)
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+
+
+*Example:*
+
+```
+{
+  splitmix.patches = [ ./splitmix-js.patch ];
+  reflex-dom-core.doCheck = false;
+  my-app.flags.production = true;
+}
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.enableDeadCodeElimination
+
+
+
+Whether to eliminate unused code at link time\. ` null ` leaves the
+default in place\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.enableLibraryForGhci
+
+
+
+Whether to build a pre-linked object of the library for loading
+into GHCi\. ` null ` leaves the default in place\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.enableLibraryProfiling
+
+
+
+Whether to build the package’s library with profiling support\.
+` null ` leaves the default in place\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.enableProfiling
+
+
+
+Whether to build the whole package with profiling support\.
+` null ` leaves the default in place\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.enableSeparateDataOutput
+
+
+
+Whether to install the package’s data files into a separate
+output\. ` null ` leaves the default in place\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.enableShared
+
+
+
+Whether to build a shared library\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.enableStatic
+
+
+
+Whether to build a static library\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.configureFlags
+
+
+
+Extra flags passed to ` Setup configure `\.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+
+```nix
+[ ]
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.doCheck
+
+
+
+Whether to run the package’s test suites\. ` null ` leaves the
+default in place\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.doCoverage
+
+
+
+Whether to generate a coverage report for the package\. ` null `
+leaves the default in place\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.doHaddock
+
+
+
+Whether to build the package’s documentation\. ` null ` leaves the
+default in place\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.doHoogle
+
+
+
+Whether to generate a hoogle index for the package’s
+documentation\. ` null ` leaves the default in place\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.doHyperlinkSource
+
+
+
+Whether to generate hyperlinked source code alongside the
+package’s documentation\. ` null ` leaves the default in place\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.doQuickjump
+
+
+
+Whether to generate the quickjump index of the package’s
+documentation\. ` null ` leaves the default in place\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.dontStrip
+
+
+
+Whether to skip stripping the produced binaries\. ` null ` leaves
+the default in place\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.flags
+
+
+
+Cabal flag assignments for the package (` true ` enables,
+` false ` disables)\.
+
+
+
+*Type:*
+attribute set of boolean
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.ghcOptions
+
+
+
+GHC flags for this package only\.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+
+```nix
+[ ]
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.hardeningDisable
+
+
+
+Hardening flags to disable when building the package\. ` null `
+leaves the default in place\.
+
+
+
+*Type:*
+null or (list of string)
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+
+
+*Example:*
+
+```nix
+[
+  "format"
+]
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.patches
+
+
+
+Patches applied to the package source\.
+
+
+
+*Type:*
+list of absolute path
+
+
+
+*Default:*
+
+```nix
+[ ]
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.postBuild
+
+
+
+Shell code run after the
+build phase\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.postCheck
+
+Shell code run after the
+check phase\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.postConfigure
+
+
+
+Shell code run after the
+configure phase\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.postHaddock
+
+
+
+Shell code run after the
+haddock phase\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.postInstall
+
+
+
+Shell code run after the
+install phase\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.postPatch
+
+
+
+Shell code run after the
+patch phase\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.postUnpack
+
+
+
+Shell code run after the
+unpack phase\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.preBuild
+
+
+
+Shell code run before the
+build phase\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.preCheck
+
+
+
+Shell code run before the
+check phase\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.preConfigure
+
+
+
+Shell code run before the
+configure phase\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.preHaddock
+
+
+
+Shell code run before the
+haddock phase\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.preInstall
+
+
+
+Shell code run before the
+install phase\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.prePatch
+
+
+
+Shell code run before the
+patch phase\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.preUnpack
+
+
+
+Shell code run before the
+unpack phase\. ` null ` leaves the default in
+place\.
+
+
+
+*Type:*
+null or strings concatenated with “\\n”
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.profilingDetail
+
+
+
+The profiling detail level\. ` null ` leaves the default in place\.
+
+
+
+*Type:*
+null or string
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+
+
+*Example:*
+
+```nix
+"toplevel-functions"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.setupBuildFlags
+
+
+
+Extra flags passed to ` Setup build `\.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+
+```nix
+[ ]
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.setupHaddockFlags
+
+
+
+Extra flags passed to ` Setup haddock `\.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+
+```nix
+[ ]
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.src
+
+
+
+Replacement source for the package\.
+
+
+
+*Type:*
+null or absolute path or package
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
 
 
 

@@ -18,11 +18,31 @@
 #        ghcWithPackages = <function>;
 #        pkgs = <the nixpkgs used>;
 #      }
-{ pkgs, haskellPackages, lib, config }:
+{ pkgs, haskellPackages, lib, config, platform ? null }:
 
 let compose = pkgs.haskell.lib.compose;
     cfg = config.nixpkgs;
     ocfg = cfg.options;
+
+    # What the project asked for, with a cross platform's own customization
+    # over the top. The platform's flags have to be here rather than applied to
+    # a built package, because this is what cabal2nix is told, and a flag it
+    # does not know about leaves the dependencies of the platform it was not
+    # meant for in place.
+    packages =
+      if platform == null
+      then lib.seq unknownPlatforms cfg.packages
+      else lib.recursiveUpdate cfg.packages (cfg.platforms.${platform}.packages or {});
+
+    # Checked once, from the project this driver was asked for, since a name
+    # that denotes no platform would otherwise simply never be looked up.
+    unknownPlatforms =
+      let unknown = lib.subtractLists (builtins.attrNames pkgs.pkgsCross)
+            (builtins.attrNames cfg.platforms);
+      in if unknown == []
+         then null
+         else throw ("nix-haskell (nixpkgs driver): `platforms` names no such"
+           + " platform: ${lib.concatStringsSep ", " unknown}");
 
     # The `compiler` option resolved per platform.
     resolveCompiler = (import ../compiler.nix { inherit lib; } {
@@ -141,7 +161,7 @@ let compose = pkgs.haskell.lib.compose;
     # arguments even with --no-check: a test dependency absent from the
     # package set still needs an explicit null override.
     cabal2nixOptions = name: external:
-      let t = cfg.packages.${name} or {};
+      let t = packages.${name} or {};
           d = ocfg.extra-package-defaults;
           noCheck = (t.doCheck or null) == false
             || (external && !d.check && (t.doCheck or null) == null);
@@ -236,7 +256,7 @@ let compose = pkgs.haskell.lib.compose;
             ++ lib.optional (t.src != null) (compose.overrideSrc { inherit (t) src; }));
       # tweaks for packages absent from the set are silently ignored
       in lib.mapAttrs tweak
-           (lib.filterAttrs (name: _: super ? ${name}) cfg.packages);
+           (lib.filterAttrs (name: _: super ? ${name}) packages);
 
     # Project-wide ghcOptions apply to the project's own packages: applying
     # them to the whole set would invalidate the binary cache for the entire
@@ -319,15 +339,16 @@ let compose = pkgs.haskell.lib.compose;
 
     # ---- Cross ----
 
-    projectCross = lib.genAttrs (builtins.attrNames pkgs.pkgsCross) (platform:
+    projectCross = lib.genAttrs (builtins.attrNames pkgs.pkgsCross) (crossPlatform:
       import ./driver.nix {
-        pkgs = crossPkgs platform;
+        pkgs = crossPkgs crossPlatform;
         haskellPackages = import ./haskell-packages.nix {
           inherit lib;
-          pkgs = crossPkgs platform;
-          compiler = resolveCompiler platform;
+          pkgs = crossPkgs crossPlatform;
+          compiler = resolveCompiler crossPlatform;
         };
         inherit lib config;
+        platform = crossPlatform;
       });
 
 

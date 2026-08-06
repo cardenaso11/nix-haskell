@@ -2835,7 +2835,7 @@ Optional name for better error messages.
 \f[I]Default:\f[R]
 .IP
 .EX
-\(dq829rcslchahgmigj8jg81mv47bxlf0sx\-source\(dq
+\(dq26kghwckvga9wrdxfgzpfpffgz0x3dfl\-source\(dq
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
@@ -3226,6 +3226,669 @@ false
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/optimizations.nix
 /modules/optimizations.nix
+.UE \c
+.SS platforms
+Per\-platform customization, keyed by \f[CR]pkgs.pkgsCross\f[R] platform
+name (the keys of \f[CR]shell.crossPlatforms\f[R] and
+\f[CR]projectCross\f[R]).
+.PP
+A cabal file or project file can make a package\(cqs flags, and through
+them its dependencies, conditional on the platform.
+The haskell.nix driver follows those conditionals through its solver;
+the nixpkgs driver has none, so what they would have decided is given
+here.
+The flags reach the point where a package\(cqs dependencies are worked
+out, rather than only how it is configured.
+.PP
+\f[I]Type:\f[R] attribute set of (submodule)
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{
+  wasi32.packages.reflex\-dom.flags.use\-warp = false;
+}
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages
+Per\-package customization for this platform only, merged over the
+project\-wide \f[CR]packages\f[R].
+The fields are the same.
+.PP
+\f[I]Type:\f[R] attribute set of (submodule)
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{
+  splitmix.patches = [ ./splitmix\-js.patch ];
+  reflex\-dom\-core.doCheck = false;
+  my\-app.flags.production = true;
+}
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.enableDeadCodeElimination
+Whether to eliminate unused code at link time.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.enableLibraryForGhci
+Whether to build a pre\-linked object of the library for loading into
+GHCi.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.enableLibraryProfiling
+Whether to build the package\(cqs library with profiling support.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.enableProfiling
+Whether to build the whole package with profiling support.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.enableSeparateDataOutput
+Whether to install the package\(cqs data files into a separate output.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.enableShared
+Whether to build a shared library.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.enableStatic
+Whether to build a static library.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.configureFlags
+Extra flags passed to \f[CR]Setup configure\f[R].
+.PP
+\f[I]Type:\f[R] list of string
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+[ ]
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.doCheck
+Whether to run the package\(cqs test suites.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.doCoverage
+Whether to generate a coverage report for the package.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.doHaddock
+Whether to build the package\(cqs documentation.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.doHoogle
+Whether to generate a hoogle index for the package\(cqs documentation.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.doHyperlinkSource
+Whether to generate hyperlinked source code alongside the package\(cqs
+documentation.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.doQuickjump
+Whether to generate the quickjump index of the package\(cqs
+documentation.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.dontStrip
+Whether to skip stripping the produced binaries.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.flags
+Cabal flag assignments for the package (\f[CR]true\f[R] enables,
+\f[CR]false\f[R] disables).
+.PP
+\f[I]Type:\f[R] attribute set of boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.ghcOptions
+GHC flags for this package only.
+.PP
+\f[I]Type:\f[R] list of string
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+[ ]
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.hardeningDisable
+Hardening flags to disable when building the package.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or (list of string)
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[
+  \(dqformat\(dq
+]
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.patches
+Patches applied to the package source.
+.PP
+\f[I]Type:\f[R] list of absolute path
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+[ ]
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.postBuild
+Shell code run after the build phase.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.postCheck
+Shell code run after the check phase.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.postConfigure
+Shell code run after the configure phase.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.postHaddock
+Shell code run after the haddock phase.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.postInstall
+Shell code run after the install phase.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.postPatch
+Shell code run after the patch phase.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.postUnpack
+Shell code run after the unpack phase.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.preBuild
+Shell code run before the build phase.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.preCheck
+Shell code run before the check phase.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.preConfigure
+Shell code run before the configure phase.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.preHaddock
+Shell code run before the haddock phase.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.preInstall
+Shell code run before the install phase.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.prePatch
+Shell code run before the patch phase.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.preUnpack
+Shell code run before the unpack phase.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or strings concatenated with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.profilingDetail
+The profiling detail level.
+\f[CR]null\f[R] leaves the default in place.
+.PP
+\f[I]Type:\f[R] null or string
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqtoplevel\-functions\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.setupBuildFlags
+Extra flags passed to \f[CR]Setup build\f[R].
+.PP
+\f[I]Type:\f[R] list of string
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+[ ]
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.setupHaddockFlags
+Extra flags passed to \f[CR]Setup haddock\f[R].
+.PP
+\f[I]Type:\f[R] list of string
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+[ ]
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.src
+Replacement source for the package.
+.PP
+\f[I]Type:\f[R] null or absolute path or package
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
 .UE \c
 .SS sha256map
 An alternative to adding \f[CR]\-\-sha256\f[R] comments into the

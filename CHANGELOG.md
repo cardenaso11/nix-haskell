@@ -35,6 +35,13 @@
   reaches `Setup configure` unresolved; the nixpkgs driver builds a cross
   package set whose own toolchain it is, through `replaceCrossStdenv`.
 - `nixpkgs.pkgsCross`, the cross package sets `projectCross` builds from.
+- `platforms.<platform>.packages`, per-package customization for one cross
+  platform, merged over the project-wide `packages`. It is how a cabal file's
+  platform conditional is expressed for the nixpkgs driver, which has no
+  solver to follow one: the flags reach the point where a package's
+  dependencies are worked out, so a backend the target cannot build is not
+  merely disabled but never depended on. The haskell.nix driver applies an
+  entry in the project whose target is that platform.
 - `modules/compilers`, imported like `modules/patches` through the
   `nix-haskell-compilers` argument, with `ghc-wasm-meta` as its first entry:
   ghc-wasm-meta's wasm GHC and wasi-sdk, keyed on a GHC series.

@@ -241,7 +241,9 @@ let mkDriverDefault = import ../libs/driver-default.nix { inherit lib; };
 
 in {
 
-  options = {
+  # Recursive so that `platforms` can carry the `packages` option itself
+  # rather than a copy of it.
+  options = rec {
 
     system = mkOption {
       type = types.str;
@@ -449,6 +451,36 @@ in {
             "https://github.com/jgm/pandoc-citeproc"."0.17" = "0dxx8cp2xndpw3jwiawch2dkrkp15mil7pyx7dvd810pwc22pm2q";
             "https://github.com/obsidiansystems/obelisk-oauth.git"."a528c0542e9c30851e7c4542468a053fa5e482ef" = lib.fakeHash;
           };
+        ```
+      '';
+    };
+
+    platforms = mkOption {
+      type = types.attrsOf (types.submodule {
+        options.packages = packages // {
+          description = ''
+            Per-package customization for this platform only, merged over the
+            project-wide `packages`. The fields are the same.
+          '';
+        };
+      });
+      default = {};
+      description = ''
+        Per-platform customization, keyed by `pkgs.pkgsCross` platform name
+        (the keys of `shell.crossPlatforms` and `projectCross`).
+
+        A cabal file or project file can make a package's flags, and through
+        them its dependencies, conditional on the platform. The haskell.nix
+        driver follows those conditionals through its solver; the nixpkgs
+        driver has none, so what they would have decided is given here. The
+        flags reach the point where a package's dependencies are worked out,
+        rather than only how it is configured.
+      '';
+      example = literalMD ''
+        ```
+        {
+          wasi32.packages.reflex-dom.flags.use-warp = false;
+        }
         ```
       '';
     };

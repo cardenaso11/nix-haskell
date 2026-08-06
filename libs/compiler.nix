@@ -38,7 +38,9 @@
 
 with lib;
 
-let platforms = compiler.platforms;
+let crossPlatform = import ./cross-platform.nix { inherit lib; };
+
+    platforms = compiler.platforms;
 
     entry = where: spec:
       let package = spec.package;
@@ -128,17 +130,11 @@ in rec {
     || any (spec: spec.toolchain.package != null) (attrValues platforms);
 
   # The `platforms` key for a target platform, or null when no entry matches
-  # and the compiler above the table applies. A key that names neither the
-  # native system nor a `pkgsCross` platform is an error rather than a miss.
+  # and the compiler above the table applies.
   targetKey = targetPlatform:
     let crossKeys = filter (key: key != system) (attrNames platforms);
-        matches = key:
-          let example = systems.examples.${key}
-                or (throw ("nix-haskell: `compiler.platforms` key \"${key}\" names"
-                  + " neither the native system nor a pkgsCross platform"));
-          in (systems.elaborate example).config == targetPlatform.config;
     in if targetPlatform.system == system
        then system
-       else findFirst matches null crossKeys;
+       else crossPlatform.keyFor crossKeys targetPlatform;
 
 }

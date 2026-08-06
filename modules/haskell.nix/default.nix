@@ -346,6 +346,17 @@ in {
             via = "a `packages.<name>.src` module";
           };
 
+          "platforms.*.packages".set = mkIf (cfg.platforms != {}) {
+            modules = [
+              (import ../../libs/haskell-nix/platform-packages.nix {
+                inherit lib;
+                platforms = cfg.platforms;
+                fields = packagesFieldNames;
+              })
+            ];
+          };
+          "platforms.*.packages".via = "a `packages.<name>` module applied in the project whose target is that platform";
+
           "shell.packages".set = {
             shell.packages =
               if cfg.shell.packages != null

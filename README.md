@@ -104,6 +104,7 @@ Applicable to every driver. The full reference is in the
 | `inputMap` | `attrs` | `{}` | URL to source mappings |
 | `sha256map` | `nullOr attrs` | `null` | Hashes for sources named in `cabal.project` |
 | `packages` | `attrsOf submodule` | `{}` | Per-package customization |
+| `platforms` | `attrsOf submodule` | `{}` | Per-package customization for one cross platform only |
 | `source-repository-packages` | `attrsOf (path \| attrs)` | `{}` | Local packages to include |
 | `hackage-overlays` | `listOf attrs` | `[]` | Packages not on Hackage |
 | `shell` | `submodule` | | Development shell |
@@ -203,6 +204,21 @@ Fields: `flags`, `patches`, `ghcOptions`, `configureFlags`,
 One divergence to be aware of with the hooks: haskell.nix runs them for
 each component derivation of the package, nixpkgs once in the single
 package derivation.
+
+The same fields can be given for one cross platform only, keyed by
+`pkgs.pkgsCross` platform name, and are merged over the project-wide ones:
+
+```nix
+platforms.wasi32.packages.reflex-dom.flags.use-warp = false;
+```
+
+This is how a platform conditional in a cabal file or project file is
+expressed for the nixpkgs driver, which has no solver to follow one. The flags
+in particular decide a package's dependencies and not merely how it is
+configured, so they take effect where the package's expression is generated
+rather than on a package already built. The haskell.nix driver follows such
+conditionals itself, and applies an entry given here in the project whose
+target is that platform.
 
 #### Source repository packages
 

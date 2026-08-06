@@ -248,6 +248,8 @@ in {
           "compiler.nixpkgs".via = "`haskellCompilerName` is spliced onto the compiler, naming the package database directories of everything built and cabal2nix's `--compiler`; `enableExternalInterpreter` is passed to every package in a cross set";
           "compiler.platforms".via = "each entry gives `projectCross.<platform>` its own compiler, and with a toolchain its own package set (`nixpkgs.pkgsCross`)";
 
+          "platforms.*.packages".via = "merged over `packages` for `projectCross.<platform>`, before cabal2nix is told a package's flags";
+
           cabalProject.via = "replaces the project file as the text whose source-repository-package stanzas are honored";
           cabalProjectLocal.via = "appended to the project text before stanza parsing";
           cabalProjectFileName.via = "the project file read for stanzas";
