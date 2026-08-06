@@ -31,5 +31,6 @@ pkgs.lib.evalModules {
     nix-haskell-libs = ./libs;
     nix-haskell-modules = ./modules;
     nix-haskell-patches = ./modules/patches;
+    nix-haskell-compilers = ./modules/compilers;
   };
 }

@@ -30,9 +30,7 @@
           # the same wasm target, built with ghc-wasm-meta's GHC 9.12 instead
           # of the drivers' own compilers
           haskell-nix-wasm-meta = project.haskell-nix-wasm-meta.projectCross.wasi32.hsPkgs.reflex-todomvc.components.exes.reflex-todomvc;
-          # this driver's whole package set is the wasm one, so the build is its
-          # own `packages`, not a `projectCross` entry
-          nixpkgs-wasm-meta = project.nixpkgs-wasm-meta.packages.reflex-todomvc;
+          nixpkgs-wasm-meta = project.nixpkgs-wasm-meta.projectCross.wasi32.packages.reflex-todomvc;
         });
 
       devShells = eachSystem (system:

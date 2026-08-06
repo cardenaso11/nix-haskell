@@ -11,7 +11,7 @@
 # Example of a value of this type:
 #
 #   {
-#     compiler = {
+#     "compiler.name" = {
 #       set = { compiler-nix-name = compiler.name; };
 #       via = "project `compiler-nix-name`";
 #     };

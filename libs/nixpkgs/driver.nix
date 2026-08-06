@@ -25,7 +25,15 @@ let compose = pkgs.haskell.lib.compose;
     ocfg = cfg.options;
 
     # The `compiler` option resolved per platform.
-    resolveCompiler = (import ../compiler.nix { inherit lib; } cfg.compiler).resolve;
+    resolveCompiler = (import ../compiler.nix { inherit lib; } {
+      compiler = cfg.compiler;
+      system = cfg.system;
+    }).resolve;
+
+    # The package set a cross platform is built from: its own when the compiler
+    # there brings a toolchain that has to become the whole set's, else the one
+    # nixpkgs assembles for the platform.
+    crossPkgs = platform: cfg.pkgsCross.${platform} or pkgs.pkgsCross.${platform};
 
     haskell-nix-src = config.inputs."haskell-nix";
     parser = import (haskell-nix-src + "/lib/cabal-project-parser.nix") { inherit pkgs; };
@@ -313,10 +321,10 @@ let compose = pkgs.haskell.lib.compose;
 
     projectCross = lib.genAttrs (builtins.attrNames pkgs.pkgsCross) (platform:
       import ./driver.nix {
-        pkgs = pkgs.pkgsCross.${platform};
+        pkgs = crossPkgs platform;
         haskellPackages = import ./haskell-packages.nix {
           inherit lib;
-          pkgs = pkgs.pkgsCross.${platform};
+          pkgs = crossPkgs platform;
           compiler = resolveCompiler platform;
         };
         inherit lib config;

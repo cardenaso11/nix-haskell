@@ -1,17 +1,27 @@
-# The base Haskell package set for a resolved `compiler` entry (see
-# ../compiler.nix), from a nixpkgs package set: a name selects
-# `haskell.packages.<name>`; a package overrides the `ghc` of the set
-# matching its derived name, falling back to the default `haskellPackages`
-# when no set matches.
+# The base Haskell package set for a resolved compiler entry, out of a nixpkgs
+# package set. A named compiler selects `haskell.packages.<name>`. A compiler
+# package replaces the `ghc` of the set that matches it most closely: the set
+# of its own major.minor.patch, then the set it names, then whatever the
+# package set offers by default. The closest set matters because everything
+# outside the project is built from it, so its bounds and its boot libraries
+# should be the ones the compiler was built with.
+#
+# Example:
+#
+#   import ./haskell-packages.nix { inherit lib pkgs; compiler = <entry>; }
+#   => <pkgs.haskell.packages.ghc9124 with the bindist as its ghc>
 { lib, pkgs, compiler }:
 
 with lib;
 
-if compiler.package != null
-then (pkgs.haskell.packages.${compiler.name} or pkgs.haskellPackages)
-       .override { ghc = compiler.package; }
+if compiler.annotated != null
+then
+  ( pkgs.haskell.packages.${compiler.stockName}
+    or pkgs.haskell.packages.${compiler.name}
+    or pkgs.haskellPackages
+  ).override { ghc = compiler.annotated; }
 else pkgs.haskell.packages.${compiler.name}
-  or (throw ("nix-haskell (nixpkgs driver): haskell.packages for ${pkgs.stdenv.hostPlatform.system}"
-    + " has no \"${compiler.name}\""
+  or (throw ("nix-haskell (nixpkgs driver): haskell.packages for"
+    + " ${pkgs.stdenv.hostPlatform.system} has no \"${compiler.name}\""
     + " (available: ${concatStringsSep ", " (filter (hasPrefix "ghc") (attrNames pkgs.haskell.packages))});"
-    + " set nixpkgs.compiler or nixpkgs.haskellPackages"))
+    + " set nixpkgs.compiler.name or nixpkgs.haskellPackages"))

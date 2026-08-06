@@ -1200,31 +1200,195 @@ strings concatenated with “\\n”
 
 
 
-The GHC to build with: either the name of a compiler in the driver’s
-package sets (` haskell-nix.compiler.<name> ` for the haskell\.nix
-driver, ` pkgs.haskell.packages.<name> ` for the nixpkgs driver), or a
-compiler package used directly, such as a bindist or a cross
-compiler\. A package must carry a ` version ` attribute (or an explicit
-` compiler-nix-name ` attribute), from which the drivers derive the
-package-set name (“9\.12\.2” -> “ghc9122”)\.
+The GHC to build with\. ` name ` selects one of the driver’s own
+compilers; ` package ` supplies one from outside them, and the fields
+around it are the attributes the drivers read off a compiler\.
+` platforms ` gives cross targets their own compiler and toolchain; a
+platform without an entry uses the fields above it\.
 
-Either form can also be given per platform, as an attrset keyed by
-the native system and ` pkgsCross ` names (the keys of
-` shell.crossPlatforms ` and ` projectCross `)\. Each platform resolves
-its own entry; a platform without one fails when accessed\.
+A compiler that has to be described this way is worth writing once:
+the modules under ` nix-haskell-compilers ` are ready-made entries for
+compilers distributed outside the drivers’ package sets\.
 
 
 
 *Type:*
-string or package or attribute set of (string or package)
+submodule
 
 
 
 *Default:*
 
 ```nix
-"ghc914"
+{ }
 ```
+
+
+
+*Example:*
+
+````nix
+{
+  name = "ghc912";
+
+  # a bindist for the wasm target, with the toolchain it was built
+  # with, as `nix-haskell-compilers/ghc-wasm-meta` supplies it
+  platforms.wasi32 = {
+    package = wasm-ghc;
+    version = "9.12.4.20260731";
+    targetPrefix = "wasm32-wasi-";
+    enableShared = true;
+    haskell-nix.libDir = "lib";
+    nixpkgs.enableExternalInterpreter = false;
+    toolchain = {
+      package = wasi-sdk;
+      cc = "wasm32-wasi-clang";
+      ar = "llvm-ar";
+      ld = "wasm-ld";
+      strip = "llvm-strip";
+    };
+  };
+}
+
+````
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.enableShared
+
+
+
+Whether the compiler can build shared libraries\. The haskell\.nix
+driver reads it for every component’s ` shared: ` flag; the nixpkgs
+driver builds a cross package set non-static, with shared and not
+static libraries\. GHC’s wasm backend needs it, because its Template
+Haskell interpreter loads shared objects\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+` null `: the ` enableShared ` of ` package `, else ` true `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.package
+
+
+
+A compiler used directly instead of one from the driver’s package
+sets: a bindist, an out-of-tree cross compiler, a locally built
+GHC\. The fields around it are spliced onto it, since both drivers
+read them off the compiler itself and a bindist generally carries
+none of them\.
+
+
+
+*Type:*
+null or package
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.haskell-nix
+
+
+
+Compiler details only the haskell\.nix driver reads\.
+
+
+
+*Type:*
+submodule
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.haskell-nix\.libDir
+
+
+
+The compiler’s library directory, relative to its store path,
+where the driver looks for the package database and
+` settings `\. A relocatable bindist keeps them directly under
+` lib `, rather than under the ` lib/<prefix>ghc-<version>/lib `
+of a version-named install\.
+
+
+
+*Type:*
+null or string
+
+
+
+*Default:*
+` null `: the ` libDir ` of ` package `, else the path haskell\.nix
+derives from the version
+
+
+
+*Example:*
+
+```nix
+"lib"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.name
+
+
+
+The compiler’s name in the driver’s package sets
+(` haskell-nix.compiler.<name> `, ` pkgs.haskell.packages.<name> `),
+and the name the project’s packages are pinned under\. With
+` package ` set it names the set whose compiler the package replaces,
+and only needs to be given when the name derived from the version
+is not one the driver knows\.
+
+
+
+*Type:*
+null or string
+
+
+
+*Default:*
+` null `: the driver’s own compiler, ` ghc914 ` for haskell\.nix and
+` ghc912 ` for nixpkgs, where no stackage snapshot covers 9\.14 yet
 
 
 
@@ -1232,18 +1396,852 @@ string or package or attribute set of (string or package)
 
 ```nix
 "ghc912"
-# or a package:
-inputs.ghc-wasm-meta.packages.${system}.all_9_12
-# or a package with an explicit package-set name:
-inputs.ghc-wasm-meta.packages.${system}.all_9_12 // {
-  compiler-nix-name = "ghc9122";
-}
-# or per platform:
-{
-  x86_64-linux = "ghc912";
-  wasi32 = inputs.ghc-wasm-meta.packages.x86_64-linux.all_9_12;
-}
+```
 
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.nixpkgs
+
+
+
+Compiler details only the nixpkgs driver reads\.
+
+
+
+*Type:*
+submodule
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.nixpkgs\.enableExternalInterpreter
+
+
+
+Whether to run Template Haskell splices through nixpkgs’
+external interpreter, which proxies them to the target over a
+socket\. ` false ` for a compiler that runs splices itself, such
+as GHC’s wasm backend, and necessary for a target that has no
+sockets to proxy over\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+` null `: nixpkgs’ own choice, which is to use the external
+interpreter whenever it is cross-compiling and an emulator
+exists for the target
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.nixpkgs\.haskellCompilerName
+
+
+
+The compiler’s cabal name\. The driver names the package
+database directories of everything it builds after it, and
+passes it to cabal2nix as ` --compiler `\.
+
+
+
+*Type:*
+null or string
+
+
+
+*Default:*
+` null `: the ` haskellCompilerName ` of ` package `, else
+` ghc-<version> `
+
+
+
+*Example:*
+
+```nix
+"ghc-9.12.4.20260731"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.platforms
+
+
+
+Per-platform compilers, keyed by ` pkgsCross ` platform name (the
+keys of ` shell.crossPlatforms ` and ` projectCross `)\. An entry has
+the same fields as the compiler above, and the fields it leaves
+unset are resolved from its own ` package ` rather than inherited\.
+A per-driver definition anywhere under ` compiler.platforms `
+replaces the whole table for that driver, since a mirror seeds
+submodule fields only one level deep\.
+
+
+
+*Type:*
+attribute set of (submodule)
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.platforms\.\<name>\.enableShared
+
+
+
+Whether the compiler can build shared libraries\. The haskell\.nix
+driver reads it for every component’s ` shared: ` flag; the nixpkgs
+driver builds a cross package set non-static, with shared and not
+static libraries\. GHC’s wasm backend needs it, because its Template
+Haskell interpreter loads shared objects\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+` null `: the ` enableShared ` of ` package `, else ` true `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.platforms\.\<name>\.package
+
+
+
+A compiler used directly instead of one from the driver’s package
+sets: a bindist, an out-of-tree cross compiler, a locally built
+GHC\. The fields around it are spliced onto it, since both drivers
+read them off the compiler itself and a bindist generally carries
+none of them\.
+
+
+
+*Type:*
+null or package
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.platforms\.\<name>\.haskell-nix
+
+
+
+Compiler details only the haskell\.nix driver reads\.
+
+
+
+*Type:*
+submodule
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.platforms\.\<name>\.haskell-nix\.libDir
+
+
+
+The compiler’s library directory, relative to its store path,
+where the driver looks for the package database and
+` settings `\. A relocatable bindist keeps them directly under
+` lib `, rather than under the ` lib/<prefix>ghc-<version>/lib `
+of a version-named install\.
+
+
+
+*Type:*
+null or string
+
+
+
+*Default:*
+` null `: the ` libDir ` of ` package `, else the path haskell\.nix
+derives from the version
+
+
+
+*Example:*
+
+```nix
+"lib"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.platforms\.\<name>\.name
+
+
+
+The compiler’s name in the driver’s package sets
+(` haskell-nix.compiler.<name> `, ` pkgs.haskell.packages.<name> `),
+and the name the project’s packages are pinned under\. With
+` package ` set it names the set whose compiler the package replaces,
+and only needs to be given when the name derived from the version
+is not one the driver knows\.
+
+
+
+*Type:*
+null or string
+
+
+
+*Default:*
+` null `: the driver’s own compiler, ` ghc914 ` for haskell\.nix and
+` ghc912 ` for nixpkgs, where no stackage snapshot covers 9\.14 yet
+
+
+
+*Example:*
+
+```nix
+"ghc912"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.platforms\.\<name>\.nixpkgs
+
+
+
+Compiler details only the nixpkgs driver reads\.
+
+
+
+*Type:*
+submodule
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.platforms\.\<name>\.nixpkgs\.enableExternalInterpreter
+
+
+
+Whether to run Template Haskell splices through nixpkgs’
+external interpreter, which proxies them to the target over a
+socket\. ` false ` for a compiler that runs splices itself, such
+as GHC’s wasm backend, and necessary for a target that has no
+sockets to proxy over\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+` null `: nixpkgs’ own choice, which is to use the external
+interpreter whenever it is cross-compiling and an emulator
+exists for the target
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.platforms\.\<name>\.nixpkgs\.haskellCompilerName
+
+
+
+The compiler’s cabal name\. The driver names the package
+database directories of everything it builds after it, and
+passes it to cabal2nix as ` --compiler `\.
+
+
+
+*Type:*
+null or string
+
+
+
+*Default:*
+` null `: the ` haskellCompilerName ` of ` package `, else
+` ghc-<version> `
+
+
+
+*Example:*
+
+```nix
+"ghc-9.12.4.20260731"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.platforms\.\<name>\.targetPrefix
+
+
+
+The prefix the compiler’s executables carry\. Every tool either
+driver invokes is named with it\.
+
+
+
+*Type:*
+null or string
+
+
+
+*Default:*
+` null `: the ` targetPrefix ` of ` package `, else the empty string
+
+
+
+*Example:*
+
+```nix
+"wasm32-wasi-"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.platforms\.\<name>\.toolchain
+
+
+
+The C toolchain the compiler was configured with, when that is not
+the one the surrounding package set supplies\. Everything built with
+the compiler is pointed back at it, since ` Setup configure `’s
+foreign-dependency checks otherwise look in the wrong sysroot: the
+haskell\.nix driver passes it as every package’s configure flags,
+the nixpkgs driver makes it the cross package set’s toolchain
+outright\.
+
+
+
+*Type:*
+submodule
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.platforms\.\<name>\.toolchain\.package
+
+
+
+The toolchain itself\. The nixpkgs driver also makes it a
+setup dependency of every package, so that a setup hook
+exporting ` CC `, ` AR ` and friends is honored\.
+
+
+
+*Type:*
+null or package
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.platforms\.\<name>\.toolchain\.ar
+
+
+
+The archiver’s name in the toolchain’s ` bin `, passed to cabal
+as ` --with-ar `\.
+
+
+
+*Type:*
+null or string
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+
+
+*Example:*
+
+```nix
+"llvm-ar"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.platforms\.\<name>\.toolchain\.cc
+
+
+
+The C compiler’s name in the toolchain’s ` bin `, passed to
+cabal as ` --with-gcc `\.
+
+
+
+*Type:*
+null or string
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+
+
+*Example:*
+
+```nix
+"wasm32-wasi-clang"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.platforms\.\<name>\.toolchain\.ld
+
+
+
+The linker’s name in the toolchain’s ` bin `, passed to cabal
+as ` --with-ld `\.
+
+
+
+*Type:*
+null or string
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+
+
+*Example:*
+
+```nix
+"wasm-ld"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.platforms\.\<name>\.toolchain\.strip
+
+
+
+The strip utility’s name in the toolchain’s ` bin `, passed to
+cabal as ` --with-strip `\.
+
+
+
+*Type:*
+null or string
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+
+
+*Example:*
+
+```nix
+"llvm-strip"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.platforms\.\<name>\.version
+
+
+
+The compiler’s version\. Both drivers read it off the compiler, for
+paths and for ` impl(ghc >= ...) ` conditionals, and the stock
+compiler of the same major\.minor\.patch is what the builds that
+cannot use the package itself fall back to: the nixpkgs package set
+the project is built against, and haskell\.nix’s shell tools\. Worth
+setting for a nightly bindist, whose name carries only its series\.
+
+
+
+*Type:*
+null or string
+
+
+
+*Default:*
+` null `: the ` version ` of ` package `, else the version in its name
+
+
+
+*Example:*
+
+```nix
+"9.12.4.20260731"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.targetPrefix
+
+
+
+The prefix the compiler’s executables carry\. Every tool either
+driver invokes is named with it\.
+
+
+
+*Type:*
+null or string
+
+
+
+*Default:*
+` null `: the ` targetPrefix ` of ` package `, else the empty string
+
+
+
+*Example:*
+
+```nix
+"wasm32-wasi-"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.toolchain
+
+
+
+The C toolchain the compiler was configured with, when that is not
+the one the surrounding package set supplies\. Everything built with
+the compiler is pointed back at it, since ` Setup configure `’s
+foreign-dependency checks otherwise look in the wrong sysroot: the
+haskell\.nix driver passes it as every package’s configure flags,
+the nixpkgs driver makes it the cross package set’s toolchain
+outright\.
+
+
+
+*Type:*
+submodule
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.toolchain\.package
+
+
+
+The toolchain itself\. The nixpkgs driver also makes it a
+setup dependency of every package, so that a setup hook
+exporting ` CC `, ` AR ` and friends is honored\.
+
+
+
+*Type:*
+null or package
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.toolchain\.ar
+
+
+
+The archiver’s name in the toolchain’s ` bin `, passed to cabal
+as ` --with-ar `\.
+
+
+
+*Type:*
+null or string
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+
+
+*Example:*
+
+```nix
+"llvm-ar"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.toolchain\.cc
+
+
+
+The C compiler’s name in the toolchain’s ` bin `, passed to
+cabal as ` --with-gcc `\.
+
+
+
+*Type:*
+null or string
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+
+
+*Example:*
+
+```nix
+"wasm32-wasi-clang"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.toolchain\.ld
+
+
+
+The linker’s name in the toolchain’s ` bin `, passed to cabal
+as ` --with-ld `\.
+
+
+
+*Type:*
+null or string
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+
+
+*Example:*
+
+```nix
+"wasm-ld"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.toolchain\.strip
+
+
+
+The strip utility’s name in the toolchain’s ` bin `, passed to
+cabal as ` --with-strip `\.
+
+
+
+*Type:*
+null or string
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+
+
+*Example:*
+
+```nix
+"llvm-strip"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## compiler\.version
+
+
+
+The compiler’s version\. Both drivers read it off the compiler, for
+paths and for ` impl(ghc >= ...) ` conditionals, and the stock
+compiler of the same major\.minor\.patch is what the builds that
+cannot use the package itself fall back to: the nixpkgs package set
+the project is built against, and haskell\.nix’s shell tools\. Worth
+setting for a nightly bindist, whose name carries only its series\.
+
+
+
+*Type:*
+null or string
+
+
+
+*Default:*
+` null `: the ` version ` of ` package `, else the version in its name
+
+
+
+*Example:*
+
+```nix
+"9.12.4.20260731"
 ```
 
 *Declared by:*
@@ -2537,8 +3535,6 @@ false
 
 ## haskell-nix\.options\.shell\.packageSetupDeps
 
-
-
 This option has no description\.
 
 
@@ -3265,7 +4261,7 @@ null or string
 *Default:*
 
 ```nix
-"7535csspmc38xp80wkn2hdg5r5k883qs-source"
+"829rcslchahgmigj8jg81mv47bxlf0sx-source"
 ```
 
 *Declared by:*
@@ -3290,12 +4286,11 @@ raw value
 *Default:*
 
 ```
-config.nixpkgs.pkgs.haskell.packages.${config.nixpkgs.compiler}
+config.nixpkgs.pkgs.haskell.packages.${config.nixpkgs.compiler.name}
 ```
 
-A package compiler overrides that set’s ` ghc ` instead, falling
-back to ` pkgs.haskellPackages ` when no set matches its derived
-name\.
+A compiler package replaces that set’s ` ghc ` instead, preferring
+the set of its own major\.minor\.patch version\.
 
 *Declared by:*
  - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
@@ -3633,6 +4628,36 @@ import config.inputs.nixpkgs { inherit (config) system; }
 
 
 
+## nixpkgs\.pkgsCross
+
+
+
+Cross package sets for ` project.projectCross `, keyed by
+` pkgs.pkgsCross ` platform name\. An entry replaces the package set
+the driver would otherwise take from ` pkgs.pkgsCross `, which is
+what a compiler bringing its own toolchain needs, since that
+toolchain has to become the whole set’s\.
+
+
+
+*Type:*
+attribute set of raw value
+
+
+
+*Default:*
+
+```
+<nix-haskell>/libs/nixpkgs/cross-pkgs.nix
+```
+
+for every ` compiler.platforms ` entry carrying a ` toolchain `
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
 ## nixpkgs\.project
 
 
@@ -3688,6 +4713,8 @@ false
 
 
 ## optimizations\.all
+
+
 
 Enable all optimization flags\.
 

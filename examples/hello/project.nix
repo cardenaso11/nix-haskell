@@ -3,6 +3,6 @@
   name = "hello";
   src = ./.;
 
-  compiler = "ghc912";
+  compiler.name = "ghc912";
 
 }

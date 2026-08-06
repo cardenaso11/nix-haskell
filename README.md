@@ -93,7 +93,7 @@ Applicable to every driver. The full reference is in the
 | `name` | `nullOr str` | from `src` | Project name |
 | `src` | `path` | — | Project source directory |
 | `system` | `str` | `builtins.currentSystem` | Build system |
-| `compiler` | `str \| package`, optionally per platform | `"ghc914"` | GHC: a name in the driver's package sets, or a compiler package used directly |
+| `compiler` | `submodule` | the driver's own | GHC to build with: a name, a package from outside the driver's sets, per platform |
 | `clean-src` | `bool` | `true` | Filter `src` through its `.gitignore` |
 | `clean-src-patterns` | `lines` | `""` | Extra gitignore patterns |
 | `ghcOptions` | `listOf str` | `[]` | Project-wide GHC flags |
@@ -109,6 +109,71 @@ Applicable to every driver. The full reference is in the
 | `shell` | `submodule` | | Development shell |
 | `optimizations` | `submodule` | off | GHC optimization flag presets |
 | `inputs` | `attrsOf raw` | `pins/` | Dependency sources |
+
+#### Compiler
+
+Naming one of the driver's own compilers is all most projects need:
+
+```nix
+compiler.name = "ghc912";
+```
+
+A compiler from outside those package sets, such as a bindist or a cross
+toolchain, is given as a package instead. Both drivers read a handful of
+attributes off a compiler that a bindist does not carry, so they are given
+alongside it, and `toolchain` names the C tools it was configured with, which
+everything built with it is then pointed at:
+
+```nix
+compiler.platforms.wasi32 = {
+  package = wasm-ghc;
+  version = "9.12.4.20260731";
+  targetPrefix = "wasm32-wasi-";
+  enableShared = true;
+  haskell-nix.libDir = "lib";
+  nixpkgs.enableExternalInterpreter = false;
+  toolchain = {
+    package = wasi-sdk;
+    cc = "wasm32-wasi-clang";
+    ar = "llvm-ar";
+    ld = "wasm-ld";
+    strip = "llvm-strip";
+  };
+};
+```
+
+| Field | Read by | Meaning |
+|-------|---------|---------|
+| `name` | both | The compiler's name in the driver's package sets, and the name packages are pinned under |
+| `package` | both | A compiler used directly instead of one of the driver's |
+| `version` | both | Its version, and the release whose package set and shell tools stand in for what cannot be built with it |
+| `targetPrefix` | both | The prefix its executables carry |
+| `enableShared` | both | Whether it builds shared libraries |
+| `toolchain` | both | The C tools it was configured with (`package`, `cc`, `ar`, `ld`, `strip`) |
+| `haskell-nix.libDir` | haskell.nix | Where its package database and `settings` live, relative to its store path |
+| `nixpkgs.haskellCompilerName` | nixpkgs | Its cabal name, which names package database directories and is cabal2nix's `--compiler` |
+| `nixpkgs.enableExternalInterpreter` | nixpkgs | Whether Template Haskell splices are proxied to the target |
+
+`platforms` is keyed by `pkgs.pkgsCross` platform name, the same keys
+`shell.crossPlatforms` and `projectCross` use. An entry is additive: a platform
+without one uses the compiler above the table, and the fields an entry leaves
+unset are resolved from its own `package` rather than inherited.
+
+Describing a compiler is worth doing once. The modules under
+`nix-haskell-compilers` are ready-made entries, imported like the patch
+modules:
+
+```nix
+{ nix-haskell-compilers, ... }:
+{
+  imports = [
+    (import "${nix-haskell-compilers}/ghc-wasm-meta" {
+      flavour = "9.12";
+      version = "9.12.4.20260731";
+    })
+  ];
+}
+```
 
 #### Per-package customization
 
@@ -240,7 +305,8 @@ Driver configuration:
 
 | Option | Description |
 |--------|-------------|
-| `nixpkgs.compiler` | Per-driver override of the common `compiler`, when it has no nixpkgs equivalent |
+| `nixpkgs.compiler.name` | Per-driver override of the compiler, when the project's has no nixpkgs equivalent |
+| `nixpkgs.pkgsCross` | Cross package sets for `projectCross`, replacing the ones from `pkgs.pkgsCross` |
 | `nixpkgs.options.overrides` | Overlays over the package set, applied last |
 | `nixpkgs.options.packages` | Explicit local package map (bypasses discovery) |
 | `nixpkgs.options.use-plan` | Take the project structure from the cabal plan of the haskell.nix driver |
@@ -281,7 +347,10 @@ Caveats, by construction of nixpkgs' Haskell infrastructure:
 - `shell.tools` versions are not solvable; tools resolve by name from `pkgs`
   and the package set.
 - Cross-compilation mirrors `pkgs.pkgsCross`, which supports far fewer
-  targets than haskell.nix.
+  targets than haskell.nix. A `compiler.platforms` entry carrying a toolchain
+  gets a package set built with that toolchain instead, which is what a target
+  nixpkgs cannot assemble a working one for needs. A toolchain on the compiler
+  above the table is not honored here, since only a cross set can be given one.
 
 
 ### Checks
@@ -336,6 +405,9 @@ was introduced:
 | `shell.withHaddock`, `shell.exactDeps`, `shell.allToolDeps`, ... | `haskell-nix.options.shell.<same>` |
 | `overrides = [ { ghcOptions = [...]; } ]` | `ghcOptions = [...]` |
 | `overrides = [ { packages.<n>.patches = [...]; } ]` | `packages.<n>.patches = [...]` |
+| `compiler-nix-name = "ghc912"` | `compiler.name = "ghc912"` |
+| `compiler = <package>` | `compiler.package = <package>` |
+| `compiler = { <platform> = ...; }` | `compiler.platforms.<platform> = { ... }` |
 
 
 ### Full example

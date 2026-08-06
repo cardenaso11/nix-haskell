@@ -1,81 +1,144 @@
-# The common `compiler` option interpreted: per-platform resolution to a
-# name and an optional package.
+# The common `compiler` option interpreted: per-platform resolution to the
+# names a build needs and to a compiler derivation carrying the attributes the
+# drivers read off it.
 #
-# A bare spec applies to every platform; an attrset keyed by platform (the
-# native system and pkgsCross names) resolves each platform to its own
-# entry, and platforms without one throw when accessed. A string spec is a
-# compiler name, looked up in the driver's package sets
-# (haskell-nix.compiler.<name>, pkgs.haskell.packages.<name>). A package
-# spec is used directly; its name is taken from a `compiler-nix-name`
-# attribute when the package carries one, and derived from its version
-# otherwise ("9.12.2" -> "ghc9122"). `toolsName` is the stock compiler
-# matching the package's major.minor.patch version, for auxiliary builds
-# (haskell.nix shell tools) that cannot use the package itself.
+# Each entry resolves a field first, then whatever the package already carries
+# (so a driver's own compilers need no fields at all), then a neutral value.
+# Three names come out of it:
+#
+#   name       the project-wide key: the compiler the driver looks up by name,
+#              and the package set whose compiler a package replaces
+#   stockName  the driver's own compiler of the same major.minor.patch,
+#              derived from the version alone. The builds that cannot use the
+#              package itself go here: the nixpkgs package set the project is
+#              built against, haskell.nix's shell tools. Deriving it from the
+#              version rather than from `name` keeps an overridden name from
+#              sending those builds to a set that does not exist.
+#   annotated  the package with the attributes spliced back on
 #
 # Example:
 #
 #   compilers = import ./compiler.nix { inherit lib; } {
-#     x86_64-linux = "ghc912";
-#     wasi32 = wasmGhc;
+#     compiler = config.compiler;
+#     system = "x86_64-linux";
 #   };
-#   => { perPlatform = true;
-#        resolve = <platform: { name; package; toolsName; }>;
-#        targetKey = <nativeSystem: targetPlatform: platform>;
-#      }
-#   compilers.resolve "x86_64-linux"
-#   => { name = "ghc912"; package = null; toolsName = "ghc912"; }
+#   => { native = <entry>; resolve = <key: entry>;
+#        targetKey = <targetPlatform: key or null>; anyToolchain = <bool>; }
+#   compilers.native
+#   => { name = "ghc912"; stockName = "ghc912"; package = null; annotated = null; ... }
 #   compilers.resolve "wasi32"
-#   => { name = "ghc9122120250327"; package = wasmGhc; toolsName = "ghc9122"; }
+#   => { name = "ghc912"; stockName = "ghc9124"; annotated = <bindist // { ... }>;
+#        toolchainFlags = [ "--with-gcc=/nix/store/...-wasi-sdk/bin/wasm32-wasi-clang" ... ]; }
+#   compilers.targetKey <elaborated wasi32>    => "wasi32"
+#   compilers.targetKey <elaborated x86_64>    => "x86_64-linux"
+#   compilers.targetKey <elaborated aarch64>   => null
 { lib }:
+
+{ compiler, system }:
 
 with lib;
 
-value:
-let perPlatform = isAttrs value && ! isDerivation value;
+let platforms = compiler.platforms;
 
-    specFor = platform:
-      if perPlatform
-      then value.${platform} or (throw ("nix-haskell: `compiler` has no entry for ${platform}"
-        + " (available: ${concatStringsSep ", " (attrNames value)})"))
-      else value;
+    entry = where: spec:
+      let package = spec.package;
+
+          version =
+            if spec.version != null then spec.version
+            else if package == null then null
+            else let parsed = getVersion package;
+                 in if parsed != "" then parsed
+                    else throw ("nix-haskell: cannot derive a version for"
+                      + " `compiler${where}` from ${package.name or "<compiler package>"};"
+                      + " set `compiler${where}.version`");
+
+          name =
+            if spec.name != null then spec.name
+            else if version != null then "ghc" + replaceStrings [ "." ] [ "" ] version
+            else throw ("nix-haskell: `compiler${where}` has no name and nothing"
+              + " to derive one from; set `compiler${where}.name`");
+
+          stockName =
+            if version == null then name
+            else "ghc" + concatStrings (take 3 (splitVersion version));
+
+          targetPrefix =
+            if spec.targetPrefix != null then spec.targetPrefix
+            else package.targetPrefix or "";
+
+          enableShared =
+            if spec.enableShared != null then spec.enableShared
+            else package.enableShared or true;
+
+          libDir = spec.haskell-nix.libDir;
+
+          haskellCompilerName =
+            if spec.nixpkgs.haskellCompilerName != null then spec.nixpkgs.haskellCompilerName
+            else package.haskellCompilerName or
+              (if version == null then null else "ghc-${version}");
+
+          toolchain = spec.toolchain;
+
+          # The cabal flags pointing a build at the compiler's own C tools.
+          # One list for both drivers, so a build gets the same toolchain
+          # whichever one runs it. A repeated flag is taken by cabal from the
+          # last occurrence, which is how these override what a driver passes
+          # from the surrounding package set.
+          toolchainFlags =
+            let flag = cabalName: tool:
+                  optional (tool != null)
+                    "--with-${cabalName}=${toolchain.package}/bin/${tool}";
+            in optionals (toolchain.package != null) (concatLists [
+                 (flag "gcc" toolchain.cc)
+                 (flag "ar" toolchain.ar)
+                 (flag "ld" toolchain.ld)
+                 (flag "strip" toolchain.strip)
+               ]);
+
+      in {
+        inherit name stockName version targetPrefix enableShared package;
+        inherit toolchain toolchainFlags;
+        inherit (spec.nixpkgs) enableExternalInterpreter;
+
+        annotated =
+          if package == null
+          then null
+          else package
+            // { inherit version targetPrefix enableShared; }
+            // optionalAttrs (libDir != null) { inherit libDir; }
+            // optionalAttrs (haskellCompilerName != null) { inherit haskellCompilerName; };
+      };
 
 in rec {
 
-  inherit perPlatform;
+  native = entry "" (removeAttrs compiler [ "platforms" ]);
 
-  resolve = platform:
-    let spec = specFor platform;
-    in
-    if isString spec
-    then { name = spec; package = null; toolsName = spec; }
-    else
-      let version = getVersion spec;
-          derive = f:
-            if version == ""
-            then throw ("nix-haskell: cannot derive a compiler name from "
-              + "${spec.name or "<compiler package>"}: it carries no version; "
-              + "add a `version` or `compiler-nix-name` attribute to the package")
-            else f version;
-      in {
-        name = spec.compiler-nix-name or
-          (derive (v: "ghc" + replaceStrings [ "." ] [ "" ] v));
-        package = spec;
-        toolsName = spec.compiler-nix-name or
-          (derive (v: "ghc" + concatStrings (take 3 (splitVersion v))));
-      };
+  # A platform's own entry when it has one, else the compiler above the table.
+  # An entry is additive, so an ordinary cross target keeps working with only
+  # one compiler declared.
+  resolve = key:
+    if key == null || ! (platforms ? ${key})
+    then native
+    else entry ".platforms.${key}" platforms.${key};
 
-  # The attrset key matching a target platform: the native system for a
-  # bare spec or a native target, else the pkgsCross name with the same
-  # target triple.
-  targetKey = nativeSystem: targetPlatform:
-    let crossKeys = filter (k: k != nativeSystem) (attrNames value);
-        matches = k: (systems.elaborate (systems.examples.${k}
-          or (throw ("nix-haskell: `compiler` key \"${k}\" is not the native"
-            + " system or a pkgsCross platform")))).config == targetPlatform.config;
-    in if ! perPlatform || targetPlatform.system == nativeSystem
-       then nativeSystem
-       else findFirst matches
-         (throw "nix-haskell: no `compiler` entry for target ${targetPlatform.config}")
-         crossKeys;
+  # Whether any entry brings its own toolchain, which is what decides whether
+  # a driver needs the toolchain machinery at all.
+  anyToolchain =
+    native.toolchain.package != null
+    || any (spec: spec.toolchain.package != null) (attrValues platforms);
+
+  # The `platforms` key for a target platform, or null when no entry matches
+  # and the compiler above the table applies. A key that names neither the
+  # native system nor a `pkgsCross` platform is an error rather than a miss.
+  targetKey = targetPlatform:
+    let crossKeys = filter (key: key != system) (attrNames platforms);
+        matches = key:
+          let example = systems.examples.${key}
+                or (throw ("nix-haskell: `compiler.platforms` key \"${key}\" names"
+                  + " neither the native system nor a pkgsCross platform"));
+          in (systems.elaborate example).config == targetPlatform.config;
+    in if targetPlatform.system == system
+       then system
+       else findFirst matches null crossKeys;
 
 }

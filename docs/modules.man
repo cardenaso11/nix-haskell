@@ -794,45 +794,710 @@ since those patterns are not read.
 /modules/common.nix
 .UE \c
 .SS compiler
-The GHC to build with: either the name of a compiler in the driver\(cqs
-package sets (\f[CR]haskell\-nix.compiler.<name>\f[R] for the
-haskell.nix driver, \f[CR]pkgs.haskell.packages.<name>\f[R] for the
-nixpkgs driver), or a compiler package used directly, such as a bindist
-or a cross compiler.
-A package must carry a \f[CR]version\f[R] attribute (or an explicit
-\f[CR]compiler\-nix\-name\f[R] attribute), from which the drivers derive
-the package\-set name (\(lq9.12.2\(rq \-> \(lqghc9122\(rq).
+The GHC to build with.
+\f[CR]name\f[R] selects one of the driver\(cqs own compilers;
+\f[CR]package\f[R] supplies one from outside them, and the fields around
+it are the attributes the drivers read off a compiler.
+\f[CR]platforms\f[R] gives cross targets their own compiler and
+toolchain; a platform without an entry uses the fields above it.
 .PP
-Either form can also be given per platform, as an attrset keyed by the
-native system and \f[CR]pkgsCross\f[R] names (the keys of
-\f[CR]shell.crossPlatforms\f[R] and \f[CR]projectCross\f[R]).
-Each platform resolves its own entry; a platform without one fails when
-accessed.
+A compiler that has to be described this way is worth writing once: the
+modules under \f[CR]nix\-haskell\-compilers\f[R] are ready\-made entries
+for compilers distributed outside the drivers\(cq package sets.
 .PP
-\f[I]Type:\f[R] string or package or attribute set of (string or
-package)
+\f[I]Type:\f[R] submodule
 .PP
 \f[I]Default:\f[R]
 .IP
 .EX
-\(dqghc914\(dq
+{ }
 .EE
 .PP
 \f[I]Example:\f[R]
 .IP
 .EX
-\(dqghc912\(dq
-\f[I]# or a package:\f[R]
-inputs.ghc\-wasm\-meta.packages.${system}.all_9_12
-\f[I]# or a package with an explicit package\-set name:\f[R]
-inputs.ghc\-wasm\-meta.packages.${system}.all_9_12 // {
-  compiler\-nix\-name = \(dqghc9122\(dq;
-}
-\f[I]# or per platform:\f[R]
 {
-  x86_64\-linux = \(dqghc912\(dq;
-  wasi32 = inputs.ghc\-wasm\-meta.packages.x86_64\-linux.all_9_12;
+  name = \(dqghc912\(dq;
+
+  \f[I]# a bindist for the wasm target, with the toolchain it was built\f[R]
+  \f[I]# with, as \(ganix\-haskell\-compilers/ghc\-wasm\-meta\(ga supplies it\f[R]
+  platforms.wasi32 = {
+    package = wasm\-ghc;
+    version = \(dq9.12.4.20260731\(dq;
+    targetPrefix = \(dqwasm32\-wasi\-\(dq;
+    enableShared = true;
+    haskell\-nix.libDir = \(dqlib\(dq;
+    nixpkgs.enableExternalInterpreter = false;
+    toolchain = {
+      package = wasi\-sdk;
+      cc = \(dqwasm32\-wasi\-clang\(dq;
+      ar = \(dqllvm\-ar\(dq;
+      ld = \(dqwasm\-ld\(dq;
+      strip = \(dqllvm\-strip\(dq;
+    };
+  };
 }
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.enableShared
+Whether the compiler can build shared libraries.
+The haskell.nix driver reads it for every component\(cqs
+\f[CR]shared:\f[R] flag; the nixpkgs driver builds a cross package set
+non\-static, with shared and not static libraries.
+GHC\(cqs wasm backend needs it, because its Template Haskell interpreter
+loads shared objects.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]: the \f[CR]enableShared\f[R] of
+\f[CR]package\f[R], else \f[CR]true\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.package
+A compiler used directly instead of one from the driver\(cqs package
+sets: a bindist, an out\-of\-tree cross compiler, a locally built GHC.
+The fields around it are spliced onto it, since both drivers read them
+off the compiler itself and a bindist generally carries none of them.
+.PP
+\f[I]Type:\f[R] null or package
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.haskell\-nix
+Compiler details only the haskell.nix driver reads.
+.PP
+\f[I]Type:\f[R] submodule
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.haskell\-nix.libDir
+The compiler\(cqs library directory, relative to its store path, where
+the driver looks for the package database and \f[CR]settings\f[R].
+A relocatable bindist keeps them directly under \f[CR]lib\f[R], rather
+than under the \f[CR]lib/<prefix>ghc\-<version>/lib\f[R] of a
+version\-named install.
+.PP
+\f[I]Type:\f[R] null or string
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]: the \f[CR]libDir\f[R] of
+\f[CR]package\f[R], else the path haskell.nix derives from the version
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqlib\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.name
+The compiler\(cqs name in the driver\(cqs package sets
+(\f[CR]haskell\-nix.compiler.<name>\f[R],
+\f[CR]pkgs.haskell.packages.<name>\f[R]), and the name the project\(cqs
+packages are pinned under.
+With \f[CR]package\f[R] set it names the set whose compiler the package
+replaces, and only needs to be given when the name derived from the
+version is not one the driver knows.
+.PP
+\f[I]Type:\f[R] null or string
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]: the driver\(cqs own compiler,
+\f[CR]ghc914\f[R] for haskell.nix and \f[CR]ghc912\f[R] for nixpkgs,
+where no stackage snapshot covers 9.14 yet
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqghc912\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.nixpkgs
+Compiler details only the nixpkgs driver reads.
+.PP
+\f[I]Type:\f[R] submodule
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.nixpkgs.enableExternalInterpreter
+Whether to run Template Haskell splices through nixpkgs\(cq external
+interpreter, which proxies them to the target over a socket.
+\f[CR]false\f[R] for a compiler that runs splices itself, such as
+GHC\(cqs wasm backend, and necessary for a target that has no sockets to
+proxy over.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]: nixpkgs\(cq own choice, which is to
+use the external interpreter whenever it is cross\-compiling and an
+emulator exists for the target
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.nixpkgs.haskellCompilerName
+The compiler\(cqs cabal name.
+The driver names the package database directories of everything it
+builds after it, and passes it to cabal2nix as \f[CR]\-\-compiler\f[R].
+.PP
+\f[I]Type:\f[R] null or string
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]: the \f[CR]haskellCompilerName\f[R]
+of \f[CR]package\f[R], else \f[CR]ghc\-<version>\f[R]
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqghc\-9.12.4.20260731\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.platforms
+Per\-platform compilers, keyed by \f[CR]pkgsCross\f[R] platform name
+(the keys of \f[CR]shell.crossPlatforms\f[R] and
+\f[CR]projectCross\f[R]).
+An entry has the same fields as the compiler above, and the fields it
+leaves unset are resolved from its own \f[CR]package\f[R] rather than
+inherited.
+A per\-driver definition anywhere under \f[CR]compiler.platforms\f[R]
+replaces the whole table for that driver, since a mirror seeds submodule
+fields only one level deep.
+.PP
+\f[I]Type:\f[R] attribute set of (submodule)
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.platforms.<name>.enableShared
+Whether the compiler can build shared libraries.
+The haskell.nix driver reads it for every component\(cqs
+\f[CR]shared:\f[R] flag; the nixpkgs driver builds a cross package set
+non\-static, with shared and not static libraries.
+GHC\(cqs wasm backend needs it, because its Template Haskell interpreter
+loads shared objects.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]: the \f[CR]enableShared\f[R] of
+\f[CR]package\f[R], else \f[CR]true\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.platforms.<name>.package
+A compiler used directly instead of one from the driver\(cqs package
+sets: a bindist, an out\-of\-tree cross compiler, a locally built GHC.
+The fields around it are spliced onto it, since both drivers read them
+off the compiler itself and a bindist generally carries none of them.
+.PP
+\f[I]Type:\f[R] null or package
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.platforms.<name>.haskell\-nix
+Compiler details only the haskell.nix driver reads.
+.PP
+\f[I]Type:\f[R] submodule
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.platforms.<name>.haskell\-nix.libDir
+The compiler\(cqs library directory, relative to its store path, where
+the driver looks for the package database and \f[CR]settings\f[R].
+A relocatable bindist keeps them directly under \f[CR]lib\f[R], rather
+than under the \f[CR]lib/<prefix>ghc\-<version>/lib\f[R] of a
+version\-named install.
+.PP
+\f[I]Type:\f[R] null or string
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]: the \f[CR]libDir\f[R] of
+\f[CR]package\f[R], else the path haskell.nix derives from the version
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqlib\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.platforms.<name>.name
+The compiler\(cqs name in the driver\(cqs package sets
+(\f[CR]haskell\-nix.compiler.<name>\f[R],
+\f[CR]pkgs.haskell.packages.<name>\f[R]), and the name the project\(cqs
+packages are pinned under.
+With \f[CR]package\f[R] set it names the set whose compiler the package
+replaces, and only needs to be given when the name derived from the
+version is not one the driver knows.
+.PP
+\f[I]Type:\f[R] null or string
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]: the driver\(cqs own compiler,
+\f[CR]ghc914\f[R] for haskell.nix and \f[CR]ghc912\f[R] for nixpkgs,
+where no stackage snapshot covers 9.14 yet
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqghc912\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.platforms.<name>.nixpkgs
+Compiler details only the nixpkgs driver reads.
+.PP
+\f[I]Type:\f[R] submodule
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.platforms.<name>.nixpkgs.enableExternalInterpreter
+Whether to run Template Haskell splices through nixpkgs\(cq external
+interpreter, which proxies them to the target over a socket.
+\f[CR]false\f[R] for a compiler that runs splices itself, such as
+GHC\(cqs wasm backend, and necessary for a target that has no sockets to
+proxy over.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]: nixpkgs\(cq own choice, which is to
+use the external interpreter whenever it is cross\-compiling and an
+emulator exists for the target
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.platforms.<name>.nixpkgs.haskellCompilerName
+The compiler\(cqs cabal name.
+The driver names the package database directories of everything it
+builds after it, and passes it to cabal2nix as \f[CR]\-\-compiler\f[R].
+.PP
+\f[I]Type:\f[R] null or string
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]: the \f[CR]haskellCompilerName\f[R]
+of \f[CR]package\f[R], else \f[CR]ghc\-<version>\f[R]
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqghc\-9.12.4.20260731\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.platforms.<name>.targetPrefix
+The prefix the compiler\(cqs executables carry.
+Every tool either driver invokes is named with it.
+.PP
+\f[I]Type:\f[R] null or string
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]: the \f[CR]targetPrefix\f[R] of
+\f[CR]package\f[R], else the empty string
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqwasm32\-wasi\-\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.platforms.<name>.toolchain
+The C toolchain the compiler was configured with, when that is not the
+one the surrounding package set supplies.
+Everything built with the compiler is pointed back at it, since
+\f[CR]Setup configure\f[R]\(cqs foreign\-dependency checks otherwise
+look in the wrong sysroot: the haskell.nix driver passes it as every
+package\(cqs configure flags, the nixpkgs driver makes it the cross
+package set\(cqs toolchain outright.
+.PP
+\f[I]Type:\f[R] submodule
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.platforms.<name>.toolchain.package
+The toolchain itself.
+The nixpkgs driver also makes it a setup dependency of every package, so
+that a setup hook exporting \f[CR]CC\f[R], \f[CR]AR\f[R] and friends is
+honored.
+.PP
+\f[I]Type:\f[R] null or package
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.platforms.<name>.toolchain.ar
+The archiver\(cqs name in the toolchain\(cqs \f[CR]bin\f[R], passed to
+cabal as \f[CR]\-\-with\-ar\f[R].
+.PP
+\f[I]Type:\f[R] null or string
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqllvm\-ar\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.platforms.<name>.toolchain.cc
+The C compiler\(cqs name in the toolchain\(cqs \f[CR]bin\f[R], passed to
+cabal as \f[CR]\-\-with\-gcc\f[R].
+.PP
+\f[I]Type:\f[R] null or string
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqwasm32\-wasi\-clang\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.platforms.<name>.toolchain.ld
+The linker\(cqs name in the toolchain\(cqs \f[CR]bin\f[R], passed to
+cabal as \f[CR]\-\-with\-ld\f[R].
+.PP
+\f[I]Type:\f[R] null or string
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqwasm\-ld\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.platforms.<name>.toolchain.strip
+The strip utility\(cqs name in the toolchain\(cqs \f[CR]bin\f[R], passed
+to cabal as \f[CR]\-\-with\-strip\f[R].
+.PP
+\f[I]Type:\f[R] null or string
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqllvm\-strip\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.platforms.<name>.version
+The compiler\(cqs version.
+Both drivers read it off the compiler, for paths and for
+\f[CR]impl(ghc >= ...)\f[R] conditionals, and the stock compiler of the
+same major.minor.patch is what the builds that cannot use the package
+itself fall back to: the nixpkgs package set the project is built
+against, and haskell.nix\(cqs shell tools.
+Worth setting for a nightly bindist, whose name carries only its series.
+.PP
+\f[I]Type:\f[R] null or string
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]: the \f[CR]version\f[R] of
+\f[CR]package\f[R], else the version in its name
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dq9.12.4.20260731\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.targetPrefix
+The prefix the compiler\(cqs executables carry.
+Every tool either driver invokes is named with it.
+.PP
+\f[I]Type:\f[R] null or string
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]: the \f[CR]targetPrefix\f[R] of
+\f[CR]package\f[R], else the empty string
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqwasm32\-wasi\-\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.toolchain
+The C toolchain the compiler was configured with, when that is not the
+one the surrounding package set supplies.
+Everything built with the compiler is pointed back at it, since
+\f[CR]Setup configure\f[R]\(cqs foreign\-dependency checks otherwise
+look in the wrong sysroot: the haskell.nix driver passes it as every
+package\(cqs configure flags, the nixpkgs driver makes it the cross
+package set\(cqs toolchain outright.
+.PP
+\f[I]Type:\f[R] submodule
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.toolchain.package
+The toolchain itself.
+The nixpkgs driver also makes it a setup dependency of every package, so
+that a setup hook exporting \f[CR]CC\f[R], \f[CR]AR\f[R] and friends is
+honored.
+.PP
+\f[I]Type:\f[R] null or package
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.toolchain.ar
+The archiver\(cqs name in the toolchain\(cqs \f[CR]bin\f[R], passed to
+cabal as \f[CR]\-\-with\-ar\f[R].
+.PP
+\f[I]Type:\f[R] null or string
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqllvm\-ar\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.toolchain.cc
+The C compiler\(cqs name in the toolchain\(cqs \f[CR]bin\f[R], passed to
+cabal as \f[CR]\-\-with\-gcc\f[R].
+.PP
+\f[I]Type:\f[R] null or string
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqwasm32\-wasi\-clang\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.toolchain.ld
+The linker\(cqs name in the toolchain\(cqs \f[CR]bin\f[R], passed to
+cabal as \f[CR]\-\-with\-ld\f[R].
+.PP
+\f[I]Type:\f[R] null or string
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqwasm\-ld\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.toolchain.strip
+The strip utility\(cqs name in the toolchain\(cqs \f[CR]bin\f[R], passed
+to cabal as \f[CR]\-\-with\-strip\f[R].
+.PP
+\f[I]Type:\f[R] null or string
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqllvm\-strip\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS compiler.version
+The compiler\(cqs version.
+Both drivers read it off the compiler, for paths and for
+\f[CR]impl(ghc >= ...)\f[R] conditionals, and the stock compiler of the
+same major.minor.patch is what the builds that cannot use the package
+itself fall back to: the nixpkgs package set the project is built
+against, and haskell.nix\(cqs shell tools.
+Worth setting for a nightly bindist, whose name carries only its series.
+.PP
+\f[I]Type:\f[R] null or string
+.PP
+\f[I]Default:\f[R] \f[CR]null\f[R]: the \f[CR]version\f[R] of
+\f[CR]package\f[R], else the version in its name
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dq9.12.4.20260731\(dq
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
@@ -2170,7 +2835,7 @@ Optional name for better error messages.
 \f[I]Default:\f[R]
 .IP
 .EX
-\(dqiwy8z2di3y028vklncpjlxnb8zivzwnq\-source\(dq
+\(dq829rcslchahgmigj8jg81mv47bxlf0sx\-source\(dq
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
@@ -2186,12 +2851,11 @@ overrides are layered on top.
 \f[I]Default:\f[R]
 .IP
 .EX
-config.nixpkgs.pkgs.haskell.packages.${config.nixpkgs.compiler}
+config.nixpkgs.pkgs.haskell.packages.${config.nixpkgs.compiler.name}
 .EE
 .PP
-A package compiler overrides that set\(cqs \f[CR]ghc\f[R] instead,
-falling back to \f[CR]pkgs.haskellPackages\f[R] when no set matches its
-derived name.
+A compiler package replaces that set\(cqs \f[CR]ghc\f[R] instead,
+preferring the set of its own major.minor.patch version.
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/nixpkgs
@@ -2409,6 +3073,28 @@ The nixpkgs package set the driver builds with.
 .EX
 import config.inputs.nixpkgs { inherit (config) system; }
 .EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
+.SS nixpkgs.pkgsCross
+Cross package sets for \f[CR]project.projectCross\f[R], keyed by
+\f[CR]pkgs.pkgsCross\f[R] platform name.
+An entry replaces the package set the driver would otherwise take from
+\f[CR]pkgs.pkgsCross\f[R], which is what a compiler bringing its own
+toolchain needs, since that toolchain has to become the whole set\(cqs.
+.PP
+\f[I]Type:\f[R] attribute set of raw value
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+<nix\-haskell>/libs/nixpkgs/cross\-pkgs.nix
+.EE
+.PP
+for every \f[CR]compiler.platforms\f[R] entry carrying a
+\f[CR]toolchain\f[R]
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/nixpkgs

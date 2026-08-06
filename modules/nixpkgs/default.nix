@@ -27,9 +27,12 @@ let cfg = config.nixpkgs;
     };
     mkDriverDefault = common.mkDriverDefault;
 
-    # The `compiler` option's native entry, resolved to a name and an
-    # optional package.
-    compiler = (import ../../libs/compiler.nix { inherit lib; } cfg.compiler).resolve cfg.system;
+    # The `compiler` option resolved per platform.
+    compilers = import ../../libs/compiler.nix { inherit lib; } {
+      compiler = cfg.compiler;
+      system = cfg.system;
+    };
+    compiler = compilers.native;
 
 in {
 
@@ -48,6 +51,31 @@ in {
         '';
       };
 
+      pkgsCross = mkOption {
+        type = types.attrsOf types.raw;
+        default = mapAttrs
+          (platform: _: import ../../libs/nixpkgs/cross-pkgs.nix {
+            inherit lib platform;
+            nixpkgs = config.inputs.nixpkgs;
+            system = cfg.system;
+            compiler = compilers.resolve platform;
+          })
+          (filterAttrs (_: spec: spec.toolchain.package != null) cfg.compiler.platforms);
+        defaultText = literalMD ''
+          ```
+          <nix-haskell>/libs/nixpkgs/cross-pkgs.nix
+          ```
+          for every `compiler.platforms` entry carrying a `toolchain`
+        '';
+        description = ''
+          Cross package sets for `project.projectCross`, keyed by
+          `pkgs.pkgsCross` platform name. An entry replaces the package set
+          the driver would otherwise take from `pkgs.pkgsCross`, which is
+          what a compiler bringing its own toolchain needs, since that
+          toolchain has to become the whole set's.
+        '';
+      };
+
       haskellPackages = mkOption {
         type = types.raw;
         default = import ../../libs/nixpkgs/haskell-packages.nix {
@@ -56,11 +84,10 @@ in {
         };
         defaultText = literalMD ''
           ```
-          config.nixpkgs.pkgs.haskell.packages.''${config.nixpkgs.compiler}
+          config.nixpkgs.pkgs.haskell.packages.''${config.nixpkgs.compiler.name}
           ```
-          A package compiler overrides that set's `ghc` instead, falling
-          back to `pkgs.haskellPackages` when no set matches its derived
-          name.
+          A compiler package replaces that set's `ghc` instead, preferring
+          the set of its own major.minor.patch version.
         '';
         description = ''
           The base Haskell package set, before the project's packages and
@@ -211,7 +238,15 @@ in {
           clean-src.via = "consumed by `src-cleaned`, which local packages are built from";
           clean-src-patterns.via = "consumed by `src-cleaned`, which local packages are built from";
 
-          compiler.via = "selects `pkgs.haskell.packages.<name>`; a package overrides that set's `ghc` (per-driver override: `nixpkgs.compiler`)";
+          "compiler.name".via = "selects `pkgs.haskell.packages.<name>`; with a package, names the set whose `ghc` it replaces";
+          "compiler.package".via = "replaces the `ghc` of the base package set";
+          "compiler.version".via = "spliced onto the compiler as `ghc.version`; the package set the project is built against is the one of that major.minor.patch";
+          "compiler.targetPrefix".via = "spliced onto the compiler as `ghc.targetPrefix`, which names every tool the builders call";
+          "compiler.enableShared".via = "a cross package set is built non-static, with shared and not static libraries";
+          "compiler.toolchain".via = "becomes a cross package set's own toolchain, a setup dependency of every package, and every package's configure flags";
+          "compiler.haskell-nix".via = "read by the haskell.nix driver only";
+          "compiler.nixpkgs".via = "`haskellCompilerName` is spliced onto the compiler, naming the package database directories of everything built and cabal2nix's `--compiler`; `enableExternalInterpreter` is passed to every package in a cross set";
+          "compiler.platforms".via = "each entry gives `projectCross.<platform>` its own compiler, and with a toolchain its own package set (`nixpkgs.pkgsCross`)";
 
           cabalProject.via = "replaces the project file as the text whose source-repository-package stanzas are honored";
           cabalProjectLocal.via = "appended to the project text before stanza parsing";
@@ -307,9 +342,13 @@ in {
     }
 
     {
-      # no stackage snapshot covers ghc 9.14 yet, so the nixpkgs ghc914
-      # package set has neither consistent bounds nor cached builds
-      nixpkgs.compiler = mkDriverDefault "ghc912";
+      # This driver's own compiler, for a project that names none: no stackage
+      # snapshot covers ghc 9.14 yet, so the nixpkgs ghc914 package set has
+      # neither consistent bounds nor cached builds. A compiler package names
+      # itself through its version, so the default would stand in front of
+      # that rather than behind it.
+      nixpkgs.compiler.name =
+        mkIf (cfg.compiler.package == null) (mkDriverDefault "ghc912");
     }
 
   ];

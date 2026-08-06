@@ -34,20 +34,27 @@ in {
 
   options = mapAttrs (_: option: option // { visible = false; }) commonModule.options;
 
-  # Submodule-typed options are seeded per field, so a driver definition of
-  # one field leaves the others at the common values. Seeds sit between
-  # mkDefault (1000) and option defaults (1500): weaker than any definition,
-  # stronger than the mirror's own declaration defaults. mkOptionDefault
-  # cannot be used, since declaration defaults materialize at its priority
-  # and equal-priority definitions conflict.
+  # Seeds sit between mkDefault (1000) and option defaults (1500): weaker
+  # than any definition, stronger than the mirror's own declaration defaults.
+  # mkOptionDefault cannot be used, since declaration defaults materialize at
+  # its priority and equal-priority definitions conflict.
   #
-  # Only options with top-level definitions are seeded, so a driver default
-  # (mkDriverDefault, 1450) yields to a value the user chose but not to the
-  # bare common defaults. Declaration defaults do not count: the module
-  # system injects them as definitions at mkOptionDefault priority (1500),
-  # so a definition is one that beats that. Reading any mirror option forces
-  # the definition priorities of every settable common option, so top-level
-  # common options must not be gated on driver config.
+  # Only what the project defined is seeded, down to the field: a seed is
+  # placed on a path exactly when some top-level definition mentions it. So a
+  # driver default (mkDriverDefault, 1450) still applies to every field the
+  # project left alone, however deeply nested, and yields to any field it did
+  # set. Seeding the whole of a submodule-typed option instead would defeat
+  # driver defaults on all of its fields as soon as one of them was defined.
+  # Declaration defaults do not count as definitions: the module system
+  # injects them at mkOptionDefault priority (1500), so a definition is one
+  # that beats that.
+  #
+  # Descent follows the declared sub-options rather than the values, so a
+  # seed only ever lands where an option exists to receive it, and read-only
+  # sub-options are left out (a read-only option set twice is an error).
+  # Reading any mirror option forces the definition priorities of every
+  # settable common option, so top-level common options must not be gated on
+  # driver config.
   seeds =
     let seed = mkOverride 1400;
 
@@ -60,19 +67,44 @@ in {
             (name: _: topOptions.${name}.highestPrio < declarationDefaultPrio)
             settableOptions;
 
-        seedValue = option: value:
+        # A submodule's own settable options, which are what a definition of
+        # it can name.
+        subOptions = type:
+          filterAttrs (name: option: name != "_module" && isSettable option)
+            (type.getSubOptions []);
+
+        # The definitions that can carry a path below them. A derivation is an
+        # attrset too, and is a value rather than a path.
+        pathDefs = defs: filter (def: isAttrs def && ! isDerivation def) defs;
+
+        namedIn = defs: name: any (def: def ? ${name}) (pathDefs defs);
+
+        under = defs: name: catAttrs name (pathDefs defs);
+
+        seedOption = option: defs: value:
           let type = option.type;
+              elemType = type.nestedTypes.elemType or null;
               isSubmodule = type.name == "submodule";
               isAttrsOfSubmodule =
                    (type.name == "attrsOf" || type.name == "lazyAttrsOf")
-                && (type.nestedTypes.elemType.name or "") == "submodule";
+                && (elemType.name or "") == "submodule";
           in  if isSubmodule
-                then mapAttrs (_: seed) value
+                then seedFields (subOptions type) defs value
               else if isAttrsOfSubmodule
-                then mapAttrs (_: fields: mapAttrs (_: seed) fields) value
+                then
+                  let keys = filter (namedIn defs) (attrNames value);
+                  in genAttrs keys
+                       (key: seedFields (subOptions elemType) (under defs key) value.${key})
               else seed value;
 
-    in mapAttrs (name: option: seedValue option topConfig.${name}) definedOptions;
+        seedFields = fields: defs: value:
+          mapAttrs
+            (name: option: seedOption option (under defs name) value.${name})
+            (filterAttrs (name: _: namedIn defs name) fields);
+
+    in mapAttrs
+         (name: option: seedOption option topOptions.${name}.definitions topConfig.${name})
+         definedOptions;
 
   inherit (commonModule) config;
 

@@ -24,35 +24,27 @@ browser!
 
 ### With an out-of-tree compiler
 
-The `-wasm-meta` attributes build the wasm target with the GHC 9.12 bindist
-of the `ghc-wasm-meta` pin instead of the drivers' own compilers, through
-the `compiler` option's package form:
+The `-wasm-meta` attributes build the wasm target with the GHC 9.12 bindist of
+the `ghc-wasm-meta` pin instead of the drivers' own compilers:
 
 ```bash
 nix-build -A haskell-nix-wasm-meta.projectCross.wasi32.hsPkgs.reflex-todomvc.components.exes.reflex-todomvc
 ```
 
 ```bash
-nix-build -A nixpkgs-wasm-meta.packages.reflex-todomvc
+nix-build -A nixpkgs-wasm-meta.projectCross.wasi32.packages.reflex-todomvc
 ```
 
 or through the flake: `nix build .#haskell-nix-wasm-meta` /
 `nix build .#nixpkgs-wasm-meta`.
 
-The bindist is configured with its own wasi-sdk C toolchain rather than the
-cross package set's, so the components are pointed back at it; without that,
-`Setup configure`'s C checks look in the wrong sysroot. For the haskell.nix
-driver that is per-package `configureFlags`; for the nixpkgs driver the sdk
-becomes the cross toolchain outright, through `replaceCrossStdenv`.
-
-Both drivers need shared libraries, since GHC's wasm Template Haskell
-interpreter loads `.so`s: haskell.nix forces `shared: True` itself, and the
-nixpkgs set turns `isStatic` off. The nixpkgs driver additionally has to be
-kept off `iserv-proxy`, the socket-based external interpreter it would
-otherwise proxy Template Haskell through, which cannot work on WASI.
-
-Note that `nixpkgs-wasm-meta` builds through the driver's own `packages`, not
-`projectCross`: its whole package set is already the wasm one.
+`default.nix` asks for the compiler by importing
+`nix-haskell-compilers/ghc-wasm-meta`, which describes the bindist and the
+wasi-sdk it was configured with; what each driver then does with a compiler
+like that is the library's business. The one thing left to the project is a
+flag: `project.nix` assigns the flags of a `!arch(wasm32)` stanza for the
+nixpkgs driver, which cannot read them, and the warp backend they select
+brings in C libraries that nixpkgs cannot cross-compile to wasi.
 
 ## Shell
 

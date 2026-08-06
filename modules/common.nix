@@ -11,6 +11,234 @@ with lib;
 
 let mkDriverDefault = import ../libs/driver-default.nix { inherit lib; };
 
+    # The fields of a compiler entry, shared by the native compiler and the
+    # per-platform ones. Fields only one driver reads sit under that driver's
+    # own key. Every default is a literal `null`: what a field falls back to
+    # depends on the driver (`name`) or on the package (the rest), and both
+    # are resolved per driver in libs/compiler.nix. A default resolved here
+    # could not do that job, because a driver's mirror seeds every field of a
+    # submodule option as soon as one of them is defined, which would freeze
+    # a single answer into both drivers.
+    compilerEntry = {
+
+      name = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        defaultText = literalMD ''
+          `null`: the driver's own compiler, `ghc914` for haskell.nix and
+          `ghc912` for nixpkgs, where no stackage snapshot covers 9.14 yet
+        '';
+        example = "ghc912";
+        description = ''
+          The compiler's name in the driver's package sets
+          (`haskell-nix.compiler.<name>`, `pkgs.haskell.packages.<name>`),
+          and the name the project's packages are pinned under. With
+          `package` set it names the set whose compiler the package replaces,
+          and only needs to be given when the name derived from the version
+          is not one the driver knows.
+        '';
+      };
+
+      package = mkOption {
+        type = types.nullOr types.package;
+        default = null;
+        description = ''
+          A compiler used directly instead of one from the driver's package
+          sets: a bindist, an out-of-tree cross compiler, a locally built
+          GHC. The fields around it are spliced onto it, since both drivers
+          read them off the compiler itself and a bindist generally carries
+          none of them.
+        '';
+      };
+
+      version = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        defaultText = literalMD ''
+          `null`: the `version` of `package`, else the version in its name
+        '';
+        example = "9.12.4.20260731";
+        description = ''
+          The compiler's version. Both drivers read it off the compiler, for
+          paths and for `impl(ghc >= ...)` conditionals, and the stock
+          compiler of the same major.minor.patch is what the builds that
+          cannot use the package itself fall back to: the nixpkgs package set
+          the project is built against, and haskell.nix's shell tools. Worth
+          setting for a nightly bindist, whose name carries only its series.
+        '';
+      };
+
+      targetPrefix = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        defaultText = literalMD ''
+          `null`: the `targetPrefix` of `package`, else the empty string
+        '';
+        example = "wasm32-wasi-";
+        description = ''
+          The prefix the compiler's executables carry. Every tool either
+          driver invokes is named with it.
+        '';
+      };
+
+      enableShared = mkOption {
+        type = types.nullOr types.bool;
+        default = null;
+        defaultText = literalMD ''
+          `null`: the `enableShared` of `package`, else `true`
+        '';
+        description = ''
+          Whether the compiler can build shared libraries. The haskell.nix
+          driver reads it for every component's `shared:` flag; the nixpkgs
+          driver builds a cross package set non-static, with shared and not
+          static libraries. GHC's wasm backend needs it, because its Template
+          Haskell interpreter loads shared objects.
+        '';
+      };
+
+      toolchain = mkOption {
+        default = {};
+        description = ''
+          The C toolchain the compiler was configured with, when that is not
+          the one the surrounding package set supplies. Everything built with
+          the compiler is pointed back at it, since `Setup configure`'s
+          foreign-dependency checks otherwise look in the wrong sysroot: the
+          haskell.nix driver passes it as every package's configure flags,
+          the nixpkgs driver makes it the cross package set's toolchain
+          outright.
+        '';
+        type = types.submodule {
+          options = {
+
+            package = mkOption {
+              type = types.nullOr types.package;
+              default = null;
+              description = ''
+                The toolchain itself. The nixpkgs driver also makes it a
+                setup dependency of every package, so that a setup hook
+                exporting `CC`, `AR` and friends is honored.
+              '';
+            };
+
+            cc = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              example = "wasm32-wasi-clang";
+              description = ''
+                The C compiler's name in the toolchain's `bin`, passed to
+                cabal as `--with-gcc`.
+              '';
+            };
+
+            ar = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              example = "llvm-ar";
+              description = ''
+                The archiver's name in the toolchain's `bin`, passed to cabal
+                as `--with-ar`.
+              '';
+            };
+
+            ld = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              example = "wasm-ld";
+              description = ''
+                The linker's name in the toolchain's `bin`, passed to cabal
+                as `--with-ld`.
+              '';
+            };
+
+            strip = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              example = "llvm-strip";
+              description = ''
+                The strip utility's name in the toolchain's `bin`, passed to
+                cabal as `--with-strip`.
+              '';
+            };
+
+          };
+        };
+      };
+
+      haskell-nix = mkOption {
+        default = {};
+        description = ''
+          Compiler details only the haskell.nix driver reads.
+        '';
+        type = types.submodule {
+          options = {
+
+            libDir = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              defaultText = literalMD ''
+                `null`: the `libDir` of `package`, else the path haskell.nix
+                derives from the version
+              '';
+              example = "lib";
+              description = ''
+                The compiler's library directory, relative to its store path,
+                where the driver looks for the package database and
+                `settings`. A relocatable bindist keeps them directly under
+                `lib`, rather than under the `lib/<prefix>ghc-<version>/lib`
+                of a version-named install.
+              '';
+            };
+
+          };
+        };
+      };
+
+      nixpkgs = mkOption {
+        default = {};
+        description = ''
+          Compiler details only the nixpkgs driver reads.
+        '';
+        type = types.submodule {
+          options = {
+
+            haskellCompilerName = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              defaultText = literalMD ''
+                `null`: the `haskellCompilerName` of `package`, else
+                `ghc-<version>`
+              '';
+              example = "ghc-9.12.4.20260731";
+              description = ''
+                The compiler's cabal name. The driver names the package
+                database directories of everything it builds after it, and
+                passes it to cabal2nix as `--compiler`.
+              '';
+            };
+
+            enableExternalInterpreter = mkOption {
+              type = types.nullOr types.bool;
+              default = null;
+              defaultText = literalMD ''
+                `null`: nixpkgs' own choice, which is to use the external
+                interpreter whenever it is cross-compiling and an emulator
+                exists for the target
+              '';
+              description = ''
+                Whether to run Template Haskell splices through nixpkgs'
+                external interpreter, which proxies them to the target over a
+                socket. `false` for a compiler that runs splices itself, such
+                as GHC's wasm backend, and necessary for a target that has no
+                sockets to proxy over.
+              '';
+            };
+
+          };
+        };
+      };
+
+    };
+
 in {
 
   options = {
@@ -92,38 +320,60 @@ in {
     };
 
     compiler = mkOption {
-      type = let spec = types.either types.str types.package;
-             in types.either spec (types.attrsOf spec);
+      default = {};
       description = ''
-        The GHC to build with: either the name of a compiler in the driver's
-        package sets (`haskell-nix.compiler.<name>` for the haskell.nix
-        driver, `pkgs.haskell.packages.<name>` for the nixpkgs driver), or a
-        compiler package used directly, such as a bindist or a cross
-        compiler. A package must carry a `version` attribute (or an explicit
-        `compiler-nix-name` attribute), from which the drivers derive the
-        package-set name ("9.12.2" -> "ghc9122").
+        The GHC to build with. `name` selects one of the driver's own
+        compilers; `package` supplies one from outside them, and the fields
+        around it are the attributes the drivers read off a compiler.
+        `platforms` gives cross targets their own compiler and toolchain; a
+        platform without an entry uses the fields above it.
 
-        Either form can also be given per platform, as an attrset keyed by
-        the native system and `pkgsCross` names (the keys of
-        `shell.crossPlatforms` and `projectCross`). Each platform resolves
-        its own entry; a platform without one fails when accessed.
+        A compiler that has to be described this way is worth writing once:
+        the modules under `nix-haskell-compilers` are ready-made entries for
+        compilers distributed outside the drivers' package sets.
       '';
       example = literalExpression ''
-        "ghc912"
-        # or a package:
-        inputs.ghc-wasm-meta.packages.''${system}.all_9_12
-        # or a package with an explicit package-set name:
-        inputs.ghc-wasm-meta.packages.''${system}.all_9_12 // {
-          compiler-nix-name = "ghc9122";
-        }
-        # or per platform:
         {
-          x86_64-linux = "ghc912";
-          wasi32 = inputs.ghc-wasm-meta.packages.x86_64-linux.all_9_12;
+          name = "ghc912";
+
+          # a bindist for the wasm target, with the toolchain it was built
+          # with, as `nix-haskell-compilers/ghc-wasm-meta` supplies it
+          platforms.wasi32 = {
+            package = wasm-ghc;
+            version = "9.12.4.20260731";
+            targetPrefix = "wasm32-wasi-";
+            enableShared = true;
+            haskell-nix.libDir = "lib";
+            nixpkgs.enableExternalInterpreter = false;
+            toolchain = {
+              package = wasi-sdk;
+              cc = "wasm32-wasi-clang";
+              ar = "llvm-ar";
+              ld = "wasm-ld";
+              strip = "llvm-strip";
+            };
+          };
         }
       '';
-      default = "ghc914";
-      defaultText = "ghc914";
+      type = types.submodule {
+        options = compilerEntry // {
+
+          platforms = mkOption {
+            type = types.attrsOf (types.submodule { options = compilerEntry; });
+            default = {};
+            description = ''
+              Per-platform compilers, keyed by `pkgsCross` platform name (the
+              keys of `shell.crossPlatforms` and `projectCross`). An entry has
+              the same fields as the compiler above, and the fields it leaves
+              unset are resolved from its own `package` rather than inherited.
+              A per-driver definition anywhere under `compiler.platforms`
+              replaces the whole table for that driver, since a mirror seeds
+              submodule fields only one level deep.
+            '';
+          };
+
+        };
+      };
     };
 
     ghcOptions = mkOption {

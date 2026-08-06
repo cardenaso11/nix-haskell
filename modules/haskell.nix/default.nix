@@ -27,23 +27,25 @@ let cfg = config."haskell-nix";
 
     # The `compiler` option resolved per platform. `compiler` is the native
     # entry, which names the project-wide compiler.
-    compilers = import ../../libs/compiler.nix { inherit lib; } cfg.compiler;
-    compiler = compilers.resolve cfg.system;
+    compilers = import ../../libs/compiler.nix { inherit lib; } {
+      compiler = cfg.compiler;
+      system = cfg.system;
+    };
+    compiler = compilers.native;
 
     # haskell.nix builds shell tools in their own projects, keyed only by
     # `compiler-nix-name` (default selection: `haskell-nix.compiler.<name>`).
-    # A package compiler's derived name is generally absent there, so tools
-    # are pinned to the stock compiler matching the package's version.
-    # Priority 1099: above haskell.nix's own injection (1100), below user
-    # definitions. A tool spec is a version string, a module, or a list of
-    # modules.
+    # A compiler package's own name is generally absent there, so tools are
+    # pinned to the driver's compiler of the same version instead. Priority
+    # 1099: above haskell.nix's own injection (1100), below user definitions.
+    # A tool spec is a version string, a module, or a list of modules.
     toolModules = spec:
       if isString spec then [ { version = spec; } ]
       else if isList spec then spec
       else [ spec ];
     withToolCompiler = spec:
       if compiler.package == null then spec
-      else toolModules spec ++ [ { compiler-nix-name = mkOverride 1099 compiler.toolsName; } ];
+      else toolModules spec ++ [ { compiler-nix-name = mkOverride 1099 compiler.stockName; } ];
 
     # Wrapper scripts for the cross platforms selected by
     # `shell.crossPlatforms`, built from this driver's own cross projects.
@@ -249,34 +251,52 @@ in {
           clean-src.via = "consumed by `src-cleaned`, which feeds the src-driver";
           clean-src-patterns.via = "consumed by `src-cleaned`, which feeds the src-driver";
 
-          compiler.set =
+          "compiler.name".set =
             { compiler-nix-name = compiler.name; }
-            // optionalAttrs (compilers.perPlatform || compiler.package != null) {
+            // optionalAttrs (cfg.compiler.platforms != {} || compiler.package != null) {
               # keyed by the name haskell.nix resolves compiler-nix-name to,
               # so the (compilerSelection pkgs).${name} lookups always hit
-              # this selection. Cross projects share it, so per-platform
-              # entries dispatch on the selection's target platform; string
-              # entries must agree with the project-wide name (and skip the
-              # default selection's ghcEvalPackages override).
+              # this selection. Cross projects share the one name, so
+              # per-platform entries dispatch on the selection's target
+              # platform; an entry that only renames the compiler has nothing
+              # to dispatch to.
               compilerSelection = p:
-                let c = compilers.resolve (compilers.targetKey cfg.system p.stdenv.targetPlatform);
+                let target = compilers.resolve (compilers.targetKey p.stdenv.targetPlatform);
                     key = p.haskell-nix.resolve-compiler-name compiler.name;
                 in { ${key} =
                        # `cachedDeps` carries the boot packages' exact-configuration
                        # flags. haskell.nix's own compilers have it; its fallback for
                        # those that do not interpolates the compiler itself instead of
-                       # the deps (make-config-files.nix), leaving every boot package
-                       # unresolved, so it is attached here.
-                       if c.package != null then cfg.lib.makeCompilerDeps c.package
-                       else if c.name == compiler.name
+                       # the deps, leaving every boot package unresolved, so it is
+                       # attached here.
+                       if target.annotated != null then cfg.lib.makeCompilerDeps target.annotated
+                       else if target.name == compiler.name
                        then p.haskell-nix.compiler.${key}
                          or (throw "nix-haskell (haskell.nix driver): haskell-nix.compiler has no \"${key}\"")
-                       else throw ("nix-haskell (haskell.nix driver): the `compiler` entry \"${c.name}\""
-                         + " differs from the project-wide \"${compiler.name}\"; haskell.nix cross projects"
-                         + " share the project's compiler-nix-name, so per-platform entries must be packages");
+                       else throw ("nix-haskell (haskell.nix driver): the compiler named \"${target.name}\""
+                         + " differs from the project-wide \"${compiler.name}\"; this driver's cross projects"
+                         + " share one name, so a platform of its own needs a `package`");
                    };
             };
-          compiler.via = "project `compiler-nix-name` (the native entry); packages are pinned under it through `compilerSelection`, dispatched on the target platform";
+          "compiler.name".via = "project `compiler-nix-name` (the compiler above `platforms`); packages are pinned under it through `compilerSelection`, dispatched on the target platform";
+
+          "compiler.toolchain".set = mkIf compilers.anyToolchain {
+            modules = [
+              (import ../../libs/haskell-nix/compiler-toolchain.nix {
+                inherit lib compilers;
+                haskell-nix-src = config.inputs."haskell-nix";
+              })
+            ];
+          };
+          "compiler.toolchain".via = "a module giving every package the compiler's own configure flags, on the platforms whose entry carries a toolchain";
+
+          "compiler.package".via = "the compiler `compilerSelection` returns for its platform, carrying haskell.nix's `cachedDeps`";
+          "compiler.version".via = "spliced onto the compiler as `ghc.version`; the compiler the shell tools are built with is the driver's own of that version";
+          "compiler.targetPrefix".via = "spliced onto the compiler as `ghc.targetPrefix`, which names every tool the builders call";
+          "compiler.enableShared".via = "spliced onto the compiler as `ghc.enableShared`, which decides every component's `shared:`";
+          "compiler.haskell-nix".via = "`libDir` is spliced onto the compiler, where the package database and `settings` are looked for";
+          "compiler.nixpkgs".via = "read by the nixpkgs driver only";
+          "compiler.platforms".via = "resolved per target platform by `compilerSelection` and by the toolchain module";
 
           cabalProject.set = mkIf (cfg.cabalProject != null) {
             # the project file (carrying the src-driver's generated stanzas)
@@ -433,6 +453,14 @@ in {
 
     {
       "haskell-nix" = common.config;
+    }
+
+    {
+      # This driver's own compiler, for a project that names none. A compiler
+      # package names itself through its version, so the default would stand
+      # in front of that rather than behind it.
+      haskell-nix.compiler.name =
+        mkIf (cfg.compiler.package == null) (common.mkDriverDefault "ghc914");
     }
 
     {

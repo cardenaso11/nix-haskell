@@ -26,30 +26,41 @@
   the project-wide values, so any common option can be overridden for one
   driver only (e.g. `nixpkgs.packages.<name>.flags`).
 - `examples/hello`, buildable with both drivers.
+- Compilers from outside the drivers' package sets, described by the
+  `compiler` option: a bindist or cross toolchain, with the attributes the
+  drivers read off a compiler, and the C toolchain it was configured with,
+  which everything built with it is then pointed at. Both drivers grew the
+  machinery: haskell.nix gives every package the toolchain's configure flags
+  and a compiler package `cachedDeps`, without which every boot package
+  reaches `Setup configure` unresolved; the nixpkgs driver builds a cross
+  package set whose own toolchain it is, through `replaceCrossStdenv`.
+- `nixpkgs.pkgsCross`, the cross package sets `projectCross` builds from.
+- `modules/compilers`, imported like `modules/patches` through the
+  `nix-haskell-compilers` argument, with `ghc-wasm-meta` as its first entry:
+  ghc-wasm-meta's wasm GHC and wasi-sdk, keyed on a GHC series.
 - A `ghc-wasm-meta` pin, and `haskell-nix-wasm-meta` / `nixpkgs-wasm-meta`
-  outputs in `examples/reflex-todomvc` that build the wasm target with its
-  GHC 9.12 bindist through either driver, exercising the package form of
-  `compiler`. A package compiler is given haskell.nix's `cachedDeps`, without
-  which every boot package reaches `Setup configure` unresolved. The example
-  shows what a bindist needs beyond the compiler itself: the attributes the
-  drivers read off it, its own C toolchain for the components (for the
-  nixpkgs driver, as the cross toolchain through `replaceCrossStdenv`), and
-  shared libraries, which GHC's wasm Template Haskell interpreter loads
-  instead of the socket-based external interpreter.
+  outputs in `examples/reflex-todomvc` building the wasm target with its GHC
+  9.12 bindist through either driver.
 
 ### Changed (breaking)
 
-- `compiler-nix-name` is now `compiler`, and accepts a compiler package
-  besides a name: a bindist or cross compiler (e.g. the wasm toolchains of
-  ghc-wasm-meta), used by the drivers directly. Either form can also be
-  given per platform, as an attrset keyed by the native system and
-  `pkgsCross` names. The `nixpkgs.compiler` escape hatch is subsumed by
-  the mirrored common option of the same name.
+- `compiler-nix-name` is now the `compiler` submodule: `compiler.name` for one
+  of the driver's own compilers, `compiler.package` and the fields around it
+  for one from outside them, and `compiler.platforms.<platform>` for a cross
+  target's own. Fields only one driver reads sit under that driver's key
+  (`compiler.haskell-nix.libDir`,
+  `compiler.nixpkgs.{haskellCompilerName,enableExternalInterpreter}`), and the
+  `nixpkgs.compiler` escape hatch is the mirror of the same option.
 - Driver defaults of common options now sit between the mirror seeds and
   the declaration defaults, so a project-wide definition reaches every
   driver: previously the nixpkgs driver's `ghc912` default silently beat a
   top-level `compiler-nix-name`, and the mirrors reverted a top-level
   `shell.tools.cabal` to `latest`.
+- A driver's mirror seeds only what the project defined, down to the field, so
+  a driver default reaches every field the project left alone however deeply
+  nested. Seeding the whole of a submodule option, as it did before, defeated
+  driver defaults on all of its fields as soon as one was defined, and set
+  read-only sub-options twice.
 - The result attrset: `(nix-haskell m).nixpkgs` is now the nixpkgs driver;
   the raw package set moved to `(nix-haskell m).pkgs`.
 - haskell.nix-specific options moved under the driver namespace, without
