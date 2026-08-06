@@ -9,7 +9,11 @@
 # Example:
 #
 #   import ./haskell-packages.nix { inherit lib pkgs; compiler = <entry>; }
-#   => <pkgs.haskell.packages.ghc9124 with the bindist as its ghc>
+#   => <pkgs.haskell.packages.ghc9124 with the bindist as its ghc>, for an entry
+#      whose package is a 9.12.4 bindist named ghc912
+#   => pkgs.haskell.packages.ghc912, for an entry with a name and no package
+#   => a throw naming the ghc* sets this nixpkgs does have, for a name it has
+#      none of
 { lib, pkgs, compiler }:
 
 with lib;

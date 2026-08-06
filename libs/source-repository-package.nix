@@ -13,6 +13,13 @@
 #
 #   decode ./dep
 #   => { src = <resolved ./dep>; condition = null; subdirs = []; hasOutPath = false; }
+#
+#   decode inputs.reflex-dom     # a flake input, or anything with an outPath
+#   => { src = inputs.reflex-dom; # the spec itself, already in the store, so
+#        condition = null;        # the caller copies nothing
+#        subdirs = [];
+#        hasOutPath = true;
+#      }
 
 let thunkSource = import ./thunk.nix;
 

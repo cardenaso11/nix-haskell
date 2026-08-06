@@ -13,7 +13,18 @@
 # Example:
 #
 #   import ./compiler-toolchain.nix { inherit lib compilers; }
-#   => <a haskell.nix module>
+#   => a haskell.nix module which, in the project whose target has an entry of
+#      its own carrying a wasi-sdk toolchain, gives every package of the project
+#
+#        configureFlags = [
+#          "--with-gcc=/nix/store/...-wasi-sdk/bin/wasm32-wasi-clang"
+#          "--with-ar=/nix/store/...-wasi-sdk/bin/llvm-ar"
+#          "--with-ld=/nix/store/...-wasi-sdk/bin/wasm-ld"
+#          "--with-strip=/nix/store/...-wasi-sdk/bin/llvm-strip"
+#        ];
+#
+#      and in a project for a platform without an entry, or one whose entry
+#      brings no toolchain, evaluates to nothing
 { lib, compilers }:
 
 { config, pkgs, ... }:

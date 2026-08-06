@@ -8,11 +8,16 @@
 #
 # Example:
 #
-#   import ./condition.nix {
+#   holds = import ./condition.nix {
 #     inherit lib;
 #     hostMap = { os = "Linux"; arch = "X86_64"; };
-#   } "!arch(javascript) && os(linux)"
-#   => true
+#   };
+#
+#   holds "!arch(javascript) && os(linux)"   => true
+#   holds "arch(javascript)"                 => false
+#   holds "impl(ghc >= 9.6)"                 => true, with a warning: a
+#                                               condition it cannot evaluate is
+#                                               assumed to hold
 { lib, hostMap }:
 
 let inherit (lib) toLower warn any all hasPrefix removePrefix stringToCharacters trim;

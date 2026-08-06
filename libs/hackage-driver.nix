@@ -18,8 +18,14 @@
 #   => { extra-hackage-tarballs.overlay = <01-index.tar.gz with dep-b>;
 #        extra-hackages = [ <imported hackage-to-nix output> ];
 #        package-overlays = [ { packages.dep-b.src = <mkForce ./dep-b>; } ];
-#        ...
+#        generatedHackage = <the hackage-to-nix output, before import>;
+#        buildCommands = [ "mkdir -p $packagedef/dep-b/0.1.0.0\n..." ];
+#        modules = <the argument, verbatim>;
 #      }
+#
+#   import ./hackage-driver.nix { inherit pkgs; }
+#   => the same shape with an empty index: `extra-hackages` still holds one
+#      entry, and `package-overlays` is empty
 { pkgs, modules ? [ ] }: let
   packageDef = { name, version, src, signatures ? [ ], type ? "Targets", expires ? null }: {
     inherit signatures;

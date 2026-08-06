@@ -13,7 +13,13 @@
 #     inherit lib fields;
 #     platforms = { wasi32.packages.reflex-dom.flags.use-warp = false; };
 #   }
-#   => <a haskell.nix module>
+#   => a haskell.nix module which, in the project whose target is wasm32-wasi,
+#      evaluates to
+#
+#        config.packages.reflex-dom.flags.use-warp = false;
+#
+#      and in every other project, and in one where reflex-dom is not a package
+#      of the project at all, to nothing
 { lib, platforms, fields }:
 
 { config, pkgs, ... }:

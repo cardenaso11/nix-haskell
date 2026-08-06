@@ -9,9 +9,30 @@
 #
 # Example:
 #
-#   config.nixpkgs.packages.reflex-dom.flags.webkit2gtk = false;
-#   => config.nixpkgs.<common option> == config.<common option>,
-#      except for that flag
+#   import ./driver-common.nix {
+#     inherit lib pkgs cfg;
+#     topConfig = config;    # a project defining packages.reflex-dom.flags.webkit2gtk
+#     topOptions = options;
+#   }
+#   => { options = <every common option, hidden from the manual>;
+#        seeds = {
+#          packages.reflex-dom.flags = {          # the whole field, since
+#            _type = "override";                  # `flags` is not a submodule
+#            priority = 1400;                     # to descend into
+#            content = { webkit2gtk = false; };
+#          };
+#          src = ...;                             # the project's other
+#          system = ...;                          # definitions, seeded the
+#          shell = ...;                           # same way
+#        };
+#        config = <the common module's own config>;
+#        mkDriverDefault = <a definition at priority 1450>;
+#      }
+#
+#   `packages.reflex-dom.patches` gets no seed, nor does any other field the
+#   project left alone, so a driver default still reaches it. A driver's own
+#   `nixpkgs.packages.reflex-dom.flags` beats the seed, which is how a common
+#   option is changed for one driver only.
 { lib, pkgs, topConfig, topOptions, cfg }:
 
 with lib;

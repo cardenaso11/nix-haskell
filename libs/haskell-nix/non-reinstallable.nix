@@ -18,7 +18,17 @@
 #     inherit lib compilers;
 #     haskell-nix-src = config.inputs."haskell-nix";
 #   }
-#   => <a haskell.nix module>
+#   => a haskell.nix module which, in the project whose compiler names
+#      `system-cxx-std-lib`, evaluates to
+#
+#        config.nonReinstallablePkgs = [
+#          "rts" "base" "ghc-prim" "integer-gmp" "integer-simple"  # haskell.nix's
+#          "ghc-bignum" "ghc-internal" "ghci" ...                  # own list
+#          "system-cxx-std-lib"                                    # the compiler's
+#        ];
+#
+#      and in a project whose compiler names none, to nothing, leaving
+#      haskell.nix's list as it was
 { lib, compilers, haskell-nix-src }:
 
 { pkgs, ... }@args:
