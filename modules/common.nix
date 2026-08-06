@@ -6,11 +6,91 @@
 # Anything only one backend can honor belongs in the driver's own module
 # instead.
 
-{ config, lib, pkgs, ... }:
+# `topConfig` is the project's own config, which is `config` itself at the top
+# level and the enclosing project when a driver mirrors this module for itself.
+# Options settled once for the whole project rather than per driver are read from
+# it: the bundle optimizers live outside this module, so a mirror has no
+# declaration of them to read.
+{ config, lib, pkgs, topConfig ? config, ... }:
 
 with lib;
 
 let mkDriverDefault = import ../libs/driver-default.nix { inherit lib; };
+
+    # One layer of the bundle optimizer settings: nullable throughout, since the
+    # values live in the top-level `wasm-opt` and `closure`, and a `null` here
+    # states nothing so the layer beneath decides. Which layer that is,
+    # `wasm-optimize` and `js-optimize` spell out; they are also the only
+    # readers, so no driver is taught anything about these.
+    bundleOptimizerLayer = import ../libs/bundle-optimizer-options.nix {
+      inherit lib;
+      inherits = "the layer beneath it, and last to the tool's own settings at the top level";
+    };
+
+    crossPlatform = import ../libs/cross-platform.nix { inherit lib; };
+
+    # What a driver built for one executable of one cross target, and what that
+    # target's optimizer makes of it. Only a driver knows what it built, so these
+    # answer when the tree is read through one, as
+    # `config.<driver>.platforms.<platform>.packages.<package>....`, and are
+    # `null` read at the top level, where there is no driver to ask. A project
+    # that has something else to ship can define either of them instead.
+    bundleFields = { platform, package, exe }:
+      let named = { inherit platform package exe; };
+
+          carrier = config.cross-exe named;
+
+          artifact = extension: "${carrier}/bin/${exe}${extension}";
+
+          target = crossPlatform.targetFor platform;
+
+          throughDriver = config ? cross-exe;
+
+      in {
+
+        optimized = mkOption {
+          type = types.nullOr types.package;
+          default =
+            if ! throughDriver
+              then null
+            else if target.isWasm
+              then topConfig.wasm-optimize (named // { wasm = artifact ".wasm"; })
+            else if target.isGhcjs
+              then topConfig.js-optimize (named // { jsexe = artifact ".jsexe"; })
+            else null;
+          defaultText = literalMD ''
+            the executable this driver built for this target, through
+            `wasm-optimize` or `js-optimize`
+          '';
+          description = ''
+            What gets shipped: the executable a driver built for this target, put
+            through that target's optimizer. `null` for a target that has
+            neither, and `null` anywhere but through a driver.
+          '';
+        };
+
+        jsffi = mkOption {
+          type = types.nullOr types.package;
+          default =
+            if throughDriver && target.isWasm
+            then topConfig.wasm-jsffi {
+              ghc = config.cross-compiler platform;
+              wasm = artifact ".wasm";
+            }
+            else null;
+          defaultText = literalMD ''
+            `wasm-jsffi` on the executable this driver built, with the compiler it
+            was built with
+          '';
+          description = ''
+            The `ghc_wasm_jsffi.js` this target's binary cannot be instantiated
+            without, read out of the binary as linked rather than out of
+            `optimized`, which has had the sections it reads stripped. `null` off
+            a wasm target.
+          '';
+        };
+
+      };
 
     # The fields of a compiler entry, shared by the native compiler and the
     # per-platform ones. Fields only one driver reads sit under that driver's
@@ -502,14 +582,63 @@ in {
     };
 
     platforms = mkOption {
-      type = types.attrsOf (types.submodule {
-        options.packages = packages // {
-          description = ''
-            Per-package customization for this platform only, merged over the
-            project-wide `packages`. The fields are the same.
-          '';
-        };
-      });
+      type = types.attrsOf (types.submodule ({ name, ... }:
+        let platform = name;
+        in {
+          options = {
+
+            packages = packages // {
+              # The package entry of the project-wide `packages` with what a
+              # driver built for this target added to it, as a declaration merged
+              # into the same submodule rather than a second copy of the fields.
+              type = types.attrsOf (types.submoduleWith {
+                shorthandOnlyDefinesConfig = true;
+                modules = packages.type.nestedTypes.elemType.getSubModules ++ [
+                  ({ config, name, ... }:
+                    let package = name;
+                        entry = config;
+                    in {
+
+                      options.bundles = mkOption {
+                        type = types.attrsOf (types.submodule ({ name, ... }:
+                          { options = bundleFields { inherit platform package; exe = name; }; }));
+                        default = genAttrs (attrNames entry.components.exes) (_: {});
+                        defaultText = literalMD ''
+                          one entry per executable named under `components.exes`
+                        '';
+                        description = ''
+                          What this package's executables are shipped as for this
+                          target, keyed by the name each carries in
+                          `components.exes`, so that they can be read together
+                          without naming one again.
+                        '';
+                      };
+
+                      options.components = mkOption {
+                        type = types.submodule {
+                          options.exes = mkOption {
+                            type = types.attrsOf (types.submodule ({ name, ... }:
+                              { options.bundles =
+                                  bundleFields { inherit platform package; exe = name; };
+                              }));
+                          };
+                        };
+                      };
+
+                    })
+                ];
+              });
+              description = ''
+                Per-package customization for this platform only, merged over the
+                project-wide `packages`. The fields are the same, with `bundles`
+                added: what a driver built for this target, shipped.
+              '';
+            };
+
+            inherit (bundleOptimizerLayer) wasm-opt closure;
+
+          };
+        }));
       default = {};
       description = ''
         Per-platform customization, keyed by `pkgs.pkgsCross` platform name
@@ -521,10 +650,16 @@ in {
         driver has none, so what they would have decided is given here. The
         flags reach the point where a package's dependencies are worked out,
         rather than only how it is configured.
+
+        `wasm-opt` and `closure` are the bundle optimizer settings for whatever
+        is built for this target, which the `packages` entries under them
+        narrow to one package, and their `components.exes` entries to one
+        executable of it.
       '';
       example = literalMD ''
         ```
         {
+          wasi32.wasm-opt.level = "z";
           wasi32.packages.reflex-dom.flags.use-warp = false;
         }
         ```
@@ -713,6 +848,32 @@ in {
               Replacement source for the package.
             '';
           };
+          components = mkOption {
+            type = types.submodule {
+              options.exes = mkOption {
+                type = types.attrsOf (types.submodule {
+                  options = { inherit (bundleOptimizerLayer) wasm-opt closure; };
+                });
+                default = {};
+                description = ''
+                  Bundle optimizer settings for one executable of the package,
+                  keyed by the name cabal gives it. They sit under an executable
+                  rather than the package because a bundle is what an executable
+                  links to, and a package can carry several.
+
+                  Naming an executable here is also what tells the haskell.nix
+                  driver to install that executable's `.jsexe` directory, which
+                  it otherwise leaves in the build tree.
+                '';
+              };
+            };
+            default = {};
+            description = ''
+              Per-component customization, under the kind cabal knows the
+              component by. Only executables carry anything so far.
+            '';
+          };
+          inherit (bundleOptimizerLayer) wasm-opt closure;
         } // (
           # Hooks around the build phases: preUnpack, postUnpack, ...,
           # preInstall, postInstall.

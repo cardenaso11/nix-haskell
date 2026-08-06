@@ -7,6 +7,9 @@
 # This module:
 #   - Detects whether GHCJS is the current target (native or cross-compilation)
 #   - Adds Node.js to shell.buildInputs when GHCJS is detected
+#   - Carries what a project does with a linked `.jsexe` once a driver has built
+#     it: `js-optimize` for the closure-compiler pass over its `all.js`, settled
+#     by the `closure` settings
 #
 # The `isGhcjs` option uses a two-part detection strategy:
 #   1. Direct check: Is the host platform GHCJS? (native GHCJS build)
@@ -21,7 +24,11 @@
 
 with lib;
 
-{
+let bundleOptimizer = import ../../../libs/bundle-optimizer-options.nix { inherit lib; };
+
+    bundleSettings = import ../../../libs/bundle-optimizer-settings.nix { inherit lib; };
+
+in {
 
   options = {
 
@@ -51,6 +58,51 @@ with lib;
       description = ''
         Whether the project targets GHCJS (either natively or via cross-compilation).
         Used to conditionally include JavaScript runtime dependencies.
+      '';
+    };
+
+    closure = bundleOptimizer.closure;
+
+    js-optimize = mkOption {
+      type = types.functionTo types.package;
+      default = { platform ? null, package ? null, exe ? null, jsexe }:
+        import ../../../libs/closure.nix { inherit pkgs lib; }
+          ({ inherit jsexe; } // bundleSettings {
+            tool = "closure";
+            defaults = config.closure;
+            inherit (config) packages platforms;
+            inherit platform package exe;
+          });
+      defaultText = literalMD ''
+        ```
+        <nix-haskell>/libs/closure.nix, run with the settings the named target,
+        package and executable resolve to
+        ```
+      '';
+      description = ''
+        A linked `.jsexe` directory with its `all.js` closure-compiled, the rest
+        of the directory as it was. It takes the directory rather than the
+        package that carries it:
+
+        ```
+        js-optimize {
+          platform = "ghcjs";
+          package = "frontend";
+          exe = "frontend";
+          jsexe = "''${frontend}/bin/frontend.jsexe";
+        }
+        ```
+
+        The three names are only what the settings are looked up under, and any
+        of them can be left out to say nothing about it. `closure` is read from
+        the layer that states a field most specifically to the least:
+        `platforms.<platform>.packages.<package>.components.exes.<exe>.closure`,
+        `platforms.<platform>.packages.<package>.closure`,
+        `platforms.<platform>.closure`, then the same package and executable
+        layers of `packages`, and last `closure` itself, which is the only one
+        holding values throughout. They are read from the project's own values
+        rather than a driver's, since this runs on a built artifact, outside
+        any driver.
       '';
     };
 

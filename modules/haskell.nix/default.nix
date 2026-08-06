@@ -96,6 +96,17 @@ let cfg = config."haskell-nix";
       via = "a `packages.<name>.${field}` module";
     }) packagesFieldNames);
 
+    # The executables a project named, gathered from the project-wide entries
+    # and from every target's, so one named for a single target is installed
+    # too. Naming an executable that has no `.jsexe` costs nothing: the module
+    # looks for the directory before copying it.
+    namedExes =
+      let exesIn = packages:
+            mapAttrs (_: tweaks: attrNames tweaks.components.exes)
+              (filterAttrs (_: tweaks: tweaks.components.exes != {}) packages);
+          trees = [ cfg.packages ] ++ map (target: target.packages) (attrValues cfg.platforms);
+      in zipAttrsWith (_: named: unique (concatLists named)) (map exesIn trees);
+
 in {
 
   options."haskell-nix" = common.options // {
@@ -394,6 +405,16 @@ in {
           };
           "platforms.*.packages".via = "a `packages.<name>` module applied in the project whose target is that platform";
 
+          "packages.*.components".set = mkIf (namedExes != {}) {
+            modules = [
+              (import ../../libs/haskell-nix/install-jsexe.nix {
+                inherit lib;
+                exes = namedExes;
+              })
+            ];
+          };
+          "packages.*.components".via = "an `<exe>.jsexe` install for every executable named, in the project whose target is javascript";
+
           "shell.packages".set = {
             shell.packages =
               if cfg.shell.packages != null
@@ -423,6 +444,11 @@ in {
           optimizations.via = "writes the common `ghcOptions` option";
           isGhcjs.via = "adds nodejs to the common `shell.buildInputs`";
           isWasm.via = "adds nodejs to the common `shell.buildInputs`";
+          wasm-opt.via = "nothing the driver builds; read by `wasm-optimize`";
+          closure.via = "nothing the driver builds; read by `js-optimize`";
+          wasm-optimize.via = "applied by the project to a wasm binary the driver has already built";
+          wasm-jsffi.via = "applied by the project to a wasm binary the driver has already built, with the compiler `haskell-nix.cross-compiler` names";
+          js-optimize.via = "applied by the project to a jsexe the driver has already built";
 
         } // packagesTranslation;
       };
@@ -497,6 +523,48 @@ in {
           shell is.
         '';
         type = types.raw;
+      };
+
+      cross-compiler = mkOption {
+        type = types.functionTo types.package;
+        default = platform: cfg.project.projectCross.${platform}.pkg-set.config.ghc.package;
+        defaultText = literalMD ''
+          ```
+          platform:
+            config."haskell-nix".project.projectCross.<platform>.pkg-set.config.ghc.package
+          ```
+        '';
+        description = ''
+          The compiler this driver builds a cross target with, by
+          `pkgs.pkgsCross` name. Both drivers answer to the same name, so a
+          step that needs the compiler an artifact was built with, as
+          `wasm-jsffi` does, asks for it the same way whichever driver built
+          the artifact:
+
+          ```
+          config.<driver>.cross-compiler "wasi32"
+          ```
+        '';
+      };
+
+      cross-exe = mkOption {
+        type = types.functionTo types.package;
+        default = { platform, package, exe }:
+          cfg.project.projectCross.${platform}.hsPkgs.${package}.components.exes.${exe};
+        defaultText = literalMD ''
+          ```
+          { platform, package, exe }:
+            config."haskell-nix".project.projectCross.<platform>
+              .hsPkgs.<package>.components.exes.<exe>
+          ```
+        '';
+        description = ''
+          What this driver builds an executable into, for one cross target. Both
+          drivers answer to the same name, and what they answer with carries the
+          executable at `bin/<exe>`, with a wasm target's binary at
+          `bin/<exe>.wasm` and a javascript target's linked directory at
+          `bin/<exe>.jsexe`. It is what `bundles` optimizes.
+        '';
       };
 
   };

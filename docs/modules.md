@@ -212,6 +212,402 @@ null
 
 
 
+## packages\.\<name>\.closure\.enable
+
+
+
+Whether ` js-optimize ` runs closure-compiler at all\. When false it
+copies the jsexe through unchanged\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.closure\.externs
+
+
+
+Files passed as ` --externs `, declaring what the program reaches by a
+name the compiler must not rename\. The jsexe’s own ` all.externs.js ` is
+always passed ahead of these, since ADVANCED renames everything it is
+not told the runtime knows by name\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or (list of absolute path)
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.closure\.extraFlags
+
+
+
+Flags appended after the level and the externs, so one of these decides
+what they would have\. One flag per element, its value in the same
+string, since the elements are joined into one command line\.
+
+The default accepts whatever syntax the linker emitted, keeps the
+compiler quiet, wraps the program in a function expression it may
+assume nothing escapes from, asks for strict mode, and stops it
+complaining about the names the runtime defines elsewhere\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or (list of string)
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.closure\.level
+
+
+
+The ` --compilation_level ` closure-compiler runs at\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or one of “BUNDLE”, “WHITESPACE_ONLY”, “SIMPLE”, “TRANSPILE_ONLY”, “ADVANCED”
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+
+
+*Example:*
+
+```nix
+"SIMPLE"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.components
+
+
+
+Per-component customization, under the kind cabal knows the
+component by\. Only executables carry anything so far\.
+
+
+
+*Type:*
+submodule
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.components\.exes
+
+
+
+Bundle optimizer settings for one executable of the package,
+keyed by the name cabal gives it\. They sit under an executable
+rather than the package because a bundle is what an executable
+links to, and a package can carry several\.
+
+Naming an executable here is also what tells the haskell\.nix
+driver to install that executable’s ` .jsexe ` directory, which
+it otherwise leaves in the build tree\.
+
+
+
+*Type:*
+attribute set of (submodule)
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.components\.exes\.\<name>\.closure\.enable
+
+
+
+Whether ` js-optimize ` runs closure-compiler at all\. When false it
+copies the jsexe through unchanged\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.components\.exes\.\<name>\.closure\.externs
+
+
+
+Files passed as ` --externs `, declaring what the program reaches by a
+name the compiler must not rename\. The jsexe’s own ` all.externs.js ` is
+always passed ahead of these, since ADVANCED renames everything it is
+not told the runtime knows by name\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or (list of absolute path)
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.components\.exes\.\<name>\.closure\.extraFlags
+
+
+
+Flags appended after the level and the externs, so one of these decides
+what they would have\. One flag per element, its value in the same
+string, since the elements are joined into one command line\.
+
+The default accepts whatever syntax the linker emitted, keeps the
+compiler quiet, wraps the program in a function expression it may
+assume nothing escapes from, asks for strict mode, and stops it
+complaining about the names the runtime defines elsewhere\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or (list of string)
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.components\.exes\.\<name>\.closure\.level
+
+
+
+The ` --compilation_level ` closure-compiler runs at\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or one of “BUNDLE”, “WHITESPACE_ONLY”, “SIMPLE”, “TRANSPILE_ONLY”, “ADVANCED”
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+
+
+*Example:*
+
+```nix
+"SIMPLE"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.components\.exes\.\<name>\.wasm-opt\.enable
+
+
+
+Whether ` wasm-optimize ` runs wasm-opt and the strip that follows it at
+all\. When false it copies its input through, so what a caller installs
+sits in the same place either way\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.components\.exes\.\<name>\.wasm-opt\.extraFlags
+
+
+
+Flags appended after ` -all -O<level> `, so one of these decides what the
+level would have\. One flag per element, its value in the same string,
+since the elements are joined into one command line\.
+
+The default asks for the optimize level of ` -O2 ` at the shrink level of
+` -O1 `, drops the memory a module never reads, discards debug
+information, and repeats the passes until they stop finding anything\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or (list of string)
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.components\.exes\.\<name>\.wasm-opt\.level
+
+
+
+The ` -O ` level wasm-opt runs at\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or one of “0”, “1”, “2”, “3”, “4”, “s”, “z”
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+
+
+*Example:*
+
+```nix
+"z"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
 ## packages\.\<name>\.configureFlags
 
 
@@ -807,8 +1203,6 @@ null
 
 ## packages\.\<name>\.preInstall
 
-
-
 Shell code run before the
 install phase\. ` null ` leaves the default in
 place\.
@@ -980,6 +1374,100 @@ null or absolute path or package
 
 ```nix
 null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.wasm-opt\.enable
+
+
+
+Whether ` wasm-optimize ` runs wasm-opt and the strip that follows it at
+all\. When false it copies its input through, so what a caller installs
+sits in the same place either way\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.wasm-opt\.extraFlags
+
+
+
+Flags appended after ` -all -O<level> `, so one of these decides what the
+level would have\. One flag per element, its value in the same string,
+since the elements are joined into one command line\.
+
+The default asks for the optimize level of ` -O2 ` at the shrink level of
+` -O1 `, drops the memory a module never reads, discards debug
+information, and repeats the passes until they stop finding anything\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or (list of string)
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## packages\.\<name>\.wasm-opt\.level
+
+
+
+The ` -O ` level wasm-opt runs at\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or one of “0”, “1”, “2”, “3”, “4”, “s”, “z”
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+
+
+*Example:*
+
+```nix
+"z"
 ```
 
 *Declared by:*
@@ -1236,6 +1724,128 @@ strings concatenated with “\\n”
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## closure\.enable
+
+
+
+Whether ` js-optimize ` runs closure-compiler at all\. When false it
+copies the jsexe through unchanged\.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+
+```nix
+true
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/cross/ghcjs](file://<nix-haskell>/modules/cross/ghcjs)
+
+
+
+## closure\.externs
+
+
+
+Files passed as ` --externs `, declaring what the program reaches by a
+name the compiler must not rename\. The jsexe’s own ` all.externs.js ` is
+always passed ahead of these, since ADVANCED renames everything it is
+not told the runtime knows by name\.
+
+
+
+*Type:*
+list of absolute path
+
+
+
+*Default:*
+
+```nix
+[ ]
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/cross/ghcjs](file://<nix-haskell>/modules/cross/ghcjs)
+
+
+
+## closure\.extraFlags
+
+
+
+Flags appended after the level and the externs, so one of these decides
+what they would have\. One flag per element, its value in the same
+string, since the elements are joined into one command line\.
+
+The default accepts whatever syntax the linker emitted, keeps the
+compiler quiet, wraps the program in a function expression it may
+assume nothing escapes from, asks for strict mode, and stops it
+complaining about the names the runtime defines elsewhere\.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+
+```nix
+[
+  "--language_in UNSTABLE"
+  "--warning_level QUIET"
+  "--isolation_mode IIFE"
+  "--assume_function_wrapper"
+  "--emit_use_strict"
+  "--jscomp_off=undefinedVars"
+]
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/cross/ghcjs](file://<nix-haskell>/modules/cross/ghcjs)
+
+
+
+## closure\.level
+
+
+
+The ` --compilation_level ` closure-compiler runs at\.
+
+
+
+*Type:*
+one of “BUNDLE”, “WHITESPACE_ONLY”, “SIMPLE”, “TRANSPILE_ONLY”, “ADVANCED”
+
+
+
+*Default:*
+
+```nix
+"ADVANCED"
+```
+
+
+
+*Example:*
+
+```nix
+"SIMPLE"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/cross/ghcjs](file://<nix-haskell>/modules/cross/ghcjs)
 
 
 
@@ -2475,6 +3085,69 @@ list of (attribute set)
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## haskell-nix\.cross-compiler
+
+
+
+The compiler this driver builds a cross target with, by
+` pkgs.pkgsCross ` name\. Both drivers answer to the same name, so a
+step that needs the compiler an artifact was built with, as
+` wasm-jsffi ` does, asks for it the same way whichever driver built
+the artifact:
+
+```
+config.<driver>.cross-compiler "wasi32"
+```
+
+
+
+*Type:*
+function that evaluates to a(n) package
+
+
+
+*Default:*
+
+```
+platform:
+  config."haskell-nix".project.projectCross.<platform>.pkg-set.config.ghc.package
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+
+
+
+## haskell-nix\.cross-exe
+
+
+
+What this driver builds an executable into, for one cross target\. Both
+drivers answer to the same name, and what they answer with carries the
+executable at ` bin/<exe> `, with a wasm target’s binary at
+` bin/<exe>.wasm ` and a javascript target’s linked directory at
+` bin/<exe>.jsexe `\. It is what ` bundles ` optimizes\.
+
+
+
+*Type:*
+function that evaluates to a(n) package
+
+
+
+*Default:*
+
+```
+{ platform, package, exe }:
+  config."haskell-nix".project.projectCross.<platform>
+    .hsPkgs.<package>.components.exes.<exe>
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
 
 
 
@@ -3772,8 +4445,6 @@ true
 
 ## haskell-nix\.options\.shell\.buildInputs
 
-
-
 This option has no description\.
 
 
@@ -3904,6 +4575,8 @@ one of “cabal-store”, “ghc-pkg”
 
 
 ## haskell-nix\.options\.shell\.inputsFrom
+
+
 
 This option has no description\.
 
@@ -4388,6 +5061,53 @@ boolean
 
 
 
+## js-optimize
+
+
+
+A linked ` .jsexe ` directory with its ` all.js ` closure-compiled, the rest
+of the directory as it was\. It takes the directory rather than the
+package that carries it:
+
+```
+js-optimize {
+  platform = "ghcjs";
+  package = "frontend";
+  exe = "frontend";
+  jsexe = "${frontend}/bin/frontend.jsexe";
+}
+```
+
+The three names are only what the settings are looked up under, and any
+of them can be left out to say nothing about it\. ` closure ` is read from
+the layer that states a field most specifically to the least:
+` platforms.<platform>.packages.<package>.components.exes.<exe>.closure `,
+` platforms.<platform>.packages.<package>.closure `,
+` platforms.<platform>.closure `, then the same package and executable
+layers of ` packages `, and last ` closure ` itself, which is the only one
+holding values throughout\. They are read from the project’s own values
+rather than a driver’s, since this runs on a built artifact, outside
+any driver\.
+
+
+
+*Type:*
+function that evaluates to a(n) package
+
+
+
+*Default:*
+
+```
+<nix-haskell>/libs/closure.nix, run with the settings the named target,
+package and executable resolve to
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/cross/ghcjs](file://<nix-haskell>/modules/cross/ghcjs)
+
+
+
 ## name
 
 
@@ -4404,11 +5124,76 @@ null or string
 *Default:*
 
 ```nix
-"njzqihzyg4zggch1zssvgihnpa018mbg-source"
+"si2ymhd0vpsq1nnh271vwlp4fm2vki11-source"
 ```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## nixpkgs\.cross-compiler
+
+
+
+The compiler this driver builds a cross target with, by
+` pkgs.pkgsCross ` name\. Both drivers answer to the same name, so a
+step that needs the compiler an artifact was built with, as
+` wasm-jsffi ` does, asks for it the same way whichever driver built
+the artifact:
+
+```
+config.<driver>.cross-compiler "wasi32"
+```
+
+
+
+*Type:*
+function that evaluates to a(n) package
+
+
+
+*Default:*
+
+```
+platform: config.nixpkgs.project.projectCross.<platform>.haskellPackages.ghc
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
+## nixpkgs\.cross-exe
+
+
+
+What this driver builds an executable into, for one cross target\. Both
+drivers answer to the same name, and what they answer with carries the
+executable at ` bin/<exe> `, with a wasm target’s binary at
+` bin/<exe>.wasm ` and a javascript target’s linked directory at
+` bin/<exe>.jsexe `\. It is what ` bundles ` optimizes\.
+
+This driver builds one derivation per package, so the executable’s own
+name says nothing about where to look; it is taken for the sake of the
+one interface both drivers answer to\.
+
+
+
+*Type:*
+function that evaluates to a(n) package
+
+
+
+*Default:*
+
+```
+{ platform, package, exe }:
+  config.nixpkgs.project.projectCross.<platform>.packages.<package>
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
 
 
 
@@ -5121,6 +5906,11 @@ driver has none, so what they would have decided is given here\. The
 flags reach the point where a package’s dependencies are worked out,
 rather than only how it is configured\.
 
+` wasm-opt ` and ` closure ` are the bundle optimizer settings for whatever
+is built for this target, which the ` packages ` entries under them
+narrow to one package, and their ` components.exes ` entries to one
+executable of it\.
+
 
 
 *Type:*
@@ -5140,6 +5930,7 @@ attribute set of (submodule)
 
 ```
 {
+  wasi32.wasm-opt.level = "z";
   wasi32.packages.reflex-dom.flags.use-warp = false;
 }
 ```
@@ -5154,7 +5945,8 @@ attribute set of (submodule)
 
 
 Per-package customization for this platform only, merged over the
-project-wide ` packages `\. The fields are the same\.
+project-wide ` packages `\. The fields are the same, with ` bundles `
+added: what a driver built for this target, shipped\.
 
 
 
@@ -5313,6 +6105,8 @@ null
 
 ## platforms\.\<name>\.packages\.\<name>\.enableShared
 
+
+
 Whether to build a shared library\. ` null ` leaves the default in
 place\.
 
@@ -5352,6 +6146,526 @@ null or boolean
 
 ```nix
 null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.bundles
+
+
+
+What this package’s executables are shipped as for this
+target, keyed by the name each carries in
+` components.exes `, so that they can be read together
+without naming one again\.
+
+
+
+*Type:*
+attribute set of (submodule)
+
+
+
+*Default:*
+one entry per executable named under ` components.exes `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.bundles\.\<name>\.jsffi
+
+
+
+The ` ghc_wasm_jsffi.js ` this target’s binary cannot be instantiated
+without, read out of the binary as linked rather than out of
+` optimized `, which has had the sections it reads stripped\. ` null ` off
+a wasm target\.
+
+
+
+*Type:*
+null or package
+
+
+
+*Default:*
+` wasm-jsffi ` on the executable this driver built, with the compiler it
+was built with
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.bundles\.\<name>\.optimized
+
+
+
+What gets shipped: the executable a driver built for this target, put
+through that target’s optimizer\. ` null ` for a target that has
+neither, and ` null ` anywhere but through a driver\.
+
+
+
+*Type:*
+null or package
+
+
+
+*Default:*
+the executable this driver built for this target, through
+` wasm-optimize ` or ` js-optimize `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.closure\.enable
+
+
+
+Whether ` js-optimize ` runs closure-compiler at all\. When false it
+copies the jsexe through unchanged\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.closure\.externs
+
+
+
+Files passed as ` --externs `, declaring what the program reaches by a
+name the compiler must not rename\. The jsexe’s own ` all.externs.js ` is
+always passed ahead of these, since ADVANCED renames everything it is
+not told the runtime knows by name\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or (list of absolute path)
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.closure\.extraFlags
+
+
+
+Flags appended after the level and the externs, so one of these decides
+what they would have\. One flag per element, its value in the same
+string, since the elements are joined into one command line\.
+
+The default accepts whatever syntax the linker emitted, keeps the
+compiler quiet, wraps the program in a function expression it may
+assume nothing escapes from, asks for strict mode, and stops it
+complaining about the names the runtime defines elsewhere\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or (list of string)
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.closure\.level
+
+
+
+The ` --compilation_level ` closure-compiler runs at\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or one of “BUNDLE”, “WHITESPACE_ONLY”, “SIMPLE”, “TRANSPILE_ONLY”, “ADVANCED”
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+
+
+*Example:*
+
+```nix
+"SIMPLE"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.components
+
+
+
+Per-component customization, under the kind cabal knows the
+component by\. Only executables carry anything so far\.
+
+
+
+*Type:*
+submodule
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.components\.exes
+
+
+
+Bundle optimizer settings for one executable of the package,
+keyed by the name cabal gives it\. They sit under an executable
+rather than the package because a bundle is what an executable
+links to, and a package can carry several\.
+
+Naming an executable here is also what tells the haskell\.nix
+driver to install that executable’s ` .jsexe ` directory, which
+it otherwise leaves in the build tree\.
+
+
+
+*Type:*
+attribute set of (submodule)
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.components\.exes\.\<name>\.bundles\.jsffi
+
+
+
+The ` ghc_wasm_jsffi.js ` this target’s binary cannot be instantiated
+without, read out of the binary as linked rather than out of
+` optimized `, which has had the sections it reads stripped\. ` null ` off
+a wasm target\.
+
+
+
+*Type:*
+null or package
+
+
+
+*Default:*
+` wasm-jsffi ` on the executable this driver built, with the compiler it
+was built with
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.components\.exes\.\<name>\.bundles\.optimized
+
+
+
+What gets shipped: the executable a driver built for this target, put
+through that target’s optimizer\. ` null ` for a target that has
+neither, and ` null ` anywhere but through a driver\.
+
+
+
+*Type:*
+null or package
+
+
+
+*Default:*
+the executable this driver built for this target, through
+` wasm-optimize ` or ` js-optimize `
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.components\.exes\.\<name>\.closure\.enable
+
+
+
+Whether ` js-optimize ` runs closure-compiler at all\. When false it
+copies the jsexe through unchanged\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.components\.exes\.\<name>\.closure\.externs
+
+
+
+Files passed as ` --externs `, declaring what the program reaches by a
+name the compiler must not rename\. The jsexe’s own ` all.externs.js ` is
+always passed ahead of these, since ADVANCED renames everything it is
+not told the runtime knows by name\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or (list of absolute path)
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.components\.exes\.\<name>\.closure\.extraFlags
+
+
+
+Flags appended after the level and the externs, so one of these decides
+what they would have\. One flag per element, its value in the same
+string, since the elements are joined into one command line\.
+
+The default accepts whatever syntax the linker emitted, keeps the
+compiler quiet, wraps the program in a function expression it may
+assume nothing escapes from, asks for strict mode, and stops it
+complaining about the names the runtime defines elsewhere\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or (list of string)
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.components\.exes\.\<name>\.closure\.level
+
+
+
+The ` --compilation_level ` closure-compiler runs at\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or one of “BUNDLE”, “WHITESPACE_ONLY”, “SIMPLE”, “TRANSPILE_ONLY”, “ADVANCED”
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+
+
+*Example:*
+
+```nix
+"SIMPLE"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.components\.exes\.\<name>\.wasm-opt\.enable
+
+
+
+Whether ` wasm-optimize ` runs wasm-opt and the strip that follows it at
+all\. When false it copies its input through, so what a caller installs
+sits in the same place either way\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.components\.exes\.\<name>\.wasm-opt\.extraFlags
+
+
+
+Flags appended after ` -all -O<level> `, so one of these decides what the
+level would have\. One flag per element, its value in the same string,
+since the elements are joined into one command line\.
+
+The default asks for the optimize level of ` -O2 ` at the shrink level of
+` -O1 `, drops the memory a module never reads, discards debug
+information, and repeats the passes until they stop finding anything\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or (list of string)
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.components\.exes\.\<name>\.wasm-opt\.level
+
+
+
+The ` -O ` level wasm-opt runs at\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or one of “0”, “1”, “2”, “3”, “4”, “s”, “z”
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+
+
+*Example:*
+
+```nix
+"z"
 ```
 
 *Declared by:*
@@ -6134,6 +7448,317 @@ null
 
 
 
+## platforms\.\<name>\.packages\.\<name>\.wasm-opt\.enable
+
+
+
+Whether ` wasm-optimize ` runs wasm-opt and the strip that follows it at
+all\. When false it copies its input through, so what a caller installs
+sits in the same place either way\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.wasm-opt\.extraFlags
+
+
+
+Flags appended after ` -all -O<level> `, so one of these decides what the
+level would have\. One flag per element, its value in the same string,
+since the elements are joined into one command line\.
+
+The default asks for the optimize level of ` -O2 ` at the shrink level of
+` -O1 `, drops the memory a module never reads, discards debug
+information, and repeats the passes until they stop finding anything\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or (list of string)
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.wasm-opt\.level
+
+
+
+The ` -O ` level wasm-opt runs at\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or one of “0”, “1”, “2”, “3”, “4”, “s”, “z”
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+
+
+*Example:*
+
+```nix
+"z"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.closure\.enable
+
+
+
+Whether ` js-optimize ` runs closure-compiler at all\. When false it
+copies the jsexe through unchanged\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.closure\.externs
+
+
+
+Files passed as ` --externs `, declaring what the program reaches by a
+name the compiler must not rename\. The jsexe’s own ` all.externs.js ` is
+always passed ahead of these, since ADVANCED renames everything it is
+not told the runtime knows by name\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or (list of absolute path)
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.closure\.extraFlags
+
+
+
+Flags appended after the level and the externs, so one of these decides
+what they would have\. One flag per element, its value in the same
+string, since the elements are joined into one command line\.
+
+The default accepts whatever syntax the linker emitted, keeps the
+compiler quiet, wraps the program in a function expression it may
+assume nothing escapes from, asks for strict mode, and stops it
+complaining about the names the runtime defines elsewhere\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or (list of string)
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.closure\.level
+
+
+
+The ` --compilation_level ` closure-compiler runs at\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or one of “BUNDLE”, “WHITESPACE_ONLY”, “SIMPLE”, “TRANSPILE_ONLY”, “ADVANCED”
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+
+
+*Example:*
+
+```nix
+"SIMPLE"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.wasm-opt\.enable
+
+
+
+Whether ` wasm-optimize ` runs wasm-opt and the strip that follows it at
+all\. When false it copies its input through, so what a caller installs
+sits in the same place either way\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or boolean
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.wasm-opt\.extraFlags
+
+
+
+Flags appended after ` -all -O<level> `, so one of these decides what the
+level would have\. One flag per element, its value in the same string,
+since the elements are joined into one command line\.
+
+The default asks for the optimize level of ` -O2 ` at the shrink level of
+` -O1 `, drops the memory a module never reads, discards debug
+information, and repeats the passes until they stop finding anything\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or (list of string)
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## platforms\.\<name>\.wasm-opt\.level
+
+
+
+The ` -O ` level wasm-opt runs at\.
+
+` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+
+
+
+*Type:*
+null or one of “0”, “1”, “2”, “3”, “4”, “s”, “z”
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+
+
+*Example:*
+
+```nix
+"z"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
 ## sha256map
 
 
@@ -6522,5 +8147,183 @@ string
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## wasm-jsffi
+
+
+
+The ` ghc_wasm_jsffi.js ` a GHC-built wasm module needs to be
+instantiated at all, read out of the binary by the compiler that built
+it:
+
+```
+wasm-jsffi {
+  ghc = config.<driver>.cross-compiler "wasi32";
+  wasm = "${frontend}/bin/frontend.wasm";
+}
+```
+
+The compiler must be the one that produced the binary, which is what
+` <driver>.cross-compiler ` names\. Run this on the binary as linked,
+before ` wasm-optimize ` strips the sections it reads\.
+
+
+
+*Type:*
+function that evaluates to a(n) package
+
+
+
+*Default:*
+
+```
+<nix-haskell>/libs/wasm-jsffi.nix
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/cross/wasm](file://<nix-haskell>/modules/cross/wasm)
+
+
+
+## wasm-opt\.enable
+
+
+
+Whether ` wasm-optimize ` runs wasm-opt and the strip that follows it at
+all\. When false it copies its input through, so what a caller installs
+sits in the same place either way\.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+
+```nix
+true
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/cross/wasm](file://<nix-haskell>/modules/cross/wasm)
+
+
+
+## wasm-opt\.extraFlags
+
+
+
+Flags appended after ` -all -O<level> `, so one of these decides what the
+level would have\. One flag per element, its value in the same string,
+since the elements are joined into one command line\.
+
+The default asks for the optimize level of ` -O2 ` at the shrink level of
+` -O1 `, drops the memory a module never reads, discards debug
+information, and repeats the passes until they stop finding anything\.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+
+```nix
+[
+  "-ol 2"
+  "-s 1"
+  "--low-memory-unused"
+  "--strip-dwarf"
+  "--converge"
+]
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/cross/wasm](file://<nix-haskell>/modules/cross/wasm)
+
+
+
+## wasm-opt\.level
+
+
+
+The ` -O ` level wasm-opt runs at\.
+
+
+
+*Type:*
+one of “0”, “1”, “2”, “3”, “4”, “s”, “z”
+
+
+
+*Default:*
+
+```nix
+"2"
+```
+
+
+
+*Example:*
+
+```nix
+"z"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/cross/wasm](file://<nix-haskell>/modules/cross/wasm)
+
+
+
+## wasm-optimize
+
+
+
+A wasm binary optimized and stripped\. It takes the file rather than the
+package that carries it, and yields the file rather than a directory
+holding it, so the caller installs it under whatever name it wants:
+
+```
+wasm-optimize {
+  platform = "wasi32";
+  package = "frontend";
+  exe = "frontend";
+  wasm = "${frontend}/bin/frontend.wasm";
+}
+```
+
+The three names are only what the settings are looked up under, and any
+of them can be left out to say nothing about it\. ` wasm-opt ` is read
+from the layer that states a field most specifically to the least:
+` platforms.<platform>.packages.<package>.components.exes.<exe>.wasm-opt `,
+` platforms.<platform>.packages.<package>.wasm-opt `,
+` platforms.<platform>.wasm-opt `, then the same package and executable
+layers of ` packages `, and last ` wasm-opt ` itself, which is the only one
+holding values throughout\. They are read from the project’s own values
+rather than a driver’s, since this runs on a built artifact, outside
+any driver\.
+
+
+
+*Type:*
+function that evaluates to a(n) package
+
+
+
+*Default:*
+
+```
+<nix-haskell>/libs/wasm-opt.nix, run with the settings the named target,
+package and executable resolve to
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/cross/wasm](file://<nix-haskell>/modules/cross/wasm)
 
 

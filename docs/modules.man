@@ -142,6 +142,301 @@ null
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
+.SS packages.<name>.closure.enable
+Whether \f[CR]js\-optimize\f[R] runs closure\-compiler at all.
+When false it copies the jsexe through unchanged.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.closure.externs
+Files passed as \f[CR]\-\-externs\f[R], declaring what the program
+reaches by a name the compiler must not rename.
+The jsexe\(cqs own \f[CR]all.externs.js\f[R] is always passed ahead of
+these, since ADVANCED renames everything it is not told the runtime
+knows by name.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or (list of absolute path)
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.closure.extraFlags
+Flags appended after the level and the externs, so one of these decides
+what they would have.
+One flag per element, its value in the same string, since the elements
+are joined into one command line.
+.PP
+The default accepts whatever syntax the linker emitted, keeps the
+compiler quiet, wraps the program in a function expression it may assume
+nothing escapes from, asks for strict mode, and stops it complaining
+about the names the runtime defines elsewhere.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or (list of string)
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.closure.level
+The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or one of \(lqBUNDLE\(rq, \(lqWHITESPACE_ONLY\(rq,
+\(lqSIMPLE\(rq, \(lqTRANSPILE_ONLY\(rq, \(lqADVANCED\(rq
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqSIMPLE\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.components
+Per\-component customization, under the kind cabal knows the component
+by.
+Only executables carry anything so far.
+.PP
+\f[I]Type:\f[R] submodule
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.components.exes
+Bundle optimizer settings for one executable of the package, keyed by
+the name cabal gives it.
+They sit under an executable rather than the package because a bundle is
+what an executable links to, and a package can carry several.
+.PP
+Naming an executable here is also what tells the haskell.nix driver to
+install that executable\(cqs \f[CR].jsexe\f[R] directory, which it
+otherwise leaves in the build tree.
+.PP
+\f[I]Type:\f[R] attribute set of (submodule)
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.components.exes.<name>.closure.enable
+Whether \f[CR]js\-optimize\f[R] runs closure\-compiler at all.
+When false it copies the jsexe through unchanged.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.components.exes.<name>.closure.externs
+Files passed as \f[CR]\-\-externs\f[R], declaring what the program
+reaches by a name the compiler must not rename.
+The jsexe\(cqs own \f[CR]all.externs.js\f[R] is always passed ahead of
+these, since ADVANCED renames everything it is not told the runtime
+knows by name.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or (list of absolute path)
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.components.exes.<name>.closure.extraFlags
+Flags appended after the level and the externs, so one of these decides
+what they would have.
+One flag per element, its value in the same string, since the elements
+are joined into one command line.
+.PP
+The default accepts whatever syntax the linker emitted, keeps the
+compiler quiet, wraps the program in a function expression it may assume
+nothing escapes from, asks for strict mode, and stops it complaining
+about the names the runtime defines elsewhere.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or (list of string)
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.components.exes.<name>.closure.level
+The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or one of \(lqBUNDLE\(rq, \(lqWHITESPACE_ONLY\(rq,
+\(lqSIMPLE\(rq, \(lqTRANSPILE_ONLY\(rq, \(lqADVANCED\(rq
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqSIMPLE\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.components.exes.<name>.wasm\-opt.enable
+Whether \f[CR]wasm\-optimize\f[R] runs wasm\-opt and the strip that
+follows it at all.
+When false it copies its input through, so what a caller installs sits
+in the same place either way.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.components.exes.<name>.wasm\-opt.extraFlags
+Flags appended after \f[CR]\-all \-O<level>\f[R], so one of these
+decides what the level would have.
+One flag per element, its value in the same string, since the elements
+are joined into one command line.
+.PP
+The default asks for the optimize level of \f[CR]\-O2\f[R] at the shrink
+level of \f[CR]\-O1\f[R], drops the memory a module never reads,
+discards debug information, and repeats the passes until they stop
+finding anything.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or (list of string)
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.components.exes.<name>.wasm\-opt.level
+The \f[CR]\-O\f[R] level wasm\-opt runs at.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or one of \(lq0\(rq, \(lq1\(rq, \(lq2\(rq,
+\(lq3\(rq, \(lq4\(rq, \(lqs\(rq, \(lqz\(rq
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqz\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
 .SS packages.<name>.configureFlags
 Extra flags passed to \f[CR]Setup configure\f[R].
 .PP
@@ -632,6 +927,78 @@ null
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
+.SS packages.<name>.wasm\-opt.enable
+Whether \f[CR]wasm\-optimize\f[R] runs wasm\-opt and the strip that
+follows it at all.
+When false it copies its input through, so what a caller installs sits
+in the same place either way.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.wasm\-opt.extraFlags
+Flags appended after \f[CR]\-all \-O<level>\f[R], so one of these
+decides what the level would have.
+One flag per element, its value in the same string, since the elements
+are joined into one command line.
+.PP
+The default asks for the optimize level of \f[CR]\-O2\f[R] at the shrink
+level of \f[CR]\-O1\f[R], drops the memory a module never reads,
+discards debug information, and repeats the passes until they stop
+finding anything.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or (list of string)
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS packages.<name>.wasm\-opt.level
+The \f[CR]\-O\f[R] level wasm\-opt runs at.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or one of \(lq0\(rq, \(lq1\(rq, \(lq2\(rq,
+\(lq3\(rq, \(lq4\(rq, \(lqs\(rq, \(lqz\(rq
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqz\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
 .SS _module.args
 Additional arguments passed to each module in addition to ones like
 \f[CR]lib\f[R], \f[CR]config\f[R], and \f[CR]pkgs\f[R],
@@ -825,6 +1192,93 @@ an anchored one read against the root cannot do.
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
+.UE \c
+.SS closure.enable
+Whether \f[CR]js\-optimize\f[R] runs closure\-compiler at all.
+When false it copies the jsexe through unchanged.
+.PP
+\f[I]Type:\f[R] boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+true
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/cross/ghcjs
+/modules/cross/ghcjs
+.UE \c
+.SS closure.externs
+Files passed as \f[CR]\-\-externs\f[R], declaring what the program
+reaches by a name the compiler must not rename.
+The jsexe\(cqs own \f[CR]all.externs.js\f[R] is always passed ahead of
+these, since ADVANCED renames everything it is not told the runtime
+knows by name.
+.PP
+\f[I]Type:\f[R] list of absolute path
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+[ ]
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/cross/ghcjs
+/modules/cross/ghcjs
+.UE \c
+.SS closure.extraFlags
+Flags appended after the level and the externs, so one of these decides
+what they would have.
+One flag per element, its value in the same string, since the elements
+are joined into one command line.
+.PP
+The default accepts whatever syntax the linker emitted, keeps the
+compiler quiet, wraps the program in a function expression it may assume
+nothing escapes from, asks for strict mode, and stops it complaining
+about the names the runtime defines elsewhere.
+.PP
+\f[I]Type:\f[R] list of string
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+[
+  \(dq\-\-language_in UNSTABLE\(dq
+  \(dq\-\-warning_level QUIET\(dq
+  \(dq\-\-isolation_mode IIFE\(dq
+  \(dq\-\-assume_function_wrapper\(dq
+  \(dq\-\-emit_use_strict\(dq
+  \(dq\-\-jscomp_off=undefinedVars\(dq
+]
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/cross/ghcjs
+/modules/cross/ghcjs
+.UE \c
+.SS closure.level
+The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
+.PP
+\f[I]Type:\f[R] one of \(lqBUNDLE\(rq, \(lqWHITESPACE_ONLY\(rq,
+\(lqSIMPLE\(rq, \(lqTRANSPILE_ONLY\(rq, \(lqADVANCED\(rq
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+\(dqADVANCED\(dq
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqSIMPLE\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/cross/ghcjs
+/modules/cross/ghcjs
 .UE \c
 .SS compiler
 The GHC to build with.
@@ -1669,6 +2123,52 @@ A good example of this is obelisk\-generated\-static.
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
+.UE \c
+.SS haskell\-nix.cross\-compiler
+The compiler this driver builds a cross target with, by
+\f[CR]pkgs.pkgsCross\f[R] name.
+Both drivers answer to the same name, so a step that needs the compiler
+an artifact was built with, as \f[CR]wasm\-jsffi\f[R] does, asks for it
+the same way whichever driver built the artifact:
+.IP
+.EX
+config.<driver>.cross\-compiler \(dqwasi32\(dq
+.EE
+.PP
+\f[I]Type:\f[R] function that evaluates to a(n) package
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+platform:
+  config.\(dqhaskell\-nix\(dq.project.projectCross.<platform>.pkg\-set.config.ghc.package
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/haskell.nix
+/modules/haskell.nix
+.UE \c
+.SS haskell\-nix.cross\-exe
+What this driver builds an executable into, for one cross target.
+Both drivers answer to the same name, and what they answer with carries
+the executable at \f[CR]bin/<exe>\f[R], with a wasm target\(cqs binary
+at \f[CR]bin/<exe>.wasm\f[R] and a javascript target\(cqs linked
+directory at \f[CR]bin/<exe>.jsexe\f[R].
+It is what \f[CR]bundles\f[R] optimizes.
+.PP
+\f[I]Type:\f[R] function that evaluates to a(n) package
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ platform, package, exe }:
+  config.\(dqhaskell\-nix\(dq.project.projectCross.<platform>
+    .hsPkgs.<package>.components.exes.<exe>
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/haskell.nix
+/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.extraSrcFiles
 ExtraSrcFiles to include in the project builds.
@@ -2940,6 +3440,45 @@ Used to conditionally include WebAssembly runtime dependencies.
 .UR file://%3Cnix-haskell%3E/modules/cross/wasm
 /modules/cross/wasm
 .UE \c
+.SS js\-optimize
+A linked \f[CR].jsexe\f[R] directory with its \f[CR]all.js\f[R]
+closure\-compiled, the rest of the directory as it was.
+It takes the directory rather than the package that carries it:
+.IP
+.EX
+js\-optimize {
+  platform = \(dqghcjs\(dq;
+  package = \(dqfrontend\(dq;
+  exe = \(dqfrontend\(dq;
+  jsexe = \(dq${frontend}/bin/frontend.jsexe\(dq;
+}
+.EE
+.PP
+The three names are only what the settings are looked up under, and any
+of them can be left out to say nothing about it.
+\f[CR]closure\f[R] is read from the layer that states a field most
+specifically to the least:
+\f[CR]platforms.<platform>.packages.<package>.components.exes.<exe>.closure\f[R],
+\f[CR]platforms.<platform>.packages.<package>.closure\f[R],
+\f[CR]platforms.<platform>.closure\f[R], then the same package and
+executable layers of \f[CR]packages\f[R], and last \f[CR]closure\f[R]
+itself, which is the only one holding values throughout.
+They are read from the project\(cqs own values rather than a
+driver\(cqs, since this runs on a built artifact, outside any driver.
+.PP
+\f[I]Type:\f[R] function that evaluates to a(n) package
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+<nix\-haskell>/libs/closure.nix, run with the settings the named target,
+package and executable resolve to
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/cross/ghcjs
+/modules/cross/ghcjs
+.UE \c
 .SS name
 Optional name for better error messages.
 .PP
@@ -2948,12 +3487,60 @@ Optional name for better error messages.
 \f[I]Default:\f[R]
 .IP
 .EX
-\(dqnjzqihzyg4zggch1zssvgihnpa018mbg\-source\(dq
+\(dqsi2ymhd0vpsq1nnh271vwlp4fm2vki11\-source\(dq
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
+.UE \c
+.SS nixpkgs.cross\-compiler
+The compiler this driver builds a cross target with, by
+\f[CR]pkgs.pkgsCross\f[R] name.
+Both drivers answer to the same name, so a step that needs the compiler
+an artifact was built with, as \f[CR]wasm\-jsffi\f[R] does, asks for it
+the same way whichever driver built the artifact:
+.IP
+.EX
+config.<driver>.cross\-compiler \(dqwasi32\(dq
+.EE
+.PP
+\f[I]Type:\f[R] function that evaluates to a(n) package
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+platform: config.nixpkgs.project.projectCross.<platform>.haskellPackages.ghc
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
+.SS nixpkgs.cross\-exe
+What this driver builds an executable into, for one cross target.
+Both drivers answer to the same name, and what they answer with carries
+the executable at \f[CR]bin/<exe>\f[R], with a wasm target\(cqs binary
+at \f[CR]bin/<exe>.wasm\f[R] and a javascript target\(cqs linked
+directory at \f[CR]bin/<exe>.jsexe\f[R].
+It is what \f[CR]bundles\f[R] optimizes.
+.PP
+This driver builds one derivation per package, so the executable\(cqs
+own name says nothing about where to look; it is taken for the sake of
+the one interface both drivers answer to.
+.PP
+\f[I]Type:\f[R] function that evaluates to a(n) package
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ platform, package, exe }:
+  config.nixpkgs.project.projectCross.<platform>.packages.<package>
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
 .UE \c
 .SS nixpkgs.haskellPackages
 The base Haskell package set, before the project\(cqs packages and
@@ -3426,6 +4013,11 @@ here.
 The flags reach the point where a package\(cqs dependencies are worked
 out, rather than only how it is configured.
 .PP
+\f[CR]wasm\-opt\f[R] and \f[CR]closure\f[R] are the bundle optimizer
+settings for whatever is built for this target, which the
+\f[CR]packages\f[R] entries under them narrow to one package, and their
+\f[CR]components.exes\f[R] entries to one executable of it.
+.PP
 \f[I]Type:\f[R] attribute set of (submodule)
 .PP
 \f[I]Default:\f[R]
@@ -3438,6 +4030,7 @@ out, rather than only how it is configured.
 .IP
 .EX
 {
+  wasi32.wasm\-opt.level = \(dqz\(dq;
   wasi32.packages.reflex\-dom.flags.use\-warp = false;
 }
 .EE
@@ -3449,7 +4042,8 @@ out, rather than only how it is configured.
 .SS platforms.<name>.packages
 Per\-package customization for this platform only, merged over the
 project\-wide \f[CR]packages\f[R].
-The fields are the same.
+The fields are the same, with \f[CR]bundles\f[R] added: what a driver
+built for this target, shipped.
 .PP
 \f[I]Type:\f[R] attribute set of (submodule)
 .PP
@@ -3580,6 +4174,383 @@ Whether to build a static library.
 .IP
 .EX
 null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.bundles
+What this package\(cqs executables are shipped as for this target, keyed
+by the name each carries in \f[CR]components.exes\f[R], so that they can
+be read together without naming one again.
+.PP
+\f[I]Type:\f[R] attribute set of (submodule)
+.PP
+\f[I]Default:\f[R] one entry per executable named under
+\f[CR]components.exes\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.bundles.<name>.jsffi
+The \f[CR]ghc_wasm_jsffi.js\f[R] this target\(cqs binary cannot be
+instantiated without, read out of the binary as linked rather than out
+of \f[CR]optimized\f[R], which has had the sections it reads stripped.
+\f[CR]null\f[R] off a wasm target.
+.PP
+\f[I]Type:\f[R] null or package
+.PP
+\f[I]Default:\f[R] \f[CR]wasm\-jsffi\f[R] on the executable this driver
+built, with the compiler it was built with
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.bundles.<name>.optimized
+What gets shipped: the executable a driver built for this target, put
+through that target\(cqs optimizer.
+\f[CR]null\f[R] for a target that has neither, and \f[CR]null\f[R]
+anywhere but through a driver.
+.PP
+\f[I]Type:\f[R] null or package
+.PP
+\f[I]Default:\f[R] the executable this driver built for this target,
+through \f[CR]wasm\-optimize\f[R] or \f[CR]js\-optimize\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.closure.enable
+Whether \f[CR]js\-optimize\f[R] runs closure\-compiler at all.
+When false it copies the jsexe through unchanged.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.closure.externs
+Files passed as \f[CR]\-\-externs\f[R], declaring what the program
+reaches by a name the compiler must not rename.
+The jsexe\(cqs own \f[CR]all.externs.js\f[R] is always passed ahead of
+these, since ADVANCED renames everything it is not told the runtime
+knows by name.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or (list of absolute path)
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.closure.extraFlags
+Flags appended after the level and the externs, so one of these decides
+what they would have.
+One flag per element, its value in the same string, since the elements
+are joined into one command line.
+.PP
+The default accepts whatever syntax the linker emitted, keeps the
+compiler quiet, wraps the program in a function expression it may assume
+nothing escapes from, asks for strict mode, and stops it complaining
+about the names the runtime defines elsewhere.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or (list of string)
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.closure.level
+The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or one of \(lqBUNDLE\(rq, \(lqWHITESPACE_ONLY\(rq,
+\(lqSIMPLE\(rq, \(lqTRANSPILE_ONLY\(rq, \(lqADVANCED\(rq
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqSIMPLE\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.components
+Per\-component customization, under the kind cabal knows the component
+by.
+Only executables carry anything so far.
+.PP
+\f[I]Type:\f[R] submodule
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+\ \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.components.exes
+Bundle optimizer settings for one executable of the package, keyed by
+the name cabal gives it.
+They sit under an executable rather than the package because a bundle is
+what an executable links to, and a package can carry several.
+.PP
+Naming an executable here is also what tells the haskell.nix driver to
+install that executable\(cqs \f[CR].jsexe\f[R] directory, which it
+otherwise leaves in the build tree.
+.PP
+\f[I]Type:\f[R] attribute set of (submodule)
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+\ \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.components.exes.<name>.bundles.jsffi
+The \f[CR]ghc_wasm_jsffi.js\f[R] this target\(cqs binary cannot be
+instantiated without, read out of the binary as linked rather than out
+of \f[CR]optimized\f[R], which has had the sections it reads stripped.
+\f[CR]null\f[R] off a wasm target.
+.PP
+\f[I]Type:\f[R] null or package
+.PP
+\f[I]Default:\f[R] \f[CR]wasm\-jsffi\f[R] on the executable this driver
+built, with the compiler it was built with
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.components.exes.<name>.bundles.optimized
+What gets shipped: the executable a driver built for this target, put
+through that target\(cqs optimizer.
+\f[CR]null\f[R] for a target that has neither, and \f[CR]null\f[R]
+anywhere but through a driver.
+.PP
+\f[I]Type:\f[R] null or package
+.PP
+\f[I]Default:\f[R] the executable this driver built for this target,
+through \f[CR]wasm\-optimize\f[R] or \f[CR]js\-optimize\f[R]
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.components.exes.<name>.closure.enable
+Whether \f[CR]js\-optimize\f[R] runs closure\-compiler at all.
+When false it copies the jsexe through unchanged.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.components.exes.<name>.closure.externs
+Files passed as \f[CR]\-\-externs\f[R], declaring what the program
+reaches by a name the compiler must not rename.
+The jsexe\(cqs own \f[CR]all.externs.js\f[R] is always passed ahead of
+these, since ADVANCED renames everything it is not told the runtime
+knows by name.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or (list of absolute path)
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.components.exes.<name>.closure.extraFlags
+Flags appended after the level and the externs, so one of these decides
+what they would have.
+One flag per element, its value in the same string, since the elements
+are joined into one command line.
+.PP
+The default accepts whatever syntax the linker emitted, keeps the
+compiler quiet, wraps the program in a function expression it may assume
+nothing escapes from, asks for strict mode, and stops it complaining
+about the names the runtime defines elsewhere.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or (list of string)
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.components.exes.<name>.closure.level
+The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or one of \(lqBUNDLE\(rq, \(lqWHITESPACE_ONLY\(rq,
+\(lqSIMPLE\(rq, \(lqTRANSPILE_ONLY\(rq, \(lqADVANCED\(rq
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqSIMPLE\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.components.exes.<name>.wasm\-opt.enable
+Whether \f[CR]wasm\-optimize\f[R] runs wasm\-opt and the strip that
+follows it at all.
+When false it copies its input through, so what a caller installs sits
+in the same place either way.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.components.exes.<name>.wasm\-opt.extraFlags
+Flags appended after \f[CR]\-all \-O<level>\f[R], so one of these
+decides what the level would have.
+One flag per element, its value in the same string, since the elements
+are joined into one command line.
+.PP
+The default asks for the optimize level of \f[CR]\-O2\f[R] at the shrink
+level of \f[CR]\-O1\f[R], drops the memory a module never reads,
+discards debug information, and repeats the passes until they stop
+finding anything.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or (list of string)
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.components.exes.<name>.wasm\-opt.level
+The \f[CR]\-O\f[R] level wasm\-opt runs at.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or one of \(lq0\(rq, \(lq1\(rq, \(lq2\(rq,
+\(lq3\(rq, \(lq4\(rq, \(lqs\(rq, \(lqz\(rq
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqz\(dq
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
@@ -4076,6 +5047,242 @@ null
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
+.SS platforms.<name>.packages.<name>.wasm\-opt.enable
+Whether \f[CR]wasm\-optimize\f[R] runs wasm\-opt and the strip that
+follows it at all.
+When false it copies its input through, so what a caller installs sits
+in the same place either way.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.wasm\-opt.extraFlags
+Flags appended after \f[CR]\-all \-O<level>\f[R], so one of these
+decides what the level would have.
+One flag per element, its value in the same string, since the elements
+are joined into one command line.
+.PP
+The default asks for the optimize level of \f[CR]\-O2\f[R] at the shrink
+level of \f[CR]\-O1\f[R], drops the memory a module never reads,
+discards debug information, and repeats the passes until they stop
+finding anything.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or (list of string)
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.packages.<name>.wasm\-opt.level
+The \f[CR]\-O\f[R] level wasm\-opt runs at.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or one of \(lq0\(rq, \(lq1\(rq, \(lq2\(rq,
+\(lq3\(rq, \(lq4\(rq, \(lqs\(rq, \(lqz\(rq
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqz\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.closure.enable
+Whether \f[CR]js\-optimize\f[R] runs closure\-compiler at all.
+When false it copies the jsexe through unchanged.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.closure.externs
+Files passed as \f[CR]\-\-externs\f[R], declaring what the program
+reaches by a name the compiler must not rename.
+The jsexe\(cqs own \f[CR]all.externs.js\f[R] is always passed ahead of
+these, since ADVANCED renames everything it is not told the runtime
+knows by name.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or (list of absolute path)
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.closure.extraFlags
+Flags appended after the level and the externs, so one of these decides
+what they would have.
+One flag per element, its value in the same string, since the elements
+are joined into one command line.
+.PP
+The default accepts whatever syntax the linker emitted, keeps the
+compiler quiet, wraps the program in a function expression it may assume
+nothing escapes from, asks for strict mode, and stops it complaining
+about the names the runtime defines elsewhere.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or (list of string)
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.closure.level
+The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or one of \(lqBUNDLE\(rq, \(lqWHITESPACE_ONLY\(rq,
+\(lqSIMPLE\(rq, \(lqTRANSPILE_ONLY\(rq, \(lqADVANCED\(rq
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqSIMPLE\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.wasm\-opt.enable
+Whether \f[CR]wasm\-optimize\f[R] runs wasm\-opt and the strip that
+follows it at all.
+When false it copies its input through, so what a caller installs sits
+in the same place either way.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.wasm\-opt.extraFlags
+Flags appended after \f[CR]\-all \-O<level>\f[R], so one of these
+decides what the level would have.
+One flag per element, its value in the same string, since the elements
+are joined into one command line.
+.PP
+The default asks for the optimize level of \f[CR]\-O2\f[R] at the shrink
+level of \f[CR]\-O1\f[R], drops the memory a module never reads,
+discards debug information, and repeats the passes until they stop
+finding anything.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or (list of string)
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
+.SS platforms.<name>.wasm\-opt.level
+The \f[CR]\-O\f[R] level wasm\-opt runs at.
+.PP
+\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+it, and last to the tool\(cqs own settings at the top level.
+.PP
+\f[I]Type:\f[R] null or one of \(lq0\(rq, \(lq1\(rq, \(lq2\(rq,
+\(lq3\(rq, \(lq4\(rq, \(lqs\(rq, \(lqz\(rq
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqz\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common.nix
+/modules/common.nix
+.UE \c
 .SS sha256map
 An alternative to adding \f[CR]\-\-sha256\f[R] comments into the
 cabal.project file.
@@ -4346,4 +5553,142 @@ named relative to it.
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
+.UE \c
+.SS wasm\-jsffi
+The \f[CR]ghc_wasm_jsffi.js\f[R] a GHC\-built wasm module needs to be
+instantiated at all, read out of the binary by the compiler that built
+it:
+.IP
+.EX
+wasm\-jsffi {
+  ghc = config.<driver>.cross\-compiler \(dqwasi32\(dq;
+  wasm = \(dq${frontend}/bin/frontend.wasm\(dq;
+}
+.EE
+.PP
+The compiler must be the one that produced the binary, which is what
+\f[CR]<driver>.cross\-compiler\f[R] names.
+Run this on the binary as linked, before \f[CR]wasm\-optimize\f[R]
+strips the sections it reads.
+.PP
+\f[I]Type:\f[R] function that evaluates to a(n) package
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+<nix\-haskell>/libs/wasm\-jsffi.nix
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/cross/wasm
+/modules/cross/wasm
+.UE \c
+.SS wasm\-opt.enable
+Whether \f[CR]wasm\-optimize\f[R] runs wasm\-opt and the strip that
+follows it at all.
+When false it copies its input through, so what a caller installs sits
+in the same place either way.
+.PP
+\f[I]Type:\f[R] boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+true
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/cross/wasm
+/modules/cross/wasm
+.UE \c
+.SS wasm\-opt.extraFlags
+Flags appended after \f[CR]\-all \-O<level>\f[R], so one of these
+decides what the level would have.
+One flag per element, its value in the same string, since the elements
+are joined into one command line.
+.PP
+The default asks for the optimize level of \f[CR]\-O2\f[R] at the shrink
+level of \f[CR]\-O1\f[R], drops the memory a module never reads,
+discards debug information, and repeats the passes until they stop
+finding anything.
+.PP
+\f[I]Type:\f[R] list of string
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+[
+  \(dq\-ol 2\(dq
+  \(dq\-s 1\(dq
+  \(dq\-\-low\-memory\-unused\(dq
+  \(dq\-\-strip\-dwarf\(dq
+  \(dq\-\-converge\(dq
+]
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/cross/wasm
+/modules/cross/wasm
+.UE \c
+.SS wasm\-opt.level
+The \f[CR]\-O\f[R] level wasm\-opt runs at.
+.PP
+\f[I]Type:\f[R] one of \(lq0\(rq, \(lq1\(rq, \(lq2\(rq, \(lq3\(rq,
+\(lq4\(rq, \(lqs\(rq, \(lqz\(rq
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+\(dq2\(dq
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqz\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/cross/wasm
+/modules/cross/wasm
+.UE \c
+.SS wasm\-optimize
+A wasm binary optimized and stripped.
+It takes the file rather than the package that carries it, and yields
+the file rather than a directory holding it, so the caller installs it
+under whatever name it wants:
+.IP
+.EX
+wasm\-optimize {
+  platform = \(dqwasi32\(dq;
+  package = \(dqfrontend\(dq;
+  exe = \(dqfrontend\(dq;
+  wasm = \(dq${frontend}/bin/frontend.wasm\(dq;
+}
+.EE
+.PP
+The three names are only what the settings are looked up under, and any
+of them can be left out to say nothing about it.
+\f[CR]wasm\-opt\f[R] is read from the layer that states a field most
+specifically to the least:
+\f[CR]platforms.<platform>.packages.<package>.components.exes.<exe>.wasm\-opt\f[R],
+\f[CR]platforms.<platform>.packages.<package>.wasm\-opt\f[R],
+\f[CR]platforms.<platform>.wasm\-opt\f[R], then the same package and
+executable layers of \f[CR]packages\f[R], and last \f[CR]wasm\-opt\f[R]
+itself, which is the only one holding values throughout.
+They are read from the project\(cqs own values rather than a
+driver\(cqs, since this runs on a built artifact, outside any driver.
+.PP
+\f[I]Type:\f[R] function that evaluates to a(n) package
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+<nix\-haskell>/libs/wasm\-opt.nix, run with the settings the named target,
+package and executable resolve to
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/cross/wasm
+/modules/cross/wasm
 .UE \c

@@ -37,7 +37,13 @@
 
 with lib;
 
-let commonModule = import ../modules/common.nix { inherit lib pkgs; config = cfg; };
+let # `topConfig` as well as the mirror: an option whose value is settled once for
+    # the project, rather than per driver, is read from there even when the
+    # mirror is what carries it.
+    commonModule = import ../modules/common.nix {
+      inherit lib pkgs topConfig;
+      config = cfg;
+    };
 
     isSettable = option':
       let defaults = {

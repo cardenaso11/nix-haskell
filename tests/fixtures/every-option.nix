@@ -66,6 +66,10 @@
       preInstall = "echo every-option pre-install";
       postInstall = "echo every-option post-install";
       src = ./every-option;
+      wasm-opt.level = "3";
+      closure.level = "WHITESPACE_ONLY";
+      components.exes.every-option.wasm-opt.extraFlags = [ "--strip-dwarf" ];
+      components.exes.every-option.closure.externs = [ ./every-option-externs.js ];
     };
     absent-package.doCheck = false;
   };
@@ -96,6 +100,24 @@
   ];
 
   optimizations.expose-all-unfoldings = true;
+
+  wasm-opt = {
+    enable = true;
+    level = "z";
+    extraFlags = [ "--converge" ];
+  };
+  closure = {
+    enable = true;
+    level = "SIMPLE";
+    externs = [ ./every-option-externs.js ];
+    extraFlags = [ "--warning_level QUIET" ];
+  };
+
+  platforms.wasi32 = {
+    wasm-opt.level = "s";
+    packages.every-option.wasm-opt.extraFlags = [ "--low-memory-unused" ];
+    packages.every-option.components.exes.every-option.wasm-opt.level = "4";
+  };
 
   haskell-nix.packages.every-option.doQuickjump = true;
   nixpkgs.packages.every-option.doHoogle = true;

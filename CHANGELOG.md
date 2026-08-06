@@ -49,6 +49,28 @@
   dependencies are worked out, so a backend the target cannot build is not
   merely disabled but never depended on. The haskell.nix driver applies an
   entry in the project whose target is that platform.
+- Bundle optimizers, for what a driver hands back from a cross build: a wasm
+  binary through `wasm-opt` and a strip of the custom sections nothing reads
+  again, a `.jsexe` through closure-compiler, and the `ghc_wasm_jsffi.js` that
+  `post-link.mjs` reads out of a wasm binary, without which no GHC-built wasm
+  module can be instantiated. The flags are the tools' own, under `wasm-opt`
+  and `closure`, and five layers can state them: an executable of a package
+  built for one cross target, that package for that target, that target, then
+  the same executable and package layers whatever the target. `wasm-optimize`,
+  `js-optimize` and `wasm-jsffi` apply them to an artifact named directly.
+- `platforms.<platform>.packages.<package>.bundles` and the same under
+  `components.exes.<exe>`: the artifact a driver built for that target,
+  optimized, with its jsffi bindings beside it. Read through a driver, which is
+  the only thing that knows what it built.
+- `<driver>.cross-compiler` and `<driver>.cross-exe`, the compiler a driver
+  builds a cross target with and what it builds an executable into, so nothing
+  needs to know that one driver keeps components under
+  `hsPkgs.<package>.components.exes.<exe>` and the other one derivation per
+  package.
+- `packages.<name>.components.exes.<exe>`, which carries an executable's own
+  optimizer settings and, for the haskell.nix driver, installs its `.jsexe`
+  beside the bundled `bin/<exe>` that driver installs on its own. The nixpkgs
+  builder copies the directory out already.
 - `modules/compilers`, imported like `modules/patches` through the
   `nix-haskell-compilers` argument, with `ghc-wasm-meta` as its first entry:
   ghc-wasm-meta's wasm GHC and wasi-sdk, keyed on a GHC series.

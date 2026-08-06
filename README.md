@@ -110,6 +110,8 @@ Applicable to every driver. The full reference is in the
 | `hackage-overlays` | `listOf attrs` | `[]` | Packages not on Hackage |
 | `shell` | `submodule` | | Development shell |
 | `optimizations` | `submodule` | off | GHC optimization flag presets |
+| `wasm-opt` | `submodule` | `-O2`, shrunk | What wasm-opt does to a built wasm binary |
+| `closure` | `submodule` | `ADVANCED` | What closure-compiler does to a built jsexe |
 | `inputs` | `attrsOf raw` | `pins/` | Dependency sources |
 
 #### Compiler
@@ -198,10 +200,11 @@ Fields: `flags`, `patches`, `ghcOptions`, `configureFlags`,
 `enableDeadCodeElimination`, `enableLibraryProfiling`, `enableProfiling`,
 `profilingDetail`, `enableShared`, `enableStatic`,
 `enableSeparateDataOutput`, `enableLibraryForGhci`, `hardeningDisable`,
-`src`, and the phase hooks `preUnpack`, `postUnpack`, `prePatch`,
+`src`, the phase hooks `preUnpack`, `postUnpack`, `prePatch`,
 `postPatch`, `preConfigure`, `postConfigure`, `preBuild`, `postBuild`,
 `preCheck`, `postCheck`, `preHaddock`, `postHaddock`, `preInstall`,
-`postInstall`.
+`postInstall`, and the bundle optimizer settings `wasm-opt`, `closure` and
+`components.exes.<exe>.{wasm-opt,closure}`.
 
 One divergence to be aware of with the hooks: haskell.nix runs them for
 each component derivation of the package, nixpkgs once in the single
@@ -221,6 +224,94 @@ configured, so they take effect where the package's expression is generated
 rather than on a package already built. The haskell.nix driver follows such
 conditionals itself, and applies an entry given here in the project whose
 target is that platform.
+
+#### Bundle optimizers
+
+What a driver gives back from a cross build is the artifact as linked: a `.wasm`
+binary, or a `.jsexe` directory. Three read-only options turn one of those into
+what gets shipped:
+
+| Option | Takes | Gives |
+|--------|-------|-------|
+| `wasm-optimize` | `{ platform, package, exe, wasm }` | the binary through wasm-opt, then stripped of its custom sections |
+| `wasm-jsffi` | `{ ghc, wasm }` | the `ghc_wasm_jsffi.js` a GHC-built wasm module cannot be instantiated without |
+| `js-optimize` | `{ platform, package, exe, jsexe }` | the directory with its `all.js` closure-compiled |
+
+```nix
+let exe = project.projectCross.wasi32.hsPkgs.frontend.components.exes.frontend;
+    wasm = "${exe}/bin/frontend.wasm";
+    named = { platform = "wasi32"; package = "frontend"; exe = "frontend"; };
+in pkgs.runCommand "frontend.wasm-bundle" {} ''
+  mkdir -p $out
+  cp ${config.wasm-jsffi {
+        ghc = config.haskell-nix.cross-compiler "wasi32";
+        inherit wasm;
+      }} $out/ghc_wasm_jsffi.js
+  cp ${config.wasm-optimize (named // { inherit wasm; })} $out/frontend.wasm
+''
+```
+
+Run `wasm-jsffi` on the binary as linked, since `wasm-optimize` strips the
+sections it reads. Its compiler has to be the one that built the binary, which
+is what each driver's `cross-compiler` names, by `pkgs.pkgsCross` platform name.
+
+Naming an executable is what gets it a bundle without calling anything, and for
+the haskell.nix driver it is also what installs its `.jsexe`: that driver
+installs only the bundled `bin/<exe>` for a javascript target, while closure
+needs the directory the linker leaves beside it. The nixpkgs builder copies that
+directory out on its own.
+
+```nix
+platforms.wasi32.packages.frontend.components.exes.frontend = {};
+platforms.ghcjs.packages.frontend.components.exes.frontend = {};
+```
+
+The result is then on the tree, read through a driver, which is the only thing
+that knows what it built:
+
+```nix
+let onTarget = config."haskell-nix".platforms.wasi32.packages.frontend;
+in {
+  wasm = onTarget.components.exes.frontend.bundles.optimized;
+  jsffi = onTarget.components.exes.frontend.bundles.jsffi;
+  everyExe = onTarget.bundles;   # the same, keyed by executable name
+}
+```
+
+`optimized` is the executable through that target's optimizer, `jsffi` the
+`ghc_wasm_jsffi.js` a wasm binary needs and `null` off a wasm target. Read
+anywhere but through a driver, as `config.platforms.…`, both are `null`, since
+there is no project to ask what it built. Neither is read-only: a project with
+something else to ship can define either.
+
+What each driver builds an executable into is `cross-exe`, which is what the
+bundles optimize, and is there for anything else that wants a cross build by
+name.
+
+The flags come from `wasm-opt` and `closure`, and five layers can speak for
+them. The names a transform is given are only what it looks the settings up
+under, and any of them can be left out:
+
+```nix
+# whatever the target, for everything
+wasm-opt.level = "2";
+
+# whatever the target, for one package and then one executable of it
+packages.frontend.wasm-opt.extraFlags = [ "--converge" ];
+packages.frontend.components.exes.frontend.wasm-opt.level = "z";
+
+# for one target, and the same two layers under it
+platforms.wasi32.wasm-opt.level = "z";
+platforms.wasi32.packages.frontend.wasm-opt.extraFlags = [ "--low-memory-unused" ];
+platforms.wasi32.packages.frontend.components.exes.frontend.wasm-opt.enable = false;
+```
+
+The layer that states a field most specifically decides it, `null` states
+nothing, and only `wasm-opt` and `closure` themselves hold every field. From
+most specific to least: an executable of a package on one target, that package
+on that target, that target, then the same executable and package layers
+whatever the target, then the tool's own settings. `enable = false` copies the
+input through instead, so the caller installs the same path either way.
 
 #### Source repository packages
 
@@ -287,6 +378,8 @@ Driver configuration:
 | `haskell-nix.options.*` | Any haskell.nix project option (`index-state`, `cabalProjectFreeze`, `extra-hackages`, `pkg-def-extras`, `shell.exactDeps`, `shell.withHaddock`, ...) |
 | `haskell-nix.overrides` | haskell.nix `modules` to add to the project (lists concatenate when composed) |
 | `haskell-nix.extraSrcFiles` | Extra files for the strictly tracked component builds |
+| `haskell-nix.cross-compiler` | `platform` to the compiler this driver builds that target with |
+| `haskell-nix.cross-exe` | `{ platform, package, exe }` to what this driver builds that executable into |
 
 ```nix
 haskell-nix.overrides = [

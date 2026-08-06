@@ -6,6 +6,12 @@
 #                               derived names, the attributes spliced onto a
 #                               compiler package, per-platform dispatch and
 #                               its toolchain (pure eval)
+#   bundle-optimizer-spec       which layer of the bundle optimizer settings
+#                               decides a field, and what a disabled optimizer
+#                               does instead (pure eval)
+#   bundle-optimizers           wasm-opt and closure-compiler run over the
+#                               smallest inputs they accept, with the flag sets
+#                               the settings produce
 #   every-option-<driver>       the every-option fixture instantiates through
 #                               the driver's whole translation (no compiling)
 #   hello-<driver>              the hello example actually builds
@@ -173,13 +179,177 @@ let eval = import ../eval.nix { inherit system pkgs inputs; };
          then pkgs.runCommand "compiler-spec" {} "echo ok > $out"
          else throw (concatStringsSep "\n" failures);
 
+    # Which layer of the bundle optimizer settings decides a field, read off the
+    # command line each optimizer would run. The fixture states a different
+    # field at every layer, so a resolution that reached for the wrong one shows
+    # up as the wrong flag. Pure eval: nothing is optimized.
+    bundle-optimizer-spec =
+      let wasmOpt = names: fixture.config.wasm-optimize (names // { wasm = "/probe.wasm"; });
+          closure = names: fixture.config.js-optimize (names // { jsexe = "/probe.jsexe"; });
+
+          commandOf = drv: drv.drvAttrs.buildCommand;
+
+          # The flags become a match pattern, which a store path may not appear
+          # in, while the command line they are looked for in may.
+          runs = flags: drv:
+            hasInfix (builtins.unsafeDiscardStringContext flags) (commandOf drv);
+
+          off = eval {
+            name = "bundle-optimizer-off";
+            src = ../examples/hello;
+            wasm-opt.enable = false;
+            closure.enable = false;
+          };
+
+          externs = ./fixtures/every-option-externs.js;
+
+          onTarget = fixture.config.platforms.wasi32.packages.every-option;
+
+          packageBundles = onTarget.bundles;
+
+          exeBundle = onTarget.components.exes.every-option.bundles;
+
+          # The module a driver adds for the executables a project named, given
+          # the target it finds itself in and a project holding one of the two
+          # packages it was told about.
+          installJsexe = isGhcjs:
+            import ../libs/haskell-nix/install-jsexe.nix {
+              inherit (pkgs) lib;
+              exes = { frontend = [ "frontend" ]; absent-package = [ "absent" ]; };
+            } {
+              config.packages.frontend = {};
+              pkgs = { stdenv.hostPlatform = { inherit isGhcjs; }; };
+            };
+
+          installed = (installJsexe true).config.content;
+
+          failures =
+            # nothing named, so the tool's own settings decide throughout
+            optional (! runs "-all -Oz --converge" (wasmOpt {}))
+              "an optimizer told no names does not take the settings of the tool itself"
+            # a package, and then one of its executables, over those
+            ++ optional (! runs "-all -O3 --converge" (wasmOpt { package = "every-option"; }))
+              "a package's own level does not beat the tool's"
+            ++ optional (! runs "-all -O3 --strip-dwarf" (wasmOpt {
+                 package = "every-option"; exe = "every-option";
+               }))
+              "an executable's own flags do not beat its package's"
+            # a target, and the package and executable layers under it
+            ++ optional (! runs "-all -Os --converge" (wasmOpt { platform = "wasi32"; }))
+              "a target's own level does not beat the tool's"
+            ++ optional (! runs "-all -Os --low-memory-unused" (wasmOpt {
+                 platform = "wasi32"; package = "every-option";
+               }))
+              "a package on one target does not beat that package on any target"
+            ++ optional (! runs "-all -O4 --low-memory-unused" (wasmOpt {
+                 platform = "wasi32"; package = "every-option"; exe = "every-option";
+               }))
+              "an executable on one target does not beat its package on that target"
+            # a layer that states nothing, and a package with no entry at all
+            ++ optional (! runs "-all -Oz --converge" (wasmOpt { package = "absent-package"; }))
+              "a package entry stating nothing does not fall through to the tool's settings"
+            ++ optional (! runs "-all -Oz --converge" (wasmOpt { package = "no-such-package"; }))
+              "a package with no entry is not the same as one stating nothing"
+            # the strip that follows, and what closure is given
+            ++ optional (! runs "wasm-tools strip -a optimized.wasm -o $out" (wasmOpt {}))
+              "the custom sections are not stripped after wasm-opt has run"
+            ++ optional (! runs "--externs $out/all.externs.js --compilation_level SIMPLE" (closure {}))
+              "the jsexe's own externs are not passed ahead of the settings"
+            ++ optional (! runs "--compilation_level WHITESPACE_ONLY --externs ${externs} --warning_level QUIET"
+                 (closure { package = "every-option"; exe = "every-option"; }))
+              "closure's level, externs and flags do not come from the layers that state them"
+            # disabled, where each optimizer copies its input through instead
+            ++ optional (commandOf (off.config.wasm-optimize { wasm = "/probe.wasm"; })
+                 != "cp /probe.wasm $out\n")
+              "a disabled wasm-opt does not copy its input through"
+            ++ optional (commandOf (off.config.js-optimize { jsexe = "/probe.jsexe"; })
+                 != "cp -r /probe.jsexe $out\n")
+              "a disabled closure does not copy its input through"
+            # the bundles of a target, which only a driver can answer for. What
+            # one is when a driver does answer takes a cross build, so the
+            # example is where that is shown.
+            ++ optional (attrNames packageBundles != [ "every-option" ])
+              "a package's bundles are not keyed by the executables it names"
+            ++ optional (exeBundle.optimized != null || exeBundle.jsffi != null)
+              "a bundle read outside a driver is not null"
+            # the jsexe install that gives closure a directory to work on
+            ++ optional (! hasInfix "cp -r dist/build/frontend/frontend.jsexe $out/bin/"
+                 installed.packages.frontend.components.exes.frontend.postInstall)
+              "a named executable's jsexe is not installed beside it"
+            ++ optional (installed.packages ? absent-package)
+              "a jsexe install is attached to a package the project does not have"
+            ++ optional ((installJsexe false).config.condition != false)
+              "the jsexe install is not confined to a javascript target";
+      in if failures == []
+         then pkgs.runCommand "bundle-optimizer-spec" {} "echo ok > $out"
+         else throw (concatStringsSep "\n" failures);
+
+    # The flag sets the tools are actually handed, over the smallest inputs they
+    # accept, so a flag one of them rejects fails here rather than in a project
+    # after a cross build.
+    bundle-optimizers =
+      let project = eval { name = "bundle-optimizers"; src = ../examples/hello; };
+
+          off = eval {
+            name = "bundle-optimizers-off";
+            src = ../examples/hello;
+            wasm-opt.enable = false;
+            closure.enable = false;
+          };
+
+          # An exported function to keep, and an unreachable one for the
+          # optimizer to drop.
+          wat = pkgs.writeText "tiny.wat" ''
+            (module
+              (func $unreachable (result i32) (i32.const 41))
+              (func (export "answer") (result i32) (i32.const 42)))
+          '';
+
+          wasm = pkgs.runCommand "tiny.wasm" {
+            nativeBuildInputs = [ pkgs.wasm-tools ];
+          } "wasm-tools parse ${wat} -o $out";
+
+          jsexe = pkgs.runCommand "tiny.jsexe" {} ''
+            mkdir -p $out
+            cat > $out/all.js <<'JS'
+            var unreachable = function() { return 41; };
+            globalThis.answer = function() { return 42; };
+            JS
+            cat > $out/all.externs.js <<'JS'
+            /** @externs @suppress {duplicate} */
+            /** @type {*} */
+            var globalThis;
+            JS
+          '';
+
+      in pkgs.runCommand "bundle-optimizers" {
+        nativeBuildInputs = [ pkgs.wasm-tools pkgs.nodejs ];
+      } ''
+        optimizedWasm=${project.config.wasm-optimize { inherit wasm; }}
+        optimizedJs=${project.config.js-optimize { inherit jsexe; }}/all.js
+
+        # still a module, and smaller for having lost the function nothing reaches
+        wasm-tools validate $optimizedWasm
+        [ "$(stat -c%s $optimizedWasm)" -lt "$(stat -c%s ${wasm})" ]
+
+        # still a program, and smaller for the same reason
+        node --check $optimizedJs
+        [ "$(stat -c%s $optimizedJs)" -lt "$(stat -c%s ${jsexe}/all.js)" ]
+
+        # disabled, each input arrives byte for byte
+        cmp ${wasm} ${off.config.wasm-optimize { inherit wasm; }}
+        cmp ${jsexe}/all.js ${off.config.js-optimize { inherit jsexe; }}/all.js
+
+        echo ok > $out
+      '';
+
     every-option = driver: pkgs.runCommand "every-option-${driver}" {
       drvPath = builtins.unsafeDiscardStringContext
         fixture.config.${driver}.project.shell.drvPath;
     } "echo $drvPath > $out";
 
 in {
-  inherit translation-totality compiler-spec;
+  inherit translation-totality compiler-spec bundle-optimizer-spec bundle-optimizers;
 
   every-option-haskell-nix = every-option "haskell-nix";
   every-option-nixpkgs = every-option "nixpkgs";
