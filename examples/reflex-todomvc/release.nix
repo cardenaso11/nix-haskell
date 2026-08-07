@@ -68,6 +68,15 @@ let nix-haskell = import ../.. { inherit system inputs; };
       let p = variant series withWasmMeta [];
       in lib.genAttrs platforms (platform: driverExe.${driver} p platform);
 
+    # `nix-build` descends into an attribute set only where it is told it may,
+    # so every level of a matrix says so. Without this, building the file, or
+    # any of its matrices by name, finds no derivation and does nothing.
+    walkable = attrs:
+      lib.mapAttrs
+        (_: value: if lib.isAttrs value && ! lib.isDerivation value then walkable value else value)
+        attrs
+      // { recurseForDerivations = true; };
+
     # Naming the executable is what puts a bundle on the tree, and for a
     # javascript target what installs the `.jsexe` closure-compiler works on.
     namedExe = platform:
@@ -133,7 +142,7 @@ let nix-haskell = import ../.. { inherit system inputs; };
 
 in {
 
-  build = {
+  build = walkable {
 
     haskell-nix = {
       ghc912 = built "haskell-nix" "9.12" false [ "ghcjs" "wasi32" ];
@@ -160,7 +169,7 @@ in {
 
   };
 
-  bundle = {
+  bundle = walkable {
 
     haskell-nix = {
       ghc912 = bundled "haskell-nix" "9.12" false [ "ghcjs" "wasi32" ];
@@ -187,7 +196,7 @@ in {
 
   };
 
-  shell-build = {
+  shell-build = walkable {
 
     haskell-nix = {
       ghc912 = shellBuilt "haskell-nix" "9.12" false [ "ghcjs" "wasi32" ];
