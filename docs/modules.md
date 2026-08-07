@@ -1125,8 +1125,6 @@ null
 
 ## packages\.\<name>\.preCheck
 
-
-
 Shell code run before the
 check phase\. ` null ` leaves the default in
 place\.
@@ -1202,6 +1200,8 @@ null
 
 
 ## packages\.\<name>\.preInstall
+
+
 
 Shell code run before the
 install phase\. ` null ` leaves the default in
@@ -3088,6 +3088,36 @@ list of (attribute set)
 
 
 
+## haskell-nix\.compiler-version
+
+
+
+The version of the compiler this driver builds with\. Both drivers
+answer to the same name, and each answers for itself: they mirror
+` compiler ` separately and fall back to different compilers of their
+own, so a project asking what it is building against asks the driver:
+
+```
+config.<driver>.compiler-version
+```
+
+
+
+*Type:*
+string
+
+
+
+*Default:*
+the version ` compiler.version ` states, or the one carried by the
+compiler the driver resolves: the package a project brought, or the
+one haskell\.nix has under that name
+
+*Declared by:*
+ - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+
+
+
 ## haskell-nix\.cross-compiler
 
 
@@ -4418,8 +4448,6 @@ unspecified value
 
 ## haskell-nix\.options\.shell\.allToolDeps
 
-
-
 Indicates if the shell should include all the tool dependencies
 of the haskell packages in the project\.  Defaulted to ` false ` in
 stack projects (to avoid trying to build the tools used by
@@ -4444,6 +4472,8 @@ true
 
 
 ## haskell-nix\.options\.shell\.buildInputs
+
+
 
 This option has no description\.
 
@@ -5124,11 +5154,41 @@ null or string
 *Default:*
 
 ```nix
-"si2ymhd0vpsq1nnh271vwlp4fm2vki11-source"
+"mg7202kynwlydq7c9ghvmfkbh69pmk0l-source"
 ```
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+
+
+
+## nixpkgs\.compiler-version
+
+
+
+The version of the compiler this driver builds with\. Both drivers
+answer to the same name, and each answers for itself: they mirror
+` compiler ` separately and fall back to different compilers of their
+own, so a project asking what it is building against asks the driver:
+
+```
+config.<driver>.compiler-version
+```
+
+
+
+*Type:*
+string
+
+
+
+*Default:*
+the version ` compiler.version ` states, or the one carried by the
+compiler the driver resolves: the package a project brought, or the
+` ghc ` of the package set it selected
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
 
 
 
@@ -5392,6 +5452,42 @@ true
 
 
 Build profiling libraries\.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+
+```nix
+false
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
+## nixpkgs\.options\.exact-configuration
+
+
+
+Tell Cabal every direct dependency, by the id its package
+database records, and every flag the package declares, so it
+resolves nothing itself\. It then reads no version bound, which
+is what lets a package build against a compiler its cabal file
+was written before, including where the bound sits inside a
+conditional stanza and ` jailbreak ` cannot reach it\. This is how
+the haskell\.nix driver configures every package, which is why
+` allow-newer ` in a cabal\.project takes effect there and not
+here\.
+
+A flag the project states in ` packages.<name>.flags ` still
+decides: the generated assignments go first, and Cabal takes the
+last one given\.
 
 
 

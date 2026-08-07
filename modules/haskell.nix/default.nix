@@ -525,6 +525,31 @@ in {
         type = types.raw;
       };
 
+      compiler-version = mkOption {
+        type = types.str;
+        default =
+          if compiler.version != null
+          then compiler.version
+          # haskell.nix keys its compilers by exact version, and resolves the
+          # name a project writes to one of them.
+          else cfg.haskell-nix.compiler.${cfg.haskell-nix.resolve-compiler-name compiler.name}.version;
+        defaultText = literalMD ''
+          the version `compiler.version` states, or the one carried by the
+          compiler the driver resolves: the package a project brought, or the
+          one haskell.nix has under that name
+        '';
+        description = ''
+          The version of the compiler this driver builds with. Both drivers
+          answer to the same name, and each answers for itself: they mirror
+          `compiler` separately and fall back to different compilers of their
+          own, so a project asking what it is building against asks the driver:
+
+          ```
+          config.<driver>.compiler-version
+          ```
+        '';
+      };
+
       cross-compiler = mkOption {
         type = types.functionTo types.package;
         default = platform: cfg.project.projectCross.${platform}.pkg-set.config.ghc.package;

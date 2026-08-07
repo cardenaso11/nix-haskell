@@ -2124,6 +2124,27 @@ A good example of this is obelisk\-generated\-static.
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
+.SS haskell\-nix.compiler\-version
+The version of the compiler this driver builds with.
+Both drivers answer to the same name, and each answers for itself: they
+mirror \f[CR]compiler\f[R] separately and fall back to different
+compilers of their own, so a project asking what it is building against
+asks the driver:
+.IP
+.EX
+config.<driver>.compiler\-version
+.EE
+.PP
+\f[I]Type:\f[R] string
+.PP
+\f[I]Default:\f[R] the version \f[CR]compiler.version\f[R] states, or
+the one carried by the compiler the driver resolves: the package a
+project brought, or the one haskell.nix has under that name
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/haskell.nix
+/modules/haskell.nix
+.UE \c
 .SS haskell\-nix.cross\-compiler
 The compiler this driver builds a cross target with, by
 \f[CR]pkgs.pkgsCross\f[R] name.
@@ -3487,12 +3508,33 @@ Optional name for better error messages.
 \f[I]Default:\f[R]
 .IP
 .EX
-\(dqsi2ymhd0vpsq1nnh271vwlp4fm2vki11\-source\(dq
+\(dqmg7202kynwlydq7c9ghvmfkbh69pmk0l\-source\(dq
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
+.UE \c
+.SS nixpkgs.compiler\-version
+The version of the compiler this driver builds with.
+Both drivers answer to the same name, and each answers for itself: they
+mirror \f[CR]compiler\f[R] separately and fall back to different
+compilers of their own, so a project asking what it is building against
+asks the driver:
+.IP
+.EX
+config.<driver>.compiler\-version
+.EE
+.PP
+\f[I]Type:\f[R] string
+.PP
+\f[I]Default:\f[R] the version \f[CR]compiler.version\f[R] states, or
+the one carried by the compiler the driver resolves: the package a
+project brought, or the \f[CR]ghc\f[R] of the package set it selected
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
 .UE \c
 .SS nixpkgs.cross\-compiler
 The compiler this driver builds a cross target with, by
@@ -3671,6 +3713,34 @@ true
 .UE \c
 .SS nixpkgs.options.cross\-package\-defaults.profiling
 Build profiling libraries.
+.PP
+\f[I]Type:\f[R] boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+false
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
+.SS nixpkgs.options.exact\-configuration
+Tell Cabal every direct dependency, by the id its package database
+records, and every flag the package declares, so it resolves nothing
+itself.
+It then reads no version bound, which is what lets a package build
+against a compiler its cabal file was written before, including where
+the bound sits inside a conditional stanza and \f[CR]jailbreak\f[R]
+cannot reach it.
+This is how the haskell.nix driver configures every package, which is
+why \f[CR]allow\-newer\f[R] in a cabal.project takes effect there and
+not here.
+.PP
+A flag the project states in \f[CR]packages.<name>.flags\f[R] still
+decides: the generated assignments go first, and Cabal takes the last
+one given.
 .PP
 \f[I]Type:\f[R] boolean
 .PP

@@ -267,8 +267,19 @@ let compose = pkgs.haskell.lib.compose;
         (name: lib.pipe super.${name}
           (map (f: compose.appendConfigureFlag "--ghc-option=${f}") cfg.ghcOptions));
 
+    # How a package is configured rather than which package it is, so it goes on
+    # the set's `mkDerivation` rather than on names.
+    exactConfigurationOverlay = _: super: {
+      mkDerivation = args: super.mkDerivation (args // {
+        preConfigure = (args.preConfigure or "") + import ./exact-configuration.nix {
+          ghc = "${haskellPackages.ghc.targetPrefix}ghc";
+        };
+      });
+    };
+
     hp = haskellPackages.extend (lib.composeManyExtensions (
-      [ localPackagesOverlay srpOverlay hackageOverlay extraDefaultsOverlay packageTweaksOverlay ]
+      lib.optional ocfg.exact-configuration exactConfigurationOverlay
+      ++ [ localPackagesOverlay srpOverlay hackageOverlay extraDefaultsOverlay packageTweaksOverlay ]
       ++ lib.optional (cfg.ghcOptions != []) ghcOptionsOverlay
       ++ ocfg.overrides));
 

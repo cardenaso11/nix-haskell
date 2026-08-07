@@ -66,7 +66,16 @@
   builds a cross target with and what it builds an executable into, so nothing
   needs to know that one driver keeps components under
   `hsPkgs.<package>.components.exes.<exe>` and the other one derivation per
-  package.
+  package. `<driver>.compiler-version` answers what each is building against,
+  which is not always the same compiler: the drivers mirror `compiler`
+  separately and fall back to different ones of their own.
+- `nixpkgs.options.exact-configuration`: tell Cabal every direct dependency, by
+  the id its package database records, and every flag the package declares, so
+  it resolves nothing itself and reads no version bound. Without a solver this
+  driver otherwise enforces bounds written before the compiler in hand, and
+  `jailbreak` cannot lift one stated inside a conditional stanza. It is how the
+  haskell.nix driver configures every package, which is why an `allow-newer` in
+  a cabal.project takes effect there and not here.
 - `packages.<name>.components.exes.<exe>`, which carries an executable's own
   optimizer settings and, for the haskell.nix driver, installs its `.jsexe`
   beside the bundled `bin/<exe>` that driver installs on its own. The nixpkgs

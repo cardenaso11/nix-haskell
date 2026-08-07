@@ -1,4 +1,4 @@
-{ nix-haskell-patches, ... }:
+{ config, lib, nix-haskell-patches, ... }:
 
 {
   imports = [
@@ -38,6 +38,15 @@
       };
       reflex-todomvc.flags.webkitgtk = false;
     };
+
+    # Where this driver builds against a compiler newer than the bounds its
+    # package set was written for, the bounds are what is wrong: 9.14 ships
+    # ghc-experimental 9.1401.0 and template-haskell 2.24, which jsaddle-wasm
+    # and dependent-sum-template exclude. Configuring exactly is what the
+    # `allow-newer: *:*` of cabal.project amounts to for a driver with no
+    # solver: Cabal is told the answer and reads no bound.
+    options.exact-configuration =
+      lib.versionAtLeast config.nixpkgs.compiler-version "9.14";
 
     options.overrides = [
       # test dependency of reflex-dom-core, lives in the reflex-dom

@@ -378,6 +378,7 @@ Driver configuration:
 | `haskell-nix.options.*` | Any haskell.nix project option (`index-state`, `cabalProjectFreeze`, `extra-hackages`, `pkg-def-extras`, `shell.exactDeps`, `shell.withHaddock`, ...) |
 | `haskell-nix.overrides` | haskell.nix `modules` to add to the project (lists concatenate when composed) |
 | `haskell-nix.extraSrcFiles` | Extra files for the strictly tracked component builds |
+| `haskell-nix.compiler-version` | The version of the compiler this driver builds with |
 | `haskell-nix.cross-compiler` | `platform` to the compiler this driver builds that target with |
 | `haskell-nix.cross-exe` | `{ platform, package, exe }` to what this driver builds that executable into |
 
@@ -417,7 +418,11 @@ Driver configuration:
 | Option | Description |
 |--------|-------------|
 | `nixpkgs.compiler.name` | Per-driver override of the compiler, when the project's has no nixpkgs equivalent |
+| `nixpkgs.compiler-version` | The version of the compiler this driver builds with |
+| `nixpkgs.cross-compiler` | `platform` to the compiler this driver builds that target with |
+| `nixpkgs.cross-exe` | `{ platform, package, exe }` to what this driver builds that executable into |
 | `nixpkgs.pkgsCross` | Cross package sets for `projectCross`, replacing the ones from `pkgs.pkgsCross` |
+| `nixpkgs.options.exact-configuration` | Tell Cabal every dependency and flag, so it resolves nothing and reads no version bound |
 | `nixpkgs.options.overrides` | Overlays over the package set, applied last |
 | `nixpkgs.options.packages` | Explicit local package map (bypasses discovery) |
 | `nixpkgs.options.use-plan` | Take the project structure from the cabal plan of the haskell.nix driver |
@@ -444,6 +449,21 @@ nixpkgs.options.packages = {
 or set `nixpkgs.options.use-plan = true` to reuse cabal's own reading of
 `cabal.project` (exact globs, `optional-packages`, conditionals) at the cost
 of evaluating the haskell.nix toolchain.
+
+This driver has no solver, so a version bound written before the compiler in
+hand is enforced rather than reasoned about, and `allow-newer` in a
+`cabal.project` means nothing to it. `jailbreak` lifts the bounds a cabal file
+states outright, and cannot reach one inside a conditional stanza.
+`nixpkgs.options.exact-configuration` removes the question: Cabal is told every
+direct dependency, by the id its package database records, and every flag the
+package declares, so it resolves nothing and reads no bound. That is how the
+haskell.nix driver configures every package, which is why `allow-newer` takes
+effect there.
+
+```nix
+nixpkgs.options.exact-configuration =
+  lib.versionAtLeast config.nixpkgs.compiler-version "9.14";
+```
 
 Caveats, by construction of nixpkgs' Haskell infrastructure:
 

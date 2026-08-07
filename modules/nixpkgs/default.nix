@@ -164,6 +164,26 @@ in {
               '';
             };
 
+            exact-configuration = mkOption {
+              type = types.bool;
+              default = false;
+              description = ''
+                Tell Cabal every direct dependency, by the id its package
+                database records, and every flag the package declares, so it
+                resolves nothing itself. It then reads no version bound, which
+                is what lets a package build against a compiler its cabal file
+                was written before, including where the bound sits inside a
+                conditional stanza and `jailbreak` cannot reach it. This is how
+                the haskell.nix driver configures every package, which is why
+                `allow-newer` in a cabal.project takes effect there and not
+                here.
+
+                A flag the project states in `packages.<name>.flags` still
+                decides: the generated assignments go first, and Cabal takes the
+                last one given.
+              '';
+            };
+
             extra-package-defaults = mkOption {
               default = {};
               description = ''
@@ -381,6 +401,29 @@ in {
           The built project: `packages` (the project's own packages),
           `haskellPackages` (the full extended set), `shell`, `projectCross`
           (per `pkgsCross` platform) and `ghcWithPackages`.
+        '';
+      };
+
+      compiler-version = mkOption {
+        type = types.str;
+        default =
+          if compiler.version != null
+          then compiler.version
+          else cfg.haskellPackages.ghc.version;
+        defaultText = literalMD ''
+          the version `compiler.version` states, or the one carried by the
+          compiler the driver resolves: the package a project brought, or the
+          `ghc` of the package set it selected
+        '';
+        description = ''
+          The version of the compiler this driver builds with. Both drivers
+          answer to the same name, and each answers for itself: they mirror
+          `compiler` separately and fall back to different compilers of their
+          own, so a project asking what it is building against asks the driver:
+
+          ```
+          config.<driver>.compiler-version
+          ```
         '';
       };
 

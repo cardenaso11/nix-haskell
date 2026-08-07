@@ -1,10 +1,14 @@
 # Every combination of driver, compiler and cross target this example is meant
 # to work for, built two ways: as the drivers build it, and as a person would
-# inside the project's shell.
+# inside the project's shell. `bundle` is the same matrix again, carrying what
+# each target ships rather than what it links: the executable through that
+# target's optimizer, and for wasm the JSFFI bindings beside it.
 #
 #   nix-build release.nix -A build
 #   nix-build release.nix -A shell-build
+#   nix-build release.nix -A bundle
 #   nix-build release.nix -A build.haskell-nix.ghc912.wasi32
+#   nix-build release.nix -A bundle.haskell-nix.ghc912.wasi32.optimized
 #
 # `wasm-meta` is the same matrix with the wasm target's compiler taken from the
 # ghc-wasm-meta pin instead of the driver's own.
@@ -46,9 +50,10 @@ let nix-haskell = import ../.. { inherit system inputs; };
         platforms.wasi32.packages.reflex-dom.flags.use-warp = false;
       };
 
-    variant = series: withWasmMeta:
+    variant = series: withWasmMeta: modules:
       project ([ { compiler.name = "ghc${lib.replaceStrings [ "." ] [ "" ] series}"; } ]
-        ++ lib.optional withWasmMeta (wasmMeta series));
+        ++ lib.optional withWasmMeta (wasmMeta series)
+        ++ modules);
 
     # The exe as each driver names it: haskell.nix has a tree of components, the
     # nixpkgs driver one derivation per package.
@@ -60,8 +65,24 @@ let nix-haskell = import ../.. { inherit system inputs; };
     };
 
     built = driver: series: withWasmMeta: platforms:
-      let p = variant series withWasmMeta;
+      let p = variant series withWasmMeta [];
       in lib.genAttrs platforms (platform: driverExe.${driver} p platform);
+
+    # Naming the executable is what puts a bundle on the tree, and for a
+    # javascript target what installs the `.jsexe` closure-compiler works on.
+    namedExe = platform:
+      { platforms.${platform}.packages.reflex-todomvc.components.exes.reflex-todomvc = {}; };
+
+    # What a target ships, read off the tree rather than assembled here: the
+    # executable through that target's optimizer, and for wasm the JSFFI
+    # bindings its binary cannot be instantiated without. A javascript target
+    # has none, and the `null` it answers with is dropped rather than built.
+    bundled = driver: series: withWasmMeta: platforms:
+      lib.genAttrs platforms (platform:
+        let p = variant series withWasmMeta [ (namedExe platform) ];
+            exe = p.config.${driver}.platforms.${platform}
+                    .packages.reflex-todomvc.components.exes.reflex-todomvc;
+        in lib.filterAttrs (_: artifact: artifact != null) exe.bundles);
 
     # The name of the wrapper that puts a cross target's tools in front of the
     # ones the shell carries for the build platform. It is the target's own
@@ -78,7 +99,7 @@ let nix-haskell = import ../.. { inherit system inputs; };
     # everything the project depends on, and a configuration naming no
     # repository is what keeps cabal from fetching one it cannot reach.
     shellBuilt = driver: series: withWasmMeta: platforms:
-      let p = variant series withWasmMeta;
+      let p = variant series withWasmMeta [];
           shell = p.${driver}.project.shell;
       in lib.genAttrs platforms (platform:
         shell.overrideAttrs (old: {
@@ -133,6 +154,33 @@ in {
       nixpkgs = {
         ghc912 = built "nixpkgs" "9.12" true [ "ghcjs" "wasi32" ];
         ghc914 = built "nixpkgs" "9.14" true [ "ghcjs" "wasi32" ];
+      };
+
+    };
+
+  };
+
+  bundle = {
+
+    haskell-nix = {
+      ghc912 = bundled "haskell-nix" "9.12" false [ "ghcjs" "wasi32" ];
+      ghc914 = bundled "haskell-nix" "9.14" false [ "ghcjs" "wasi32" ];
+    };
+
+    nixpkgs = {
+      ghc912 = bundled "nixpkgs" "9.12" false [ "ghcjs" ];
+    };
+
+    wasm-meta = {
+
+      haskell-nix = {
+        ghc912 = bundled "haskell-nix" "9.12" true [ "ghcjs" "wasi32" ];
+        ghc914 = bundled "haskell-nix" "9.14" true [ "ghcjs" "wasi32" ];
+      };
+
+      nixpkgs = {
+        ghc912 = bundled "nixpkgs" "9.12" true [ "ghcjs" "wasi32" ];
+        ghc914 = bundled "nixpkgs" "9.14" true [ "ghcjs" "wasi32" ];
       };
 
     };
