@@ -25,6 +25,8 @@ let cfg = config."haskell-nix";
       topOptions = options;
     };
 
+    functionOption = import ../../libs/function-option.nix { inherit lib; };
+
     # The `compiler` option resolved per platform. `compiler` is the native
     # entry, which names the project-wide compiler.
     compilers = import ../../libs/compiler.nix { inherit lib; } {
@@ -445,7 +447,7 @@ in {
           isGhcjs.via = "adds nodejs to the common `shell.buildInputs`";
           isWasm.via = "adds nodejs to the common `shell.buildInputs`";
           wasm-opt.via = "nothing the driver builds; read by `wasm-optimize`";
-          closure.via = "nothing the driver builds; read by `js-optimize`";
+          closure-compiler.via = "nothing the driver builds; read by `js-optimize`";
           wasm-optimize.via = "applied by the project to a wasm binary the driver has already built";
           wasm-jsffi.via = "applied by the project to a wasm binary the driver has already built, with the compiler `haskell-nix.cross-compiler` names";
           js-optimize.via = "applied by the project to a jsexe the driver has already built";
@@ -550,8 +552,7 @@ in {
         '';
       };
 
-      cross-compiler = mkOption {
-        type = types.functionTo types.package;
+      cross-compiler = functionOption {
         default = platform: cfg.project.projectCross.${platform}.pkg-set.config.ghc.package;
         defaultText = literalMD ''
           ```
@@ -572,8 +573,7 @@ in {
         '';
       };
 
-      cross-exe = mkOption {
-        type = types.functionTo types.package;
+      cross-exe = functionOption {
         default = { platform, package, exe }:
           cfg.project.projectCross.${platform}.hsPkgs.${package}.components.exes.${exe};
         defaultText = literalMD ''

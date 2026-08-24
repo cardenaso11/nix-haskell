@@ -212,7 +212,7 @@ null
 
 
 
-## packages\.\<name>\.closure\.enable
+## packages\.\<name>\.closure-compiler\.enable
 
 
 
@@ -239,7 +239,7 @@ null
 
 
 
-## packages\.\<name>\.closure\.externs
+## packages\.\<name>\.closure-compiler\.externs
 
 
 
@@ -268,7 +268,7 @@ null
 
 
 
-## packages\.\<name>\.closure\.extraFlags
+## packages\.\<name>\.closure-compiler\.extraFlags
 
 
 
@@ -301,7 +301,7 @@ null
 
 
 
-## packages\.\<name>\.closure\.level
+## packages\.\<name>\.closure-compiler\.level
 
 
 
@@ -391,7 +391,7 @@ attribute set of (submodule)
 
 
 
-## packages\.\<name>\.components\.exes\.\<name>\.closure\.enable
+## packages\.\<name>\.components\.exes\.\<name>\.closure-compiler\.enable
 
 
 
@@ -418,7 +418,7 @@ null
 
 
 
-## packages\.\<name>\.components\.exes\.\<name>\.closure\.externs
+## packages\.\<name>\.components\.exes\.\<name>\.closure-compiler\.externs
 
 
 
@@ -447,7 +447,7 @@ null
 
 
 
-## packages\.\<name>\.components\.exes\.\<name>\.closure\.extraFlags
+## packages\.\<name>\.components\.exes\.\<name>\.closure-compiler\.extraFlags
 
 
 
@@ -480,7 +480,7 @@ null
 
 
 
-## packages\.\<name>\.components\.exes\.\<name>\.closure\.level
+## packages\.\<name>\.components\.exes\.\<name>\.closure-compiler\.level
 
 
 
@@ -1727,7 +1727,7 @@ strings concatenated with “\\n”
 
 
 
-## closure\.enable
+## closure-compiler\.enable
 
 
 
@@ -1752,7 +1752,7 @@ true
 
 
 
-## closure\.externs
+## closure-compiler\.externs
 
 
 
@@ -1779,7 +1779,7 @@ list of absolute path
 
 
 
-## closure\.extraFlags
+## closure-compiler\.extraFlags
 
 
 
@@ -1817,7 +1817,7 @@ list of string
 
 
 
-## closure\.level
+## closure-compiler\.level
 
 
 
@@ -3122,6 +3122,9 @@ one haskell\.nix has under that name
 
 
 
+**A function, not a setting\.** A project calls it and uses what comes
+back\. Assign it only to replace what the call does\.
+
 The compiler this driver builds a cross target with, by
 ` pkgs.pkgsCross ` name\. Both drivers answer to the same name, so a
 step that needs the compiler an artifact was built with, as
@@ -3154,6 +3157,9 @@ platform:
 ## haskell-nix\.cross-exe
 
 
+
+**A function, not a setting\.** A project calls it and uses what comes
+back\. Assign it only to replace what the call does\.
 
 What this driver builds an executable into, for one cross target\. Both
 drivers answer to the same name, and what they answer with carries the
@@ -5095,6 +5101,9 @@ boolean
 
 
 
+**A function, not a setting\.** A project calls it and uses what comes
+back\. Assign it only to replace what the call does\.
+
 A linked ` .jsexe ` directory with its ` all.js ` closure-compiled, the rest
 of the directory as it was\. It takes the directory rather than the
 package that carries it:
@@ -5109,13 +5118,13 @@ js-optimize {
 ```
 
 The three names are only what the settings are looked up under, and any
-of them can be left out to say nothing about it\. ` closure ` is read from
-the layer that states a field most specifically to the least:
-` platforms.<platform>.packages.<package>.components.exes.<exe>.closure `,
-` platforms.<platform>.packages.<package>.closure `,
-` platforms.<platform>.closure `, then the same package and executable
-layers of ` packages `, and last ` closure ` itself, which is the only one
-holding values throughout\. They are read from the project’s own values
+of them can be left out to say nothing about it\. ` closure-compiler ` is
+read from the layer that states a field most specifically to the least:
+` platforms.<platform>.packages.<package>.components.exes.<exe>.closure-compiler `,
+` platforms.<platform>.packages.<package>.closure-compiler `,
+` platforms.<platform>.closure-compiler `, then the same package and
+executable layers of ` packages `, and last ` closure-compiler ` itself,
+which is the only one holding values throughout\. They are read from the project’s own values
 rather than a driver’s, since this runs on a built artifact, outside
 any driver\.
 
@@ -5129,8 +5138,8 @@ function that evaluates to a(n) package
 *Default:*
 
 ```
-<nix-haskell>/libs/closure.nix, run with the settings the named target,
-package and executable resolve to
+<nix-haskell>/libs/closure-compiler/run.nix, run with the settings the
+named target, package and executable resolve to
 ```
 
 *Declared by:*
@@ -5154,7 +5163,7 @@ null or string
 *Default:*
 
 ```nix
-"mg7202kynwlydq7c9ghvmfkbh69pmk0l-source"
+"f1x6cr6h8w6c6w43ggdls29db85l02xg-source"
 ```
 
 *Declared by:*
@@ -5196,6 +5205,9 @@ compiler the driver resolves: the package a project brought, or the
 
 
 
+**A function, not a setting\.** A project calls it and uses what comes
+back\. Assign it only to replace what the call does\.
+
 The compiler this driver builds a cross target with, by
 ` pkgs.pkgsCross ` name\. Both drivers answer to the same name, so a
 step that needs the compiler an artifact was built with, as
@@ -5227,6 +5239,9 @@ platform: config.nixpkgs.project.projectCross.<platform>.haskellPackages.ghc
 ## nixpkgs\.cross-exe
 
 
+
+**A function, not a setting\.** A project calls it and uses what comes
+back\. Assign it only to replace what the call does\.
 
 What this driver builds an executable into, for one cross target\. Both
 drivers answer to the same name, and what they answer with carries the
@@ -6002,9 +6017,9 @@ driver has none, so what they would have decided is given here\. The
 flags reach the point where a package’s dependencies are worked out,
 rather than only how it is configured\.
 
-` wasm-opt ` and ` closure ` are the bundle optimizer settings for whatever
-is built for this target, which the ` packages ` entries under them
-narrow to one package, and their ` components.exes ` entries to one
+` wasm-opt ` and ` closure-compiler ` are the bundle optimizer settings for
+whatever is built for this target, which the ` packages ` entries under
+them narrow to one package, and their ` components.exes ` entries to one
 executable of it\.
 
 
@@ -6322,7 +6337,7 @@ the executable this driver built for this target, through
 
 
 
-## platforms\.\<name>\.packages\.\<name>\.closure\.enable
+## platforms\.\<name>\.packages\.\<name>\.closure-compiler\.enable
 
 
 
@@ -6349,7 +6364,7 @@ null
 
 
 
-## platforms\.\<name>\.packages\.\<name>\.closure\.externs
+## platforms\.\<name>\.packages\.\<name>\.closure-compiler\.externs
 
 
 
@@ -6378,7 +6393,7 @@ null
 
 
 
-## platforms\.\<name>\.packages\.\<name>\.closure\.extraFlags
+## platforms\.\<name>\.packages\.\<name>\.closure-compiler\.extraFlags
 
 
 
@@ -6411,7 +6426,7 @@ null
 
 
 
-## platforms\.\<name>\.packages\.\<name>\.closure\.level
+## platforms\.\<name>\.packages\.\<name>\.closure-compiler\.level
 
 
 
@@ -6552,7 +6567,7 @@ the executable this driver built for this target, through
 
 
 
-## platforms\.\<name>\.packages\.\<name>\.components\.exes\.\<name>\.closure\.enable
+## platforms\.\<name>\.packages\.\<name>\.components\.exes\.\<name>\.closure-compiler\.enable
 
 
 
@@ -6579,7 +6594,7 @@ null
 
 
 
-## platforms\.\<name>\.packages\.\<name>\.components\.exes\.\<name>\.closure\.externs
+## platforms\.\<name>\.packages\.\<name>\.components\.exes\.\<name>\.closure-compiler\.externs
 
 
 
@@ -6608,7 +6623,7 @@ null
 
 
 
-## platforms\.\<name>\.packages\.\<name>\.components\.exes\.\<name>\.closure\.extraFlags
+## platforms\.\<name>\.packages\.\<name>\.components\.exes\.\<name>\.closure-compiler\.extraFlags
 
 
 
@@ -6641,7 +6656,7 @@ null
 
 
 
-## platforms\.\<name>\.packages\.\<name>\.components\.exes\.\<name>\.closure\.level
+## platforms\.\<name>\.packages\.\<name>\.components\.exes\.\<name>\.closure-compiler\.level
 
 
 
@@ -7638,7 +7653,7 @@ null
 
 
 
-## platforms\.\<name>\.closure\.enable
+## platforms\.\<name>\.closure-compiler\.enable
 
 
 
@@ -7665,7 +7680,7 @@ null
 
 
 
-## platforms\.\<name>\.closure\.externs
+## platforms\.\<name>\.closure-compiler\.externs
 
 
 
@@ -7694,7 +7709,7 @@ null
 
 
 
-## platforms\.\<name>\.closure\.extraFlags
+## platforms\.\<name>\.closure-compiler\.extraFlags
 
 
 
@@ -7727,7 +7742,7 @@ null
 
 
 
-## platforms\.\<name>\.closure\.level
+## platforms\.\<name>\.closure-compiler\.level
 
 
 
@@ -8250,6 +8265,9 @@ string
 
 
 
+**A function, not a setting\.** A project calls it and uses what comes
+back\. Assign it only to replace what the call does\.
+
 The ` ghc_wasm_jsffi.js ` a GHC-built wasm module needs to be
 instantiated at all, read out of the binary by the compiler that built
 it:
@@ -8381,6 +8399,9 @@ one of “0”, “1”, “2”, “3”, “4”, “s”, “z”
 
 
 
+**A function, not a setting\.** A project calls it and uses what comes
+back\. Assign it only to replace what the call does\.
+
 A wasm binary optimized and stripped\. It takes the file rather than the
 package that carries it, and yields the file rather than a directory
 holding it, so the caller installs it under whatever name it wants:
@@ -8415,8 +8436,8 @@ function that evaluates to a(n) package
 *Default:*
 
 ```
-<nix-haskell>/libs/wasm-opt.nix, run with the settings the named target,
-package and executable resolve to
+<nix-haskell>/libs/wasm-opt/run.nix, run with the settings the named
+target, package and executable resolve to
 ```
 
 *Declared by:*

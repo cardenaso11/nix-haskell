@@ -67,9 +67,9 @@
       postInstall = "echo every-option post-install";
       src = ./every-option;
       wasm-opt.level = "3";
-      closure.level = "WHITESPACE_ONLY";
+      closure-compiler.level = "WHITESPACE_ONLY";
       components.exes.every-option.wasm-opt.extraFlags = [ "--strip-dwarf" ];
-      components.exes.every-option.closure.externs = [ ./every-option-externs.js ];
+      components.exes.every-option.closure-compiler.externs = [ ./every-option-externs.js ];
     };
     absent-package.doCheck = false;
   };
@@ -106,7 +106,7 @@
     level = "z";
     extraFlags = [ "--converge" ];
   };
-  closure = {
+  closure-compiler = {
     enable = true;
     level = "SIMPLE";
     externs = [ ./every-option-externs.js ];

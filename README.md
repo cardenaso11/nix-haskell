@@ -111,7 +111,7 @@ Applicable to every driver. The full reference is in the
 | `shell` | `submodule` | | Development shell |
 | `optimizations` | `submodule` | off | GHC optimization flag presets |
 | `wasm-opt` | `submodule` | `-O2`, shrunk | What wasm-opt does to a built wasm binary |
-| `closure` | `submodule` | `ADVANCED` | What closure-compiler does to a built jsexe |
+| `closure-compiler` | `submodule` | `ADVANCED` | What closure-compiler does to a built jsexe |
 | `inputs` | `attrsOf raw` | `pins/` | Dependency sources |
 
 #### Compiler
@@ -203,8 +203,8 @@ Fields: `flags`, `patches`, `ghcOptions`, `configureFlags`,
 `src`, the phase hooks `preUnpack`, `postUnpack`, `prePatch`,
 `postPatch`, `preConfigure`, `postConfigure`, `preBuild`, `postBuild`,
 `preCheck`, `postCheck`, `preHaddock`, `postHaddock`, `preInstall`,
-`postInstall`, and the bundle optimizer settings `wasm-opt`, `closure` and
-`components.exes.<exe>.{wasm-opt,closure}`.
+`postInstall`, and the bundle optimizer settings `wasm-opt`,
+`closure-compiler` and `components.exes.<exe>.{wasm-opt,closure-compiler}`.
 
 One divergence to be aware of with the hooks: haskell.nix runs them for
 each component derivation of the package, nixpkgs once in the single
@@ -257,8 +257,8 @@ is what each driver's `cross-compiler` names, by `pkgs.pkgsCross` platform name.
 
 Naming an executable is what gets it a bundle without calling anything, and for
 the haskell.nix driver it is also what installs its `.jsexe`: that driver
-installs only the bundled `bin/<exe>` for a javascript target, while closure
-needs the directory the linker leaves beside it. The nixpkgs builder copies that
+installs only the bundled `bin/<exe>` for a javascript target, while
+closure-compiler needs the directory the linker leaves beside it. The nixpkgs builder copies that
 directory out on its own.
 
 ```nix
@@ -288,9 +288,9 @@ What each driver builds an executable into is `cross-exe`, which is what the
 bundles optimize, and is there for anything else that wants a cross build by
 name.
 
-The flags come from `wasm-opt` and `closure`, and five layers can speak for
-them. The names a transform is given are only what it looks the settings up
-under, and any of them can be left out:
+The flags come from `wasm-opt` and `closure-compiler`, and five layers can
+speak for them. The names a transform is given are only what it looks the
+settings up under, and any of them can be left out:
 
 ```nix
 # whatever the target, for everything
@@ -307,11 +307,12 @@ platforms.wasi32.packages.frontend.components.exes.frontend.wasm-opt.enable = fa
 ```
 
 The layer that states a field most specifically decides it, `null` states
-nothing, and only `wasm-opt` and `closure` themselves hold every field. From
-most specific to least: an executable of a package on one target, that package
-on that target, that target, then the same executable and package layers
-whatever the target, then the tool's own settings. `enable = false` copies the
-input through instead, so the caller installs the same path either way.
+nothing, and only `wasm-opt` and `closure-compiler` themselves hold every
+field. From most specific to least: an executable of a package on one target,
+that package on that target, that target, then the same executable and package
+layers whatever the target, then the tool's own settings. `enable = false`
+copies the input through instead, so the caller installs the same path either
+way.
 
 #### Source repository packages
 

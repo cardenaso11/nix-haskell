@@ -39,7 +39,7 @@
 #      }
 #
 #   settings {
-#     tool = "closure";
+#     tool = "closure-compiler";
 #     defaults = {
 #       enable = true;
 #       level = "ADVANCED";

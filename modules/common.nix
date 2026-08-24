@@ -18,9 +18,9 @@ with lib;
 let mkDriverDefault = import ../libs/driver-default.nix { inherit lib; };
 
     # One layer of the bundle optimizer settings: nullable throughout, since the
-    # values live in the top-level `wasm-opt` and `closure`, and a `null` here
-    # states nothing so the layer beneath decides. Which layer that is,
-    # `wasm-optimize` and `js-optimize` spell out; they are also the only
+    # values live in the top-level `wasm-opt` and `closure-compiler`, and a
+    # `null` here states nothing so the layer beneath decides. Which layer that
+    # is, `wasm-optimize` and `js-optimize` spell out; they are also the only
     # readers, so no driver is taught anything about these.
     bundleOptimizerLayer = import ../libs/bundle-optimizer-options.nix {
       inherit lib;
@@ -635,7 +635,7 @@ in {
               '';
             };
 
-            inherit (bundleOptimizerLayer) wasm-opt closure;
+            inherit (bundleOptimizerLayer) wasm-opt closure-compiler;
 
           };
         }));
@@ -651,9 +651,9 @@ in {
         flags reach the point where a package's dependencies are worked out,
         rather than only how it is configured.
 
-        `wasm-opt` and `closure` are the bundle optimizer settings for whatever
-        is built for this target, which the `packages` entries under them
-        narrow to one package, and their `components.exes` entries to one
+        `wasm-opt` and `closure-compiler` are the bundle optimizer settings for
+        whatever is built for this target, which the `packages` entries under
+        them narrow to one package, and their `components.exes` entries to one
         executable of it.
       '';
       example = literalMD ''
@@ -852,7 +852,7 @@ in {
             type = types.submodule {
               options.exes = mkOption {
                 type = types.attrsOf (types.submodule {
-                  options = { inherit (bundleOptimizerLayer) wasm-opt closure; };
+                  options = { inherit (bundleOptimizerLayer) wasm-opt closure-compiler; };
                 });
                 default = {};
                 description = ''
@@ -873,7 +873,7 @@ in {
               component by. Only executables carry anything so far.
             '';
           };
-          inherit (bundleOptimizerLayer) wasm-opt closure;
+          inherit (bundleOptimizerLayer) wasm-opt closure-compiler;
         } // (
           # Hooks around the build phases: preUnpack, postUnpack, ...,
           # preInstall, postInstall.

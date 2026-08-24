@@ -29,6 +29,8 @@ let bundleOptimizer = import ../../../libs/bundle-optimizer-options.nix { inheri
 
     bundleSettings = import ../../../libs/bundle-optimizer-settings.nix { inherit lib; };
 
+    functionOption = import ../../../libs/function-option.nix { inherit lib; };
+
 in {
 
   options = {
@@ -64,10 +66,9 @@ in {
 
     wasm-opt = bundleOptimizer.wasm-opt;
 
-    wasm-optimize = mkOption {
-      type = types.functionTo types.package;
+    wasm-optimize = functionOption {
       default = { platform ? null, package ? null, exe ? null, wasm }:
-        import ../../../libs/wasm-opt.nix { inherit pkgs lib; }
+        import ../../../libs/wasm-opt/run.nix { inherit pkgs lib; }
           ({ inherit wasm; } // bundleSettings {
             tool = "wasm-opt";
             defaults = config.wasm-opt;
@@ -76,8 +77,8 @@ in {
           });
       defaultText = literalMD ''
         ```
-        <nix-haskell>/libs/wasm-opt.nix, run with the settings the named target,
-        package and executable resolve to
+        <nix-haskell>/libs/wasm-opt/run.nix, run with the settings the named
+        target, package and executable resolve to
         ```
       '';
       description = ''
@@ -107,8 +108,7 @@ in {
       '';
     };
 
-    wasm-jsffi = mkOption {
-      type = types.functionTo types.package;
+    wasm-jsffi = functionOption {
       default = { ghc, wasm }:
         import ../../../libs/wasm-jsffi.nix { inherit pkgs; } { inherit ghc wasm; };
       defaultText = literalMD ''

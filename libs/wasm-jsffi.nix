@@ -6,7 +6,7 @@
 # The compiler has to be the one that produced the binary, since post-link.mjs
 # reads a custom section its own GHC wrote. `<driver>.cross-compiler` names that
 # compiler, so a project does not have to know how a driver keeps them. Run this
-# on the binary as linked: `wasm-opt.nix` strips those sections away.
+# on the binary as linked: `wasm-opt/run.nix` strips those sections away.
 #
 # Example:
 #

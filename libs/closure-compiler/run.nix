@@ -8,7 +8,7 @@
 #
 # Example:
 #
-#   import ./closure.nix { inherit pkgs lib; } {
+#   import ./run.nix { inherit pkgs lib; } {
 #     jsexe = "${frontend}/bin/frontend.jsexe";
 #     enable = true;
 #     level = "ADVANCED";
@@ -22,7 +22,7 @@
 #                                                # index.html and the rest as
 #                                                # they were
 #
-#   import ./closure.nix { inherit pkgs lib; } {
+#   import ./run.nix { inherit pkgs lib; } {
 #     jsexe = "${frontend}/bin/frontend.jsexe";
 #     enable = false;
 #     level = "ADVANCED";

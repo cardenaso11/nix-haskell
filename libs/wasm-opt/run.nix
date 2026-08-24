@@ -6,7 +6,7 @@
 #
 # Example:
 #
-#   import ./wasm-opt.nix { inherit pkgs lib; } {
+#   import ./run.nix { inherit pkgs lib; } {
 #     wasm = "${frontend}/bin/frontend.wasm";
 #     enable = true;
 #     level = "2";
@@ -15,7 +15,7 @@
 #   => <derivation frontend.wasm-optimized>     # the optimized binary, the file
 #                                              # itself rather than a directory
 #
-#   import ./wasm-opt.nix { inherit pkgs lib; } {
+#   import ./run.nix { inherit pkgs lib; } {
 #     wasm = "${frontend}/bin/frontend.wasm";
 #     enable = false;
 #     level = "2";

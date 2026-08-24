@@ -185,7 +185,7 @@ let eval = import ../eval.nix { inherit system pkgs inputs; };
     # up as the wrong flag. Pure eval: nothing is optimized.
     bundle-optimizer-spec =
       let wasmOpt = names: fixture.config.wasm-optimize (names // { wasm = "/probe.wasm"; });
-          closure = names: fixture.config.js-optimize (names // { jsexe = "/probe.jsexe"; });
+          closureCompiler = names: fixture.config.js-optimize (names // { jsexe = "/probe.jsexe"; });
 
           commandOf = drv: drv.drvAttrs.buildCommand;
 
@@ -198,7 +198,7 @@ let eval = import ../eval.nix { inherit system pkgs inputs; };
             name = "bundle-optimizer-off";
             src = ../examples/hello;
             wasm-opt.enable = false;
-            closure.enable = false;
+            closure-compiler.enable = false;
           };
 
           externs = ./fixtures/every-option-externs.js;
@@ -250,21 +250,21 @@ let eval = import ../eval.nix { inherit system pkgs inputs; };
               "a package entry stating nothing does not fall through to the tool's settings"
             ++ optional (! runs "-all -Oz --converge" (wasmOpt { package = "no-such-package"; }))
               "a package with no entry is not the same as one stating nothing"
-            # the strip that follows, and what closure is given
+            # the strip that follows, and what closure-compiler is given
             ++ optional (! runs "wasm-tools strip -a optimized.wasm -o $out" (wasmOpt {}))
               "the custom sections are not stripped after wasm-opt has run"
-            ++ optional (! runs "--externs $out/all.externs.js --compilation_level SIMPLE" (closure {}))
+            ++ optional (! runs "--externs $out/all.externs.js --compilation_level SIMPLE" (closureCompiler {}))
               "the jsexe's own externs are not passed ahead of the settings"
             ++ optional (! runs "--compilation_level WHITESPACE_ONLY --externs ${externs} --warning_level QUIET"
-                 (closure { package = "every-option"; exe = "every-option"; }))
-              "closure's level, externs and flags do not come from the layers that state them"
+                 (closureCompiler { package = "every-option"; exe = "every-option"; }))
+              "closure-compiler's level, externs and flags do not come from the layers that state them"
             # disabled, where each optimizer copies its input through instead
             ++ optional (commandOf (off.config.wasm-optimize { wasm = "/probe.wasm"; })
                  != "cp /probe.wasm $out\n")
               "a disabled wasm-opt does not copy its input through"
             ++ optional (commandOf (off.config.js-optimize { jsexe = "/probe.jsexe"; })
                  != "cp -r /probe.jsexe $out\n")
-              "a disabled closure does not copy its input through"
+              "a disabled closure-compiler does not copy its input through"
             # the bundles of a target, which only a driver can answer for. What
             # one is when a driver does answer takes a cross build, so the
             # example is where that is shown.
@@ -272,7 +272,7 @@ let eval = import ../eval.nix { inherit system pkgs inputs; };
               "a package's bundles are not keyed by the executables it names"
             ++ optional (exeBundle.optimized != null || exeBundle.jsffi != null)
               "a bundle read outside a driver is not null"
-            # the jsexe install that gives closure a directory to work on
+            # the jsexe install that gives closure-compiler a directory to work on
             ++ optional (! hasInfix "cp -r dist/build/frontend/frontend.jsexe $out/bin/"
                  installed.packages.frontend.components.exes.frontend.postInstall)
               "a named executable's jsexe is not installed beside it"
@@ -294,7 +294,7 @@ let eval = import ../eval.nix { inherit system pkgs inputs; };
             name = "bundle-optimizers-off";
             src = ../examples/hello;
             wasm-opt.enable = false;
-            closure.enable = false;
+            closure-compiler.enable = false;
           };
 
           # An exported function to keep, and an unreachable one for the

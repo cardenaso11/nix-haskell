@@ -54,10 +54,11 @@
   again, a `.jsexe` through closure-compiler, and the `ghc_wasm_jsffi.js` that
   `post-link.mjs` reads out of a wasm binary, without which no GHC-built wasm
   module can be instantiated. The flags are the tools' own, under `wasm-opt`
-  and `closure`, and five layers can state them: an executable of a package
-  built for one cross target, that package for that target, that target, then
-  the same executable and package layers whatever the target. `wasm-optimize`,
-  `js-optimize` and `wasm-jsffi` apply them to an artifact named directly.
+  and `closure-compiler`, and five layers can state them: an executable of a
+  package built for one cross target, that package for that target, that
+  target, then the same executable and package layers whatever the target.
+  `wasm-optimize`, `js-optimize` and `wasm-jsffi` apply them to an artifact
+  named directly.
 - `platforms.<platform>.packages.<package>.bundles` and the same under
   `components.exes.<exe>`: the artifact a driver built for that target,
   optimized, with its jsffi bindings beside it. Read through a driver, which is

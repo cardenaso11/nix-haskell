@@ -142,7 +142,7 @@ null
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
-.SS packages.<name>.closure.enable
+.SS packages.<name>.closure\-compiler.enable
 Whether \f[CR]js\-optimize\f[R] runs closure\-compiler at all.
 When false it copies the jsexe through unchanged.
 .PP
@@ -161,7 +161,7 @@ null
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
-.SS packages.<name>.closure.externs
+.SS packages.<name>.closure\-compiler.externs
 Files passed as \f[CR]\-\-externs\f[R], declaring what the program
 reaches by a name the compiler must not rename.
 The jsexe\(cqs own \f[CR]all.externs.js\f[R] is always passed ahead of
@@ -183,7 +183,7 @@ null
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
-.SS packages.<name>.closure.extraFlags
+.SS packages.<name>.closure\-compiler.extraFlags
 Flags appended after the level and the externs, so one of these decides
 what they would have.
 One flag per element, its value in the same string, since the elements
@@ -209,7 +209,7 @@ null
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
-.SS packages.<name>.closure.level
+.SS packages.<name>.closure\-compiler.level
 The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
 .PP
 \f[CR]null\f[R] states nothing, leaving the field to the layer beneath
@@ -273,7 +273,7 @@ otherwise leaves in the build tree.
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
-.SS packages.<name>.components.exes.<name>.closure.enable
+.SS packages.<name>.components.exes.<name>.closure\-compiler.enable
 Whether \f[CR]js\-optimize\f[R] runs closure\-compiler at all.
 When false it copies the jsexe through unchanged.
 .PP
@@ -292,7 +292,7 @@ null
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
-.SS packages.<name>.components.exes.<name>.closure.externs
+.SS packages.<name>.components.exes.<name>.closure\-compiler.externs
 Files passed as \f[CR]\-\-externs\f[R], declaring what the program
 reaches by a name the compiler must not rename.
 The jsexe\(cqs own \f[CR]all.externs.js\f[R] is always passed ahead of
@@ -314,7 +314,7 @@ null
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
-.SS packages.<name>.components.exes.<name>.closure.extraFlags
+.SS packages.<name>.components.exes.<name>.closure\-compiler.extraFlags
 Flags appended after the level and the externs, so one of these decides
 what they would have.
 One flag per element, its value in the same string, since the elements
@@ -340,7 +340,7 @@ null
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
-.SS packages.<name>.components.exes.<name>.closure.level
+.SS packages.<name>.components.exes.<name>.closure\-compiler.level
 The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
 .PP
 \f[CR]null\f[R] states nothing, leaving the field to the layer beneath
@@ -1193,7 +1193,7 @@ an anchored one read against the root cannot do.
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
-.SS closure.enable
+.SS closure\-compiler.enable
 Whether \f[CR]js\-optimize\f[R] runs closure\-compiler at all.
 When false it copies the jsexe through unchanged.
 .PP
@@ -1209,7 +1209,7 @@ true
 .UR file://%3Cnix-haskell%3E/modules/cross/ghcjs
 /modules/cross/ghcjs
 .UE \c
-.SS closure.externs
+.SS closure\-compiler.externs
 Files passed as \f[CR]\-\-externs\f[R], declaring what the program
 reaches by a name the compiler must not rename.
 The jsexe\(cqs own \f[CR]all.externs.js\f[R] is always passed ahead of
@@ -1228,7 +1228,7 @@ knows by name.
 .UR file://%3Cnix-haskell%3E/modules/cross/ghcjs
 /modules/cross/ghcjs
 .UE \c
-.SS closure.extraFlags
+.SS closure\-compiler.extraFlags
 Flags appended after the level and the externs, so one of these decides
 what they would have.
 One flag per element, its value in the same string, since the elements
@@ -1258,7 +1258,7 @@ about the names the runtime defines elsewhere.
 .UR file://%3Cnix-haskell%3E/modules/cross/ghcjs
 /modules/cross/ghcjs
 .UE \c
-.SS closure.level
+.SS closure\-compiler.level
 The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
 .PP
 \f[I]Type:\f[R] one of \(lqBUNDLE\(rq, \(lqWHITESPACE_ONLY\(rq,
@@ -2146,6 +2146,10 @@ project brought, or the one haskell.nix has under that name
 /modules/haskell.nix
 .UE \c
 .SS haskell\-nix.cross\-compiler
+\f[B]A function, not a setting.\f[R] A project calls it and uses what
+comes back.
+Assign it only to replace what the call does.
+.PP
 The compiler this driver builds a cross target with, by
 \f[CR]pkgs.pkgsCross\f[R] name.
 Both drivers answer to the same name, so a step that needs the compiler
@@ -2170,6 +2174,10 @@ platform:
 /modules/haskell.nix
 .UE \c
 .SS haskell\-nix.cross\-exe
+\f[B]A function, not a setting.\f[R] A project calls it and uses what
+comes back.
+Assign it only to replace what the call does.
+.PP
 What this driver builds an executable into, for one cross target.
 Both drivers answer to the same name, and what they answer with carries
 the executable at \f[CR]bin/<exe>\f[R], with a wasm target\(cqs binary
@@ -3462,6 +3470,10 @@ Used to conditionally include WebAssembly runtime dependencies.
 /modules/cross/wasm
 .UE \c
 .SS js\-optimize
+\f[B]A function, not a setting.\f[R] A project calls it and uses what
+comes back.
+Assign it only to replace what the call does.
+.PP
 A linked \f[CR].jsexe\f[R] directory with its \f[CR]all.js\f[R]
 closure\-compiled, the rest of the directory as it was.
 It takes the directory rather than the package that carries it:
@@ -3477,13 +3489,14 @@ js\-optimize {
 .PP
 The three names are only what the settings are looked up under, and any
 of them can be left out to say nothing about it.
-\f[CR]closure\f[R] is read from the layer that states a field most
-specifically to the least:
-\f[CR]platforms.<platform>.packages.<package>.components.exes.<exe>.closure\f[R],
-\f[CR]platforms.<platform>.packages.<package>.closure\f[R],
-\f[CR]platforms.<platform>.closure\f[R], then the same package and
-executable layers of \f[CR]packages\f[R], and last \f[CR]closure\f[R]
-itself, which is the only one holding values throughout.
+\f[CR]closure\-compiler\f[R] is read from the layer that states a field
+most specifically to the least:
+\f[CR]platforms.<platform>.packages.<package>.components.exes.<exe>.closure\-compiler\f[R],
+\f[CR]platforms.<platform>.packages.<package>.closure\-compiler\f[R],
+\f[CR]platforms.<platform>.closure\-compiler\f[R], then the same package
+and executable layers of \f[CR]packages\f[R], and last
+\f[CR]closure\-compiler\f[R] itself, which is the only one holding
+values throughout.
 They are read from the project\(cqs own values rather than a
 driver\(cqs, since this runs on a built artifact, outside any driver.
 .PP
@@ -3492,8 +3505,8 @@ driver\(cqs, since this runs on a built artifact, outside any driver.
 \f[I]Default:\f[R]
 .IP
 .EX
-<nix\-haskell>/libs/closure.nix, run with the settings the named target,
-package and executable resolve to
+<nix\-haskell>/libs/closure\-compiler/run.nix, run with the settings the
+named target, package and executable resolve to
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
@@ -3508,7 +3521,7 @@ Optional name for better error messages.
 \f[I]Default:\f[R]
 .IP
 .EX
-\(dqmg7202kynwlydq7c9ghvmfkbh69pmk0l\-source\(dq
+\(dqf1x6cr6h8w6c6w43ggdls29db85l02xg\-source\(dq
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
@@ -3537,6 +3550,10 @@ project brought, or the \f[CR]ghc\f[R] of the package set it selected
 /modules/nixpkgs
 .UE \c
 .SS nixpkgs.cross\-compiler
+\f[B]A function, not a setting.\f[R] A project calls it and uses what
+comes back.
+Assign it only to replace what the call does.
+.PP
 The compiler this driver builds a cross target with, by
 \f[CR]pkgs.pkgsCross\f[R] name.
 Both drivers answer to the same name, so a step that needs the compiler
@@ -3560,6 +3577,10 @@ platform: config.nixpkgs.project.projectCross.<platform>.haskellPackages.ghc
 /modules/nixpkgs
 .UE \c
 .SS nixpkgs.cross\-exe
+\f[B]A function, not a setting.\f[R] A project calls it and uses what
+comes back.
+Assign it only to replace what the call does.
+.PP
 What this driver builds an executable into, for one cross target.
 Both drivers answer to the same name, and what they answer with carries
 the executable at \f[CR]bin/<exe>\f[R], with a wasm target\(cqs binary
@@ -4083,8 +4104,8 @@ here.
 The flags reach the point where a package\(cqs dependencies are worked
 out, rather than only how it is configured.
 .PP
-\f[CR]wasm\-opt\f[R] and \f[CR]closure\f[R] are the bundle optimizer
-settings for whatever is built for this target, which the
+\f[CR]wasm\-opt\f[R] and \f[CR]closure\-compiler\f[R] are the bundle
+optimizer settings for whatever is built for this target, which the
 \f[CR]packages\f[R] entries under them narrow to one package, and their
 \f[CR]components.exes\f[R] entries to one executable of it.
 .PP
@@ -4294,7 +4315,7 @@ through \f[CR]wasm\-optimize\f[R] or \f[CR]js\-optimize\f[R]
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
-.SS platforms.<name>.packages.<name>.closure.enable
+.SS platforms.<name>.packages.<name>.closure\-compiler.enable
 Whether \f[CR]js\-optimize\f[R] runs closure\-compiler at all.
 When false it copies the jsexe through unchanged.
 .PP
@@ -4313,7 +4334,7 @@ null
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
-.SS platforms.<name>.packages.<name>.closure.externs
+.SS platforms.<name>.packages.<name>.closure\-compiler.externs
 Files passed as \f[CR]\-\-externs\f[R], declaring what the program
 reaches by a name the compiler must not rename.
 The jsexe\(cqs own \f[CR]all.externs.js\f[R] is always passed ahead of
@@ -4335,7 +4356,7 @@ null
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
-.SS platforms.<name>.packages.<name>.closure.extraFlags
+.SS platforms.<name>.packages.<name>.closure\-compiler.extraFlags
 Flags appended after the level and the externs, so one of these decides
 what they would have.
 One flag per element, its value in the same string, since the elements
@@ -4361,7 +4382,7 @@ null
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
-.SS platforms.<name>.packages.<name>.closure.level
+.SS platforms.<name>.packages.<name>.closure\-compiler.level
 The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
 .PP
 \f[CR]null\f[R] states nothing, leaving the field to the layer beneath
@@ -4463,7 +4484,7 @@ through \f[CR]wasm\-optimize\f[R] or \f[CR]js\-optimize\f[R]
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
-.SS platforms.<name>.packages.<name>.components.exes.<name>.closure.enable
+.SS platforms.<name>.packages.<name>.components.exes.<name>.closure\-compiler.enable
 Whether \f[CR]js\-optimize\f[R] runs closure\-compiler at all.
 When false it copies the jsexe through unchanged.
 .PP
@@ -4482,7 +4503,7 @@ null
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
-.SS platforms.<name>.packages.<name>.components.exes.<name>.closure.externs
+.SS platforms.<name>.packages.<name>.components.exes.<name>.closure\-compiler.externs
 Files passed as \f[CR]\-\-externs\f[R], declaring what the program
 reaches by a name the compiler must not rename.
 The jsexe\(cqs own \f[CR]all.externs.js\f[R] is always passed ahead of
@@ -4504,7 +4525,7 @@ null
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
-.SS platforms.<name>.packages.<name>.components.exes.<name>.closure.extraFlags
+.SS platforms.<name>.packages.<name>.components.exes.<name>.closure\-compiler.extraFlags
 Flags appended after the level and the externs, so one of these decides
 what they would have.
 One flag per element, its value in the same string, since the elements
@@ -4530,7 +4551,7 @@ null
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
-.SS platforms.<name>.packages.<name>.components.exes.<name>.closure.level
+.SS platforms.<name>.packages.<name>.components.exes.<name>.closure\-compiler.level
 The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
 .PP
 \f[CR]null\f[R] states nothing, leaving the field to the layer beneath
@@ -5189,7 +5210,7 @@ null
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
-.SS platforms.<name>.closure.enable
+.SS platforms.<name>.closure\-compiler.enable
 Whether \f[CR]js\-optimize\f[R] runs closure\-compiler at all.
 When false it copies the jsexe through unchanged.
 .PP
@@ -5208,7 +5229,7 @@ null
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
-.SS platforms.<name>.closure.externs
+.SS platforms.<name>.closure\-compiler.externs
 Files passed as \f[CR]\-\-externs\f[R], declaring what the program
 reaches by a name the compiler must not rename.
 The jsexe\(cqs own \f[CR]all.externs.js\f[R] is always passed ahead of
@@ -5230,7 +5251,7 @@ null
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
-.SS platforms.<name>.closure.extraFlags
+.SS platforms.<name>.closure\-compiler.extraFlags
 Flags appended after the level and the externs, so one of these decides
 what they would have.
 One flag per element, its value in the same string, since the elements
@@ -5256,7 +5277,7 @@ null
 .UR file://%3Cnix-haskell%3E/modules/common.nix
 /modules/common.nix
 .UE \c
-.SS platforms.<name>.closure.level
+.SS platforms.<name>.closure\-compiler.level
 The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
 .PP
 \f[CR]null\f[R] states nothing, leaving the field to the layer beneath
@@ -5625,6 +5646,10 @@ named relative to it.
 /modules/common.nix
 .UE \c
 .SS wasm\-jsffi
+\f[B]A function, not a setting.\f[R] A project calls it and uses what
+comes back.
+Assign it only to replace what the call does.
+.PP
 The \f[CR]ghc_wasm_jsffi.js\f[R] a GHC\-built wasm module needs to be
 instantiated at all, read out of the binary by the compiler that built
 it:
@@ -5723,6 +5748,10 @@ The \f[CR]\-O\f[R] level wasm\-opt runs at.
 /modules/cross/wasm
 .UE \c
 .SS wasm\-optimize
+\f[B]A function, not a setting.\f[R] A project calls it and uses what
+comes back.
+Assign it only to replace what the call does.
+.PP
 A wasm binary optimized and stripped.
 It takes the file rather than the package that carries it, and yields
 the file rather than a directory holding it, so the caller installs it
@@ -5754,8 +5783,8 @@ driver\(cqs, since this runs on a built artifact, outside any driver.
 \f[I]Default:\f[R]
 .IP
 .EX
-<nix\-haskell>/libs/wasm\-opt.nix, run with the settings the named target,
-package and executable resolve to
+<nix\-haskell>/libs/wasm\-opt/run.nix, run with the settings the named
+target, package and executable resolve to
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c

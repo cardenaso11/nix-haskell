@@ -9,7 +9,7 @@
 #   - Adds Node.js to shell.buildInputs when GHCJS is detected
 #   - Carries what a project does with a linked `.jsexe` once a driver has built
 #     it: `js-optimize` for the closure-compiler pass over its `all.js`, settled
-#     by the `closure` settings
+#     by the `closure-compiler` settings
 #
 # The `isGhcjs` option uses a two-part detection strategy:
 #   1. Direct check: Is the host platform GHCJS? (native GHCJS build)
@@ -27,6 +27,8 @@ with lib;
 let bundleOptimizer = import ../../../libs/bundle-optimizer-options.nix { inherit lib; };
 
     bundleSettings = import ../../../libs/bundle-optimizer-settings.nix { inherit lib; };
+
+    functionOption = import ../../../libs/function-option.nix { inherit lib; };
 
 in {
 
@@ -61,22 +63,21 @@ in {
       '';
     };
 
-    closure = bundleOptimizer.closure;
+    closure-compiler = bundleOptimizer.closure-compiler;
 
-    js-optimize = mkOption {
-      type = types.functionTo types.package;
+    js-optimize = functionOption {
       default = { platform ? null, package ? null, exe ? null, jsexe }:
-        import ../../../libs/closure.nix { inherit pkgs lib; }
+        import ../../../libs/closure-compiler/run.nix { inherit pkgs lib; }
           ({ inherit jsexe; } // bundleSettings {
-            tool = "closure";
-            defaults = config.closure;
+            tool = "closure-compiler";
+            defaults = config.closure-compiler;
             inherit (config) packages platforms;
             inherit platform package exe;
           });
       defaultText = literalMD ''
         ```
-        <nix-haskell>/libs/closure.nix, run with the settings the named target,
-        package and executable resolve to
+        <nix-haskell>/libs/closure-compiler/run.nix, run with the settings the
+        named target, package and executable resolve to
         ```
       '';
       description = ''
@@ -94,13 +95,13 @@ in {
         ```
 
         The three names are only what the settings are looked up under, and any
-        of them can be left out to say nothing about it. `closure` is read from
-        the layer that states a field most specifically to the least:
-        `platforms.<platform>.packages.<package>.components.exes.<exe>.closure`,
-        `platforms.<platform>.packages.<package>.closure`,
-        `platforms.<platform>.closure`, then the same package and executable
-        layers of `packages`, and last `closure` itself, which is the only one
-        holding values throughout. They are read from the project's own values
+        of them can be left out to say nothing about it. `closure-compiler` is
+        read from the layer that states a field most specifically to the least:
+        `platforms.<platform>.packages.<package>.components.exes.<exe>.closure-compiler`,
+        `platforms.<platform>.packages.<package>.closure-compiler`,
+        `platforms.<platform>.closure-compiler`, then the same package and
+        executable layers of `packages`, and last `closure-compiler` itself,
+        which is the only one holding values throughout. They are read from the project's own values
         rather than a driver's, since this runs on a built artifact, outside
         any driver.
       '';
