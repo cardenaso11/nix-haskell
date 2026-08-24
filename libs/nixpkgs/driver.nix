@@ -73,11 +73,22 @@ let compose = pkgs.haskell.lib.compose;
       let proj = config."haskell-nix".project;
           projectSrc = toString config."haskell-nix".src-driver;
           locals = config."haskell-nix".lib.selectLocalPackages proj.hsPkgs;
-      in lib.mapAttrs
-           (name: _:
-             let src = proj.pkg-set.config.packages.${name}.src;
-             in { inherit src; external = toString (src.origSrc or src) != projectSrc; })
-           locals;
+
+          # `selectLocalPackages` keys by unit id and gives a package one entry
+          # per component, so a project of one package arrives as
+          # `reflex-todomvc-0.1.0.0-inplace` beside
+          # `reflex-todomvc-0.1.0.0-inplace-reflex-todomvc`. Everything reading
+          # this names a package, so the entries are keyed by the name each
+          # carries and the components of one package collapse together.
+          #
+          # The source is still looked up under the unit id: the package set
+          # answers to both, but only the unit id's entry carries a `src`.
+          entry = key: pkg:
+            let src = proj.pkg-set.config.packages.${key}.src;
+            in lib.nameValuePair pkg.identifier.name
+                 { inherit src; external = toString (src.origSrc or src) != projectSrc; };
+
+      in lib.listToAttrs (lib.mapAttrsToList entry locals);
 
     discovered =
       if ocfg.packages != null
@@ -317,6 +328,10 @@ let compose = pkgs.haskell.lib.compose;
     # the native compiler: without a hackage index in the shell, cabal can
     # only resolve against installed packages. Setup dependencies are left
     # out; they build on the native side.
+    #
+    # `cross-ghc-env.nix` rather than the set's own `ghcWithPackages`, which
+    # aims the compiler at a library directory it builds from the version and
+    # so cannot wrap a relocatable bindist.
     crossGhcEnv = platform:
       let chp = projectCross.${platform}.haskellPackages;
           selected = map (p: chp.${p.identifier.name}) (selection selectionSet);
@@ -325,8 +340,10 @@ let compose = pkgs.haskell.lib.compose;
             (n: _: n == "buildDepends"
               || (lib.hasSuffix "HaskellDepends" n && n != "setupHaskellDepends"))
             p.getCabalDeps));
-      in chp.ghcWithPackages
-           (_: lib.filter (d: d != null && notSelected d) (lib.concatMap depsOf selected));
+      in import ./cross-ghc-env.nix { inherit pkgs lib; } {
+           ghc = chp.ghc;
+           packages = lib.filter (d: d != null && notSelected d) (lib.concatMap depsOf selected);
+         };
 
     crossWrappers =
       let mkWrappers = import ../cross-wrappers.nix { inherit pkgs lib; };

@@ -51,6 +51,20 @@
         webkit2gtk = false;
       };
       reflex-todomvc.flags.webkitgtk = false;
+
+      # nixpkgs builds a Haskell library with profiling on, which reruns every
+      # Template Haskell splice in a second pass, and GHCi cannot link
+      # `deriveGEq` from dependent-sum-template that way:
+      #
+      #   GHC.ByteCode.Linker.lookupCE
+      #   couldn't find closure:$fDeriveGEQName_$cderiveGEq
+      #
+      # Profiling is a property of a whole dependency chain rather than of one
+      # package, so the dependents go with it: a profiling build of reflex-dom
+      # looks for interface files reflex-dom-core no longer has.
+      reflex-dom-core.enableLibraryProfiling = false;
+      reflex-dom.enableLibraryProfiling = false;
+      reflex-todomvc.enableLibraryProfiling = false;
     };
 
     options.overrides = [
@@ -59,6 +73,9 @@
       (self: super: { chrome-test-utils = null; })
     ];
 
+    # This driver has no wasm compiler of its own worth building against, which
+    # is why the matrix gives it a wasm target only through the ghc-wasm-meta
+    # pin. Its shell follows: `wasmMeta` in release.nix adds the wasi32 tools.
     shell.crossPlatforms = ps: with ps; [ ghcjs ];
   };
 

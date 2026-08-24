@@ -15,10 +15,8 @@
 #
 # Combinations that cannot work are absent rather than failing. The nixpkgs
 # driver has no 9.14 Haskell package set worth building against, which is why
-# that driver's own compiler is 9.12; and its shell has no wasm tools, because
-# it builds a shell's cross tools with nixpkgs' `ghcWithPackages`, which looks
-# for a compiler's package database under `lib/<prefix>ghc-<version>` while a
-# relocatable bindist keeps it directly under `lib`.
+# that driver's own compiler is 9.12, and why it reaches a wasm target only
+# through the ghc-wasm-meta pin.
 { system ? builtins.currentSystem, inputs ? {} }:
 
 let nix-haskell = import ../.. { inherit system inputs; };
@@ -48,6 +46,13 @@ let nix-haskell = import ../.. { inherit system inputs; };
         ];
 
         platforms.wasi32.packages.reflex-dom.flags.use-warp = false;
+
+        # The bindist is a wasm compiler the nixpkgs driver can carry cross
+        # tools for, which its own is not, so its shell gains the target here
+        # rather than in the project. `mkForce`, since the option is typed
+        # `unspecified` and two selectors would otherwise be merged by applying
+        # both and joining what they return.
+        nixpkgs.shell.crossPlatforms = lib.mkForce (ps: with ps; [ ghcjs wasi32 ]);
       };
 
     variant = series: withWasmMeta: modules:
@@ -215,8 +220,8 @@ in {
       };
 
       nixpkgs = {
-        ghc912 = shellBuilt "nixpkgs" "9.12" true [ "ghcjs" ];
-        ghc914 = shellBuilt "nixpkgs" "9.14" true [ "ghcjs" ];
+        ghc912 = shellBuilt "nixpkgs" "9.12" true [ "ghcjs" "wasi32" ];
+        ghc914 = shellBuilt "nixpkgs" "9.14" true [ "ghcjs" "wasi32" ];
       };
 
     };

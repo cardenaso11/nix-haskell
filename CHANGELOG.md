@@ -87,6 +87,16 @@
 - A `ghc-wasm-meta` pin, and `haskell-nix-wasm-meta` / `nixpkgs-wasm-meta`
   outputs in `examples/reflex-todomvc` building the wasm target with its GHC
   9.12 bindist through either driver.
+- Wasm cross tools in the nixpkgs driver's shell, so
+  `nixpkgs.shell.crossPlatforms` takes a wasm target as well as a javascript
+  one. It builds the wrapped cross compiler itself rather than with nixpkgs'
+  `ghcWithPackages`, which reaches into a package database under
+  `lib/<prefix>ghc-<version>` and so cannot wrap a relocatable bindist, whose
+  database sits directly under `lib`. The database is found by asking the
+  compiler for its library directory, and stays where the compiler keeps it:
+  a bindist registers its own libraries under `${pkgroot}`, the parent of
+  `package.conf.d`, so a database built anywhere else sends every one of them
+  outside the store path.
 
 ### Changed (breaking)
 
