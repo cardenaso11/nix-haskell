@@ -1,17 +1,18 @@
 # Filter a source tree through the .gitignore files it carries, so build
-# artifacts never reach the nix store. Without this a project whose `src` is
-# `./.` copies its own dist-newstyle into every derivation that names it, and
-# rehashes the lot after each build.
+# artifacts never reach the nix store. Without this, a project whose `src`
+# is `./.` copies its own dist-newstyle into every derivation that names
+# the source, and each build changes the hash of them all.
 #
-# A `src` that is already a derivation or a store path is returned untouched:
-# there is nothing left to strip.
+# A `src` that is already a derivation or a store path is returned
+# untouched. There is nothing left to strip.
 #
-# Patterns are read with the tree root as their base, so a pattern that
-# contains a slash ("backend/data/*") only matches relative to the root, while
-# a bare one ("dist-newstyle") matches at any depth. Nested .gitignore files
-# can be pulled in through `ignoreFiles`, but their anchored patterns are
-# reinterpreted against the root, so pass the bare ones through `patterns`
-# instead when that matters.
+# Patterns are read with the tree root as their base:
+# - A pattern that contains a slash ("backend/data/*") matches relative to
+#   the root only.
+# - A bare pattern ("dist-newstyle") matches at any depth.
+# Nested .gitignore files can be read through `ignoreFiles`, but their
+# anchored patterns are reinterpreted against the root. Where that matters,
+# pass the bare patterns through `patterns` instead.
 #
 # Example:
 #
@@ -42,8 +43,8 @@ let inherit (pkgs) lib;
       ([ ".git" patterns ] ++ map readIfPresent ignoreFiles);
 
     # A path that already points into the store (a flake's own source, an
-    # unpacked thunk) has been filtered by whatever produced it; re-copying it
-    # under a new name would only duplicate it.
+    # unpacked thunk) was filtered by whatever produced it. A copy under a
+    # new name would only duplicate it.
     inStore = lib.hasPrefix builtins.storeDir (toString src);
 
 in if !(builtins.isPath src) || inStore

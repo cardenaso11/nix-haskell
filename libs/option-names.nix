@@ -1,7 +1,7 @@
-# Names of the user-settable options in an evaluated options tree. Internal,
-# read-only and hidden options are excluded, as are the namespaces listed in
-# `excludes`. Sub-options of submodule-typed options are named one level
-# deep, and a plain namespace of options counts as a single name.
+# Names of the user-settable options in an evaluated options tree. The list
+# excludes internal, read-only and hidden options, and the namespaces listed
+# in `excludes`. Sub-options of submodule-typed options appear one level
+# deep. A plain namespace of options counts as a single name.
 #
 # Example:
 #
@@ -23,38 +23,19 @@
 { lib, options, excludes ? [] }:
 
 with lib;
+with (import ./prelude { inherit lib; });
 
-let isVisible = option':
-      let defaults = {
-            visible = true;
-            internal = false;
-            readOnly = false;
-          };
-          option = defaults // option';
-      in all id
-        [ (option.visible != false)
-          (!option.internal)
-          (!option.readOnly)
-        ];
-
-    subNames = prefix: opts:
-      let visibleOptions = filterAttrs (n: o: n != "_module" && isOption o && isVisible o) opts;
+let subNames = prefix: opts:
+      let visibleOptions = filterAttrs (n: o: n != "_module" && isOption o && is-visible o) opts;
           visibleOptionNames = attrNames visibleOptions;
       in map (n: prefix + n) visibleOptionNames;
 
     expand = name: option:
-      let type = option.type;
-          elemType = type.nestedTypes.elemType or null;
-
-          isSubmodule = type.name == "submodule";
-          isAttrsOfSubmodule =
-               (type.name == "attrsOf" || type.name == "lazyAttrsOf")
-            && (elemType.name or "") == "submodule";
-
-      in  if isSubmodule
-            then subNames "${name}." (type.getSubOptions [])
-          else if isAttrsOfSubmodule
-            then subNames "${name}.*." (elemType.getSubOptions [])
+      let kind = submodule-type option.type;
+      in  if kind.isSubmodule
+            then subNames "${name}." (option.type.getSubOptions [])
+          else if kind.isAttrsOfSubmodule
+            then subNames "${name}.*." (kind.elemType.getSubOptions [])
           else [ name ];
 
     includedOptions = filterAttrs
@@ -63,7 +44,7 @@ let isVisible = option':
 
     optionNames = name: option:
       if isOption option
-      then optionals (isVisible option) (expand name option)
+      then optionals (is-visible option) (expand name option)
       else [ name ];
 
 in sort lessThan (concatLists (mapAttrsToList optionNames includedOptions))

@@ -1,8 +1,11 @@
-# A default for a common option that individual drivers may override:
-# between the mirror seeds (1400) and the declaration defaults (1500), so a
-# top-level definition reaches the mirrors, but the bare default does not
-# override a driver's choice. mkDefault (1000) cannot express this: it would
-# beat the seeds, cutting the mirrors off from the top-level values.
+# A default a driver states for itself on a mirrored common option.
+# Priority 1450 sits between the mirror seeds (1400) and the declaration
+# defaults (1500):
+# - A top-level definition seeds the mirror at 1400 and beats the driver
+#   default.
+# - The driver default beats the bare declaration default at 1500.
+# mkDefault (1000) cannot express this. It would beat the seeds and cut the
+# mirrors off from the top-level values.
 #
 # Example:
 #

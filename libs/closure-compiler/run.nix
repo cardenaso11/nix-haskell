@@ -1,9 +1,10 @@
-# A linked `.jsexe` directory copied through with its `all.js` replaced by what
-# closure-compiler makes of it. The rest of the directory is left alone, so
-# whatever loads the program keeps finding what it expects beside it.
+# A linked `.jsexe` directory copied through with its `all.js` replaced by
+# what closure-compiler makes of it. The rest of the directory stays as it
+# was, so whatever loads the program keeps finding what it expects beside
+# it.
 #
-# The directory's own `all.externs.js`, which the linker writes next to the
-# program, is always passed: under ADVANCED the compiler renames everything it
+# The linker writes `all.externs.js` next to the program, and the script
+# always passes it, since under ADVANCED the compiler renames everything it
 # is not told the runtime knows by name.
 #
 # Example:
@@ -34,11 +35,11 @@
 #                                                # same layout either way
 { pkgs, lib }:
 
+with (import ../prelude { inherit lib; });
+
 { jsexe, enable, level, externs, extraFlags }:
 
-let # A whole derivation names itself; a directory inside one is named by its own
-    # last component, rather than by the store path it sits in.
-    name = if lib.isDerivation jsexe then jsexe.name else baseNameOf jsexe;
+let name = artifact-name jsexe;
 
     flags = lib.concatStringsSep " " (
       [ "--compilation_level ${level}" ]

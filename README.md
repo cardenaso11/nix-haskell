@@ -11,13 +11,13 @@ project configuration drives interchangeable build backends ("drivers"):
   dependency versions come from the nixpkgs package set, and most of the
   dependency closure comes straight from cache.nixos.org.
 
-Every option of the common module is honored by every driver; a check
+Every option of the common module is honored by every driver. A check
 enforces that totality (see [Checks](#checks)). Driver-specific
 configuration lives under the driver's own namespace (`haskell-nix.*`,
 `nixpkgs.*`).
 
 The common options are also mirrored under each driver's namespace, seeded
-with the project-wide values: a definition there overrides the common value
+with the project-wide values. A definition there overrides the common value
 for that driver only.
 
 ```nix
@@ -91,7 +91,7 @@ Applicable to every driver. The full reference is in the
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
 | `name` | `nullOr str` | from `src` | Project name |
-| `src` | `path` | — | Project source directory |
+| `src` | `path` | none | Project source directory |
 | `system` | `str` | `builtins.currentSystem` | Build system |
 | `compiler` | `submodule` | the driver's own | GHC to build with: a name, a package from outside the driver's sets, per platform |
 | `clean-src` | `bool` | `true` | Filter `src` through its `.gitignore` |
@@ -124,9 +124,10 @@ compiler.name = "ghc912";
 
 A compiler from outside those package sets, such as a bindist or a cross
 toolchain, is given as a package instead. Both drivers read a handful of
-attributes off a compiler that a bindist does not carry, so they are given
-alongside it, and `toolchain` names the C tools it was configured with, which
-everything built with it is then pointed at:
+attributes off a compiler, and a bindist does not carry them, so they are
+given alongside it. `toolchain` names the C tools the compiler was
+configured with. Everything built with the compiler is pointed at those
+tools:
 
 ```nix
 compiler.platforms.wasi32 = {
@@ -160,13 +161,12 @@ compiler.platforms.wasi32 = {
 | `nixpkgs.enableExternalInterpreter` | nixpkgs | Whether Template Haskell splices are proxied to the target |
 
 `platforms` is keyed by `pkgs.pkgsCross` platform name, the same keys
-`shell.crossPlatforms` and `projectCross` use. An entry is additive: a platform
-without one uses the compiler above the table, and the fields an entry leaves
-unset are resolved from its own `package` rather than inherited.
+`shell.crossPlatforms` and `projectCross` use. An entry is additive: a
+platform without one uses the compiler above the table. The fields an entry
+leaves unset are resolved from its own `package`, not inherited.
 
-Describing a compiler is worth doing once. The modules under
-`nix-haskell-compilers` are ready-made entries, imported like the patch
-modules:
+Describe such a compiler once. The modules under `nix-haskell-compilers`
+are ready-made entries, imported like the patch modules:
 
 ```nix
 { nix-haskell-compilers, ... }:
@@ -206,9 +206,8 @@ Fields: `flags`, `patches`, `ghcOptions`, `configureFlags`,
 `postInstall`, and the bundle optimizer settings `wasm-opt`,
 `closure-compiler` and `components.exes.<exe>.{wasm-opt,closure-compiler}`.
 
-One divergence to be aware of with the hooks: haskell.nix runs them for
-each component derivation of the package, nixpkgs once in the single
-package derivation.
+The hooks diverge in one way: haskell.nix runs them for each component
+derivation of the package, nixpkgs once in the single package derivation.
 
 The same fields can be given for one cross platform only, keyed by
 `pkgs.pkgsCross` platform name, and are merged over the project-wide ones:
@@ -218,17 +217,17 @@ platforms.wasi32.packages.reflex-dom.flags.use-warp = false;
 ```
 
 This is how a platform conditional in a cabal file or project file is
-expressed for the nixpkgs driver, which has no solver to follow one. The flags
-in particular decide a package's dependencies and not merely how it is
-configured, so they take effect where the package's expression is generated
-rather than on a package already built. The haskell.nix driver follows such
-conditionals itself, and applies an entry given here in the project whose
-target is that platform.
+expressed for the nixpkgs driver, which has no solver to follow one. The
+flags in particular decide a package's dependencies, not merely its
+configuration. They take effect where the package's expression is
+generated, not on a package already built. The haskell.nix driver follows
+such conditionals itself, and applies an entry given here in the project
+whose target is that platform.
 
 #### Bundle optimizers
 
-What a driver gives back from a cross build is the artifact as linked: a `.wasm`
-binary, or a `.jsexe` directory. Three read-only options turn one of those into
+A driver gives back a cross build as the artifact it linked: a `.wasm`
+binary, or a `.jsexe` directory. Three read-only options turn that into
 what gets shipped:
 
 | Option | Takes | Gives |
@@ -252,21 +251,22 @@ in pkgs.runCommand "frontend.wasm-bundle" {} ''
 ```
 
 Run `wasm-jsffi` on the binary as linked, since `wasm-optimize` strips the
-sections it reads. Its compiler has to be the one that built the binary, which
-is what each driver's `cross-compiler` names, by `pkgs.pkgsCross` platform name.
+sections it reads. Its compiler has to be the one that built the binary.
+Each driver's `cross-compiler` names that compiler, by `pkgs.pkgsCross`
+platform name.
 
-Naming an executable is what gets it a bundle without calling anything, and for
-the haskell.nix driver it is also what installs its `.jsexe`: that driver
-installs only the bundled `bin/<exe>` for a javascript target, while
-closure-compiler needs the directory the linker leaves beside it. The nixpkgs builder copies that
-directory out on its own.
+Naming an executable gets it a bundle without calling anything. For the
+haskell.nix driver, it also installs the executable's `.jsexe`: that driver
+installs only the bundled `bin/<exe>` for a javascript target, and
+closure-compiler needs the directory the linker leaves beside it. The
+nixpkgs builder copies that directory out on its own.
 
 ```nix
 platforms.wasi32.packages.frontend.components.exes.frontend = {};
 platforms.ghcjs.packages.frontend.components.exes.frontend = {};
 ```
 
-The result is then on the tree, read through a driver, which is the only thing
+The result is then on the tree. Read it through a driver, the only thing
 that knows what it built:
 
 ```nix
@@ -278,19 +278,18 @@ in {
 }
 ```
 
-`optimized` is the executable through that target's optimizer, `jsffi` the
-`ghc_wasm_jsffi.js` a wasm binary needs and `null` off a wasm target. Read
-anywhere but through a driver, as `config.platforms.…`, both are `null`, since
-there is no project to ask what it built. Neither is read-only: a project with
-something else to ship can define either.
+`optimized` is the executable through that target's optimizer. `jsffi` is
+the `ghc_wasm_jsffi.js` a wasm binary needs, and `null` for every other
+target. Read anywhere but through a driver, as `config.platforms.…`, both
+are `null`: there is no project to ask what it built. Neither is read-only.
+A project with something else to ship can define either.
 
-What each driver builds an executable into is `cross-exe`, which is what the
-bundles optimize, and is there for anything else that wants a cross build by
-name.
+`cross-exe` is what each driver builds an executable into. The bundles
+optimize it, and anything else that wants a cross build by name can use it.
 
 The flags come from `wasm-opt` and `closure-compiler`, and five layers can
-speak for them. The names a transform is given are only what it looks the
-settings up under, and any of them can be left out:
+state them. The names a transform is given are only lookup keys for the
+settings, and any of them can be left out:
 
 ```nix
 # whatever the target, for everything
@@ -306,13 +305,18 @@ platforms.wasi32.packages.frontend.wasm-opt.extraFlags = [ "--low-memory-unused"
 platforms.wasi32.packages.frontend.components.exes.frontend.wasm-opt.enable = false;
 ```
 
-The layer that states a field most specifically decides it, `null` states
+The most specific layer that states a field decides it. `null` states
 nothing, and only `wasm-opt` and `closure-compiler` themselves hold every
-field. From most specific to least: an executable of a package on one target,
-that package on that target, that target, then the same executable and package
-layers whatever the target, then the tool's own settings. `enable = false`
-copies the input through instead, so the caller installs the same path either
-way.
+field. The order, from most specific to least:
+
+1. an executable of a package on one target
+2. that package on that target
+3. that target
+4. the same executable, then the same package, whatever the target
+5. the tool's own settings
+
+`enable = false` copies the input through instead, so the caller installs
+the same path either way.
 
 #### Source repository packages
 
@@ -359,8 +363,8 @@ shell = {
 };
 ```
 
-`crossPlatforms` selects over `pkgs.pkgsCross` platform names. When GHCJS or
-WASM targets are selected, Node.js is automatically added to `buildInputs`.
+`crossPlatforms` selects over `pkgs.pkgsCross` platform names. When a GHCJS
+or wasm target is selected, Node.js is added to `buildInputs`.
 
 
 ### The haskell.nix driver
@@ -451,15 +455,15 @@ or set `nixpkgs.options.use-plan = true` to reuse cabal's own reading of
 `cabal.project` (exact globs, `optional-packages`, conditionals) at the cost
 of evaluating the haskell.nix toolchain.
 
-This driver has no solver, so a version bound written before the compiler in
-hand is enforced rather than reasoned about, and `allow-newer` in a
-`cabal.project` means nothing to it. `jailbreak` lifts the bounds a cabal file
-states outright, and cannot reach one inside a conditional stanza.
-`nixpkgs.options.exact-configuration` removes the question: Cabal is told every
-direct dependency, by the id its package database records, and every flag the
-package declares, so it resolves nothing and reads no bound. That is how the
-haskell.nix driver configures every package, which is why `allow-newer` takes
-effect there.
+This driver has no solver. It enforces a version bound written before the
+compiler in hand instead of reasoning about it, and `allow-newer` in a
+`cabal.project` means nothing to it. `jailbreak` lifts the bounds a cabal
+file states outright, but cannot reach a bound inside a conditional stanza.
+`nixpkgs.options.exact-configuration` removes the problem: Cabal is told
+every direct dependency, by the id its package database records, and every
+flag the package declares. Cabal then resolves nothing and reads no bound.
+The haskell.nix driver configures every package this way, so `allow-newer`
+takes effect there.
 
 ```nix
 nixpkgs.options.exact-configuration =
@@ -469,21 +473,22 @@ nixpkgs.options.exact-configuration =
 Caveats, by construction of nixpkgs' Haskell infrastructure:
 
 - No version solving: dependency versions are those of the nixpkgs pin.
-  `index-state` and `cabalProjectFreeze` do not exist here, and only the
-  `source-repository-package` stanzas of the project text are interpreted;
-  arch-conditional `package` flag stanzas are not. Flags that differ per
+  `index-state` and `cabalProjectFreeze` do not exist here. Only the
+  `source-repository-package` stanzas of the project text are interpreted.
+  Arch-conditional `package` flag stanzas are not. Flags that differ per
   driver go into the mirrored `nixpkgs.packages.<name>.flags`.
-- Test suites run inside the package build; disable per package with
+- Test suites run inside the package build. Disable them per package with
   `packages.<name>.doCheck = false`.
 - `ghcOptions` applies to the project's own packages only, so the binary
   cache stays valid for the dependency closure.
-- `shell.tools` versions are not solvable; tools resolve by name from `pkgs`
-  and the package set.
+- `shell.tools` versions are not solvable. Tools resolve by name from
+  `pkgs` and the package set.
 - Cross-compilation mirrors `pkgs.pkgsCross`, which supports far fewer
-  targets than haskell.nix. A `compiler.platforms` entry carrying a toolchain
-  gets a package set built with that toolchain instead, which is what a target
-  nixpkgs cannot assemble a working one for needs. A toolchain on the compiler
-  above the table is not honored here, since only a cross set can be given one.
+  targets than haskell.nix. A `compiler.platforms` entry carrying a
+  toolchain gets a package set built with that toolchain instead. A target
+  nixpkgs cannot assemble a working set for needs exactly that. A toolchain
+  on the compiler above the table is not honored here, since only a cross
+  set can be given one.
 
 
 ### Checks
@@ -496,21 +501,21 @@ recording how it is honored. `nix flake check` verifies:
   without teaching every driver about it fails evaluation.
 - `every-option-<driver>`: a fixture setting every common option
   instantiates through the driver's whole translation.
-- `hello-<driver>`: a hello example actually builds with each driver.
+- `hello-<driver>`: the hello example builds with each driver.
 
 The haskell.nix checks want the IOG binary cache (configured in the flake's
 `nixConfig`; pass `--accept-flake-config` if it is not in your nix.conf).
 
 `release.nix` gathers those checks together with the reflex-todomvc example
-built for every driver, compiler and cross target it is meant to work for, each
-of them twice: as the drivers build it, and as a person would inside the
-project's shell with the cross target's own cabal. It is a tree, reached as
-`legacyPackages.<system>.release` through the flake:
+built for every driver, compiler and cross target it is meant to work for.
+Each combination builds twice: as the drivers build it, and as a person
+would inside the project's shell with the cross target's own cabal. It is a
+tree, reached as `legacyPackages.<system>.release` through the flake:
 
 ```bash
 nix-build release.nix -A checks
 nix-build release.nix -A reflex-todomvc.build.haskell-nix.ghc912.wasi32
-nix-build release.nix -A all      # the lot, one symlink tree
+nix-build release.nix -A all      # everything, one symlink tree
 ```
 
 The matrix stays out of `nix flake check`, which builds only the repo's own
@@ -530,11 +535,11 @@ or a packed thunk.
 }
 ```
 
-The pins in `pins/` supply `nixpkgs` and `haskell-nix`. Entries of your
-own can be added freely, and are resolved the same way.
+The pins in `pins/` supply `nixpkgs` and `haskell-nix`. Add entries of your
+own freely. They resolve the same way.
 
-Flake inputs are picked up automatically, so `inputs.nixpkgs` follows the
-consuming flake's `nixpkgs` without any wiring. Precedence runs
+Flake inputs arrive without any wiring, so `inputs.nixpkgs` follows the
+consuming flake's `nixpkgs`. Precedence runs
 `pins/` < flake inputs < whatever you set explicitly.
 
 
@@ -585,9 +590,10 @@ was introduced:
       config.permittedInsecurePackages = [ "libsoup-2.74.3" ];
     };
     options.overrides = [
-      # test dependency of reflex-dom-core, lives in the reflex-dom
-      # repository; never built since checks are off for fetched packages
-      (self: super: { chrome-test-utils = null; })
+      # A test dependency of reflex-dom-core that lives in the reflex-dom
+      # repository. It is never built, since checks are off for fetched
+      # packages.
+      (_: _: { chrome-test-utils = null; })
     ];
   };
 
@@ -618,6 +624,5 @@ or [docs/modules.md](docs/modules.md)
 
 > **P.S.** The name is nothing clever: just the generic `{tool}-{lang}`
 > pattern (nix-haskell, nix-rust, ...). The resemblance to
-> [haskell.nix](https://github.com/input-output-hk/haskell.nix), which
-> serves as one of the drivers here, is a coincidence of convention, not
-> imitation.
+> [haskell.nix](https://github.com/input-output-hk/haskell.nix), one of
+> the drivers here, is a coincidence of convention, not imitation.

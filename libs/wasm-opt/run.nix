@@ -1,8 +1,8 @@
-# A wasm binary put through wasm-opt and then stripped of its custom sections,
-# which nothing looks at once the JSFFI bindings have been read out of them
-# (`wasm-jsffi.nix`, which therefore runs on the binary as linked rather than on
-# this). The output is the file itself rather than a directory holding it, so a
-# caller installs it under whatever name it wants.
+# A wasm binary put through wasm-opt and then stripped of its custom
+# sections. Nothing reads those sections once the JSFFI bindings have been
+# read out of them, so run the JSFFI read on the binary as linked, before
+# this. The output is the file itself rather than a directory holding it,
+# so a caller installs it under whatever name it wants.
 #
 # Example:
 #
@@ -26,11 +26,11 @@
 #                                              # the same path either way
 { pkgs, lib }:
 
+with (import ../prelude { inherit lib; });
+
 { wasm, enable, level, extraFlags }:
 
-let # A whole derivation names itself; a file inside one is named by its own last
-    # component, rather than by the store path it sits in.
-    name = if lib.isDerivation wasm then wasm.name else baseNameOf wasm;
+let name = artifact-name wasm;
 
     flags = lib.concatStringsSep " " ([ "-all" "-O${level}" ] ++ extraFlags);
 

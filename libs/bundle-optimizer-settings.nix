@@ -1,14 +1,19 @@
-# The settings an optimizer runs with, resolved from the layers a project can
-# state them on. From most specific to least: one executable of a package built
-# for one cross target, that package for that target, that target as a whole,
-# then the same executable and package whatever the target, and last the tool's
-# own defaults. The most specific layer that states a field decides it, and
-# `null` states nothing. Only the defaults carry every field, so all of them are
-# answered.
+# The settings an optimizer runs with, resolved from the layers a project
+# can state them on. The most specific layer that states a field decides it,
+# in this order:
 #
-# A target, package or executable with no entry is a layer that states nothing
-# rather than an error: the settings are optional at every layer, and an
-# optimizer is told these names only to pick up whatever was said about them.
+# 1. One executable of a package, built for one cross target.
+# 2. That package for that target.
+# 3. That target as a whole.
+# 4. The same executable, then the same package, whatever the target.
+# 5. The tool's own defaults, the only layer that carries every field, so
+#    every field is answered.
+#
+# `null` states nothing. An optimizer told no names takes the defaults
+# whole. A target, package or executable with no entry is a layer that
+# states nothing rather than an error: the settings are optional at every
+# layer, and an optimizer is told these names only to pick up whatever was
+# said about them.
 #
 # Example:
 #
@@ -47,11 +52,8 @@
 #       extraFlags = [ "--language_in UNSTABLE" "--warning_level QUIET" ];
 #     };
 #   }
-#   => { enable = true;                  # an optimizer told no names takes the
-#        level = "ADVANCED";             # defaults whole
-#        externs = [];
-#        extraFlags = [ "--language_in UNSTABLE" "--warning_level QUIET" ];
-#      }
+#   => the defaults, whole: an optimizer told no names has no other layer to
+#      read
 { lib }:
 
 { tool, defaults, packages ? {}, platforms ? {}, platform ? null, package ? null, exe ? null }:
@@ -71,7 +73,11 @@ let # What a `packages` tree states, the executable's own layer ahead of the
 
     stated = value: value != null;
 
-in lib.zipAttrsWith (_: lib.findFirst stated null)
-     (lib.optionals onTarget (layersIn target.packages ++ [ target.${tool} ])
+    layers =
+      lib.optionals onTarget (layersIn target.packages ++ [ target.${tool} ])
       ++ layersIn packages
-      ++ [ defaults ])
+      ++ [ defaults ];
+
+    firstStated = lib.zipAttrsWith (_: lib.findFirst stated null);
+
+in firstStated layers

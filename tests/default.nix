@@ -14,7 +14,7 @@
 #                               the settings produce
 #   every-option-<driver>       the every-option fixture instantiates through
 #                               the driver's whole translation (no compiling)
-#   hello-<driver>              the hello example actually builds
+#   hello-<driver>              the hello example builds
 #
 # Runnable without the flake: nix-build tests -A translation-totality
 { system ? builtins.currentSystem
@@ -114,32 +114,36 @@ let eval = import ../eval.nix { inherit system pkgs inputs; };
           nativeOf = p: (resolved p).native;
           wasiOf = p: (resolved p).resolve "wasi32";
 
-          failures =
-            # each driver's own compiler, when the project names none
+          # each driver's own compiler when the project names none, and a
+          # driver default still reaching a field the project left alone
+          fallbackFailures =
             optional (unset.config."haskell-nix".compiler.name != "ghc914")
               "the haskell.nix driver does not fall back to ghc914"
             ++ optional (unset.config.nixpkgs.compiler.name != "ghc912")
               "the nixpkgs driver does not fall back to ghc912"
-            # a driver default still reaches a field the project left alone
             ++ optional (cross.config.nixpkgs.compiler.platforms.wasi32.targetPrefix != null)
-              "a platform entry loses the fields the project did not set"
-            # names derived from a package, and the stock name derived from the
-            # version rather than from the name
-            ++ optional ((nativeOf package).name != "ghc9122")
+              "a platform entry loses the fields the project did not set";
+
+          # names derived from a package, the stock name derived from the
+          # version rather than from the name, and the attributes both
+          # drivers read off a compiler
+          derivationFailures =
+            optional ((nativeOf package).name != "ghc9122")
               "a compiler package's name is not derived from its version"
             ++ optional ((nativeOf named).name != "ghc912")
               "the name the project gave is not kept"
             ++ optional ((nativeOf named).stockName != "ghc9124")
               "the stock name is not derived from the version alone"
-            # the attributes both drivers read off a compiler
             ++ optional ((nativeOf named).annotated.libDir or null != "lib")
               "libDir is not spliced onto the compiler"
             ++ optional ((nativeOf named).annotated.haskellCompilerName or null != "ghc-9.12.4.20260731")
               "haskellCompilerName is not derived from the version"
             ++ optional ((nativeOf named).annotated.enableShared or null != true)
-              "enableShared does not default to true"
-            # platform lookup, and its fall back to the compiler above the table
-            ++ optional ((resolved cross).targetKey wasi != "wasi32")
+              "enableShared does not default to true";
+
+          # platform lookup, and its fall back to the compiler above the table
+          platformFailures =
+            optional ((resolved cross).targetKey wasi != "wasi32")
               "a target platform does not find its own entry"
             ++ optional ((resolved cross).targetKey native != system)
               "the native platform does not resolve to the native system"
@@ -157,17 +161,21 @@ let eval = import ../eval.nix { inherit system pkgs inputs; };
             ++ optional (! (resolved cross).anyExtraNonReinstallablePkgs)
               "boot packages named by a platform entry are not noticed"
             ++ optional ((wasiOf cross).extraNonReinstallablePkgs != [ "system-cxx-std-lib" ])
-              "a platform entry's boot packages do not reach the driver"
-            # a compiler with nothing to name it, and a platform that is not one
-            ++ optional (builtins.tryEval (nativeOf (project {
+              "a platform entry's boot packages do not reach the driver";
+
+          # a compiler with nothing to name it, and a platform that is not one
+          errorFailures =
+            optional (builtins.tryEval (nativeOf (project {
                  package = derivation { name = "nameless"; builder = "/bin/sh"; inherit system; };
                })).name).success
               "a compiler with no version and no name does not fail"
             ++ optional (builtins.tryEval
                  ((resolved (project { platforms.nonsense.name = "ghc912"; })).targetKey wasi)).success
-              "a platform key that names no platform does not fail"
-            # the drivers, given a compiler package
-            ++ optional ((selection package (fakePkgs native)).ghc9122.name or null != (stub "9.12.2").name)
+              "a platform key that names no platform does not fail";
+
+          # the drivers, given a compiler package
+          selectionFailures =
+            optional ((selection package (fakePkgs native)).ghc9122.name or null != (stub "9.12.2").name)
               "the haskell.nix driver's compilerSelection does not return the package"
             ++ optional ((selection cross (fakePkgs native)).ghc912 or null != "stock-ghc912")
               "a project without its own native compiler does not use the driver's"
@@ -175,6 +183,13 @@ let eval = import ../eval.nix { inherit system pkgs inputs; };
               "a platform entry is not dispatched on the target platform"
             ++ optional (package.config.nixpkgs.haskellPackages.ghc.name or null != (stub "9.12.2").name)
               "the nixpkgs driver's base package set does not carry the compiler";
+
+          failures =
+            fallbackFailures
+            ++ derivationFailures
+            ++ platformFailures
+            ++ errorFailures
+            ++ selectionFailures;
       in if failures == []
          then pkgs.runCommand "compiler-spec" {} "echo ok > $out"
          else throw (concatStringsSep "\n" failures);
@@ -189,8 +204,9 @@ let eval = import ../eval.nix { inherit system pkgs inputs; };
 
           commandOf = drv: drv.drvAttrs.buildCommand;
 
-          # The flags become a match pattern, which a store path may not appear
-          # in, while the command line they are looked for in may.
+          # The flags become a match pattern, and a store path may not
+          # appear in a pattern. The command line they are searched in may
+          # contain one.
           runs = flags: drv:
             hasInfix (builtins.unsafeDiscardStringContext flags) (commandOf drv);
 
@@ -223,18 +239,19 @@ let eval = import ../eval.nix { inherit system pkgs inputs; };
 
           installed = (installJsexe true).config.content;
 
-          failures =
-            # nothing named, so the tool's own settings decide throughout
+          # which layer decides a field: nothing named, a package and one of
+          # its executables, a target and the layers under it, a layer that
+          # states nothing, a package with no entry at all, the strip that
+          # follows, and what closure-compiler is given
+          layerFailures =
             optional (! runs "-all -Oz --converge" (wasmOpt {}))
               "an optimizer told no names does not take the settings of the tool itself"
-            # a package, and then one of its executables, over those
             ++ optional (! runs "-all -O3 --converge" (wasmOpt { package = "every-option"; }))
               "a package's own level does not beat the tool's"
             ++ optional (! runs "-all -O3 --strip-dwarf" (wasmOpt {
                  package = "every-option"; exe = "every-option";
                }))
               "an executable's own flags do not beat its package's"
-            # a target, and the package and executable layers under it
             ++ optional (! runs "-all -Os --converge" (wasmOpt { platform = "wasi32"; }))
               "a target's own level does not beat the tool's"
             ++ optional (! runs "-all -Os --low-memory-unused" (wasmOpt {
@@ -245,41 +262,51 @@ let eval = import ../eval.nix { inherit system pkgs inputs; };
                  platform = "wasi32"; package = "every-option"; exe = "every-option";
                }))
               "an executable on one target does not beat its package on that target"
-            # a layer that states nothing, and a package with no entry at all
             ++ optional (! runs "-all -Oz --converge" (wasmOpt { package = "absent-package"; }))
               "a package entry stating nothing does not fall through to the tool's settings"
             ++ optional (! runs "-all -Oz --converge" (wasmOpt { package = "no-such-package"; }))
               "a package with no entry is not the same as one stating nothing"
-            # the strip that follows, and what closure-compiler is given
             ++ optional (! runs "wasm-tools strip -a optimized.wasm -o $out" (wasmOpt {}))
               "the custom sections are not stripped after wasm-opt has run"
             ++ optional (! runs "--externs $out/all.externs.js --compilation_level SIMPLE" (closureCompiler {}))
               "the jsexe's own externs are not passed ahead of the settings"
             ++ optional (! runs "--compilation_level WHITESPACE_ONLY --externs ${externs} --warning_level QUIET"
                  (closureCompiler { package = "every-option"; exe = "every-option"; }))
-              "closure-compiler's level, externs and flags do not come from the layers that state them"
-            # disabled, where each optimizer copies its input through instead
-            ++ optional (commandOf (off.config.wasm-optimize { wasm = "/probe.wasm"; })
+              "closure-compiler's level, externs and flags do not come from the layers that state them";
+
+          # disabled, where each optimizer copies its input through instead
+          disabledFailures =
+            optional (commandOf (off.config.wasm-optimize { wasm = "/probe.wasm"; })
                  != "cp /probe.wasm $out\n")
               "a disabled wasm-opt does not copy its input through"
             ++ optional (commandOf (off.config.js-optimize { jsexe = "/probe.jsexe"; })
                  != "cp -r /probe.jsexe $out\n")
-              "a disabled closure-compiler does not copy its input through"
-            # the bundles of a target, which only a driver can answer for. What
-            # one is when a driver does answer takes a cross build, so the
-            # example is where that is shown.
-            ++ optional (attrNames packageBundles != [ "every-option" ])
+              "a disabled closure-compiler does not copy its input through";
+
+          # the bundles of a target, which only a driver can answer for. What
+          # one is when a driver does answer takes a cross build, so the
+          # example is where that is shown.
+          bundleTreeFailures =
+            optional (attrNames packageBundles != [ "every-option" ])
               "a package's bundles are not keyed by the executables it names"
             ++ optional (exeBundle.optimized != null || exeBundle.jsffi != null)
-              "a bundle read outside a driver is not null"
-            # the jsexe install that gives closure-compiler a directory to work on
-            ++ optional (! hasInfix "cp -r dist/build/frontend/frontend.jsexe $out/bin/"
+              "a bundle read outside a driver is not null";
+
+          # the jsexe install that gives closure-compiler a directory to work on
+          jsexeInstallFailures =
+            optional (! hasInfix "cp -r dist/build/frontend/frontend.jsexe $out/bin/"
                  installed.packages.frontend.components.exes.frontend.postInstall)
               "a named executable's jsexe is not installed beside it"
             ++ optional (installed.packages ? absent-package)
               "a jsexe install is attached to a package the project does not have"
             ++ optional ((installJsexe false).config.condition != false)
               "the jsexe install is not confined to a javascript target";
+
+          failures =
+            layerFailures
+            ++ disabledFailures
+            ++ bundleTreeFailures
+            ++ jsexeInstallFailures;
       in if failures == []
          then pkgs.runCommand "bundle-optimizer-spec" {} "echo ok > $out"
          else throw (concatStringsSep "\n" failures);

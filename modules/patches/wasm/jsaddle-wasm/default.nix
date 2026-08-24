@@ -1,27 +1,15 @@
-{ drivers ? null }:
+import ../../../../libs/patch-module.nix {
 
-let patch = {
-      packages.jsaddle-wasm.patches = [
-        ./jsaddle-wasm-initialSyncDepth.patch
-      ];
-    };
+  package = "jsaddle-wasm";
 
-in {
+  patches = [ ./jsaddle-wasm-initialSyncDepth.patch ];
 
-  imports = [
+  extras = [
 
-    # Ignored when the project does not contain jsaddle-wasm. `drivers`
-    # selects the drivers the patch applies to; null applies it to all of
-    # them.
-    { config =
-        if drivers == null
-        then patch
-        else builtins.listToAttrs (map (driver: { name = driver; value = patch; }) drivers);
-    }
-
-    # nixpkgs records the dependencies jsaddle-wasm's cabal file declares for
-    # the build platform, so the one it asks for only under wasm32 is missing
-    # from the package database it is configured against.
+    # nixpkgs records the dependencies jsaddle-wasm's cabal file declares
+    # for the build platform. The dependency it asks for only under wasm32
+    # is therefore missing from the package database it is configured
+    # against.
     ({ pkgs, ... }: {
       config.nixpkgs.options.overrides = [
         (self: super: {

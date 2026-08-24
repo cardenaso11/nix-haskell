@@ -1,18 +1,19 @@
-# Shell run before `Setup configure` that tells Cabal every direct dependency
-# and every flag, so it resolves nothing of its own. What that buys is the
-# bounds: a package whose cabal file excludes the compiler in hand still builds,
-# including where the bound sits inside a conditional stanza, which is where
+# Shell run before `Setup configure` that tells Cabal every direct
+# dependency and every flag, so it resolves nothing of its own. The point is
+# the bounds. A package whose cabal file excludes the compiler in hand still
+# builds, even when the bound sits inside a conditional stanza, where
 # `jailbreak` cannot reach it.
 #
 # The ids exist only once the builder has assembled its package database, so
-# they are read there rather than computed in nix. Both databases are read: the
-# one the builder made from this package's dependencies, and the compiler's own,
-# which is where the boot libraries a cabal file names live.
+# they are read there rather than computed in nix. Both databases are read:
+# the one the builder made from this package's dependencies, and the
+# compiler's own, where the boot libraries a cabal file names live.
 #
 # The registration files are read rather than `ghc-pkg dump`, which omits an
-# entry whose own dependencies are absent from the database. They routinely are:
-# the builder copies in the registrations of this package's dependencies, not of
-# theirs, and Cabal is content with that while ghc-pkg calls it broken.
+# entry whose own dependencies are absent from the database. They routinely
+# are absent. The builder copies in the registrations of this package's
+# dependencies, not of theirs. Cabal is content with that, while ghc-pkg
+# calls it broken.
 #
 # The generated flags go ahead of the ones nix passed, and Cabal takes the last
 # assignment of a flag, so a project's own `packages.<name>.flags` still decide.

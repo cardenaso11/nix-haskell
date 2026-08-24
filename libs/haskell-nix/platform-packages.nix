@@ -4,8 +4,8 @@
 # there is one.
 #
 # `fields` are the per-package fields whose names are haskell.nix's own, so
-# they can be written through verbatim. `src` is not among them: it replaces a
-# value haskell.nix already has, so it is forced.
+# they can be written through verbatim. `src` is not among them. It replaces
+# a value haskell.nix already has, so it is forced.
 #
 # Example:
 #
@@ -25,6 +25,7 @@
 { config, pkgs, ... }:
 
 with lib;
+with (import ../prelude { inherit lib; });
 
 let crossPlatform = import ../cross-platform.nix { inherit lib; };
 
@@ -32,22 +33,16 @@ let crossPlatform = import ../cross-platform.nix { inherit lib; };
 
     tweaks = if key == null then {} else platforms.${key}.packages;
 
-    # A field the project left alone carries the option's own empty value,
-    # which would otherwise be written out as a definition of its own.
-    isSet = value: all id
-      [ (value != null)
-        (value != [])
-        (value != {})
-      ];
-
+    # A field the project left alone carries the option's own empty value.
+    # Writing it through would turn that empty value into a definition.
     translate = packageTweaks:
-      let written = filter (field: isSet packageTweaks.${field}) fields;
+      let written = filter (field: is-set packageTweaks.${field}) fields;
       in listToAttrs (map (field: nameValuePair field packageTweaks.${field}) written)
-        // optionalAttrs (isSet packageTweaks.src) { src = mkForce packageTweaks.src; };
+        // optionalAttrs (is-set packageTweaks.src) { src = mkForce packageTweaks.src; };
 
 in {
 
-  # A package absent from this project is skipped, as the option promises.
+  # A package absent from this project is skipped.
   config = mkIf (key != null) {
     packages = mapAttrs (_: translate)
       (filterAttrs (name: _: config.packages ? ${name}) tweaks);

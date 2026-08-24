@@ -143,10 +143,10 @@ null
 /modules/common.nix
 .UE \c
 .SS packages.<name>.closure\-compiler.enable
-Whether \f[CR]js\-optimize\f[R] runs closure\-compiler at all.
-When false it copies the jsexe through unchanged.
+Whether \f[CR]js\-optimize\f[R] runs closure\-compiler.
+When false, \f[CR]js\-optimize\f[R] copies the jsexe through unchanged.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or boolean
@@ -162,13 +162,14 @@ null
 /modules/common.nix
 .UE \c
 .SS packages.<name>.closure\-compiler.externs
-Files passed as \f[CR]\-\-externs\f[R], declaring what the program
-reaches by a name the compiler must not rename.
-The jsexe\(cqs own \f[CR]all.externs.js\f[R] is always passed ahead of
-these, since ADVANCED renames everything it is not told the runtime
-knows by name.
+Files passed as \f[CR]\-\-externs\f[R].
+They declare what the program reaches by a name the compiler must not
+rename.
+The jsexe\(cqs own \f[CR]all.externs.js\f[R] always goes ahead of these,
+since ADVANCED renames everything it is not told the runtime knows by
+name.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or (list of absolute path)
@@ -184,17 +185,17 @@ null
 /modules/common.nix
 .UE \c
 .SS packages.<name>.closure\-compiler.extraFlags
-Flags appended after the level and the externs, so one of these decides
-what they would have.
-One flag per element, its value in the same string, since the elements
-are joined into one command line.
+Flags appended after the level and the externs, so one of these
+overrides what they set.
+Write one flag per element, with its value in the same string.
+The elements are joined into one command line.
 .PP
-The default accepts whatever syntax the linker emitted, keeps the
-compiler quiet, wraps the program in a function expression it may assume
-nothing escapes from, asks for strict mode, and stops it complaining
-about the names the runtime defines elsewhere.
+The default flags accept whatever syntax the linker emitted, keep the
+compiler quiet, wrap the program in a function expression it may assume
+nothing escapes from, ask for strict mode, and silence the warning about
+names the runtime defines elsewhere.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or (list of string)
@@ -212,7 +213,7 @@ null
 .SS packages.<name>.closure\-compiler.level
 The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or one of \(lqBUNDLE\(rq, \(lqWHITESPACE_ONLY\(rq,
@@ -235,8 +236,7 @@ null
 /modules/common.nix
 .UE \c
 .SS packages.<name>.components
-Per\-component customization, under the kind cabal knows the component
-by.
+Per\-component customization, grouped by the component kind cabal uses.
 Only executables carry anything so far.
 .PP
 \f[I]Type:\f[R] submodule
@@ -254,12 +254,12 @@ Only executables carry anything so far.
 .SS packages.<name>.components.exes
 Bundle optimizer settings for one executable of the package, keyed by
 the name cabal gives it.
-They sit under an executable rather than the package because a bundle is
-what an executable links to, and a package can carry several.
+They sit under an executable rather than the package, because a bundle
+belongs to one linked executable and a package can carry several.
 .PP
-Naming an executable here is also what tells the haskell.nix driver to
-install that executable\(cqs \f[CR].jsexe\f[R] directory, which it
-otherwise leaves in the build tree.
+Naming an executable here also tells the haskell.nix driver to install
+that executable\(cqs \f[CR].jsexe\f[R] directory, which it otherwise
+leaves in the build tree.
 .PP
 \f[I]Type:\f[R] attribute set of (submodule)
 .PP
@@ -274,10 +274,10 @@ otherwise leaves in the build tree.
 /modules/common.nix
 .UE \c
 .SS packages.<name>.components.exes.<name>.closure\-compiler.enable
-Whether \f[CR]js\-optimize\f[R] runs closure\-compiler at all.
-When false it copies the jsexe through unchanged.
+Whether \f[CR]js\-optimize\f[R] runs closure\-compiler.
+When false, \f[CR]js\-optimize\f[R] copies the jsexe through unchanged.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or boolean
@@ -293,13 +293,14 @@ null
 /modules/common.nix
 .UE \c
 .SS packages.<name>.components.exes.<name>.closure\-compiler.externs
-Files passed as \f[CR]\-\-externs\f[R], declaring what the program
-reaches by a name the compiler must not rename.
-The jsexe\(cqs own \f[CR]all.externs.js\f[R] is always passed ahead of
-these, since ADVANCED renames everything it is not told the runtime
-knows by name.
+Files passed as \f[CR]\-\-externs\f[R].
+They declare what the program reaches by a name the compiler must not
+rename.
+The jsexe\(cqs own \f[CR]all.externs.js\f[R] always goes ahead of these,
+since ADVANCED renames everything it is not told the runtime knows by
+name.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or (list of absolute path)
@@ -315,17 +316,17 @@ null
 /modules/common.nix
 .UE \c
 .SS packages.<name>.components.exes.<name>.closure\-compiler.extraFlags
-Flags appended after the level and the externs, so one of these decides
-what they would have.
-One flag per element, its value in the same string, since the elements
-are joined into one command line.
+Flags appended after the level and the externs, so one of these
+overrides what they set.
+Write one flag per element, with its value in the same string.
+The elements are joined into one command line.
 .PP
-The default accepts whatever syntax the linker emitted, keeps the
-compiler quiet, wraps the program in a function expression it may assume
-nothing escapes from, asks for strict mode, and stops it complaining
-about the names the runtime defines elsewhere.
+The default flags accept whatever syntax the linker emitted, keep the
+compiler quiet, wrap the program in a function expression it may assume
+nothing escapes from, ask for strict mode, and silence the warning about
+names the runtime defines elsewhere.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or (list of string)
@@ -343,7 +344,7 @@ null
 .SS packages.<name>.components.exes.<name>.closure\-compiler.level
 The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or one of \(lqBUNDLE\(rq, \(lqWHITESPACE_ONLY\(rq,
@@ -367,11 +368,11 @@ null
 .UE \c
 .SS packages.<name>.components.exes.<name>.wasm\-opt.enable
 Whether \f[CR]wasm\-optimize\f[R] runs wasm\-opt and the strip that
-follows it at all.
-When false it copies its input through, so what a caller installs sits
-in the same place either way.
+follows it.
+When false, \f[CR]wasm\-optimize\f[R] copies its input through, so a
+caller installs the same path either way.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or boolean
@@ -388,16 +389,16 @@ null
 .UE \c
 .SS packages.<name>.components.exes.<name>.wasm\-opt.extraFlags
 Flags appended after \f[CR]\-all \-O<level>\f[R], so one of these
-decides what the level would have.
-One flag per element, its value in the same string, since the elements
-are joined into one command line.
+overrides what the level sets.
+Write one flag per element, with its value in the same string.
+The elements are joined into one command line.
 .PP
-The default asks for the optimize level of \f[CR]\-O2\f[R] at the shrink
-level of \f[CR]\-O1\f[R], drops the memory a module never reads,
-discards debug information, and repeats the passes until they stop
-finding anything.
+The default flags set the optimize level of \f[CR]\-O2\f[R] at the
+shrink level of \f[CR]\-O1\f[R], drop the memory a module never reads,
+discard debug information, and repeat the passes until they find nothing
+more.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or (list of string)
@@ -415,7 +416,7 @@ null
 .SS packages.<name>.components.exes.<name>.wasm\-opt.level
 The \f[CR]\-O\f[R] level wasm\-opt runs at.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or one of \(lq0\(rq, \(lq1\(rq, \(lq2\(rq,
@@ -551,7 +552,7 @@ null
 /modules/common.nix
 .UE \c
 .SS packages.<name>.dontStrip
-Whether to skip stripping the produced binaries.
+Whether to leave the produced binaries unstripped.
 \f[CR]null\f[R] leaves the default in place.
 .PP
 \f[I]Type:\f[R] null or boolean
@@ -929,11 +930,11 @@ null
 .UE \c
 .SS packages.<name>.wasm\-opt.enable
 Whether \f[CR]wasm\-optimize\f[R] runs wasm\-opt and the strip that
-follows it at all.
-When false it copies its input through, so what a caller installs sits
-in the same place either way.
+follows it.
+When false, \f[CR]wasm\-optimize\f[R] copies its input through, so a
+caller installs the same path either way.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or boolean
@@ -950,16 +951,16 @@ null
 .UE \c
 .SS packages.<name>.wasm\-opt.extraFlags
 Flags appended after \f[CR]\-all \-O<level>\f[R], so one of these
-decides what the level would have.
-One flag per element, its value in the same string, since the elements
-are joined into one command line.
+overrides what the level sets.
+Write one flag per element, with its value in the same string.
+The elements are joined into one command line.
 .PP
-The default asks for the optimize level of \f[CR]\-O2\f[R] at the shrink
-level of \f[CR]\-O1\f[R], drops the memory a module never reads,
-discards debug information, and repeats the passes until they stop
-finding anything.
+The default flags set the optimize level of \f[CR]\-O2\f[R] at the
+shrink level of \f[CR]\-O1\f[R], drop the memory a module never reads,
+discard debug information, and repeat the passes until they find nothing
+more.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or (list of string)
@@ -977,7 +978,7 @@ null
 .SS packages.<name>.wasm\-opt.level
 The \f[CR]\-O\f[R] level wasm\-opt runs at.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or one of \(lq0\(rq, \(lq1\(rq, \(lq2\(rq,
@@ -1115,11 +1116,12 @@ null
 .UE \c
 .SS clean\-src
 Filter \f[CR]src\f[R] through the \f[CR].gitignore\f[R] it carries
-before copying it into the store, so build artifacts
-(\f[CR]dist\-newstyle\f[R], \f[CR]result\f[R], \f[CR].git\f[R]) do not
-become part of every derivation that names the project source, and a
-rebuild does not rehash them.
-Only applies when \f[CR]src\f[R] is a path; a derivation is used as\-is.
+before copying it into the store.
+Build artifacts (\f[CR]dist\-newstyle\f[R], \f[CR]result\f[R],
+\f[CR].git\f[R]) then do not become part of every derivation that names
+the project source, and a rebuild does not rehash them.
+Only applies when \f[CR]src\f[R] is a path.
+A derivation is used as\-is.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
@@ -1134,13 +1136,14 @@ true
 /modules/common.nix
 .UE \c
 .SS clean\-src\-ignore\-files
-The ignore files read when \f[CR]clean\-src\f[R] is enabled, relative to
-the root of the source tree.
-Every pattern is interpreted with the root as its base, whichever file
-it came from, so an anchored pattern in a nested file
-(\f[CR]dist/*\f[R]) matches against the root rather than against the
-directory the file sits in; where that matters, give the pattern through
-\f[CR]clean\-src\-patterns\f[R] instead.
+The ignore files read when \f[CR]clean\-src\f[R] is enabled.
+Paths are relative to the root of the source tree.
+.PP
+Every pattern uses the root as its base, whichever file it came from.
+An anchored pattern in a nested file (\f[CR]dist/*\f[R]) therefore
+matches against the root, not against the file\(cqs own directory.
+Where that matters, add the pattern to \f[CR]clean\-src\-patterns\f[R]
+instead.
 .PP
 \f[I]Type:\f[R] list of string
 .PP
@@ -1169,8 +1172,8 @@ directory the file sits in; where that matters, give the pattern through
 Extra gitignore\-syntax patterns, applied on top of the files
 \f[CR]clean\-src\-ignore\-files\f[R] names, when \f[CR]clean\-src\f[R]
 is enabled.
-A bare pattern (\f[CR]dist\-js\f[R]) matches at any depth, which is what
-an anchored one read against the root cannot do.
+A bare pattern (\f[CR]dist\-js\f[R]) matches at any depth.
+An anchored pattern read against the root cannot.
 .PP
 \f[I]Type:\f[R] strings concatenated with \(lq\(rsn\(rq
 .PP
@@ -1194,8 +1197,8 @@ an anchored one read against the root cannot do.
 /modules/common.nix
 .UE \c
 .SS closure\-compiler.enable
-Whether \f[CR]js\-optimize\f[R] runs closure\-compiler at all.
-When false it copies the jsexe through unchanged.
+Whether \f[CR]js\-optimize\f[R] runs closure\-compiler.
+When false, \f[CR]js\-optimize\f[R] copies the jsexe through unchanged.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
@@ -1210,11 +1213,12 @@ true
 /modules/cross/ghcjs
 .UE \c
 .SS closure\-compiler.externs
-Files passed as \f[CR]\-\-externs\f[R], declaring what the program
-reaches by a name the compiler must not rename.
-The jsexe\(cqs own \f[CR]all.externs.js\f[R] is always passed ahead of
-these, since ADVANCED renames everything it is not told the runtime
-knows by name.
+Files passed as \f[CR]\-\-externs\f[R].
+They declare what the program reaches by a name the compiler must not
+rename.
+The jsexe\(cqs own \f[CR]all.externs.js\f[R] always goes ahead of these,
+since ADVANCED renames everything it is not told the runtime knows by
+name.
 .PP
 \f[I]Type:\f[R] list of absolute path
 .PP
@@ -1229,15 +1233,15 @@ knows by name.
 /modules/cross/ghcjs
 .UE \c
 .SS closure\-compiler.extraFlags
-Flags appended after the level and the externs, so one of these decides
-what they would have.
-One flag per element, its value in the same string, since the elements
-are joined into one command line.
+Flags appended after the level and the externs, so one of these
+overrides what they set.
+Write one flag per element, with its value in the same string.
+The elements are joined into one command line.
 .PP
-The default accepts whatever syntax the linker emitted, keeps the
-compiler quiet, wraps the program in a function expression it may assume
-nothing escapes from, asks for strict mode, and stops it complaining
-about the names the runtime defines elsewhere.
+The default flags accept whatever syntax the linker emitted, keep the
+compiler quiet, wrap the program in a function expression it may assume
+nothing escapes from, ask for strict mode, and silence the warning about
+names the runtime defines elsewhere.
 .PP
 \f[I]Type:\f[R] list of string
 .PP
@@ -1282,15 +1286,16 @@ The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
 .UE \c
 .SS compiler
 The GHC to build with.
-\f[CR]name\f[R] selects one of the driver\(cqs own compilers;
-\f[CR]package\f[R] supplies one from outside them, and the fields around
-it are the attributes the drivers read off a compiler.
+\f[CR]name\f[R] selects one of the driver\(cqs own compilers.
+\f[CR]package\f[R] supplies one from outside them, and the sibling
+fields are the attributes the drivers read off a compiler.
 \f[CR]platforms\f[R] gives cross targets their own compiler and
-toolchain; a platform without an entry uses the fields above it.
+toolchain.
+A platform without an entry uses the fields above it.
 .PP
-A compiler that has to be described this way is worth writing once: the
-modules under \f[CR]nix\-haskell\-compilers\f[R] are ready\-made entries
-for compilers distributed outside the drivers\(cq package sets.
+Describe such a compiler once.
+The modules under \f[CR]nix\-haskell\-compilers\f[R] are ready\-made
+entries for compilers distributed outside the drivers\(cq package sets.
 .PP
 \f[I]Type:\f[R] submodule
 .PP
@@ -1314,6 +1319,7 @@ for compilers distributed outside the drivers\(cq package sets.
     targetPrefix = \(dqwasm32\-wasi\-\(dq;
     enableShared = true;
     haskell\-nix.libDir = \(dqlib\(dq;
+    haskell\-nix.extraNonReinstallablePkgs = [ \(dqsystem\-cxx\-std\-lib\(dq ];
     nixpkgs.enableExternalInterpreter = false;
     toolchain = {
       package = wasi\-sdk;
@@ -1333,8 +1339,9 @@ for compilers distributed outside the drivers\(cq package sets.
 .SS compiler.enableShared
 Whether the compiler can build shared libraries.
 The haskell.nix driver reads it for every component\(cqs
-\f[CR]shared:\f[R] flag; the nixpkgs driver builds a cross package set
-non\-static, with shared and not static libraries.
+\f[CR]shared:\f[R] flag.
+The nixpkgs driver builds a cross package set non\-static, with shared
+and not static libraries.
 GHC\(cqs wasm backend needs it, because its Template Haskell interpreter
 loads shared objects.
 .PP
@@ -1350,8 +1357,8 @@ loads shared objects.
 .SS compiler.package
 A compiler used directly instead of one from the driver\(cqs package
 sets: a bindist, an out\-of\-tree cross compiler, a locally built GHC.
-The fields around it are spliced onto it, since both drivers read them
-off the compiler itself and a bindist generally carries none of them.
+The sibling fields are spliced onto it, since both drivers read them off
+the compiler itself and a bindist generally carries none of them.
 .PP
 \f[I]Type:\f[R] null or package
 .PP
@@ -1382,13 +1389,13 @@ Compiler details only the haskell.nix driver reads.
 .UE \c
 .SS compiler.haskell\-nix.extraNonReinstallablePkgs
 Packages taken from the compiler\(cqs own database rather than built, on
-top of the ones the driver already treats that way.
-A package the compiler was configured against, but which is absent from
-the lists the driver copies out of it, belongs here: a build that
-reaches for it finds nothing to depend on, and everything downstream of
-it breaks.
-A compiler whose \f[CR]text\f[R] is built against simdutf needs
-\f[CR]system\-cxx\-std\-lib\f[R] this way.
+top of the ones the driver already takes from there.
+A package the compiler was configured against, but absent from the lists
+the driver copies out of it, belongs here.
+Without the entry, a build that needs the package finds nothing to
+depend on, and everything downstream of it breaks.
+One example: a compiler whose \f[CR]text\f[R] is built against simdutf
+needs \f[CR]system\-cxx\-std\-lib\f[R] here.
 .PP
 \f[I]Type:\f[R] list of string
 .PP
@@ -1437,9 +1444,10 @@ The compiler\(cqs name in the driver\(cqs package sets
 (\f[CR]haskell\-nix.compiler.<name>\f[R],
 \f[CR]pkgs.haskell.packages.<name>\f[R]), and the name the project\(cqs
 packages are pinned under.
-With \f[CR]package\f[R] set it names the set whose compiler the package
-replaces, and only needs to be given when the name derived from the
-version is not one the driver knows.
+With \f[CR]package\f[R] set, the name selects the set whose compiler the
+package replaces.
+Set it only when the name derived from the version is not one the driver
+knows.
 .PP
 \f[I]Type:\f[R] null or string
 .PP
@@ -1475,9 +1483,9 @@ Compiler details only the nixpkgs driver reads.
 .SS compiler.nixpkgs.enableExternalInterpreter
 Whether to run Template Haskell splices through nixpkgs\(cq external
 interpreter, which proxies them to the target over a socket.
-\f[CR]false\f[R] for a compiler that runs splices itself, such as
-GHC\(cqs wasm backend, and necessary for a target that has no sockets to
-proxy over.
+Set \f[CR]false\f[R] for a compiler that runs splices itself, such as
+GHC\(cqs wasm backend.
+A target that has no sockets to proxy over needs \f[CR]false\f[R].
 .PP
 \f[I]Type:\f[R] null or boolean
 .PP
@@ -1492,7 +1500,8 @@ emulator exists for the target
 .SS compiler.nixpkgs.haskellCompilerName
 The compiler\(cqs cabal name.
 The driver names the package database directories of everything it
-builds after it, and passes it to cabal2nix as \f[CR]\-\-compiler\f[R].
+builds after this name, and passes the name to cabal2nix as
+\f[CR]\-\-compiler\f[R].
 .PP
 \f[I]Type:\f[R] null or string
 .PP
@@ -1513,12 +1522,11 @@ of \f[CR]package\f[R], else \f[CR]ghc\-<version>\f[R]
 Per\-platform compilers, keyed by \f[CR]pkgsCross\f[R] platform name
 (the keys of \f[CR]shell.crossPlatforms\f[R] and
 \f[CR]projectCross\f[R]).
-An entry has the same fields as the compiler above, and the fields it
-leaves unset are resolved from its own \f[CR]package\f[R] rather than
-inherited.
+An entry has the same fields as the compiler above.
+The fields an entry leaves unset are resolved from its own
+\f[CR]package\f[R], not inherited.
 A per\-driver definition anywhere under \f[CR]compiler.platforms\f[R]
-replaces the whole table for that driver, since a mirror seeds submodule
-fields only one level deep.
+replaces the whole table for that driver.
 .PP
 \f[I]Type:\f[R] attribute set of (submodule)
 .PP
@@ -1535,8 +1543,9 @@ fields only one level deep.
 .SS compiler.platforms.<name>.enableShared
 Whether the compiler can build shared libraries.
 The haskell.nix driver reads it for every component\(cqs
-\f[CR]shared:\f[R] flag; the nixpkgs driver builds a cross package set
-non\-static, with shared and not static libraries.
+\f[CR]shared:\f[R] flag.
+The nixpkgs driver builds a cross package set non\-static, with shared
+and not static libraries.
 GHC\(cqs wasm backend needs it, because its Template Haskell interpreter
 loads shared objects.
 .PP
@@ -1552,8 +1561,8 @@ loads shared objects.
 .SS compiler.platforms.<name>.package
 A compiler used directly instead of one from the driver\(cqs package
 sets: a bindist, an out\-of\-tree cross compiler, a locally built GHC.
-The fields around it are spliced onto it, since both drivers read them
-off the compiler itself and a bindist generally carries none of them.
+The sibling fields are spliced onto it, since both drivers read them off
+the compiler itself and a bindist generally carries none of them.
 .PP
 \f[I]Type:\f[R] null or package
 .PP
@@ -1584,13 +1593,13 @@ Compiler details only the haskell.nix driver reads.
 .UE \c
 .SS compiler.platforms.<name>.haskell\-nix.extraNonReinstallablePkgs
 Packages taken from the compiler\(cqs own database rather than built, on
-top of the ones the driver already treats that way.
-A package the compiler was configured against, but which is absent from
-the lists the driver copies out of it, belongs here: a build that
-reaches for it finds nothing to depend on, and everything downstream of
-it breaks.
-A compiler whose \f[CR]text\f[R] is built against simdutf needs
-\f[CR]system\-cxx\-std\-lib\f[R] this way.
+top of the ones the driver already takes from there.
+A package the compiler was configured against, but absent from the lists
+the driver copies out of it, belongs here.
+Without the entry, a build that needs the package finds nothing to
+depend on, and everything downstream of it breaks.
+One example: a compiler whose \f[CR]text\f[R] is built against simdutf
+needs \f[CR]system\-cxx\-std\-lib\f[R] here.
 .PP
 \f[I]Type:\f[R] list of string
 .PP
@@ -1639,9 +1648,10 @@ The compiler\(cqs name in the driver\(cqs package sets
 (\f[CR]haskell\-nix.compiler.<name>\f[R],
 \f[CR]pkgs.haskell.packages.<name>\f[R]), and the name the project\(cqs
 packages are pinned under.
-With \f[CR]package\f[R] set it names the set whose compiler the package
-replaces, and only needs to be given when the name derived from the
-version is not one the driver knows.
+With \f[CR]package\f[R] set, the name selects the set whose compiler the
+package replaces.
+Set it only when the name derived from the version is not one the driver
+knows.
 .PP
 \f[I]Type:\f[R] null or string
 .PP
@@ -1677,9 +1687,9 @@ Compiler details only the nixpkgs driver reads.
 .SS compiler.platforms.<name>.nixpkgs.enableExternalInterpreter
 Whether to run Template Haskell splices through nixpkgs\(cq external
 interpreter, which proxies them to the target over a socket.
-\f[CR]false\f[R] for a compiler that runs splices itself, such as
-GHC\(cqs wasm backend, and necessary for a target that has no sockets to
-proxy over.
+Set \f[CR]false\f[R] for a compiler that runs splices itself, such as
+GHC\(cqs wasm backend.
+A target that has no sockets to proxy over needs \f[CR]false\f[R].
 .PP
 \f[I]Type:\f[R] null or boolean
 .PP
@@ -1694,7 +1704,8 @@ emulator exists for the target
 .SS compiler.platforms.<name>.nixpkgs.haskellCompilerName
 The compiler\(cqs cabal name.
 The driver names the package database directories of everything it
-builds after it, and passes it to cabal2nix as \f[CR]\-\-compiler\f[R].
+builds after this name, and passes the name to cabal2nix as
+\f[CR]\-\-compiler\f[R].
 .PP
 \f[I]Type:\f[R] null or string
 .PP
@@ -1712,8 +1723,8 @@ of \f[CR]package\f[R], else \f[CR]ghc\-<version>\f[R]
 /modules/common.nix
 .UE \c
 .SS compiler.platforms.<name>.targetPrefix
-The prefix the compiler\(cqs executables carry.
-Every tool either driver invokes is named with it.
+The prefix on the compiler\(cqs executables.
+Both drivers invoke every tool by its prefixed name.
 .PP
 \f[I]Type:\f[R] null or string
 .PP
@@ -1735,9 +1746,10 @@ The C toolchain the compiler was configured with, when that is not the
 one the surrounding package set supplies.
 Everything built with the compiler is pointed back at it, since
 \f[CR]Setup configure\f[R]\(cqs foreign\-dependency checks otherwise
-look in the wrong sysroot: the haskell.nix driver passes it as every
-package\(cqs configure flags, the nixpkgs driver makes it the cross
-package set\(cqs toolchain outright.
+look in the wrong sysroot.
+The haskell.nix driver passes it as every package\(cqs configure flags.
+The nixpkgs driver makes it the cross package set\(cqs toolchain
+outright.
 .PP
 \f[I]Type:\f[R] submodule
 .PP
@@ -1754,8 +1766,8 @@ package set\(cqs toolchain outright.
 .SS compiler.platforms.<name>.toolchain.package
 The toolchain itself.
 The nixpkgs driver also makes it a setup dependency of every package, so
-that a setup hook exporting \f[CR]CC\f[R], \f[CR]AR\f[R] and friends is
-honored.
+that a setup hook exporting \f[CR]CC\f[R], \f[CR]AR\f[R] and the other
+tool variables is honored.
 .PP
 \f[I]Type:\f[R] null or package
 .PP
@@ -1860,11 +1872,15 @@ null
 .SS compiler.platforms.<name>.version
 The compiler\(cqs version.
 Both drivers read it off the compiler, for paths and for
-\f[CR]impl(ghc >= ...)\f[R] conditionals, and the stock compiler of the
-same major.minor.patch is what the builds that cannot use the package
-itself fall back to: the nixpkgs package set the project is built
-against, and haskell.nix\(cqs shell tools.
-Worth setting for a nightly bindist, whose name carries only its series.
+\f[CR]impl(ghc >= ...)\f[R] conditionals.
+.PP
+Some builds cannot use the compiler package itself: the nixpkgs package
+set the project is built against, and haskell.nix\(cqs shell tools.
+These builds use the driver\(cqs stock compiler of the same
+major.minor.patch instead.
+.PP
+Set this for a nightly bindist.
+A nightly\(cqs name carries only its series.
 .PP
 \f[I]Type:\f[R] null or string
 .PP
@@ -1882,8 +1898,8 @@ Worth setting for a nightly bindist, whose name carries only its series.
 /modules/common.nix
 .UE \c
 .SS compiler.targetPrefix
-The prefix the compiler\(cqs executables carry.
-Every tool either driver invokes is named with it.
+The prefix on the compiler\(cqs executables.
+Both drivers invoke every tool by its prefixed name.
 .PP
 \f[I]Type:\f[R] null or string
 .PP
@@ -1905,9 +1921,10 @@ The C toolchain the compiler was configured with, when that is not the
 one the surrounding package set supplies.
 Everything built with the compiler is pointed back at it, since
 \f[CR]Setup configure\f[R]\(cqs foreign\-dependency checks otherwise
-look in the wrong sysroot: the haskell.nix driver passes it as every
-package\(cqs configure flags, the nixpkgs driver makes it the cross
-package set\(cqs toolchain outright.
+look in the wrong sysroot.
+The haskell.nix driver passes it as every package\(cqs configure flags.
+The nixpkgs driver makes it the cross package set\(cqs toolchain
+outright.
 .PP
 \f[I]Type:\f[R] submodule
 .PP
@@ -1924,8 +1941,8 @@ package set\(cqs toolchain outright.
 .SS compiler.toolchain.package
 The toolchain itself.
 The nixpkgs driver also makes it a setup dependency of every package, so
-that a setup hook exporting \f[CR]CC\f[R], \f[CR]AR\f[R] and friends is
-honored.
+that a setup hook exporting \f[CR]CC\f[R], \f[CR]AR\f[R] and the other
+tool variables is honored.
 .PP
 \f[I]Type:\f[R] null or package
 .PP
@@ -2030,11 +2047,15 @@ null
 .SS compiler.version
 The compiler\(cqs version.
 Both drivers read it off the compiler, for paths and for
-\f[CR]impl(ghc >= ...)\f[R] conditionals, and the stock compiler of the
-same major.minor.patch is what the builds that cannot use the package
-itself fall back to: the nixpkgs package set the project is built
-against, and haskell.nix\(cqs shell tools.
-Worth setting for a nightly bindist, whose name carries only its series.
+\f[CR]impl(ghc >= ...)\f[R] conditionals.
+.PP
+Some builds cannot use the compiler package itself: the nixpkgs package
+set the project is built against, and haskell.nix\(cqs shell tools.
+These builds use the driver\(cqs stock compiler of the same
+major.minor.patch instead.
+.PP
+Set this for a nightly bindist.
+A nightly\(cqs name carries only its series.
 .PP
 \f[I]Type:\f[R] null or string
 .PP
@@ -2093,7 +2114,7 @@ GHC flags applied project\-wide.
 .SS hackage\-overlays
 Packages to make visible to dependency resolution without being
 published to Hackage.
-A good example of this is obelisk\-generated\-static.
+One example is obelisk\-generated\-static.
 .PP
 \f[I]Type:\f[R] list of (attribute set)
 .PP
@@ -2126,10 +2147,10 @@ A good example of this is obelisk\-generated\-static.
 .UE \c
 .SS haskell\-nix.compiler\-version
 The version of the compiler this driver builds with.
-Both drivers answer to the same name, and each answers for itself: they
-mirror \f[CR]compiler\f[R] separately and fall back to different
-compilers of their own, so a project asking what it is building against
-asks the driver:
+Both drivers answer to the same name, and each answers for itself.
+They mirror \f[CR]compiler\f[R] separately and fall back to different
+compilers of their own.
+A project that wants to know what it builds against asks the driver:
 .IP
 .EX
 config.<driver>.compiler\-version
@@ -2146,15 +2167,16 @@ project brought, or the one haskell.nix has under that name
 /modules/haskell.nix
 .UE \c
 .SS haskell\-nix.cross\-compiler
-\f[B]A function, not a setting.\f[R] A project calls it and uses what
-comes back.
+\f[B]A function, not a setting.\f[R] A project calls it and uses the
+result.
 Assign it only to replace what the call does.
 .PP
 The compiler this driver builds a cross target with, by
 \f[CR]pkgs.pkgsCross\f[R] name.
-Both drivers answer to the same name, so a step that needs the compiler
-an artifact was built with, as \f[CR]wasm\-jsffi\f[R] does, asks for it
-the same way whichever driver built the artifact:
+Both drivers answer to the same name.
+A step that needs the compiler an artifact was built with, as
+\f[CR]wasm\-jsffi\f[R] does, asks the same way whichever driver built
+the artifact:
 .IP
 .EX
 config.<driver>.cross\-compiler \(dqwasi32\(dq
@@ -2174,16 +2196,16 @@ platform:
 /modules/haskell.nix
 .UE \c
 .SS haskell\-nix.cross\-exe
-\f[B]A function, not a setting.\f[R] A project calls it and uses what
-comes back.
+\f[B]A function, not a setting.\f[R] A project calls it and uses the
+result.
 Assign it only to replace what the call does.
 .PP
 What this driver builds an executable into, for one cross target.
-Both drivers answer to the same name, and what they answer with carries
-the executable at \f[CR]bin/<exe>\f[R], with a wasm target\(cqs binary
-at \f[CR]bin/<exe>.wasm\f[R] and a javascript target\(cqs linked
-directory at \f[CR]bin/<exe>.jsexe\f[R].
-It is what \f[CR]bundles\f[R] optimizes.
+Both drivers answer to the same name.
+The answer carries the executable at \f[CR]bin/<exe>\f[R].
+A wasm target\(cqs binary sits at \f[CR]bin/<exe>.wasm\f[R], and a
+javascript target\(cqs linked directory at \f[CR]bin/<exe>.jsexe\f[R].
+\f[CR]bundles\f[R] optimizes this result.
 .PP
 \f[I]Type:\f[R] function that evaluates to a(n) package
 .PP
@@ -2200,7 +2222,10 @@ It is what \f[CR]bundles\f[R] optimizes.
 /modules/haskell.nix
 .UE \c
 .SS haskell\-nix.extraSrcFiles
-ExtraSrcFiles to include in the project builds.
+Files from the project source to add to component builds, in
+haskell.nix\(cqs \f[CR]extraSrcFiles\f[R] shape:
+\f[CR]library.extraSrcFiles\f[R], \f[CR]exes.<name>.extraSrcFiles\f[R],
+and so on.
 .PP
 \f[I]Type:\f[R] attribute set
 .PP
@@ -2234,9 +2259,8 @@ config.\(dqhaskell\-nix\(dq.nixpkgs.haskell\-nix
 .SS haskell\-nix.input
 The haskell.nix checkout this driver builds with, imported for
 \f[CR]system\f[R].
-Everything else the driver uses is taken out of it: the nixpkgs it pins,
-the overlay that builds a project, and the helpers for selecting
-components.
+The driver takes everything else out of it: the nixpkgs it pins, the
+overlay that builds a project, and the helpers for selecting components.
 .PP
 \f[I]Type:\f[R] raw value
 .PP
@@ -2285,8 +2309,8 @@ import config.\(dqhaskell\-nix\(dq.nixpkgsSource ({ inherit system; } // config.
 .UE \c
 .SS haskell\-nix.nixpkgsArgs
 The arguments that nixpkgs is imported with: haskell.nix\(cqs own
-overlays, which is what puts \f[CR]haskell\-nix\f[R] into the package
-set, and the configuration its compilers are built under.
+overlays, which put \f[CR]haskell\-nix\f[R] into the package set, and
+the configuration its compilers are built under.
 .PP
 \f[I]Type:\f[R] raw value
 .PP
@@ -2301,10 +2325,11 @@ config.\(dqhaskell\-nix\(dq.input.nixpkgsArgs
 /modules/haskell.nix
 .UE \c
 .SS haskell\-nix.nixpkgsSource
-The nixpkgs this driver builds from, which is the one haskell.nix pins
-rather than the project\(cqs \f[CR]inputs.nixpkgs\f[R]: haskell.nix\(cqs
-overlays and its compilers are written against that revision.
-The nixpkgs driver is the one that follows the project\(cqs pin.
+The nixpkgs this driver builds from: the one haskell.nix pins, not the
+project\(cqs \f[CR]inputs.nixpkgs\f[R].
+haskell.nix\(cqs overlays and its compilers are written against that
+revision.
+The nixpkgs driver follows the project\(cqs pin instead.
 .PP
 \f[I]Type:\f[R] raw value
 .PP
@@ -2319,7 +2344,14 @@ config.\(dqhaskell\-nix\(dq.input.sources.nixpkgs\-unstable
 /modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options
-This option has no description.
+haskell.nix project options, passed to haskell.nix\(cqs
+\f[CR]project\f[R] function as given.
+Any option of haskell.nix\(cqs own project modules can be set here
+(\f[CR]index\-state\f[R], \f[CR]cabalProjectFreeze\f[R],
+\f[CR]extra\-hackages\f[R], \f[CR]pkg\-def\-extras\f[R],
+\f[CR]shell.exactDeps\f[R], \&...).
+The driver fills many of them from the common options through its
+\f[CR]translation\f[R] table.
 .PP
 \f[I]Type:\f[R] submodule
 .PP
@@ -2788,9 +2820,9 @@ Specifies the contents of urls in the cabal.project file.
 The \f[CR].rev\f[R] attribute is checked against the \f[CR]tag\f[R] for
 \f[CR]source\-repository\-packages\f[R].
 .PP
-For \f[CR]revision\f[R] blocks the \f[CR]inputMap.<url>\f[R] will be
-used and they \f[CR].tar.gz\f[R] for the \f[CR]packages\f[R] used will
-also be looked up in the \f[CR]inputMap\f[R].
+For \f[CR]revision\f[R] blocks, \f[CR]inputMap.<url>\f[R] is used, and
+the \f[CR].tar.gz\f[R] files of the \f[CR]packages\f[R] used are also
+looked up in the \f[CR]inputMap\f[R].
 .PP
 \f[I]Type:\f[R] null or (attribute set)
 .PP
@@ -3353,10 +3385,11 @@ Lists are concatenated when composed (not replaced).
 The built project as haskell.nix returns it: \f[CR]hsPkgs\f[R],
 \f[CR]shell\f[R], \f[CR]projectCross\f[R] per cross platform,
 \f[CR]plan\-nix\f[R], and the rest.
-Its shell is the one haskell.nix builds with the common
+The shell is haskell.nix\(cqs own, with the common
 \f[CR]shell.shellHook\f[R] appended and \f[CR]shell.withHoogle\f[R]
-applied, both through \f[CR]overrideAttrs\f[R], so that neither is
-evaluated unless the shell is.
+applied.
+Both go through \f[CR]overrideAttrs\f[R], so neither is evaluated unless
+the shell is.
 .PP
 \f[I]Type:\f[R] raw value
 .PP
@@ -3371,10 +3404,11 @@ config.haskell\-nix.haskell\-nix.project config.haskell\-nix.options
 /modules/haskell.nix
 .UE \c
 .SS inputMap
-Specifies the contents of urls in the cabal.project file, so sources
-named there resolve without fetching.
-The \f[CR].rev\f[R] attribute is checked against the \f[CR]tag\f[R] for
-\f[CR]source\-repository\-packages\f[R].
+Maps a url named in the cabal.project file to its source, so the source
+resolves without fetching.
+For a \f[CR]source\-repository\-package\f[R] stanza, the entry\(cqs
+\f[CR].rev\f[R] attribute is checked against the stanza\(cqs
+\f[CR]tag\f[R].
 .PP
 \f[I]Type:\f[R] attribute set
 .PP
@@ -3401,7 +3435,7 @@ The \f[CR].rev\f[R] attribute is checked against the \f[CR]tag\f[R] for
 Sources of dependencies, keyed the way flake inputs are.
 An entry accepts whatever a flake input can be: a flake input, a store
 path, a checkout, or a packed thunk.
-Entries beyond the ones in \f[CR]pins/\f[R] may be added freely.
+Add entries beyond the ones in \f[CR]pins/\f[R] freely.
 .PP
 \f[I]Type:\f[R] attribute set of raw value
 .PP
@@ -3416,67 +3450,43 @@ Entries beyond the ones in \f[CR]pins/\f[R] may be added freely.
 /modules/inputs.nix
 .UE \c
 .SS isGhcjs
-Whether the project targets GHCJS (either natively or via
-cross\-compilation).
-Used to conditionally include JavaScript runtime dependencies.
+Whether the project targets GHCJS, natively or through
+cross\-compilation.
+When true, Node.js is added to \f[CR]shell.buildInputs\f[R].
 .PP
 \f[I]Type:\f[R] boolean
 .PP
-\f[I]Default:\f[R]
-.IP
-.EX
-\(aq\(aq
-  let # Create probe set mapping each platform name to itself
-      # e.g., { ghcjs = \(dqghcjs\(dq; wasi32 = \(dqwasi32\(dq; mingwW64 = \(dqmingwW64\(dq; ... }
-      probeSet = genAttrs (builtins.attrNames pkgs.pkgsCross) (name: name);
-      # Get list of selected platform names as strings
-      selected = config.shell.crossPlatforms probeSet;
-  in # Native GHCJS: the shell itself is for a GHCJS platform
-        pkgs.stdenv.hostPlatform.isGhcjs
-     # Cross\-compilation: GHCJS is among the selected cross targets
-     || builtins.elem \(dqghcjs\(dq selected;
-\(aq\(aq
-.EE
+\f[I]Default:\f[R] \f[CR]true\f[R] when the host platform is GHCJS, or
+when \f[CR]shell.crossPlatforms\f[R] selects \f[CR]ghcjs\f[R].
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/cross/ghcjs
 /modules/cross/ghcjs
 .UE \c
 .SS isWasm
-Whether the project targets WASM (either natively or via
-cross\-compilation).
-Used to conditionally include WebAssembly runtime dependencies.
+Whether the project targets wasm, natively or through
+cross\-compilation.
+When true, Node.js is added to \f[CR]shell.buildInputs\f[R].
 .PP
 \f[I]Type:\f[R] boolean
 .PP
-\f[I]Default:\f[R]
-.IP
-.EX
-\(aq\(aq
-  let # Create probe set mapping each platform name to itself
-      # e.g., { ghcjs = \(dqghcjs\(dq; wasi32 = \(dqwasi32\(dq; mingwW64 = \(dqmingwW64\(dq; ... }
-      probeSet = genAttrs (builtins.attrNames pkgs.pkgsCross) (name: name);
-      # Get list of selected platform names as strings
-      selected = config.shell.crossPlatforms probeSet;
-  in # Native WASM: the shell itself is for a WASM platform
-        pkgs.stdenv.hostPlatform.isWasm
-     # Cross\-compilation: a WASM target is among the selected cross targets
-     || builtins.any (name: hasInfix \(dqwasm\(dq name || hasPrefix \(dqwasi\(dq name) selected;
-\(aq\(aq
-.EE
+\f[I]Default:\f[R] \f[CR]true\f[R] when the host platform is wasm, or
+when \f[CR]shell.crossPlatforms\f[R] selects a platform whose name
+contains \f[CR]wasm\f[R] or starts with \f[CR]wasi\f[R].
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/cross/wasm
 /modules/cross/wasm
 .UE \c
 .SS js\-optimize
-\f[B]A function, not a setting.\f[R] A project calls it and uses what
-comes back.
+\f[B]A function, not a setting.\f[R] A project calls it and uses the
+result.
 Assign it only to replace what the call does.
 .PP
 A linked \f[CR].jsexe\f[R] directory with its \f[CR]all.js\f[R]
-closure\-compiled, the rest of the directory as it was.
-It takes the directory rather than the package that carries it:
+closure\-compiled.
+The rest of the directory is copied unchanged.
+It takes the directory, not the package that carries it:
 .IP
 .EX
 js\-optimize {
@@ -3487,26 +3497,34 @@ js\-optimize {
 }
 .EE
 .PP
-The three names are only what the settings are looked up under, and any
-of them can be left out to say nothing about it.
-\f[CR]closure\-compiler\f[R] is read from the layer that states a field
-most specifically to the least:
-\f[CR]platforms.<platform>.packages.<package>.components.exes.<exe>.closure\-compiler\f[R],
-\f[CR]platforms.<platform>.packages.<package>.closure\-compiler\f[R],
-\f[CR]platforms.<platform>.closure\-compiler\f[R], then the same package
-and executable layers of \f[CR]packages\f[R], and last
-\f[CR]closure\-compiler\f[R] itself, which is the only one holding
-values throughout.
-They are read from the project\(cqs own values rather than a
-driver\(cqs, since this runs on a built artifact, outside any driver.
+\f[CR]platform\f[R], \f[CR]package\f[R] and \f[CR]exe\f[R] are only
+lookup keys for the settings.
+Each can be left out, and an omitted key states nothing.
+.PP
+The \f[CR]closure\-compiler\f[R] settings are resolved per field.
+The most specific layer that states a field decides it, in this order:
+.IP "1." 3
+\f[CR]platforms.<platform>.packages.<package>.components.exes.<exe>.closure\-compiler\f[R]
+.IP "2." 3
+\f[CR]platforms.<platform>.packages.<package>.closure\-compiler\f[R]
+.IP "3." 3
+\f[CR]platforms.<platform>.closure\-compiler\f[R]
+.IP "4." 3
+\f[CR]packages.<package>.components.exes.<exe>.closure\-compiler\f[R],
+then \f[CR]packages.<package>.closure\-compiler\f[R]
+.IP "5." 3
+\f[CR]closure\-compiler\f[R] at the top level, the only layer that holds
+every field.
+.PP
+The settings come from the project\(cqs own values, not a driver\(cqs.
+This function runs on a built artifact, outside any driver.
 .PP
 \f[I]Type:\f[R] function that evaluates to a(n) package
 .PP
 \f[I]Default:\f[R]
 .IP
 .EX
-<nix\-haskell>/libs/closure\-compiler/run.nix, run with the settings the
-named target, package and executable resolve to
+<nix\-haskell>/libs/closure\-compiler/run.nix, run with the settings the named target, package and executable resolve to
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
@@ -3514,15 +3532,13 @@ named target, package and executable resolve to
 /modules/cross/ghcjs
 .UE \c
 .SS name
-Optional name for better error messages.
+Optional project name.
+It improves error messages, and the nixpkgs driver names the dev shell
+with it.
 .PP
 \f[I]Type:\f[R] null or string
 .PP
-\f[I]Default:\f[R]
-.IP
-.EX
-\(dqhsnyxxl0yj0lbjv77aa93chgwdqa9gs3\-source\(dq
-.EE
+\f[I]Default:\f[R] the base name of \f[CR]src\f[R]
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/common.nix
@@ -3530,10 +3546,10 @@ Optional name for better error messages.
 .UE \c
 .SS nixpkgs.compiler\-version
 The version of the compiler this driver builds with.
-Both drivers answer to the same name, and each answers for itself: they
-mirror \f[CR]compiler\f[R] separately and fall back to different
-compilers of their own, so a project asking what it is building against
-asks the driver:
+Both drivers answer to the same name, and each answers for itself.
+They mirror \f[CR]compiler\f[R] separately and fall back to different
+compilers of their own.
+A project that wants to know what it builds against asks the driver:
 .IP
 .EX
 config.<driver>.compiler\-version
@@ -3550,15 +3566,16 @@ project brought, or the \f[CR]ghc\f[R] of the package set it selected
 /modules/nixpkgs
 .UE \c
 .SS nixpkgs.cross\-compiler
-\f[B]A function, not a setting.\f[R] A project calls it and uses what
-comes back.
+\f[B]A function, not a setting.\f[R] A project calls it and uses the
+result.
 Assign it only to replace what the call does.
 .PP
 The compiler this driver builds a cross target with, by
 \f[CR]pkgs.pkgsCross\f[R] name.
-Both drivers answer to the same name, so a step that needs the compiler
-an artifact was built with, as \f[CR]wasm\-jsffi\f[R] does, asks for it
-the same way whichever driver built the artifact:
+Both drivers answer to the same name.
+A step that needs the compiler an artifact was built with, as
+\f[CR]wasm\-jsffi\f[R] does, asks the same way whichever driver built
+the artifact:
 .IP
 .EX
 config.<driver>.cross\-compiler \(dqwasi32\(dq
@@ -3577,20 +3594,21 @@ platform: config.nixpkgs.project.projectCross.<platform>.haskellPackages.ghc
 /modules/nixpkgs
 .UE \c
 .SS nixpkgs.cross\-exe
-\f[B]A function, not a setting.\f[R] A project calls it and uses what
-comes back.
+\f[B]A function, not a setting.\f[R] A project calls it and uses the
+result.
 Assign it only to replace what the call does.
 .PP
 What this driver builds an executable into, for one cross target.
-Both drivers answer to the same name, and what they answer with carries
-the executable at \f[CR]bin/<exe>\f[R], with a wasm target\(cqs binary
-at \f[CR]bin/<exe>.wasm\f[R] and a javascript target\(cqs linked
-directory at \f[CR]bin/<exe>.jsexe\f[R].
-It is what \f[CR]bundles\f[R] optimizes.
+Both drivers answer to the same name.
+The answer carries the executable at \f[CR]bin/<exe>\f[R].
+A wasm target\(cqs binary sits at \f[CR]bin/<exe>.wasm\f[R], and a
+javascript target\(cqs linked directory at \f[CR]bin/<exe>.jsexe\f[R].
+\f[CR]bundles\f[R] optimizes this result.
 .PP
 This driver builds one derivation per package, so the executable\(cqs
-own name says nothing about where to look; it is taken for the sake of
-the one interface both drivers answer to.
+own name does not affect the lookup.
+The function takes it only to keep the one interface both drivers answer
+to.
 .PP
 \f[I]Type:\f[R] function that evaluates to a(n) package
 .PP
@@ -3682,12 +3700,12 @@ Directory of the package within the project source.
 .UE \c
 .SS nixpkgs.options.cross\-package\-defaults
 Defaults applied to every package of a cross set the driver builds
-itself, the one a compiler bringing its own toolchain needs
-(\f[CR]nixpkgs.pkgsCross\f[R]).
+itself (\f[CR]nixpkgs.pkgsCross\f[R]), the set a compiler bringing its
+own toolchain needs.
 They sit under the project\(cqs own \f[CR]packages.<name>\f[R] settings,
 which the driver layers on after.
-Tests and benchmarks are not among them: a cross set has no way to run
-what it builds, so they are always off there.
+Tests and benchmarks are not among the fields: a cross set has no way to
+run what it builds, so they are always off there.
 .PP
 \f[I]Type:\f[R] submodule
 .PP
@@ -3749,25 +3767,29 @@ false
 .UE \c
 .SS nixpkgs.options.exact\-configuration
 Tell Cabal every direct dependency, by the id its package database
-records, and every flag the package declares, so it resolves nothing
-itself.
-It then reads no version bound, which is what lets a package build
-against a compiler its cabal file was written before, including where
-the bound sits inside a conditional stanza and \f[CR]jailbreak\f[R]
-cannot reach it.
-This is how the haskell.nix driver configures every package, which is
-why \f[CR]allow\-newer\f[R] in a cabal.project takes effect there and
-not here.
+records, and every flag the package declares.
+Cabal then resolves nothing itself and reads no version bound.
+.PP
+With no bounds read, a package builds against a compiler released after
+its cabal file was written.
+This includes a bound inside a conditional stanza, which
+\f[CR]jailbreak\f[R] cannot reach.
+.PP
+The haskell.nix driver configures every package this way.
+That is why \f[CR]allow\-newer\f[R] in a cabal.project takes effect in
+that driver and not in this one.
 .PP
 A flag the project states in \f[CR]packages.<name>.flags\f[R] still
-decides: the generated assignments go first, and Cabal takes the last
-one given.
+decides.
+The generated assignments go first, and Cabal takes the last assignment
+of a flag.
 .PP
-It follows \f[CR]use\-plan\f[R] unless the project says otherwise: a
-plan read from a cabal.project brings in the packages that file\(cqs
-\f[CR]allow\-newer\f[R] was written for, and this driver has no other
-way to get past their bounds.
-Set it outright to break the link, in either direction.
+The default follows \f[CR]use\-plan\f[R] unless the project sets this
+option.
+A plan read from a cabal.project brings in the packages that the
+file\(cqs \f[CR]allow\-newer\f[R] was written for, and this driver has
+no other way past their bounds.
+Set the option explicitly to break the link, in either direction.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
@@ -3795,7 +3817,7 @@ Without a solver their version bounds routinely need loosening.
 /modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.extra\-package\-defaults.check
-Run their test suites.
+Run the test suites of these packages.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
@@ -3810,7 +3832,7 @@ false
 /modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.extra\-package\-defaults.haddock
-Build their documentation.
+Build the documentation of these packages.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
@@ -3881,10 +3903,11 @@ Extra arguments passed to \f[CR]shellFor\f[R] verbatim
 .SS nixpkgs.options.tool\-packages
 Overrides for \f[CR]shell.tools\f[R] resolution, keyed by tool name.
 A tool is looked up here first, then as \f[CR]pkgs.<name>\f[R], then in
-the Haskell package set; version requests are ignored, since nixpkgs
-carries a single version.
+the Haskell package set.
+Version requests are ignored, since nixpkgs carries a single version.
 \f[CR]cabal\f[R] is here because the tool\(cqs name is not the name of
-the package carrying it; an entry of the project\(cqs own replaces it.
+the package carrying it.
+An entry of the project\(cqs own replaces it.
 .PP
 \f[I]Type:\f[R] attribute set of package
 .PP
@@ -3908,14 +3931,15 @@ the package carrying it; an entry of the project\(cqs own replaces it.
 Take the project\(cqs structure (local packages, their directories,
 source\-repository\-packages) from the cabal plan of the haskell.nix
 driver instead of the root of the source.
-This is cabal\(cqs own reading of cabal.project, so globs,
-optional\-packages and conditionals are all exact, at the cost of
-evaluating the haskell.nix toolchain (import from derivation).
+The plan is cabal\(cqs own reading of cabal.project, so globs,
+optional\-packages and conditionals are all exact.
+The cost is evaluating the haskell.nix toolchain (import from
+derivation).
 The packages are still built from nixpkgs.
 .PP
-This turns \f[CR]exact\-configuration\f[R] on by default, since the
-bounds of the packages a plan brings in are the other half of reading a
-cabal.project on a driver with no solver.
+This turns \f[CR]exact\-configuration\f[R] on by default.
+The bounds of the packages a plan brings in are the other half of
+reading a cabal.project on a driver with no solver.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
@@ -3948,8 +3972,9 @@ import config.inputs.nixpkgs { inherit (config) system; }
 Cross package sets for \f[CR]project.projectCross\f[R], keyed by
 \f[CR]pkgs.pkgsCross\f[R] platform name.
 An entry replaces the package set the driver would otherwise take from
-\f[CR]pkgs.pkgsCross\f[R], which is what a compiler bringing its own
-toolchain needs, since that toolchain has to become the whole set\(cqs.
+\f[CR]pkgs.pkgsCross\f[R].
+A compiler bringing its own toolchain needs the replacement, since that
+toolchain has to become the whole set\(cqs.
 .PP
 \f[I]Type:\f[R] attribute set of raw value
 .PP
@@ -3993,7 +4018,8 @@ import <nix\-haskell>/libs/nixpkgs/driver.nix {
 /modules/nixpkgs
 .UE \c
 .SS optimizations.O2
-Enable \-O2 optimization level.
+Enable \-O2: GHC applies every non\-dangerous optimisation, at the cost
+of longer compile times.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
@@ -4008,7 +4034,8 @@ false
 /modules/optimizations.nix
 .UE \c
 .SS optimizations.all
-Enable all optimization flags.
+Enable every optimization flag in this module.
+Each flag can still be turned off on its own.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
@@ -4023,7 +4050,9 @@ false
 /modules/optimizations.nix
 .UE \c
 .SS optimizations.cross\-module\-specialise
-Enable \-fcross\-module\-specialise.
+Enable \-fcross\-module\-specialise: specialise INLINABLE overloaded
+functions imported from other modules for the types at which they are
+called.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
@@ -4038,7 +4067,9 @@ false
 /modules/optimizations.nix
 .UE \c
 .SS optimizations.expose\-all\-unfoldings
-Enable \-fexpose\-all\-unfoldings for cross\-module optimization.
+Enable \-fexpose\-all\-unfoldings: write every function\(cqs unfolding
+into the interface file, even large or recursive ones, so other modules
+can inline and specialise them.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
@@ -4053,7 +4084,10 @@ false
 /modules/optimizations.nix
 .UE \c
 .SS optimizations.late\-specialise
-Enable \-flate\-specialise.
+Enable \-flate\-specialise: run one more specialisation pass late in the
+pipeline.
+It can catch opportunities that earlier specialisation and inlining
+exposed.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
@@ -4068,7 +4102,8 @@ false
 /modules/optimizations.nix
 .UE \c
 .SS optimizations.specialise
-Enable \-fspecialise.
+Enable \-fspecialise: specialise each overloaded function for the types
+at which the defining module calls it.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
@@ -4083,7 +4118,9 @@ false
 /modules/optimizations.nix
 .UE \c
 .SS optimizations.specialise\-aggressively
-Enable \-fspecialise\-aggressively.
+Enable \-fspecialise\-aggressively: specialise any overloaded function
+whose unfolding is available, not only INLINABLE ones.
+This may grow code size significantly.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
@@ -4104,16 +4141,17 @@ name (the keys of \f[CR]shell.crossPlatforms\f[R] and
 .PP
 A cabal file or project file can make a package\(cqs flags, and through
 them its dependencies, conditional on the platform.
-The haskell.nix driver follows those conditionals through its solver;
-the nixpkgs driver has none, so what they would have decided is given
-here.
-The flags reach the point where a package\(cqs dependencies are worked
-out, rather than only how it is configured.
+The haskell.nix driver follows those conditionals through its solver.
+The nixpkgs driver has no solver, so state here what the conditionals
+would have decided.
+The flags reach the point where a package\(cqs dependencies are
+computed, not only its configuration.
 .PP
 \f[CR]wasm\-opt\f[R] and \f[CR]closure\-compiler\f[R] are the bundle
-optimizer settings for whatever is built for this target, which the
-\f[CR]packages\f[R] entries under them narrow to one package, and their
-\f[CR]components.exes\f[R] entries to one executable of it.
+optimizer settings for whatever is built for this target.
+The \f[CR]packages\f[R] entries under them narrow a setting to one
+package, and their \f[CR]components.exes\f[R] entries to one executable
+of it.
 .PP
 \f[I]Type:\f[R] attribute set of (submodule)
 .PP
@@ -4140,7 +4178,7 @@ optimizer settings for whatever is built for this target, which the
 Per\-package customization for this platform only, merged over the
 project\-wide \f[CR]packages\f[R].
 The fields are the same, with \f[CR]bundles\f[R] added: what a driver
-built for this target, shipped.
+built for this target, in the form that ships.
 .PP
 \f[I]Type:\f[R] attribute set of (submodule)
 .PP
@@ -4279,8 +4317,8 @@ null
 .UE \c
 .SS platforms.<name>.packages.<name>.bundles
 What this package\(cqs executables are shipped as for this target, keyed
-by the name each carries in \f[CR]components.exes\f[R], so that they can
-be read together without naming one again.
+by the name each carries in \f[CR]components.exes\f[R].
+The whole set can be read at once, without naming each executable again.
 .PP
 \f[I]Type:\f[R] attribute set of (submodule)
 .PP
@@ -4292,10 +4330,11 @@ be read together without naming one again.
 /modules/common.nix
 .UE \c
 .SS platforms.<name>.packages.<name>.bundles.<name>.jsffi
-The \f[CR]ghc_wasm_jsffi.js\f[R] this target\(cqs binary cannot be
-instantiated without, read out of the binary as linked rather than out
-of \f[CR]optimized\f[R], which has had the sections it reads stripped.
-\f[CR]null\f[R] off a wasm target.
+The \f[CR]ghc_wasm_jsffi.js\f[R] without which this target\(cqs binary
+cannot be instantiated.
+It is read out of the binary as linked, not out of \f[CR]optimized\f[R]:
+the optimizer strips the sections the read needs.
+\f[CR]null\f[R] for every target that is not wasm.
 .PP
 \f[I]Type:\f[R] null or package
 .PP
@@ -4307,10 +4346,10 @@ built, with the compiler it was built with
 /modules/common.nix
 .UE \c
 .SS platforms.<name>.packages.<name>.bundles.<name>.optimized
-What gets shipped: the executable a driver built for this target, put
+What gets shipped: the executable a driver built for this target, sent
 through that target\(cqs optimizer.
-\f[CR]null\f[R] for a target that has neither, and \f[CR]null\f[R]
-anywhere but through a driver.
+\f[CR]null\f[R] for a target that has no optimizer, and \f[CR]null\f[R]
+when read anywhere but through a driver.
 .PP
 \f[I]Type:\f[R] null or package
 .PP
@@ -4322,10 +4361,10 @@ through \f[CR]wasm\-optimize\f[R] or \f[CR]js\-optimize\f[R]
 /modules/common.nix
 .UE \c
 .SS platforms.<name>.packages.<name>.closure\-compiler.enable
-Whether \f[CR]js\-optimize\f[R] runs closure\-compiler at all.
-When false it copies the jsexe through unchanged.
+Whether \f[CR]js\-optimize\f[R] runs closure\-compiler.
+When false, \f[CR]js\-optimize\f[R] copies the jsexe through unchanged.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or boolean
@@ -4341,13 +4380,14 @@ null
 /modules/common.nix
 .UE \c
 .SS platforms.<name>.packages.<name>.closure\-compiler.externs
-Files passed as \f[CR]\-\-externs\f[R], declaring what the program
-reaches by a name the compiler must not rename.
-The jsexe\(cqs own \f[CR]all.externs.js\f[R] is always passed ahead of
-these, since ADVANCED renames everything it is not told the runtime
-knows by name.
+Files passed as \f[CR]\-\-externs\f[R].
+They declare what the program reaches by a name the compiler must not
+rename.
+The jsexe\(cqs own \f[CR]all.externs.js\f[R] always goes ahead of these,
+since ADVANCED renames everything it is not told the runtime knows by
+name.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or (list of absolute path)
@@ -4363,17 +4403,17 @@ null
 /modules/common.nix
 .UE \c
 .SS platforms.<name>.packages.<name>.closure\-compiler.extraFlags
-Flags appended after the level and the externs, so one of these decides
-what they would have.
-One flag per element, its value in the same string, since the elements
-are joined into one command line.
+Flags appended after the level and the externs, so one of these
+overrides what they set.
+Write one flag per element, with its value in the same string.
+The elements are joined into one command line.
 .PP
-The default accepts whatever syntax the linker emitted, keeps the
-compiler quiet, wraps the program in a function expression it may assume
-nothing escapes from, asks for strict mode, and stops it complaining
-about the names the runtime defines elsewhere.
+The default flags accept whatever syntax the linker emitted, keep the
+compiler quiet, wrap the program in a function expression it may assume
+nothing escapes from, ask for strict mode, and silence the warning about
+names the runtime defines elsewhere.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or (list of string)
@@ -4391,7 +4431,7 @@ null
 .SS platforms.<name>.packages.<name>.closure\-compiler.level
 The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or one of \(lqBUNDLE\(rq, \(lqWHITESPACE_ONLY\(rq,
@@ -4414,8 +4454,7 @@ null
 /modules/common.nix
 .UE \c
 .SS platforms.<name>.packages.<name>.components
-Per\-component customization, under the kind cabal knows the component
-by.
+Per\-component customization, grouped by the component kind cabal uses.
 Only executables carry anything so far.
 .PP
 \f[I]Type:\f[R] submodule
@@ -4437,12 +4476,12 @@ Only executables carry anything so far.
 .SS platforms.<name>.packages.<name>.components.exes
 Bundle optimizer settings for one executable of the package, keyed by
 the name cabal gives it.
-They sit under an executable rather than the package because a bundle is
-what an executable links to, and a package can carry several.
+They sit under an executable rather than the package, because a bundle
+belongs to one linked executable and a package can carry several.
 .PP
-Naming an executable here is also what tells the haskell.nix driver to
-install that executable\(cqs \f[CR].jsexe\f[R] directory, which it
-otherwise leaves in the build tree.
+Naming an executable here also tells the haskell.nix driver to install
+that executable\(cqs \f[CR].jsexe\f[R] directory, which it otherwise
+leaves in the build tree.
 .PP
 \f[I]Type:\f[R] attribute set of (submodule)
 .PP
@@ -4461,10 +4500,11 @@ otherwise leaves in the build tree.
 /modules/common.nix
 .UE \c
 .SS platforms.<name>.packages.<name>.components.exes.<name>.bundles.jsffi
-The \f[CR]ghc_wasm_jsffi.js\f[R] this target\(cqs binary cannot be
-instantiated without, read out of the binary as linked rather than out
-of \f[CR]optimized\f[R], which has had the sections it reads stripped.
-\f[CR]null\f[R] off a wasm target.
+The \f[CR]ghc_wasm_jsffi.js\f[R] without which this target\(cqs binary
+cannot be instantiated.
+It is read out of the binary as linked, not out of \f[CR]optimized\f[R]:
+the optimizer strips the sections the read needs.
+\f[CR]null\f[R] for every target that is not wasm.
 .PP
 \f[I]Type:\f[R] null or package
 .PP
@@ -4476,10 +4516,10 @@ built, with the compiler it was built with
 /modules/common.nix
 .UE \c
 .SS platforms.<name>.packages.<name>.components.exes.<name>.bundles.optimized
-What gets shipped: the executable a driver built for this target, put
+What gets shipped: the executable a driver built for this target, sent
 through that target\(cqs optimizer.
-\f[CR]null\f[R] for a target that has neither, and \f[CR]null\f[R]
-anywhere but through a driver.
+\f[CR]null\f[R] for a target that has no optimizer, and \f[CR]null\f[R]
+when read anywhere but through a driver.
 .PP
 \f[I]Type:\f[R] null or package
 .PP
@@ -4491,10 +4531,10 @@ through \f[CR]wasm\-optimize\f[R] or \f[CR]js\-optimize\f[R]
 /modules/common.nix
 .UE \c
 .SS platforms.<name>.packages.<name>.components.exes.<name>.closure\-compiler.enable
-Whether \f[CR]js\-optimize\f[R] runs closure\-compiler at all.
-When false it copies the jsexe through unchanged.
+Whether \f[CR]js\-optimize\f[R] runs closure\-compiler.
+When false, \f[CR]js\-optimize\f[R] copies the jsexe through unchanged.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or boolean
@@ -4510,13 +4550,14 @@ null
 /modules/common.nix
 .UE \c
 .SS platforms.<name>.packages.<name>.components.exes.<name>.closure\-compiler.externs
-Files passed as \f[CR]\-\-externs\f[R], declaring what the program
-reaches by a name the compiler must not rename.
-The jsexe\(cqs own \f[CR]all.externs.js\f[R] is always passed ahead of
-these, since ADVANCED renames everything it is not told the runtime
-knows by name.
+Files passed as \f[CR]\-\-externs\f[R].
+They declare what the program reaches by a name the compiler must not
+rename.
+The jsexe\(cqs own \f[CR]all.externs.js\f[R] always goes ahead of these,
+since ADVANCED renames everything it is not told the runtime knows by
+name.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or (list of absolute path)
@@ -4532,17 +4573,17 @@ null
 /modules/common.nix
 .UE \c
 .SS platforms.<name>.packages.<name>.components.exes.<name>.closure\-compiler.extraFlags
-Flags appended after the level and the externs, so one of these decides
-what they would have.
-One flag per element, its value in the same string, since the elements
-are joined into one command line.
+Flags appended after the level and the externs, so one of these
+overrides what they set.
+Write one flag per element, with its value in the same string.
+The elements are joined into one command line.
 .PP
-The default accepts whatever syntax the linker emitted, keeps the
-compiler quiet, wraps the program in a function expression it may assume
-nothing escapes from, asks for strict mode, and stops it complaining
-about the names the runtime defines elsewhere.
+The default flags accept whatever syntax the linker emitted, keep the
+compiler quiet, wrap the program in a function expression it may assume
+nothing escapes from, ask for strict mode, and silence the warning about
+names the runtime defines elsewhere.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or (list of string)
@@ -4560,7 +4601,7 @@ null
 .SS platforms.<name>.packages.<name>.components.exes.<name>.closure\-compiler.level
 The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or one of \(lqBUNDLE\(rq, \(lqWHITESPACE_ONLY\(rq,
@@ -4584,11 +4625,11 @@ null
 .UE \c
 .SS platforms.<name>.packages.<name>.components.exes.<name>.wasm\-opt.enable
 Whether \f[CR]wasm\-optimize\f[R] runs wasm\-opt and the strip that
-follows it at all.
-When false it copies its input through, so what a caller installs sits
-in the same place either way.
+follows it.
+When false, \f[CR]wasm\-optimize\f[R] copies its input through, so a
+caller installs the same path either way.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or boolean
@@ -4605,16 +4646,16 @@ null
 .UE \c
 .SS platforms.<name>.packages.<name>.components.exes.<name>.wasm\-opt.extraFlags
 Flags appended after \f[CR]\-all \-O<level>\f[R], so one of these
-decides what the level would have.
-One flag per element, its value in the same string, since the elements
-are joined into one command line.
+overrides what the level sets.
+Write one flag per element, with its value in the same string.
+The elements are joined into one command line.
 .PP
-The default asks for the optimize level of \f[CR]\-O2\f[R] at the shrink
-level of \f[CR]\-O1\f[R], drops the memory a module never reads,
-discards debug information, and repeats the passes until they stop
-finding anything.
+The default flags set the optimize level of \f[CR]\-O2\f[R] at the
+shrink level of \f[CR]\-O1\f[R], drop the memory a module never reads,
+discard debug information, and repeat the passes until they find nothing
+more.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or (list of string)
@@ -4632,7 +4673,7 @@ null
 .SS platforms.<name>.packages.<name>.components.exes.<name>.wasm\-opt.level
 The \f[CR]\-O\f[R] level wasm\-opt runs at.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or one of \(lq0\(rq, \(lq1\(rq, \(lq2\(rq,
@@ -4768,7 +4809,7 @@ null
 /modules/common.nix
 .UE \c
 .SS platforms.<name>.packages.<name>.dontStrip
-Whether to skip stripping the produced binaries.
+Whether to leave the produced binaries unstripped.
 \f[CR]null\f[R] leaves the default in place.
 .PP
 \f[I]Type:\f[R] null or boolean
@@ -5146,11 +5187,11 @@ null
 .UE \c
 .SS platforms.<name>.packages.<name>.wasm\-opt.enable
 Whether \f[CR]wasm\-optimize\f[R] runs wasm\-opt and the strip that
-follows it at all.
-When false it copies its input through, so what a caller installs sits
-in the same place either way.
+follows it.
+When false, \f[CR]wasm\-optimize\f[R] copies its input through, so a
+caller installs the same path either way.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or boolean
@@ -5167,16 +5208,16 @@ null
 .UE \c
 .SS platforms.<name>.packages.<name>.wasm\-opt.extraFlags
 Flags appended after \f[CR]\-all \-O<level>\f[R], so one of these
-decides what the level would have.
-One flag per element, its value in the same string, since the elements
-are joined into one command line.
+overrides what the level sets.
+Write one flag per element, with its value in the same string.
+The elements are joined into one command line.
 .PP
-The default asks for the optimize level of \f[CR]\-O2\f[R] at the shrink
-level of \f[CR]\-O1\f[R], drops the memory a module never reads,
-discards debug information, and repeats the passes until they stop
-finding anything.
+The default flags set the optimize level of \f[CR]\-O2\f[R] at the
+shrink level of \f[CR]\-O1\f[R], drop the memory a module never reads,
+discard debug information, and repeat the passes until they find nothing
+more.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or (list of string)
@@ -5194,7 +5235,7 @@ null
 .SS platforms.<name>.packages.<name>.wasm\-opt.level
 The \f[CR]\-O\f[R] level wasm\-opt runs at.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or one of \(lq0\(rq, \(lq1\(rq, \(lq2\(rq,
@@ -5217,10 +5258,10 @@ null
 /modules/common.nix
 .UE \c
 .SS platforms.<name>.closure\-compiler.enable
-Whether \f[CR]js\-optimize\f[R] runs closure\-compiler at all.
-When false it copies the jsexe through unchanged.
+Whether \f[CR]js\-optimize\f[R] runs closure\-compiler.
+When false, \f[CR]js\-optimize\f[R] copies the jsexe through unchanged.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or boolean
@@ -5236,13 +5277,14 @@ null
 /modules/common.nix
 .UE \c
 .SS platforms.<name>.closure\-compiler.externs
-Files passed as \f[CR]\-\-externs\f[R], declaring what the program
-reaches by a name the compiler must not rename.
-The jsexe\(cqs own \f[CR]all.externs.js\f[R] is always passed ahead of
-these, since ADVANCED renames everything it is not told the runtime
-knows by name.
+Files passed as \f[CR]\-\-externs\f[R].
+They declare what the program reaches by a name the compiler must not
+rename.
+The jsexe\(cqs own \f[CR]all.externs.js\f[R] always goes ahead of these,
+since ADVANCED renames everything it is not told the runtime knows by
+name.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or (list of absolute path)
@@ -5258,17 +5300,17 @@ null
 /modules/common.nix
 .UE \c
 .SS platforms.<name>.closure\-compiler.extraFlags
-Flags appended after the level and the externs, so one of these decides
-what they would have.
-One flag per element, its value in the same string, since the elements
-are joined into one command line.
+Flags appended after the level and the externs, so one of these
+overrides what they set.
+Write one flag per element, with its value in the same string.
+The elements are joined into one command line.
 .PP
-The default accepts whatever syntax the linker emitted, keeps the
-compiler quiet, wraps the program in a function expression it may assume
-nothing escapes from, asks for strict mode, and stops it complaining
-about the names the runtime defines elsewhere.
+The default flags accept whatever syntax the linker emitted, keep the
+compiler quiet, wrap the program in a function expression it may assume
+nothing escapes from, ask for strict mode, and silence the warning about
+names the runtime defines elsewhere.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or (list of string)
@@ -5286,7 +5328,7 @@ null
 .SS platforms.<name>.closure\-compiler.level
 The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or one of \(lqBUNDLE\(rq, \(lqWHITESPACE_ONLY\(rq,
@@ -5310,11 +5352,11 @@ null
 .UE \c
 .SS platforms.<name>.wasm\-opt.enable
 Whether \f[CR]wasm\-optimize\f[R] runs wasm\-opt and the strip that
-follows it at all.
-When false it copies its input through, so what a caller installs sits
-in the same place either way.
+follows it.
+When false, \f[CR]wasm\-optimize\f[R] copies its input through, so a
+caller installs the same path either way.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or boolean
@@ -5331,16 +5373,16 @@ null
 .UE \c
 .SS platforms.<name>.wasm\-opt.extraFlags
 Flags appended after \f[CR]\-all \-O<level>\f[R], so one of these
-decides what the level would have.
-One flag per element, its value in the same string, since the elements
-are joined into one command line.
+overrides what the level sets.
+Write one flag per element, with its value in the same string.
+The elements are joined into one command line.
 .PP
-The default asks for the optimize level of \f[CR]\-O2\f[R] at the shrink
-level of \f[CR]\-O1\f[R], drops the memory a module never reads,
-discards debug information, and repeats the passes until they stop
-finding anything.
+The default flags set the optimize level of \f[CR]\-O2\f[R] at the
+shrink level of \f[CR]\-O1\f[R], drop the memory a module never reads,
+discard debug information, and repeat the passes until they find nothing
+more.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or (list of string)
@@ -5358,7 +5400,7 @@ null
 .SS platforms.<name>.wasm\-opt.level
 The \f[CR]\-O\f[R] level wasm\-opt runs at.
 .PP
-\f[CR]null\f[R] states nothing, leaving the field to the layer beneath
+\f[CR]null\f[R] states nothing and leaves the field to the layer beneath
 it, and last to the tool\(cqs own settings at the top level.
 .PP
 \f[I]Type:\f[R] null or one of \(lq0\(rq, \(lq1\(rq, \(lq2\(rq,
@@ -5381,8 +5423,14 @@ null
 /modules/common.nix
 .UE \c
 .SS sha256map
-An alternative to adding \f[CR]\-\-sha256\f[R] comments into the
-cabal.project file.
+Hashes for the sources that \f[CR]source\-repository\-package\f[R]
+stanzas in the cabal.project name.
+An alternative to \f[CR]\-\-sha256\f[R] comments in that file.
+.PP
+Keys are stanza \f[CR]location\f[R] URLs.
+Each value is an attribute set from the stanza\(cqs \f[CR]tag\f[R] to
+the sha256 of the source.
+For a \f[CR]repository\f[R] block, the value is the hash string itself.
 .PP
 \f[I]Type:\f[R] null or (attribute set of (string or attribute set of
 string))
@@ -5424,11 +5472,12 @@ Development shell configuration.
 .UE \c
 .SS shell.packages
 Package selection function.
-It takes a set of Haskell packages and returns a subset of these
-packages with all of their dependencies included in
+It takes a set of Haskell packages and returns a subset.
+The selected packages and all of their dependencies appear in
 \f[CR]ghc\-pkg list\f[R].
-It can take either a \f[CR]package\f[R] or name (\f[CR]string\f[R]) of a
-package which availability can depend on the platform.
+.PP
+An entry is a package or a package name (a string).
+Use a name for a package whose availability depends on the platform.
 .PP
 \f[I]Type:\f[R] null or unspecified value
 .PP
@@ -5465,7 +5514,7 @@ Extra packages available in the shell.
 /modules/common.nix
 .UE \c
 .SS shell.crossPlatforms
-Selector for cross\-compilation targets, over an attribute set keyed by
+Selects the cross\-compilation targets, from an attribute set keyed by
 \f[CR]pkgs.pkgsCross\f[R] platform names.
 .PP
 \f[I]Type:\f[R] unspecified value
@@ -5556,8 +5605,9 @@ false
 .UE \c
 .SS source\-repository\-packages
 Local packages to add to the project.
-A source is anything \f[CR]inputs\f[R] accepts, so a packed thunk
-directory can be given as\-is and is resolved to the source it pins.
+A source is anything \f[CR]inputs\f[R] accepts.
+A packed thunk directory can be given as\-is and resolves to the source
+it pins.
 .PP
 \f[CR]subdir\f[R] selects packages within the source, so a
 multi\-package repository needs one entry rather than one per package.
@@ -5594,9 +5644,9 @@ multi\-package repository needs one entry rather than one per package.
 The project source: the tree holding the cabal project file and the
 packages it names.
 A path is copied into the store, filtered first when
-\f[CR]clean\-src\f[R] is enabled; a derivation or a store path is used
-as it is, on the grounds that whatever produced it already chose what it
-contains.
+\f[CR]clean\-src\f[R] is enabled.
+A derivation or a store path is used as it is, because whatever produced
+it already chose what it contains.
 .PP
 \f[I]Type:\f[R] absolute path or package
 .PP
@@ -5613,7 +5663,7 @@ contains.
 .SS src\-cleaned
 \f[CR]src\f[R] with build artifacts filtered out, or \f[CR]src\f[R]
 itself when \f[CR]clean\-src\f[R] is disabled.
-This is what the project is actually built from.
+The project is built from this.
 .PP
 \f[I]Type:\f[R] absolute path or package \f[I](read only)\f[R]
 .PP
@@ -5634,8 +5684,8 @@ This is what the project is actually built from.
 .UE \c
 .SS system
 The system the project is built on.
-Each driver instantiates its package set for it, and a cross target is
-named relative to it.
+Each driver instantiates its package set for this system, and a cross
+target is named relative to it.
 .PP
 \f[I]Type:\f[R] string
 .PP
@@ -5652,13 +5702,13 @@ named relative to it.
 /modules/common.nix
 .UE \c
 .SS wasm\-jsffi
-\f[B]A function, not a setting.\f[R] A project calls it and uses what
-comes back.
+\f[B]A function, not a setting.\f[R] A project calls it and uses the
+result.
 Assign it only to replace what the call does.
 .PP
-The \f[CR]ghc_wasm_jsffi.js\f[R] a GHC\-built wasm module needs to be
-instantiated at all, read out of the binary by the compiler that built
-it:
+The \f[CR]ghc_wasm_jsffi.js\f[R] without which a GHC\-built wasm module
+cannot be instantiated, read out of the binary by the compiler that
+built it:
 .IP
 .EX
 wasm\-jsffi {
@@ -5667,8 +5717,8 @@ wasm\-jsffi {
 }
 .EE
 .PP
-The compiler must be the one that produced the binary, which is what
-\f[CR]<driver>.cross\-compiler\f[R] names.
+The compiler must be the one that produced the binary, and
+\f[CR]<driver>.cross\-compiler\f[R] names that compiler.
 Run this on the binary as linked, before \f[CR]wasm\-optimize\f[R]
 strips the sections it reads.
 .PP
@@ -5686,9 +5736,9 @@ strips the sections it reads.
 .UE \c
 .SS wasm\-opt.enable
 Whether \f[CR]wasm\-optimize\f[R] runs wasm\-opt and the strip that
-follows it at all.
-When false it copies its input through, so what a caller installs sits
-in the same place either way.
+follows it.
+When false, \f[CR]wasm\-optimize\f[R] copies its input through, so a
+caller installs the same path either way.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
@@ -5704,14 +5754,14 @@ true
 .UE \c
 .SS wasm\-opt.extraFlags
 Flags appended after \f[CR]\-all \-O<level>\f[R], so one of these
-decides what the level would have.
-One flag per element, its value in the same string, since the elements
-are joined into one command line.
+overrides what the level sets.
+Write one flag per element, with its value in the same string.
+The elements are joined into one command line.
 .PP
-The default asks for the optimize level of \f[CR]\-O2\f[R] at the shrink
-level of \f[CR]\-O1\f[R], drops the memory a module never reads,
-discards debug information, and repeats the passes until they stop
-finding anything.
+The default flags set the optimize level of \f[CR]\-O2\f[R] at the
+shrink level of \f[CR]\-O1\f[R], drop the memory a module never reads,
+discard debug information, and repeat the passes until they find nothing
+more.
 .PP
 \f[I]Type:\f[R] list of string
 .PP
@@ -5754,14 +5804,14 @@ The \f[CR]\-O\f[R] level wasm\-opt runs at.
 /modules/cross/wasm
 .UE \c
 .SS wasm\-optimize
-\f[B]A function, not a setting.\f[R] A project calls it and uses what
-comes back.
+\f[B]A function, not a setting.\f[R] A project calls it and uses the
+result.
 Assign it only to replace what the call does.
 .PP
 A wasm binary optimized and stripped.
-It takes the file rather than the package that carries it, and yields
-the file rather than a directory holding it, so the caller installs it
-under whatever name it wants:
+It takes the file, not the package that carries it.
+It yields the file, not a directory holding it, so the caller installs
+it under any name:
 .IP
 .EX
 wasm\-optimize {
@@ -5772,25 +5822,34 @@ wasm\-optimize {
 }
 .EE
 .PP
-The three names are only what the settings are looked up under, and any
-of them can be left out to say nothing about it.
-\f[CR]wasm\-opt\f[R] is read from the layer that states a field most
-specifically to the least:
-\f[CR]platforms.<platform>.packages.<package>.components.exes.<exe>.wasm\-opt\f[R],
-\f[CR]platforms.<platform>.packages.<package>.wasm\-opt\f[R],
-\f[CR]platforms.<platform>.wasm\-opt\f[R], then the same package and
-executable layers of \f[CR]packages\f[R], and last \f[CR]wasm\-opt\f[R]
-itself, which is the only one holding values throughout.
-They are read from the project\(cqs own values rather than a
-driver\(cqs, since this runs on a built artifact, outside any driver.
+\f[CR]platform\f[R], \f[CR]package\f[R] and \f[CR]exe\f[R] are only
+lookup keys for the settings.
+Each can be left out, and an omitted key states nothing.
+.PP
+The \f[CR]wasm\-opt\f[R] settings are resolved per field.
+The most specific layer that states a field decides it, in this order:
+.IP "1." 3
+\f[CR]platforms.<platform>.packages.<package>.components.exes.<exe>.wasm\-opt\f[R]
+.IP "2." 3
+\f[CR]platforms.<platform>.packages.<package>.wasm\-opt\f[R]
+.IP "3." 3
+\f[CR]platforms.<platform>.wasm\-opt\f[R]
+.IP "4." 3
+\f[CR]packages.<package>.components.exes.<exe>.wasm\-opt\f[R], then
+\f[CR]packages.<package>.wasm\-opt\f[R]
+.IP "5." 3
+\f[CR]wasm\-opt\f[R] at the top level, the only layer that holds every
+field.
+.PP
+The settings come from the project\(cqs own values, not a driver\(cqs.
+This function runs on a built artifact, outside any driver.
 .PP
 \f[I]Type:\f[R] function that evaluates to a(n) package
 .PP
 \f[I]Default:\f[R]
 .IP
 .EX
-<nix\-haskell>/libs/wasm\-opt/run.nix, run with the settings the named
-target, package and executable resolve to
+<nix\-haskell>/libs/wasm\-opt/run.nix, run with the settings the named target, package and executable resolve to
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c

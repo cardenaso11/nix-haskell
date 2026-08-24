@@ -41,8 +41,7 @@ attribute set of (submodule)
 
 
 
-Whether to eliminate unused code at link time\. ` null ` leaves the
-default in place\.
+Whether to eliminate unused code at link time\. ` null ` leaves the default in place\.
 
 
 
@@ -66,8 +65,7 @@ null
 
 
 
-Whether to build a pre-linked object of the library for loading
-into GHCi\. ` null ` leaves the default in place\.
+Whether to build a pre-linked object of the library for loading into GHCi\. ` null ` leaves the default in place\.
 
 
 
@@ -91,8 +89,7 @@ null
 
 
 
-Whether to build the package’s library with profiling support\.
-` null ` leaves the default in place\.
+Whether to build the package’s library with profiling support\. ` null ` leaves the default in place\.
 
 
 
@@ -116,8 +113,7 @@ null
 
 
 
-Whether to build the whole package with profiling support\.
-` null ` leaves the default in place\.
+Whether to build the whole package with profiling support\. ` null ` leaves the default in place\.
 
 
 
@@ -141,8 +137,7 @@ null
 
 
 
-Whether to install the package’s data files into a separate
-output\. ` null ` leaves the default in place\.
+Whether to install the package’s data files into a separate output\. ` null ` leaves the default in place\.
 
 
 
@@ -166,8 +161,7 @@ null
 
 
 
-Whether to build a shared library\. ` null ` leaves the default in
-place\.
+Whether to build a shared library\. ` null ` leaves the default in place\.
 
 
 
@@ -191,8 +185,7 @@ null
 
 
 
-Whether to build a static library\. ` null ` leaves the default in
-place\.
+Whether to build a static library\. ` null ` leaves the default in place\.
 
 
 
@@ -216,10 +209,10 @@ null
 
 
 
-Whether ` js-optimize ` runs closure-compiler at all\. When false it
+Whether ` js-optimize ` runs closure-compiler\. When false, ` js-optimize `
 copies the jsexe through unchanged\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -243,12 +236,12 @@ null
 
 
 
-Files passed as ` --externs `, declaring what the program reaches by a
-name the compiler must not rename\. The jsexe’s own ` all.externs.js ` is
-always passed ahead of these, since ADVANCED renames everything it is
+Files passed as ` --externs `\. They declare what the program reaches by
+a name the compiler must not rename\. The jsexe’s own ` all.externs.js `
+always goes ahead of these, since ADVANCED renames everything it is
 not told the runtime knows by name\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -272,16 +265,16 @@ null
 
 
 
-Flags appended after the level and the externs, so one of these decides
-what they would have\. One flag per element, its value in the same
-string, since the elements are joined into one command line\.
+Flags appended after the level and the externs, so one of these
+overrides what they set\. Write one flag per element, with its value in
+the same string\. The elements are joined into one command line\.
 
-The default accepts whatever syntax the linker emitted, keeps the
-compiler quiet, wraps the program in a function expression it may
-assume nothing escapes from, asks for strict mode, and stops it
-complaining about the names the runtime defines elsewhere\.
+The default flags accept whatever syntax the linker emitted, keep the
+compiler quiet, wrap the program in a function expression it may
+assume nothing escapes from, ask for strict mode, and silence the
+warning about names the runtime defines elsewhere\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -307,7 +300,7 @@ null
 
 The ` --compilation_level ` closure-compiler runs at\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -339,8 +332,8 @@ null
 
 
 
-Per-component customization, under the kind cabal knows the
-component by\. Only executables carry anything so far\.
+Per-component customization, grouped by the component kind
+cabal uses\. Only executables carry anything so far\.
 
 
 
@@ -364,14 +357,15 @@ submodule
 
 
 
-Bundle optimizer settings for one executable of the package,
-keyed by the name cabal gives it\. They sit under an executable
-rather than the package because a bundle is what an executable
-links to, and a package can carry several\.
+Bundle optimizer settings for one executable of the
+package, keyed by the name cabal gives it\. They sit under
+an executable rather than the package, because a bundle
+belongs to one linked executable and a package can carry
+several\.
 
-Naming an executable here is also what tells the haskell\.nix
-driver to install that executable’s ` .jsexe ` directory, which
-it otherwise leaves in the build tree\.
+Naming an executable here also tells the haskell\.nix
+driver to install that executable’s ` .jsexe ` directory,
+which it otherwise leaves in the build tree\.
 
 
 
@@ -395,10 +389,10 @@ attribute set of (submodule)
 
 
 
-Whether ` js-optimize ` runs closure-compiler at all\. When false it
+Whether ` js-optimize ` runs closure-compiler\. When false, ` js-optimize `
 copies the jsexe through unchanged\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -422,12 +416,12 @@ null
 
 
 
-Files passed as ` --externs `, declaring what the program reaches by a
-name the compiler must not rename\. The jsexe’s own ` all.externs.js ` is
-always passed ahead of these, since ADVANCED renames everything it is
+Files passed as ` --externs `\. They declare what the program reaches by
+a name the compiler must not rename\. The jsexe’s own ` all.externs.js `
+always goes ahead of these, since ADVANCED renames everything it is
 not told the runtime knows by name\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -451,16 +445,16 @@ null
 
 
 
-Flags appended after the level and the externs, so one of these decides
-what they would have\. One flag per element, its value in the same
-string, since the elements are joined into one command line\.
+Flags appended after the level and the externs, so one of these
+overrides what they set\. Write one flag per element, with its value in
+the same string\. The elements are joined into one command line\.
 
-The default accepts whatever syntax the linker emitted, keeps the
-compiler quiet, wraps the program in a function expression it may
-assume nothing escapes from, asks for strict mode, and stops it
-complaining about the names the runtime defines elsewhere\.
+The default flags accept whatever syntax the linker emitted, keep the
+compiler quiet, wrap the program in a function expression it may
+assume nothing escapes from, ask for strict mode, and silence the
+warning about names the runtime defines elsewhere\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -486,7 +480,7 @@ null
 
 The ` --compilation_level ` closure-compiler runs at\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -518,11 +512,11 @@ null
 
 
 
-Whether ` wasm-optimize ` runs wasm-opt and the strip that follows it at
-all\. When false it copies its input through, so what a caller installs
-sits in the same place either way\.
+Whether ` wasm-optimize ` runs wasm-opt and the strip that follows it\.
+When false, ` wasm-optimize ` copies its input through, so a caller
+installs the same path either way\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -546,15 +540,15 @@ null
 
 
 
-Flags appended after ` -all -O<level> `, so one of these decides what the
-level would have\. One flag per element, its value in the same string,
-since the elements are joined into one command line\.
+Flags appended after ` -all -O<level> `, so one of these overrides what
+the level sets\. Write one flag per element, with its value in the same
+string\. The elements are joined into one command line\.
 
-The default asks for the optimize level of ` -O2 ` at the shrink level of
-` -O1 `, drops the memory a module never reads, discards debug
-information, and repeats the passes until they stop finding anything\.
+The default flags set the optimize level of ` -O2 ` at the shrink level
+of ` -O1 `, drop the memory a module never reads, discard debug
+information, and repeat the passes until they find nothing more\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -580,7 +574,7 @@ null
 
 The ` -O ` level wasm-opt runs at\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -636,8 +630,7 @@ list of string
 
 
 
-Whether to run the package’s test suites\. ` null ` leaves the
-default in place\.
+Whether to run the package’s test suites\. ` null ` leaves the default in place\.
 
 
 
@@ -661,8 +654,7 @@ null
 
 
 
-Whether to generate a coverage report for the package\. ` null `
-leaves the default in place\.
+Whether to generate a coverage report for the package\. ` null ` leaves the default in place\.
 
 
 
@@ -686,8 +678,7 @@ null
 
 
 
-Whether to build the package’s documentation\. ` null ` leaves the
-default in place\.
+Whether to build the package’s documentation\. ` null ` leaves the default in place\.
 
 
 
@@ -711,8 +702,7 @@ null
 
 
 
-Whether to generate a hoogle index for the package’s
-documentation\. ` null ` leaves the default in place\.
+Whether to generate a hoogle index for the package’s documentation\. ` null ` leaves the default in place\.
 
 
 
@@ -736,8 +726,7 @@ null
 
 
 
-Whether to generate hyperlinked source code alongside the
-package’s documentation\. ` null ` leaves the default in place\.
+Whether to generate hyperlinked source code alongside the package’s documentation\. ` null ` leaves the default in place\.
 
 
 
@@ -761,8 +750,7 @@ null
 
 
 
-Whether to generate the quickjump index of the package’s
-documentation\. ` null ` leaves the default in place\.
+Whether to generate the quickjump index of the package’s documentation\. ` null ` leaves the default in place\.
 
 
 
@@ -786,8 +774,7 @@ null
 
 
 
-Whether to skip stripping the produced binaries\. ` null ` leaves
-the default in place\.
+Whether to leave the produced binaries unstripped\. ` null ` leaves the default in place\.
 
 
 
@@ -860,8 +847,7 @@ list of string
 
 
 
-Hardening flags to disable when building the package\. ` null `
-leaves the default in place\.
+Hardening flags to disable when building the package\. ` null ` leaves the default in place\.
 
 
 
@@ -1385,11 +1371,11 @@ null
 
 
 
-Whether ` wasm-optimize ` runs wasm-opt and the strip that follows it at
-all\. When false it copies its input through, so what a caller installs
-sits in the same place either way\.
+Whether ` wasm-optimize ` runs wasm-opt and the strip that follows it\.
+When false, ` wasm-optimize ` copies its input through, so a caller
+installs the same path either way\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -1413,15 +1399,15 @@ null
 
 
 
-Flags appended after ` -all -O<level> `, so one of these decides what the
-level would have\. One flag per element, its value in the same string,
-since the elements are joined into one command line\.
+Flags appended after ` -all -O<level> `, so one of these overrides what
+the level sets\. Write one flag per element, with its value in the same
+string\. The elements are joined into one command line\.
 
-The default asks for the optimize level of ` -O2 ` at the shrink level of
-` -O1 `, drops the memory a module never reads, discards debug
-information, and repeats the passes until they stop finding anything\.
+The default flags set the optimize level of ` -O2 ` at the shrink level
+of ` -O1 `, drop the memory a module never reads, discard debug
+information, and repeat the passes until they find nothing more\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -1447,7 +1433,7 @@ null
 
 The ` -O ` level wasm-opt runs at\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -1623,11 +1609,11 @@ null
 
 
 
-Filter ` src ` through the ` .gitignore ` it carries before copying it into
-the store, so build artifacts (` dist-newstyle `, ` result `, ` .git `) do not
-become part of every derivation that names the project source, and a
-rebuild does not rehash them\. Only applies when ` src ` is a path; a
-derivation is used as-is\.
+Filter ` src ` through the ` .gitignore ` it carries before copying it
+into the store\. Build artifacts (` dist-newstyle `, ` result `, ` .git `)
+then do not become part of every derivation that names the project
+source, and a rebuild does not rehash them\. Only applies when ` src `
+is a path\. A derivation is used as-is\.
 
 
 
@@ -1651,12 +1637,13 @@ true
 
 
 
-The ignore files read when ` clean-src ` is enabled, relative to the root
-of the source tree\. Every pattern is interpreted with the root as its
-base, whichever file it came from, so an anchored pattern in a nested
-file (` dist/* `) matches against the root rather than against the
-directory the file sits in; where that matters, give the pattern
-through ` clean-src-patterns ` instead\.
+The ignore files read when ` clean-src ` is enabled\. Paths are
+relative to the root of the source tree\.
+
+Every pattern uses the root as its base, whichever file it came
+from\. An anchored pattern in a nested file (` dist/* `) therefore
+matches against the root, not against the file’s own directory\.
+Where that matters, add the pattern to ` clean-src-patterns ` instead\.
 
 
 
@@ -1695,8 +1682,8 @@ list of string
 
 Extra gitignore-syntax patterns, applied on top of the files
 ` clean-src-ignore-files ` names, when ` clean-src ` is enabled\. A bare
-pattern (` dist-js `) matches at any depth, which is what an anchored one
-read against the root cannot do\.
+pattern (` dist-js `) matches at any depth\. An anchored pattern read
+against the root cannot\.
 
 
 
@@ -1731,7 +1718,7 @@ strings concatenated with “\\n”
 
 
 
-Whether ` js-optimize ` runs closure-compiler at all\. When false it
+Whether ` js-optimize ` runs closure-compiler\. When false, ` js-optimize `
 copies the jsexe through unchanged\.
 
 
@@ -1756,9 +1743,9 @@ true
 
 
 
-Files passed as ` --externs `, declaring what the program reaches by a
-name the compiler must not rename\. The jsexe’s own ` all.externs.js ` is
-always passed ahead of these, since ADVANCED renames everything it is
+Files passed as ` --externs `\. They declare what the program reaches by
+a name the compiler must not rename\. The jsexe’s own ` all.externs.js `
+always goes ahead of these, since ADVANCED renames everything it is
 not told the runtime knows by name\.
 
 
@@ -1783,14 +1770,14 @@ list of absolute path
 
 
 
-Flags appended after the level and the externs, so one of these decides
-what they would have\. One flag per element, its value in the same
-string, since the elements are joined into one command line\.
+Flags appended after the level and the externs, so one of these
+overrides what they set\. Write one flag per element, with its value in
+the same string\. The elements are joined into one command line\.
 
-The default accepts whatever syntax the linker emitted, keeps the
-compiler quiet, wraps the program in a function expression it may
-assume nothing escapes from, asks for strict mode, and stops it
-complaining about the names the runtime defines elsewhere\.
+The default flags accept whatever syntax the linker emitted, keep the
+compiler quiet, wrap the program in a function expression it may
+assume nothing escapes from, ask for strict mode, and silence the
+warning about names the runtime defines elsewhere\.
 
 
 
@@ -1854,14 +1841,14 @@ one of “BUNDLE”, “WHITESPACE_ONLY”, “SIMPLE”, “TRANSPILE_ONLY”, 
 
 
 The GHC to build with\. ` name ` selects one of the driver’s own
-compilers; ` package ` supplies one from outside them, and the fields
-around it are the attributes the drivers read off a compiler\.
-` platforms ` gives cross targets their own compiler and toolchain; a
+compilers\. ` package ` supplies one from outside them, and the sibling
+fields are the attributes the drivers read off a compiler\.
+` platforms ` gives cross targets their own compiler and toolchain\. A
 platform without an entry uses the fields above it\.
 
-A compiler that has to be described this way is worth writing once:
-the modules under ` nix-haskell-compilers ` are ready-made entries for
-compilers distributed outside the drivers’ package sets\.
+Describe such a compiler once\. The modules under
+` nix-haskell-compilers ` are ready-made entries for compilers
+distributed outside the drivers’ package sets\.
 
 
 
@@ -1892,6 +1879,7 @@ submodule
     targetPrefix = "wasm32-wasi-";
     enableShared = true;
     haskell-nix.libDir = "lib";
+    haskell-nix.extraNonReinstallablePkgs = [ "system-cxx-std-lib" ];
     nixpkgs.enableExternalInterpreter = false;
     toolchain = {
       package = wasi-sdk;
@@ -1915,10 +1903,10 @@ submodule
 
 
 Whether the compiler can build shared libraries\. The haskell\.nix
-driver reads it for every component’s ` shared: ` flag; the nixpkgs
+driver reads it for every component’s ` shared: ` flag\. The nixpkgs
 driver builds a cross package set non-static, with shared and not
-static libraries\. GHC’s wasm backend needs it, because its Template
-Haskell interpreter loads shared objects\.
+static libraries\. GHC’s wasm backend needs it, because its
+Template Haskell interpreter loads shared objects\.
 
 
 
@@ -1941,7 +1929,7 @@ null or boolean
 
 A compiler used directly instead of one from the driver’s package
 sets: a bindist, an out-of-tree cross compiler, a locally built
-GHC\. The fields around it are spliced onto it, since both drivers
+GHC\. The sibling fields are spliced onto it, since both drivers
 read them off the compiler itself and a bindist generally carries
 none of them\.
 
@@ -1992,13 +1980,13 @@ submodule
 
 
 Packages taken from the compiler’s own database rather than
-built, on top of the ones the driver already treats that way\.
-A package the compiler was configured against, but which is
+built, on top of the ones the driver already takes from
+there\. A package the compiler was configured against, but
 absent from the lists the driver copies out of it, belongs
-here: a build that reaches for it finds nothing to depend on,
-and everything downstream of it breaks\. A compiler whose
-` text ` is built against simdutf needs ` system-cxx-std-lib `
-this way\.
+here\. Without the entry, a build that needs the package
+finds nothing to depend on, and everything downstream of it
+breaks\. One example: a compiler whose ` text ` is built
+against simdutf needs ` system-cxx-std-lib ` here\.
 
 
 
@@ -2046,8 +2034,7 @@ null or string
 
 
 *Default:*
-` null `: the ` libDir ` of ` package `, else the path haskell\.nix
-derives from the version
+` null `: the ` libDir ` of ` package `, else the path haskell\.nix derives from the version
 
 
 
@@ -2069,9 +2056,9 @@ derives from the version
 The compiler’s name in the driver’s package sets
 (` haskell-nix.compiler.<name> `, ` pkgs.haskell.packages.<name> `),
 and the name the project’s packages are pinned under\. With
-` package ` set it names the set whose compiler the package replaces,
-and only needs to be given when the name derived from the version
-is not one the driver knows\.
+` package ` set, the name selects the set whose compiler the package
+replaces\. Set it only when the name derived from the version is
+not one the driver knows\.
 
 
 
@@ -2126,10 +2113,10 @@ submodule
 
 
 Whether to run Template Haskell splices through nixpkgs’
-external interpreter, which proxies them to the target over a
-socket\. ` false ` for a compiler that runs splices itself, such
-as GHC’s wasm backend, and necessary for a target that has no
-sockets to proxy over\.
+external interpreter, which proxies them to the target over
+a socket\. Set ` false ` for a compiler that runs splices
+itself, such as GHC’s wasm backend\. A target that has no
+sockets to proxy over needs ` false `\.
 
 
 
@@ -2153,8 +2140,8 @@ exists for the target
 
 
 The compiler’s cabal name\. The driver names the package
-database directories of everything it builds after it, and
-passes it to cabal2nix as ` --compiler `\.
+database directories of everything it builds after this
+name, and passes the name to cabal2nix as ` --compiler `\.
 
 
 
@@ -2164,8 +2151,7 @@ null or string
 
 
 *Default:*
-` null `: the ` haskellCompilerName ` of ` package `, else
-` ghc-<version> `
+` null `: the ` haskellCompilerName ` of ` package `, else ` ghc-<version> `
 
 
 
@@ -2184,13 +2170,12 @@ null or string
 
 
 
-Per-platform compilers, keyed by ` pkgsCross ` platform name (the
-keys of ` shell.crossPlatforms ` and ` projectCross `)\. An entry has
-the same fields as the compiler above, and the fields it leaves
-unset are resolved from its own ` package ` rather than inherited\.
-A per-driver definition anywhere under ` compiler.platforms `
-replaces the whole table for that driver, since a mirror seeds
-submodule fields only one level deep\.
+Per-platform compilers, keyed by ` pkgsCross ` platform name
+(the keys of ` shell.crossPlatforms ` and ` projectCross `)\. An
+entry has the same fields as the compiler above\. The fields an
+entry leaves unset are resolved from its own ` package `, not
+inherited\. A per-driver definition anywhere under
+` compiler.platforms ` replaces the whole table for that driver\.
 
 
 
@@ -2215,10 +2200,10 @@ attribute set of (submodule)
 
 
 Whether the compiler can build shared libraries\. The haskell\.nix
-driver reads it for every component’s ` shared: ` flag; the nixpkgs
+driver reads it for every component’s ` shared: ` flag\. The nixpkgs
 driver builds a cross package set non-static, with shared and not
-static libraries\. GHC’s wasm backend needs it, because its Template
-Haskell interpreter loads shared objects\.
+static libraries\. GHC’s wasm backend needs it, because its
+Template Haskell interpreter loads shared objects\.
 
 
 
@@ -2241,7 +2226,7 @@ null or boolean
 
 A compiler used directly instead of one from the driver’s package
 sets: a bindist, an out-of-tree cross compiler, a locally built
-GHC\. The fields around it are spliced onto it, since both drivers
+GHC\. The sibling fields are spliced onto it, since both drivers
 read them off the compiler itself and a bindist generally carries
 none of them\.
 
@@ -2292,13 +2277,13 @@ submodule
 
 
 Packages taken from the compiler’s own database rather than
-built, on top of the ones the driver already treats that way\.
-A package the compiler was configured against, but which is
+built, on top of the ones the driver already takes from
+there\. A package the compiler was configured against, but
 absent from the lists the driver copies out of it, belongs
-here: a build that reaches for it finds nothing to depend on,
-and everything downstream of it breaks\. A compiler whose
-` text ` is built against simdutf needs ` system-cxx-std-lib `
-this way\.
+here\. Without the entry, a build that needs the package
+finds nothing to depend on, and everything downstream of it
+breaks\. One example: a compiler whose ` text ` is built
+against simdutf needs ` system-cxx-std-lib ` here\.
 
 
 
@@ -2346,8 +2331,7 @@ null or string
 
 
 *Default:*
-` null `: the ` libDir ` of ` package `, else the path haskell\.nix
-derives from the version
+` null `: the ` libDir ` of ` package `, else the path haskell\.nix derives from the version
 
 
 
@@ -2369,9 +2353,9 @@ derives from the version
 The compiler’s name in the driver’s package sets
 (` haskell-nix.compiler.<name> `, ` pkgs.haskell.packages.<name> `),
 and the name the project’s packages are pinned under\. With
-` package ` set it names the set whose compiler the package replaces,
-and only needs to be given when the name derived from the version
-is not one the driver knows\.
+` package ` set, the name selects the set whose compiler the package
+replaces\. Set it only when the name derived from the version is
+not one the driver knows\.
 
 
 
@@ -2426,10 +2410,10 @@ submodule
 
 
 Whether to run Template Haskell splices through nixpkgs’
-external interpreter, which proxies them to the target over a
-socket\. ` false ` for a compiler that runs splices itself, such
-as GHC’s wasm backend, and necessary for a target that has no
-sockets to proxy over\.
+external interpreter, which proxies them to the target over
+a socket\. Set ` false ` for a compiler that runs splices
+itself, such as GHC’s wasm backend\. A target that has no
+sockets to proxy over needs ` false `\.
 
 
 
@@ -2453,8 +2437,8 @@ exists for the target
 
 
 The compiler’s cabal name\. The driver names the package
-database directories of everything it builds after it, and
-passes it to cabal2nix as ` --compiler `\.
+database directories of everything it builds after this
+name, and passes the name to cabal2nix as ` --compiler `\.
 
 
 
@@ -2464,8 +2448,7 @@ null or string
 
 
 *Default:*
-` null `: the ` haskellCompilerName ` of ` package `, else
-` ghc-<version> `
+` null `: the ` haskellCompilerName ` of ` package `, else ` ghc-<version> `
 
 
 
@@ -2484,8 +2467,8 @@ null or string
 
 
 
-The prefix the compiler’s executables carry\. Every tool either
-driver invokes is named with it\.
+The prefix on the compiler’s executables\. Both drivers invoke
+every tool by its prefixed name\.
 
 
 
@@ -2515,11 +2498,11 @@ null or string
 
 
 The C toolchain the compiler was configured with, when that is not
-the one the surrounding package set supplies\. Everything built with
-the compiler is pointed back at it, since ` Setup configure `’s
-foreign-dependency checks otherwise look in the wrong sysroot: the
-haskell\.nix driver passes it as every package’s configure flags,
-the nixpkgs driver makes it the cross package set’s toolchain
+the one the surrounding package set supplies\. Everything built
+with the compiler is pointed back at it, since ` Setup configure `’s
+foreign-dependency checks otherwise look in the wrong sysroot\. The
+haskell\.nix driver passes it as every package’s configure flags\.
+The nixpkgs driver makes it the cross package set’s toolchain
 outright\.
 
 
@@ -2546,7 +2529,8 @@ submodule
 
 The toolchain itself\. The nixpkgs driver also makes it a
 setup dependency of every package, so that a setup hook
-exporting ` CC `, ` AR ` and friends is honored\.
+exporting ` CC `, ` AR ` and the other tool variables is
+honored\.
 
 
 
@@ -2570,8 +2554,7 @@ null
 
 
 
-The archiver’s name in the toolchain’s ` bin `, passed to cabal
-as ` --with-ar `\.
+The archiver’s name in the toolchain’s ` bin `, passed to cabal as ` --with-ar `\.
 
 
 
@@ -2603,8 +2586,7 @@ null
 
 
 
-The C compiler’s name in the toolchain’s ` bin `, passed to
-cabal as ` --with-gcc `\.
+The C compiler’s name in the toolchain’s ` bin `, passed to cabal as ` --with-gcc `\.
 
 
 
@@ -2636,8 +2618,7 @@ null
 
 
 
-The linker’s name in the toolchain’s ` bin `, passed to cabal
-as ` --with-ld `\.
+The linker’s name in the toolchain’s ` bin `, passed to cabal as ` --with-ld `\.
 
 
 
@@ -2669,8 +2650,7 @@ null
 
 
 
-The strip utility’s name in the toolchain’s ` bin `, passed to
-cabal as ` --with-strip `\.
+The strip utility’s name in the toolchain’s ` bin `, passed to cabal as ` --with-strip `\.
 
 
 
@@ -2703,11 +2683,15 @@ null
 
 
 The compiler’s version\. Both drivers read it off the compiler, for
-paths and for ` impl(ghc >= ...) ` conditionals, and the stock
-compiler of the same major\.minor\.patch is what the builds that
-cannot use the package itself fall back to: the nixpkgs package set
-the project is built against, and haskell\.nix’s shell tools\. Worth
-setting for a nightly bindist, whose name carries only its series\.
+paths and for ` impl(ghc >= ...) ` conditionals\.
+
+Some builds cannot use the compiler package itself: the nixpkgs
+package set the project is built against, and haskell\.nix’s shell
+tools\. These builds use the driver’s stock compiler of the same
+major\.minor\.patch instead\.
+
+Set this for a nightly bindist\. A nightly’s name carries only its
+series\.
 
 
 
@@ -2736,8 +2720,8 @@ null or string
 
 
 
-The prefix the compiler’s executables carry\. Every tool either
-driver invokes is named with it\.
+The prefix on the compiler’s executables\. Both drivers invoke
+every tool by its prefixed name\.
 
 
 
@@ -2767,11 +2751,11 @@ null or string
 
 
 The C toolchain the compiler was configured with, when that is not
-the one the surrounding package set supplies\. Everything built with
-the compiler is pointed back at it, since ` Setup configure `’s
-foreign-dependency checks otherwise look in the wrong sysroot: the
-haskell\.nix driver passes it as every package’s configure flags,
-the nixpkgs driver makes it the cross package set’s toolchain
+the one the surrounding package set supplies\. Everything built
+with the compiler is pointed back at it, since ` Setup configure `’s
+foreign-dependency checks otherwise look in the wrong sysroot\. The
+haskell\.nix driver passes it as every package’s configure flags\.
+The nixpkgs driver makes it the cross package set’s toolchain
 outright\.
 
 
@@ -2798,7 +2782,8 @@ submodule
 
 The toolchain itself\. The nixpkgs driver also makes it a
 setup dependency of every package, so that a setup hook
-exporting ` CC `, ` AR ` and friends is honored\.
+exporting ` CC `, ` AR ` and the other tool variables is
+honored\.
 
 
 
@@ -2822,8 +2807,7 @@ null
 
 
 
-The archiver’s name in the toolchain’s ` bin `, passed to cabal
-as ` --with-ar `\.
+The archiver’s name in the toolchain’s ` bin `, passed to cabal as ` --with-ar `\.
 
 
 
@@ -2855,8 +2839,7 @@ null
 
 
 
-The C compiler’s name in the toolchain’s ` bin `, passed to
-cabal as ` --with-gcc `\.
+The C compiler’s name in the toolchain’s ` bin `, passed to cabal as ` --with-gcc `\.
 
 
 
@@ -2888,8 +2871,7 @@ null
 
 
 
-The linker’s name in the toolchain’s ` bin `, passed to cabal
-as ` --with-ld `\.
+The linker’s name in the toolchain’s ` bin `, passed to cabal as ` --with-ld `\.
 
 
 
@@ -2921,8 +2903,7 @@ null
 
 
 
-The strip utility’s name in the toolchain’s ` bin `, passed to
-cabal as ` --with-strip `\.
+The strip utility’s name in the toolchain’s ` bin `, passed to cabal as ` --with-strip `\.
 
 
 
@@ -2955,11 +2936,15 @@ null
 
 
 The compiler’s version\. Both drivers read it off the compiler, for
-paths and for ` impl(ghc >= ...) ` conditionals, and the stock
-compiler of the same major\.minor\.patch is what the builds that
-cannot use the package itself fall back to: the nixpkgs package set
-the project is built against, and haskell\.nix’s shell tools\. Worth
-setting for a nightly bindist, whose name carries only its series\.
+paths and for ` impl(ghc >= ...) ` conditionals\.
+
+Some builds cannot use the compiler package itself: the nixpkgs
+package set the project is built against, and haskell\.nix’s shell
+tools\. These builds use the driver’s stock compiler of the same
+major\.minor\.patch instead\.
+
+Set this for a nightly bindist\. A nightly’s name carries only its
+series\.
 
 
 
@@ -3048,8 +3033,7 @@ list of string
 
 
 Packages to make visible to dependency resolution without being
-published to Hackage\. A good example of this is
-obelisk-generated-static\.
+published to Hackage\. One example is obelisk-generated-static\.
 
 
 
@@ -3093,9 +3077,10 @@ list of (attribute set)
 
 
 The version of the compiler this driver builds with\. Both drivers
-answer to the same name, and each answers for itself: they mirror
-` compiler ` separately and fall back to different compilers of their
-own, so a project asking what it is building against asks the driver:
+answer to the same name, and each answers for itself\. They mirror
+` compiler ` separately and fall back to different compilers of
+their own\. A project that wants to know what it builds against
+asks the driver:
 
 ```
 config.<driver>.compiler-version
@@ -3122,14 +3107,14 @@ one haskell\.nix has under that name
 
 
 
-**A function, not a setting\.** A project calls it and uses what comes
-back\. Assign it only to replace what the call does\.
+**A function, not a setting\.** A project calls it and uses the
+result\. Assign it only to replace what the call does\.
 
 The compiler this driver builds a cross target with, by
-` pkgs.pkgsCross ` name\. Both drivers answer to the same name, so a
+` pkgs.pkgsCross ` name\. Both drivers answer to the same name\. A
 step that needs the compiler an artifact was built with, as
-` wasm-jsffi ` does, asks for it the same way whichever driver built
-the artifact:
+` wasm-jsffi ` does, asks the same way whichever driver built the
+artifact:
 
 ```
 config.<driver>.cross-compiler "wasi32"
@@ -3158,14 +3143,14 @@ platform:
 
 
 
-**A function, not a setting\.** A project calls it and uses what comes
-back\. Assign it only to replace what the call does\.
+**A function, not a setting\.** A project calls it and uses the
+result\. Assign it only to replace what the call does\.
 
-What this driver builds an executable into, for one cross target\. Both
-drivers answer to the same name, and what they answer with carries the
-executable at ` bin/<exe> `, with a wasm target’s binary at
-` bin/<exe>.wasm ` and a javascript target’s linked directory at
-` bin/<exe>.jsexe `\. It is what ` bundles ` optimizes\.
+What this driver builds an executable into, for one cross target\.
+Both drivers answer to the same name\. The answer carries the
+executable at ` bin/<exe> `\. A wasm target’s binary sits at
+` bin/<exe>.wasm `, and a javascript target’s linked directory at
+` bin/<exe>.jsexe `\. ` bundles ` optimizes this result\.
 
 
 
@@ -3191,7 +3176,9 @@ function that evaluates to a(n) package
 
 
 
-ExtraSrcFiles to include in the project builds\.
+Files from the project source to add to component builds, in
+haskell\.nix’s ` extraSrcFiles ` shape: ` library.extraSrcFiles `,
+` exes.<name>.extraSrcFiles `, and so on\.
 
 
 
@@ -3242,9 +3229,9 @@ config."haskell-nix".nixpkgs.haskell-nix
 
 
 The haskell\.nix checkout this driver builds with, imported for
-` system `\. Everything else the driver uses is taken out of it: the
-nixpkgs it pins, the overlay that builds a project, and the helpers
-for selecting components\.
+` system `\. The driver takes everything else out of it: the nixpkgs
+it pins, the overlay that builds a project, and the helpers for
+selecting components\.
 
 
 
@@ -3320,8 +3307,8 @@ import config."haskell-nix".nixpkgsSource ({ inherit system; } // config."haskel
 
 
 The arguments that nixpkgs is imported with: haskell\.nix’s own
-overlays, which is what puts ` haskell-nix ` into the package set, and
-the configuration its compilers are built under\.
+overlays, which put ` haskell-nix ` into the package set, and the
+configuration its compilers are built under\.
 
 
 
@@ -3345,10 +3332,10 @@ config."haskell-nix".input.nixpkgsArgs
 
 
 
-The nixpkgs this driver builds from, which is the one haskell\.nix
-pins rather than the project’s ` inputs.nixpkgs `: haskell\.nix’s
-overlays and its compilers are written against that revision\. The
-nixpkgs driver is the one that follows the project’s pin\.
+The nixpkgs this driver builds from: the one haskell\.nix pins, not
+the project’s ` inputs.nixpkgs `\. haskell\.nix’s overlays and its
+compilers are written against that revision\. The nixpkgs driver
+follows the project’s pin instead\.
 
 
 
@@ -3372,7 +3359,12 @@ config."haskell-nix".input.sources.nixpkgs-unstable
 
 
 
-This option has no description\.
+haskell\.nix project options, passed to haskell\.nix’s ` project `
+function as given\. Any option of haskell\.nix’s own project modules
+can be set here (` index-state `, ` cabalProjectFreeze `,
+` extra-hackages `, ` pkg-def-extras `, ` shell.exactDeps `, …)\. The
+driver fills many of them from the common options through its
+` translation ` table\.
 
 
 
@@ -4080,10 +4072,11 @@ null
 
 
 Specifies the contents of urls in the cabal\.project file\.
-The ` .rev ` attribute is checked against the ` tag ` for ` source-repository-packages `\.
+The ` .rev ` attribute is checked against the ` tag ` for
+` source-repository-packages `\.
 
-For ` revision ` blocks the ` inputMap.<url> ` will be used and
-they ` .tar.gz ` for the ` packages ` used will also be looked up
+For ` revision ` blocks, ` inputMap.<url> ` is used, and the
+` .tar.gz ` files of the ` packages ` used are also looked up
 in the ` inputMap `\.
 
 
@@ -4939,11 +4932,10 @@ list of unspecified value
 
 
 The built project as haskell\.nix returns it: ` hsPkgs `, ` shell `,
-` projectCross ` per cross platform, ` plan-nix `, and the rest\. Its
-shell is the one haskell\.nix builds with the common
-` shell.shellHook ` appended and ` shell.withHoogle ` applied, both
-through ` overrideAttrs `, so that neither is evaluated unless the
-shell is\.
+` projectCross ` per cross platform, ` plan-nix `, and the rest\. The
+shell is haskell\.nix’s own, with the common ` shell.shellHook `
+appended and ` shell.withHoogle ` applied\. Both go through
+` overrideAttrs `, so neither is evaluated unless the shell is\.
 
 
 
@@ -4967,9 +4959,10 @@ config.haskell-nix.haskell-nix.project config.haskell-nix.options
 
 
 
-Specifies the contents of urls in the cabal\.project file, so sources
-named there resolve without fetching\.
-The ` .rev ` attribute is checked against the ` tag ` for ` source-repository-packages `\.
+Maps a url named in the cabal\.project file to its source, so the
+source resolves without fetching\. For a ` source-repository-package `
+stanza, the entry’s ` .rev ` attribute is checked against the
+stanza’s ` tag `\.
 
 
 
@@ -5005,9 +4998,9 @@ attribute set
 
 
 Sources of dependencies, keyed the way flake inputs are\. An entry
-accepts whatever a flake input can be: a flake input, a store path, a
-checkout, or a packed thunk\. Entries beyond the ones in ` pins/ ` may be
-added freely\.
+accepts whatever a flake input can be: a flake input, a store path,
+a checkout, or a packed thunk\. Add entries beyond the ones in
+` pins/ ` freely\.
 
 
 
@@ -5031,8 +5024,9 @@ attribute set of raw value
 
 
 
-Whether the project targets GHCJS (either natively or via cross-compilation)\.
-Used to conditionally include JavaScript runtime dependencies\.
+Whether the project targets GHCJS, natively or through
+cross-compilation\. When true, Node\.js is added to
+` shell.buildInputs `\.
 
 
 
@@ -5042,20 +5036,8 @@ boolean
 
 
 *Default:*
-
-```nix
-''
-  let # Create probe set mapping each platform name to itself
-      # e.g., { ghcjs = "ghcjs"; wasi32 = "wasi32"; mingwW64 = "mingwW64"; ... }
-      probeSet = genAttrs (builtins.attrNames pkgs.pkgsCross) (name: name);
-      # Get list of selected platform names as strings
-      selected = config.shell.crossPlatforms probeSet;
-  in # Native GHCJS: the shell itself is for a GHCJS platform
-        pkgs.stdenv.hostPlatform.isGhcjs
-     # Cross-compilation: GHCJS is among the selected cross targets
-     || builtins.elem "ghcjs" selected;
-''
-```
+` true ` when the host platform is GHCJS, or when
+` shell.crossPlatforms ` selects ` ghcjs `\.
 
 *Declared by:*
  - [<nix-haskell>/modules/cross/ghcjs](file://<nix-haskell>/modules/cross/ghcjs)
@@ -5066,8 +5048,9 @@ boolean
 
 
 
-Whether the project targets WASM (either natively or via cross-compilation)\.
-Used to conditionally include WebAssembly runtime dependencies\.
+Whether the project targets wasm, natively or through
+cross-compilation\. When true, Node\.js is added to
+` shell.buildInputs `\.
 
 
 
@@ -5077,20 +5060,9 @@ boolean
 
 
 *Default:*
-
-```nix
-''
-  let # Create probe set mapping each platform name to itself
-      # e.g., { ghcjs = "ghcjs"; wasi32 = "wasi32"; mingwW64 = "mingwW64"; ... }
-      probeSet = genAttrs (builtins.attrNames pkgs.pkgsCross) (name: name);
-      # Get list of selected platform names as strings
-      selected = config.shell.crossPlatforms probeSet;
-  in # Native WASM: the shell itself is for a WASM platform
-        pkgs.stdenv.hostPlatform.isWasm
-     # Cross-compilation: a WASM target is among the selected cross targets
-     || builtins.any (name: hasInfix "wasm" name || hasPrefix "wasi" name) selected;
-''
-```
+` true ` when the host platform is wasm, or when
+` shell.crossPlatforms ` selects a platform whose name contains
+` wasm ` or starts with ` wasi `\.
 
 *Declared by:*
  - [<nix-haskell>/modules/cross/wasm](file://<nix-haskell>/modules/cross/wasm)
@@ -5101,12 +5073,12 @@ boolean
 
 
 
-**A function, not a setting\.** A project calls it and uses what comes
-back\. Assign it only to replace what the call does\.
+**A function, not a setting\.** A project calls it and uses the
+result\. Assign it only to replace what the call does\.
 
-A linked ` .jsexe ` directory with its ` all.js ` closure-compiled, the rest
-of the directory as it was\. It takes the directory rather than the
-package that carries it:
+A linked ` .jsexe ` directory with its ` all.js ` closure-compiled\. The
+rest of the directory is copied unchanged\. It takes the directory,
+not the package that carries it:
 
 ```
 js-optimize {
@@ -5117,16 +5089,22 @@ js-optimize {
 }
 ```
 
-The three names are only what the settings are looked up under, and any
-of them can be left out to say nothing about it\. ` closure-compiler ` is
-read from the layer that states a field most specifically to the least:
-` platforms.<platform>.packages.<package>.components.exes.<exe>.closure-compiler `,
-` platforms.<platform>.packages.<package>.closure-compiler `,
-` platforms.<platform>.closure-compiler `, then the same package and
-executable layers of ` packages `, and last ` closure-compiler ` itself,
-which is the only one holding values throughout\. They are read from the project’s own values
-rather than a driver’s, since this runs on a built artifact, outside
-any driver\.
+` platform `, ` package ` and ` exe ` are only lookup keys for the
+settings\. Each can be left out, and an omitted key states nothing\.
+
+The ` closure-compiler ` settings are resolved per field\. The most
+specific layer that states a field decides it, in this order:
+
+ 1. ` platforms.<platform>.packages.<package>.components.exes.<exe>.closure-compiler `
+ 2. ` platforms.<platform>.packages.<package>.closure-compiler `
+ 3. ` platforms.<platform>.closure-compiler `
+ 4. ` packages.<package>.components.exes.<exe>.closure-compiler `,
+    then ` packages.<package>.closure-compiler `
+ 5. ` closure-compiler ` at the top level, the only layer that holds
+    every field\.
+
+The settings come from the project’s own values, not a driver’s\.
+This function runs on a built artifact, outside any driver\.
 
 
 
@@ -5138,8 +5116,7 @@ function that evaluates to a(n) package
 *Default:*
 
 ```
-<nix-haskell>/libs/closure-compiler/run.nix, run with the settings the
-named target, package and executable resolve to
+<nix-haskell>/libs/closure-compiler/run.nix, run with the settings the named target, package and executable resolve to
 ```
 
 *Declared by:*
@@ -5151,7 +5128,8 @@ named target, package and executable resolve to
 
 
 
-Optional name for better error messages\.
+Optional project name\. It improves error messages, and the nixpkgs
+driver names the dev shell with it\.
 
 
 
@@ -5161,10 +5139,7 @@ null or string
 
 
 *Default:*
-
-```nix
-"hsnyxxl0yj0lbjv77aa93chgwdqa9gs3-source"
-```
+the base name of ` src `
 
 *Declared by:*
  - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
@@ -5176,9 +5151,10 @@ null or string
 
 
 The version of the compiler this driver builds with\. Both drivers
-answer to the same name, and each answers for itself: they mirror
-` compiler ` separately and fall back to different compilers of their
-own, so a project asking what it is building against asks the driver:
+answer to the same name, and each answers for itself\. They mirror
+` compiler ` separately and fall back to different compilers of
+their own\. A project that wants to know what it builds against
+asks the driver:
 
 ```
 config.<driver>.compiler-version
@@ -5205,14 +5181,14 @@ compiler the driver resolves: the package a project brought, or the
 
 
 
-**A function, not a setting\.** A project calls it and uses what comes
-back\. Assign it only to replace what the call does\.
+**A function, not a setting\.** A project calls it and uses the
+result\. Assign it only to replace what the call does\.
 
 The compiler this driver builds a cross target with, by
-` pkgs.pkgsCross ` name\. Both drivers answer to the same name, so a
+` pkgs.pkgsCross ` name\. Both drivers answer to the same name\. A
 step that needs the compiler an artifact was built with, as
-` wasm-jsffi ` does, asks for it the same way whichever driver built
-the artifact:
+` wasm-jsffi ` does, asks the same way whichever driver built the
+artifact:
 
 ```
 config.<driver>.cross-compiler "wasi32"
@@ -5240,18 +5216,18 @@ platform: config.nixpkgs.project.projectCross.<platform>.haskellPackages.ghc
 
 
 
-**A function, not a setting\.** A project calls it and uses what comes
-back\. Assign it only to replace what the call does\.
+**A function, not a setting\.** A project calls it and uses the
+result\. Assign it only to replace what the call does\.
 
-What this driver builds an executable into, for one cross target\. Both
-drivers answer to the same name, and what they answer with carries the
-executable at ` bin/<exe> `, with a wasm target’s binary at
-` bin/<exe>.wasm ` and a javascript target’s linked directory at
-` bin/<exe>.jsexe `\. It is what ` bundles ` optimizes\.
+What this driver builds an executable into, for one cross target\.
+Both drivers answer to the same name\. The answer carries the
+executable at ` bin/<exe> `\. A wasm target’s binary sits at
+` bin/<exe>.wasm `, and a javascript target’s linked directory at
+` bin/<exe>.jsexe `\. ` bundles ` optimizes this result\.
 
-This driver builds one derivation per package, so the executable’s own
-name says nothing about where to look; it is taken for the sake of the
-one interface both drivers answer to\.
+This driver builds one derivation per package, so the executable’s
+own name does not affect the lookup\. The function takes it only to
+keep the one interface both drivers answer to\.
 
 
 
@@ -5389,11 +5365,12 @@ string
 
 
 Defaults applied to every package of a cross set the driver
-builds itself, the one a compiler bringing its own toolchain
-needs (` nixpkgs.pkgsCross `)\. They sit under the project’s own
-` packages.<name> ` settings, which the driver layers on after\.
-Tests and benchmarks are not among them: a cross set has no
-way to run what it builds, so they are always off there\.
+builds itself (` nixpkgs.pkgsCross `), the set a compiler
+bringing its own toolchain needs\. They sit under the
+project’s own ` packages.<name> ` settings, which the driver
+layers on after\. Tests and benchmarks are not among the
+fields: a cross set has no way to run what it builds, so
+they are always off there\.
 
 
 
@@ -5491,24 +5468,27 @@ false
 
 
 Tell Cabal every direct dependency, by the id its package
-database records, and every flag the package declares, so it
-resolves nothing itself\. It then reads no version bound, which
-is what lets a package build against a compiler its cabal file
-was written before, including where the bound sits inside a
-conditional stanza and ` jailbreak ` cannot reach it\. This is how
-the haskell\.nix driver configures every package, which is why
-` allow-newer ` in a cabal\.project takes effect there and not
-here\.
+database records, and every flag the package declares\. Cabal
+then resolves nothing itself and reads no version bound\.
+
+With no bounds read, a package builds against a compiler
+released after its cabal file was written\. This includes a
+bound inside a conditional stanza, which ` jailbreak ` cannot
+reach\.
+
+The haskell\.nix driver configures every package this way\.
+That is why ` allow-newer ` in a cabal\.project takes effect in
+that driver and not in this one\.
 
 A flag the project states in ` packages.<name>.flags ` still
-decides: the generated assignments go first, and Cabal takes the
-last one given\.
+decides\. The generated assignments go first, and Cabal takes
+the last assignment of a flag\.
 
-It follows ` use-plan ` unless the project says otherwise: a plan
-read from a cabal\.project brings in the packages that file’s
-` allow-newer ` was written for, and this driver has no other way
-to get past their bounds\. Set it outright to break the link, in
-either direction\.
+The default follows ` use-plan ` unless the project sets this
+option\. A plan read from a cabal\.project brings in the
+packages that the file’s ` allow-newer ` was written for, and
+this driver has no other way past their bounds\. Set the
+option explicitly to break the link, in either direction\.
 
 
 
@@ -5556,7 +5536,7 @@ submodule
 
 
 
-Run their test suites\.
+Run the test suites of these packages\.
 
 
 
@@ -5580,7 +5560,7 @@ false
 
 
 
-Build their documentation\.
+Build the documentation of these packages\.
 
 
 
@@ -5688,11 +5668,11 @@ attribute set
 
 
 Overrides for ` shell.tools ` resolution, keyed by tool name\.
-A tool is looked up here first, then as ` pkgs.<name> `, then in
-the Haskell package set; version requests are ignored, since
-nixpkgs carries a single version\. ` cabal ` is here because the
-tool’s name is not the name of the package carrying it; an
-entry of the project’s own replaces it\.
+A tool is looked up here first, then as ` pkgs.<name> `, then
+in the Haskell package set\. Version requests are ignored,
+since nixpkgs carries a single version\. ` cabal ` is here
+because the tool’s name is not the name of the package
+carrying it\. An entry of the project’s own replaces it\.
 
 
 
@@ -5725,15 +5705,16 @@ attribute set of package
 
 
 Take the project’s structure (local packages, their
-directories, source-repository-packages) from the cabal plan
-of the haskell\.nix driver instead of the root of the source\.
-This is cabal’s own reading of cabal\.project, so globs,
-optional-packages and conditionals are all exact, at the cost
-of evaluating the haskell\.nix toolchain (import from
-derivation)\. The packages are still built from nixpkgs\.
+directories, source-repository-packages) from the cabal
+plan of the haskell\.nix driver instead of the root of the
+source\. The plan is cabal’s own reading of cabal\.project,
+so globs, optional-packages and conditionals are all exact\.
+The cost is evaluating the haskell\.nix toolchain (import
+from derivation)\. The packages are still built from
+nixpkgs\.
 
-This turns ` exact-configuration ` on by default, since the
-bounds of the packages a plan brings in are the other half of
+This turns ` exact-configuration ` on by default\. The bounds
+of the packages a plan brings in are the other half of
 reading a cabal\.project on a driver with no solver\.
 
 
@@ -5784,8 +5765,8 @@ import config.inputs.nixpkgs { inherit (config) system; }
 
 Cross package sets for ` project.projectCross `, keyed by
 ` pkgs.pkgsCross ` platform name\. An entry replaces the package set
-the driver would otherwise take from ` pkgs.pkgsCross `, which is
-what a compiler bringing its own toolchain needs, since that
+the driver would otherwise take from ` pkgs.pkgsCross `\. A compiler
+bringing its own toolchain needs the replacement, since that
 toolchain has to become the whole set’s\.
 
 
@@ -5846,7 +5827,8 @@ import <nix-haskell>/libs/nixpkgs/driver.nix {
 
 
 
-Enable -O2 optimization level\.
+Enable -O2: GHC applies every non-dangerous optimisation, at the
+cost of longer compile times\.
 
 
 
@@ -5870,7 +5852,8 @@ false
 
 
 
-Enable all optimization flags\.
+Enable every optimization flag in this module\. Each flag can still
+be turned off on its own\.
 
 
 
@@ -5894,7 +5877,9 @@ false
 
 
 
-Enable -fcross-module-specialise\.
+Enable -fcross-module-specialise: specialise INLINABLE overloaded
+functions imported from other modules for the types at which they
+are called\.
 
 
 
@@ -5918,7 +5903,9 @@ false
 
 
 
-Enable -fexpose-all-unfoldings for cross-module optimization\.
+Enable -fexpose-all-unfoldings: write every function’s unfolding
+into the interface file, even large or recursive ones, so other
+modules can inline and specialise them\.
 
 
 
@@ -5942,7 +5929,9 @@ false
 
 
 
-Enable -flate-specialise\.
+Enable -flate-specialise: run one more specialisation pass late in
+the pipeline\. It can catch opportunities that earlier specialisation
+and inlining exposed\.
 
 
 
@@ -5966,7 +5955,8 @@ false
 
 
 
-Enable -fspecialise\.
+Enable -fspecialise: specialise each overloaded function for the
+types at which the defining module calls it\.
 
 
 
@@ -5990,7 +5980,9 @@ false
 
 
 
-Enable -fspecialise-aggressively\.
+Enable -fspecialise-aggressively: specialise any overloaded function
+whose unfolding is available, not only INLINABLE ones\. This may grow
+code size significantly\.
 
 
 
@@ -6019,15 +6011,15 @@ Per-platform customization, keyed by ` pkgs.pkgsCross ` platform name
 
 A cabal file or project file can make a package’s flags, and through
 them its dependencies, conditional on the platform\. The haskell\.nix
-driver follows those conditionals through its solver; the nixpkgs
-driver has none, so what they would have decided is given here\. The
-flags reach the point where a package’s dependencies are worked out,
-rather than only how it is configured\.
+driver follows those conditionals through its solver\. The nixpkgs
+driver has no solver, so state here what the conditionals would have
+decided\. The flags reach the point where a package’s dependencies
+are computed, not only its configuration\.
 
-` wasm-opt ` and ` closure-compiler ` are the bundle optimizer settings for
-whatever is built for this target, which the ` packages ` entries under
-them narrow to one package, and their ` components.exes ` entries to one
-executable of it\.
+` wasm-opt ` and ` closure-compiler ` are the bundle optimizer settings
+for whatever is built for this target\. The ` packages ` entries under
+them narrow a setting to one package, and their ` components.exes `
+entries to one executable of it\.
 
 
 
@@ -6062,9 +6054,10 @@ attribute set of (submodule)
 
 
 
-Per-package customization for this platform only, merged over the
-project-wide ` packages `\. The fields are the same, with ` bundles `
-added: what a driver built for this target, shipped\.
+Per-package customization for this platform only, merged
+over the project-wide ` packages `\. The fields are the same,
+with ` bundles ` added: what a driver built for this target,
+in the form that ships\.
 
 
 
@@ -6100,8 +6093,7 @@ attribute set of (submodule)
 
 
 
-Whether to eliminate unused code at link time\. ` null ` leaves the
-default in place\.
+Whether to eliminate unused code at link time\. ` null ` leaves the default in place\.
 
 
 
@@ -6125,8 +6117,7 @@ null
 
 
 
-Whether to build a pre-linked object of the library for loading
-into GHCi\. ` null ` leaves the default in place\.
+Whether to build a pre-linked object of the library for loading into GHCi\. ` null ` leaves the default in place\.
 
 
 
@@ -6150,8 +6141,7 @@ null
 
 
 
-Whether to build the package’s library with profiling support\.
-` null ` leaves the default in place\.
+Whether to build the package’s library with profiling support\. ` null ` leaves the default in place\.
 
 
 
@@ -6175,8 +6165,7 @@ null
 
 
 
-Whether to build the whole package with profiling support\.
-` null ` leaves the default in place\.
+Whether to build the whole package with profiling support\. ` null ` leaves the default in place\.
 
 
 
@@ -6200,8 +6189,7 @@ null
 
 
 
-Whether to install the package’s data files into a separate
-output\. ` null ` leaves the default in place\.
+Whether to install the package’s data files into a separate output\. ` null ` leaves the default in place\.
 
 
 
@@ -6225,8 +6213,7 @@ null
 
 
 
-Whether to build a shared library\. ` null ` leaves the default in
-place\.
+Whether to build a shared library\. ` null ` leaves the default in place\.
 
 
 
@@ -6250,8 +6237,7 @@ null
 
 
 
-Whether to build a static library\. ` null ` leaves the default in
-place\.
+Whether to build a static library\. ` null ` leaves the default in place\.
 
 
 
@@ -6277,8 +6263,8 @@ null
 
 What this package’s executables are shipped as for this
 target, keyed by the name each carries in
-` components.exes `, so that they can be read together
-without naming one again\.
+` components.exes `\. The whole set can be read at once,
+without naming each executable again\.
 
 
 
@@ -6299,10 +6285,10 @@ one entry per executable named under ` components.exes `
 
 
 
-The ` ghc_wasm_jsffi.js ` this target’s binary cannot be instantiated
-without, read out of the binary as linked rather than out of
-` optimized `, which has had the sections it reads stripped\. ` null ` off
-a wasm target\.
+The ` ghc_wasm_jsffi.js ` without which this target’s binary
+cannot be instantiated\. It is read out of the binary as linked,
+not out of ` optimized `: the optimizer strips the sections the
+read needs\. ` null ` for every target that is not wasm\.
 
 
 
@@ -6324,9 +6310,10 @@ was built with
 
 
 
-What gets shipped: the executable a driver built for this target, put
-through that target’s optimizer\. ` null ` for a target that has
-neither, and ` null ` anywhere but through a driver\.
+What gets shipped: the executable a driver built for this
+target, sent through that target’s optimizer\. ` null ` for a
+target that has no optimizer, and ` null ` when read anywhere but
+through a driver\.
 
 
 
@@ -6348,10 +6335,10 @@ the executable this driver built for this target, through
 
 
 
-Whether ` js-optimize ` runs closure-compiler at all\. When false it
+Whether ` js-optimize ` runs closure-compiler\. When false, ` js-optimize `
 copies the jsexe through unchanged\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -6375,12 +6362,12 @@ null
 
 
 
-Files passed as ` --externs `, declaring what the program reaches by a
-name the compiler must not rename\. The jsexe’s own ` all.externs.js ` is
-always passed ahead of these, since ADVANCED renames everything it is
+Files passed as ` --externs `\. They declare what the program reaches by
+a name the compiler must not rename\. The jsexe’s own ` all.externs.js `
+always goes ahead of these, since ADVANCED renames everything it is
 not told the runtime knows by name\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -6404,16 +6391,16 @@ null
 
 
 
-Flags appended after the level and the externs, so one of these decides
-what they would have\. One flag per element, its value in the same
-string, since the elements are joined into one command line\.
+Flags appended after the level and the externs, so one of these
+overrides what they set\. Write one flag per element, with its value in
+the same string\. The elements are joined into one command line\.
 
-The default accepts whatever syntax the linker emitted, keeps the
-compiler quiet, wraps the program in a function expression it may
-assume nothing escapes from, asks for strict mode, and stops it
-complaining about the names the runtime defines elsewhere\.
+The default flags accept whatever syntax the linker emitted, keep the
+compiler quiet, wrap the program in a function expression it may
+assume nothing escapes from, ask for strict mode, and silence the
+warning about names the runtime defines elsewhere\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -6439,7 +6426,7 @@ null
 
 The ` --compilation_level ` closure-compiler runs at\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -6471,8 +6458,8 @@ null
 
 
 
-Per-component customization, under the kind cabal knows the
-component by\. Only executables carry anything so far\.
+Per-component customization, grouped by the component kind
+cabal uses\. Only executables carry anything so far\.
 
 
 
@@ -6497,14 +6484,15 @@ submodule
 
 
 
-Bundle optimizer settings for one executable of the package,
-keyed by the name cabal gives it\. They sit under an executable
-rather than the package because a bundle is what an executable
-links to, and a package can carry several\.
+Bundle optimizer settings for one executable of the
+package, keyed by the name cabal gives it\. They sit under
+an executable rather than the package, because a bundle
+belongs to one linked executable and a package can carry
+several\.
 
-Naming an executable here is also what tells the haskell\.nix
-driver to install that executable’s ` .jsexe ` directory, which
-it otherwise leaves in the build tree\.
+Naming an executable here also tells the haskell\.nix
+driver to install that executable’s ` .jsexe ` directory,
+which it otherwise leaves in the build tree\.
 
 
 
@@ -6529,10 +6517,10 @@ attribute set of (submodule)
 
 
 
-The ` ghc_wasm_jsffi.js ` this target’s binary cannot be instantiated
-without, read out of the binary as linked rather than out of
-` optimized `, which has had the sections it reads stripped\. ` null ` off
-a wasm target\.
+The ` ghc_wasm_jsffi.js ` without which this target’s binary
+cannot be instantiated\. It is read out of the binary as linked,
+not out of ` optimized `: the optimizer strips the sections the
+read needs\. ` null ` for every target that is not wasm\.
 
 
 
@@ -6554,9 +6542,10 @@ was built with
 
 
 
-What gets shipped: the executable a driver built for this target, put
-through that target’s optimizer\. ` null ` for a target that has
-neither, and ` null ` anywhere but through a driver\.
+What gets shipped: the executable a driver built for this
+target, sent through that target’s optimizer\. ` null ` for a
+target that has no optimizer, and ` null ` when read anywhere but
+through a driver\.
 
 
 
@@ -6578,10 +6567,10 @@ the executable this driver built for this target, through
 
 
 
-Whether ` js-optimize ` runs closure-compiler at all\. When false it
+Whether ` js-optimize ` runs closure-compiler\. When false, ` js-optimize `
 copies the jsexe through unchanged\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -6605,12 +6594,12 @@ null
 
 
 
-Files passed as ` --externs `, declaring what the program reaches by a
-name the compiler must not rename\. The jsexe’s own ` all.externs.js ` is
-always passed ahead of these, since ADVANCED renames everything it is
+Files passed as ` --externs `\. They declare what the program reaches by
+a name the compiler must not rename\. The jsexe’s own ` all.externs.js `
+always goes ahead of these, since ADVANCED renames everything it is
 not told the runtime knows by name\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -6634,16 +6623,16 @@ null
 
 
 
-Flags appended after the level and the externs, so one of these decides
-what they would have\. One flag per element, its value in the same
-string, since the elements are joined into one command line\.
+Flags appended after the level and the externs, so one of these
+overrides what they set\. Write one flag per element, with its value in
+the same string\. The elements are joined into one command line\.
 
-The default accepts whatever syntax the linker emitted, keeps the
-compiler quiet, wraps the program in a function expression it may
-assume nothing escapes from, asks for strict mode, and stops it
-complaining about the names the runtime defines elsewhere\.
+The default flags accept whatever syntax the linker emitted, keep the
+compiler quiet, wrap the program in a function expression it may
+assume nothing escapes from, ask for strict mode, and silence the
+warning about names the runtime defines elsewhere\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -6669,7 +6658,7 @@ null
 
 The ` --compilation_level ` closure-compiler runs at\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -6701,11 +6690,11 @@ null
 
 
 
-Whether ` wasm-optimize ` runs wasm-opt and the strip that follows it at
-all\. When false it copies its input through, so what a caller installs
-sits in the same place either way\.
+Whether ` wasm-optimize ` runs wasm-opt and the strip that follows it\.
+When false, ` wasm-optimize ` copies its input through, so a caller
+installs the same path either way\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -6729,15 +6718,15 @@ null
 
 
 
-Flags appended after ` -all -O<level> `, so one of these decides what the
-level would have\. One flag per element, its value in the same string,
-since the elements are joined into one command line\.
+Flags appended after ` -all -O<level> `, so one of these overrides what
+the level sets\. Write one flag per element, with its value in the same
+string\. The elements are joined into one command line\.
 
-The default asks for the optimize level of ` -O2 ` at the shrink level of
-` -O1 `, drops the memory a module never reads, discards debug
-information, and repeats the passes until they stop finding anything\.
+The default flags set the optimize level of ` -O2 ` at the shrink level
+of ` -O1 `, drop the memory a module never reads, discard debug
+information, and repeat the passes until they find nothing more\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -6763,7 +6752,7 @@ null
 
 The ` -O ` level wasm-opt runs at\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -6819,8 +6808,7 @@ list of string
 
 
 
-Whether to run the package’s test suites\. ` null ` leaves the
-default in place\.
+Whether to run the package’s test suites\. ` null ` leaves the default in place\.
 
 
 
@@ -6844,8 +6832,7 @@ null
 
 
 
-Whether to generate a coverage report for the package\. ` null `
-leaves the default in place\.
+Whether to generate a coverage report for the package\. ` null ` leaves the default in place\.
 
 
 
@@ -6869,8 +6856,7 @@ null
 
 
 
-Whether to build the package’s documentation\. ` null ` leaves the
-default in place\.
+Whether to build the package’s documentation\. ` null ` leaves the default in place\.
 
 
 
@@ -6894,8 +6880,7 @@ null
 
 
 
-Whether to generate a hoogle index for the package’s
-documentation\. ` null ` leaves the default in place\.
+Whether to generate a hoogle index for the package’s documentation\. ` null ` leaves the default in place\.
 
 
 
@@ -6919,8 +6904,7 @@ null
 
 
 
-Whether to generate hyperlinked source code alongside the
-package’s documentation\. ` null ` leaves the default in place\.
+Whether to generate hyperlinked source code alongside the package’s documentation\. ` null ` leaves the default in place\.
 
 
 
@@ -6944,8 +6928,7 @@ null
 
 
 
-Whether to generate the quickjump index of the package’s
-documentation\. ` null ` leaves the default in place\.
+Whether to generate the quickjump index of the package’s documentation\. ` null ` leaves the default in place\.
 
 
 
@@ -6969,8 +6952,7 @@ null
 
 
 
-Whether to skip stripping the produced binaries\. ` null ` leaves
-the default in place\.
+Whether to leave the produced binaries unstripped\. ` null ` leaves the default in place\.
 
 
 
@@ -7043,8 +7025,7 @@ list of string
 
 
 
-Hardening flags to disable when building the package\. ` null `
-leaves the default in place\.
+Hardening flags to disable when building the package\. ` null ` leaves the default in place\.
 
 
 
@@ -7570,11 +7551,11 @@ null
 
 
 
-Whether ` wasm-optimize ` runs wasm-opt and the strip that follows it at
-all\. When false it copies its input through, so what a caller installs
-sits in the same place either way\.
+Whether ` wasm-optimize ` runs wasm-opt and the strip that follows it\.
+When false, ` wasm-optimize ` copies its input through, so a caller
+installs the same path either way\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -7598,15 +7579,15 @@ null
 
 
 
-Flags appended after ` -all -O<level> `, so one of these decides what the
-level would have\. One flag per element, its value in the same string,
-since the elements are joined into one command line\.
+Flags appended after ` -all -O<level> `, so one of these overrides what
+the level sets\. Write one flag per element, with its value in the same
+string\. The elements are joined into one command line\.
 
-The default asks for the optimize level of ` -O2 ` at the shrink level of
-` -O1 `, drops the memory a module never reads, discards debug
-information, and repeats the passes until they stop finding anything\.
+The default flags set the optimize level of ` -O2 ` at the shrink level
+of ` -O1 `, drop the memory a module never reads, discard debug
+information, and repeat the passes until they find nothing more\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -7632,7 +7613,7 @@ null
 
 The ` -O ` level wasm-opt runs at\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -7664,10 +7645,10 @@ null
 
 
 
-Whether ` js-optimize ` runs closure-compiler at all\. When false it
+Whether ` js-optimize ` runs closure-compiler\. When false, ` js-optimize `
 copies the jsexe through unchanged\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -7691,12 +7672,12 @@ null
 
 
 
-Files passed as ` --externs `, declaring what the program reaches by a
-name the compiler must not rename\. The jsexe’s own ` all.externs.js ` is
-always passed ahead of these, since ADVANCED renames everything it is
+Files passed as ` --externs `\. They declare what the program reaches by
+a name the compiler must not rename\. The jsexe’s own ` all.externs.js `
+always goes ahead of these, since ADVANCED renames everything it is
 not told the runtime knows by name\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -7720,16 +7701,16 @@ null
 
 
 
-Flags appended after the level and the externs, so one of these decides
-what they would have\. One flag per element, its value in the same
-string, since the elements are joined into one command line\.
+Flags appended after the level and the externs, so one of these
+overrides what they set\. Write one flag per element, with its value in
+the same string\. The elements are joined into one command line\.
 
-The default accepts whatever syntax the linker emitted, keeps the
-compiler quiet, wraps the program in a function expression it may
-assume nothing escapes from, asks for strict mode, and stops it
-complaining about the names the runtime defines elsewhere\.
+The default flags accept whatever syntax the linker emitted, keep the
+compiler quiet, wrap the program in a function expression it may
+assume nothing escapes from, ask for strict mode, and silence the
+warning about names the runtime defines elsewhere\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -7755,7 +7736,7 @@ null
 
 The ` --compilation_level ` closure-compiler runs at\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -7787,11 +7768,11 @@ null
 
 
 
-Whether ` wasm-optimize ` runs wasm-opt and the strip that follows it at
-all\. When false it copies its input through, so what a caller installs
-sits in the same place either way\.
+Whether ` wasm-optimize ` runs wasm-opt and the strip that follows it\.
+When false, ` wasm-optimize ` copies its input through, so a caller
+installs the same path either way\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -7815,15 +7796,15 @@ null
 
 
 
-Flags appended after ` -all -O<level> `, so one of these decides what the
-level would have\. One flag per element, its value in the same string,
-since the elements are joined into one command line\.
+Flags appended after ` -all -O<level> `, so one of these overrides what
+the level sets\. Write one flag per element, with its value in the same
+string\. The elements are joined into one command line\.
 
-The default asks for the optimize level of ` -O2 ` at the shrink level of
-` -O1 `, drops the memory a module never reads, discards debug
-information, and repeats the passes until they stop finding anything\.
+The default flags set the optimize level of ` -O2 ` at the shrink level
+of ` -O1 `, drop the memory a module never reads, discard debug
+information, and repeat the passes until they find nothing more\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -7849,7 +7830,7 @@ null
 
 The ` -O ` level wasm-opt runs at\.
 
-` null ` states nothing, leaving the field to the layer beneath it, and last to the tool’s own settings at the top level\.
+` null ` states nothing and leaves the field to the layer beneath it, and last to the tool’s own settings at the top level\.
 
 
 
@@ -7881,7 +7862,13 @@ null
 
 
 
-An alternative to adding ` --sha256 ` comments into the cabal\.project file\.
+Hashes for the sources that ` source-repository-package ` stanzas in
+the cabal\.project name\. An alternative to ` --sha256 ` comments in
+that file\.
+
+Keys are stanza ` location ` URLs\. Each value is an attribute set
+from the stanza’s ` tag ` to the sha256 of the source\. For a
+` repository ` block, the value is the hash string itself\.
 
 
 
@@ -7941,8 +7928,12 @@ submodule
 
 
 
-Package selection function\. It takes a set of Haskell packages and returns a subset of these packages with all of their dependencies included in ` ghc-pkg list `\.
-It can take either a ` package ` or name (` string `) of a package which availability can depend on the platform\.
+Package selection function\. It takes a set of Haskell packages
+and returns a subset\. The selected packages and all of their
+dependencies appear in ` ghc-pkg list `\.
+
+An entry is a package or a package name (a string)\. Use a name
+for a package whose availability depends on the platform\.
 
 
 
@@ -8000,7 +7991,7 @@ list of package
 
 
 
-Selector for cross-compilation targets, over an attribute set
+Selects the cross-compilation targets, from an attribute set
 keyed by ` pkgs.pkgsCross ` platform names\.
 
 
@@ -8140,8 +8131,8 @@ false
 
 
 Local packages to add to the project\. A source is anything ` inputs `
-accepts, so a packed thunk directory can be given as-is and is
-resolved to the source it pins\.
+accepts\. A packed thunk directory can be given as-is and resolves
+to the source it pins\.
 
 ` subdir ` selects packages within the source, so a multi-package
 repository needs one entry rather than one per package\.
@@ -8188,9 +8179,8 @@ attribute set of (absolute path or (attribute set))
 
 The project source: the tree holding the cabal project file and the
 packages it names\. A path is copied into the store, filtered first
-when ` clean-src ` is enabled; a derivation or a store path is used as
-it is, on the grounds that whatever produced it already chose what it
-contains\.
+when ` clean-src ` is enabled\. A derivation or a store path is used as
+it is, because whatever produced it already chose what it contains\.
 
 
 
@@ -8215,8 +8205,7 @@ absolute path or package
 
 
 ` src ` with build artifacts filtered out, or ` src ` itself when
-` clean-src ` is disabled\. This is what the project is actually built
-from\.
+` clean-src ` is disabled\. The project is built from this\.
 
 
 
@@ -8246,7 +8235,8 @@ absolute path or package *(read only)*
 
 
 The system the project is built on\. Each driver instantiates its
-package set for it, and a cross target is named relative to it\.
+package set for this system, and a cross target is named relative
+to it\.
 
 
 
@@ -8272,11 +8262,11 @@ string
 
 
 
-**A function, not a setting\.** A project calls it and uses what comes
-back\. Assign it only to replace what the call does\.
+**A function, not a setting\.** A project calls it and uses the
+result\. Assign it only to replace what the call does\.
 
-The ` ghc_wasm_jsffi.js ` a GHC-built wasm module needs to be
-instantiated at all, read out of the binary by the compiler that built
+The ` ghc_wasm_jsffi.js ` without which a GHC-built wasm module cannot
+be instantiated, read out of the binary by the compiler that built
 it:
 
 ```
@@ -8286,9 +8276,10 @@ wasm-jsffi {
 }
 ```
 
-The compiler must be the one that produced the binary, which is what
-` <driver>.cross-compiler ` names\. Run this on the binary as linked,
-before ` wasm-optimize ` strips the sections it reads\.
+The compiler must be the one that produced the binary, and
+` <driver>.cross-compiler ` names that compiler\. Run this on the
+binary as linked, before ` wasm-optimize ` strips the sections it
+reads\.
 
 
 
@@ -8312,9 +8303,9 @@ function that evaluates to a(n) package
 
 
 
-Whether ` wasm-optimize ` runs wasm-opt and the strip that follows it at
-all\. When false it copies its input through, so what a caller installs
-sits in the same place either way\.
+Whether ` wasm-optimize ` runs wasm-opt and the strip that follows it\.
+When false, ` wasm-optimize ` copies its input through, so a caller
+installs the same path either way\.
 
 
 
@@ -8338,13 +8329,13 @@ true
 
 
 
-Flags appended after ` -all -O<level> `, so one of these decides what the
-level would have\. One flag per element, its value in the same string,
-since the elements are joined into one command line\.
+Flags appended after ` -all -O<level> `, so one of these overrides what
+the level sets\. Write one flag per element, with its value in the same
+string\. The elements are joined into one command line\.
 
-The default asks for the optimize level of ` -O2 ` at the shrink level of
-` -O1 `, drops the memory a module never reads, discards debug
-information, and repeats the passes until they stop finding anything\.
+The default flags set the optimize level of ` -O2 ` at the shrink level
+of ` -O1 `, drop the memory a module never reads, discard debug
+information, and repeat the passes until they find nothing more\.
 
 
 
@@ -8406,12 +8397,12 @@ one of “0”, “1”, “2”, “3”, “4”, “s”, “z”
 
 
 
-**A function, not a setting\.** A project calls it and uses what comes
-back\. Assign it only to replace what the call does\.
+**A function, not a setting\.** A project calls it and uses the
+result\. Assign it only to replace what the call does\.
 
-A wasm binary optimized and stripped\. It takes the file rather than the
-package that carries it, and yields the file rather than a directory
-holding it, so the caller installs it under whatever name it wants:
+A wasm binary optimized and stripped\. It takes the file, not the
+package that carries it\. It yields the file, not a directory
+holding it, so the caller installs it under any name:
 
 ```
 wasm-optimize {
@@ -8422,16 +8413,22 @@ wasm-optimize {
 }
 ```
 
-The three names are only what the settings are looked up under, and any
-of them can be left out to say nothing about it\. ` wasm-opt ` is read
-from the layer that states a field most specifically to the least:
-` platforms.<platform>.packages.<package>.components.exes.<exe>.wasm-opt `,
-` platforms.<platform>.packages.<package>.wasm-opt `,
-` platforms.<platform>.wasm-opt `, then the same package and executable
-layers of ` packages `, and last ` wasm-opt ` itself, which is the only one
-holding values throughout\. They are read from the project’s own values
-rather than a driver’s, since this runs on a built artifact, outside
-any driver\.
+` platform `, ` package ` and ` exe ` are only lookup keys for the
+settings\. Each can be left out, and an omitted key states nothing\.
+
+The ` wasm-opt ` settings are resolved per field\. The most
+specific layer that states a field decides it, in this order:
+
+ 1. ` platforms.<platform>.packages.<package>.components.exes.<exe>.wasm-opt `
+ 2. ` platforms.<platform>.packages.<package>.wasm-opt `
+ 3. ` platforms.<platform>.wasm-opt `
+ 4. ` packages.<package>.components.exes.<exe>.wasm-opt `,
+    then ` packages.<package>.wasm-opt `
+ 5. ` wasm-opt ` at the top level, the only layer that holds
+    every field\.
+
+The settings come from the project’s own values, not a driver’s\.
+This function runs on a built artifact, outside any driver\.
 
 
 
@@ -8443,8 +8440,7 @@ function that evaluates to a(n) package
 *Default:*
 
 ```
-<nix-haskell>/libs/wasm-opt/run.nix, run with the settings the named
-target, package and executable resolve to
+<nix-haskell>/libs/wasm-opt/run.nix, run with the settings the named target, package and executable resolve to
 ```
 
 *Declared by:*

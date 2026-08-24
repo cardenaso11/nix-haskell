@@ -11,11 +11,11 @@
 #       package.cache.lock': No such file or directory
 #
 # Everything else about that design is right and is kept. In particular the
-# database stays where the compiler has it, relative to the compiler's root: a
-# bindist registers its own libraries at paths under `${pkgroot}`, which is the
-# parent of `package.conf.d`, and a database built anywhere else sends every one
-# of them outside the store path. Only the way the position is found changes,
-# from computing it to asking the compiler for it.
+# database stays where the compiler has it, relative to the compiler's root.
+# A bindist registers its own libraries at paths under `${pkgroot}`, the
+# parent of `package.conf.d`, and a database built anywhere else sends every
+# one of them outside the store path. Only the way the position is found
+# changes, from computing it to asking the compiler for it.
 #
 # Example:
 #
@@ -31,8 +31,8 @@
 #        lib/package.conf.d/base-4.21.3.0-....conf       # the compiler's own
 #        lib/package.conf.d/splitmix-0.1.3.2-....conf    # the package given
 #
-#      with `targetPrefix` on its passthru, which `cross-wrappers.nix` reads to
-#      name the dispatcher it builds around this.
+#      with `targetPrefix` on its passthru, which the wrapper scripts read
+#      to name the dispatcher built around this.
 #
 #   import ./cross-ghc-env.nix { inherit pkgs lib; } {
 #     ghc = <wasm32-wasi-ghc-9.12>;
@@ -44,9 +44,7 @@
 
 { ghc, packages }:
 
-let flagCases = lib.concatMapStringsSep "\n"
-      (reader: "        ${reader.name}) flags=${lib.escapeShellArg reader.flags} ;;")
-      databaseReaders;
+let prefix = ghc.targetPrefix;
 
     # The executables that have to be told where the database went, and how each
     # spells it. Named rather than probed, since the case arms are written
@@ -60,7 +58,9 @@ let flagCases = lib.concatMapStringsSep "\n"
             ++ lib.optionals (ghc ? version)
                  [ "${prefix}ghc-${ghc.version}" "${prefix}ghci-${ghc.version}" ]);
 
-    prefix = ghc.targetPrefix;
+    flagCases = lib.concatMapStringsSep "\n"
+      (reader: "        ${reader.name}) flags=${lib.escapeShellArg reader.flags} ;;")
+      databaseReaders;
 
 in if packages == []
    then ghc
@@ -71,9 +71,9 @@ in if packages == []
      passthru = { inherit (ghc) targetPrefix; }
        // lib.optionalAttrs (ghc ? version) { inherit (ghc) version; };
      postBuild = ''
-       # Asked for rather than assumed: a version-named install keeps the libdir
-       # under lib/<prefix>ghc-<version>/lib, a relocatable bindist directly
-       # under lib. `rel` is the same place inside the join.
+       # The libdir is asked for rather than assumed. A version-named install
+       # keeps it under lib/<prefix>ghc-<version>/lib, a relocatable bindist
+       # directly under lib. `rel` is the same place inside the join.
        libdir=$(${ghc}/bin/${prefix}ghc --print-libdir)
        rel=''${libdir#${ghc}/}
 

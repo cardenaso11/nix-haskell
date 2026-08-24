@@ -1,13 +1,14 @@
-# ghc-wasm-meta's wasm GHC as the compiler for a wasm target. A bindist carries
-# none of the attributes the drivers read off a compiler, so they are supplied
-# here rather than by every project that wants one, along with the wasi-sdk the
-# bindist was configured with, which everything built has to be pointed at.
+# ghc-wasm-meta's wasm GHC as the compiler for a wasm target. A bindist
+# carries none of the attributes the drivers read off a compiler, so this
+# module supplies them, rather than every project that wants one. It also
+# supplies the wasi-sdk the bindist was configured with, which everything
+# built has to be pointed at.
 #
-# `flavour` is the GHC series to take from the pin. `version` is worth passing
-# for a nightly, whose derivation name carries only that series: both drivers
-# work either way, but what they fall back to for the builds that cannot use
-# the bindist itself (a package set to solve against, the shell's tools)
-# follows the version, so a full one keeps those on the release it came from.
+# `flavour` is the GHC series to take from the pin. Pass `version` for a
+# nightly, whose derivation name carries only that series. Both drivers
+# work either way. The builds that cannot use the bindist itself (a package
+# set to solve against, the shell's tools) follow the version, so a full
+# version keeps those on the release it came from.
 #
 # Example:
 #
@@ -24,6 +25,8 @@
 
 { config, lib, pkgs, ... }:
 
+with (import ../../../libs/prelude { inherit lib; });
+
 let src = config.inputs.ghc-wasm-meta;
 
     ghc = pkgs.callPackage "${src}/pkgs/wasm32-wasi-ghc.nix" { inherit flavour; };
@@ -36,25 +39,28 @@ let src = config.inputs.ghc-wasm-meta;
         inherit version;
         targetPrefix = "wasm32-wasi-";
 
-        # the wasm backend's Template Haskell interpreter loads shared objects
+        # The wasm backend's Template Haskell interpreter loads shared
+        # objects.
         enableShared = true;
 
-        # the bindist keeps its package database and settings directly under
-        # lib, rather than under the lib/<prefix>ghc-<version>/lib of a
-        # version-named install
+        # The bindist keeps its package database and settings directly
+        # under lib, not under the lib/<prefix>ghc-<version>/lib of a
+        # version-named install.
         haskell-nix.libDir = "lib";
 
-        # its `text` is built against simdutf, and takes the C++ runtime that
-        # needs from the `system-cxx-std-lib` of its own database
+        # The bindist's `text` is built against simdutf, and the C++
+        # runtime simdutf needs comes from the `system-cxx-std-lib` of the
+        # compiler's own database.
         haskell-nix.extraNonReinstallablePkgs = [ "system-cxx-std-lib" ];
 
-        # the wasm backend runs Template Haskell itself, so splices must not be
-        # proxied to the target, which has no sockets to proxy over
+        # The wasm backend runs Template Haskell itself, so splices must
+        # not be proxied to the target, which has no sockets to proxy over.
         nixpkgs.enableExternalInterpreter = false;
 
         toolchain = {
           package = sdk;
-          # the names the sdk's own setup hook exports as CC, AR, LD and STRIP
+          # The names the sdk's own setup hook exports as CC, AR, LD and
+          # STRIP.
           cc = "wasm32-wasi-clang";
           ar = "llvm-ar";
           ld = "wasm-ld";
@@ -65,12 +71,6 @@ let src = config.inputs.ghc-wasm-meta;
 
 in {
 
-  # `drivers` selects the drivers the compiler applies to; null gives it to all
-  # of them.
-  config =
-    if drivers == null
-    then { inherit compiler; }
-    else builtins.listToAttrs
-      (map (driver: { name = driver; value = { inherit compiler; }; }) drivers);
+  config = under drivers { inherit compiler; };
 
 }

@@ -1,5 +1,5 @@
-# Copy `src` with lines appended to its cabal.project (the file is created
-# when the source has none).
+# Copy `src` with lines appended to its cabal.project. The copy gains the
+# file when the source has none.
 #
 # Example:
 #

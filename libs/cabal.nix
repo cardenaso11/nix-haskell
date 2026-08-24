@@ -24,7 +24,11 @@ let decode = import ./source-repository-package.nix;
     #      }
     source-repository-package = name: package-repo:
       let inherit (decode package-repo) hasOutPath src condition subdirs;
-          resolved = if hasOutPath then package-repo else { inherit name; outPath = builtins.path { path = src; inherit name; }; };
+          resolved =
+            if hasOutPath
+            then package-repo
+            else { inherit name; outPath = builtins.path { path = src; inherit name; }; };
+          subdirLine = optionalString (subdirs != []) "subdir: ${concatStringsSep " " subdirs}";
           # Same string as before, but with its context intact, so that a
           # derivation embedding this stanza in a cabal.project registers a
           # reference to the source it names, which is what keeps that source
@@ -42,7 +46,7 @@ let decode = import ./source-repository-package.nix;
               type: git
               location: ${location}
               tag: HEAD
-              ${optionalString (subdirs != []) "subdir: ${concatStringsSep " " subdirs}"}
+              ${subdirLine}
           ''
           else ''
             if ${condition}
@@ -50,7 +54,7 @@ let decode = import ./source-repository-package.nix;
                 type: git
                 location: ${location}
                 tag: HEAD
-                ${optionalString (subdirs != []) "subdir: ${concatStringsSep " " subdirs}"}
+                ${subdirLine}
           '';
       };
 
@@ -65,22 +69,19 @@ let decode = import ./source-repository-package.nix;
     #      }
     source-repository-packages = package-repos:
       let packages = mapAttrsToList source-repository-package package-repos;
-          zipPackages = builtins.zipAttrsWith
-            (k: vs:
-              if k == "cabalProject" then vs
-              else builtins.zipAttrsWith (_: last) vs
-            );
 
-          zippedPackages = zipPackages packages;
+          # Stanzas accumulate into a list; the inputMap entries merge into
+          # one attrset.
+          mergeField = k: vs:
+            if k == "cabalProject"
+            then vs
+            else builtins.zipAttrsWith (_: last) vs;
+
+          zippedPackages = builtins.zipAttrsWith mergeField packages;
 
       in {
-        inputMap =
-          if builtins.hasAttr "inputMap" zippedPackages
-          then zippedPackages.inputMap
-          else {};
-        cabalProject = if builtins.hasAttr "cabalProject" zippedPackages
-          then zippedPackages.cabalProject
-          else "";
+        inputMap = zippedPackages.inputMap or {};
+        cabalProject = zippedPackages.cabalProject or "";
       };
 
     # inline-cabal-project
@@ -105,8 +106,8 @@ let decode = import ./source-repository-package.nix;
             let splitLine = builtins.match "([ ]*)import: (.*)" line;
                 subproject = builtins.elemAt splitLine 1;
             in if splitLine != null
-              then inline-cabal-project dir subproject
-              else line;
+               then inline-cabal-project dir subproject
+               else line;
           parsed-lines = forEach lines parseLine;
 
       in concatStringsSep "\n" parsed-lines;

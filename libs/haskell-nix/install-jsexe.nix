@@ -1,15 +1,16 @@
-# A haskell.nix module installing an executable's `.jsexe` directory beside the
-# executable itself. The js backend links a program into `<exe>.jsexe/all.js` and
-# a single bundled `<exe>` next to it, and this builder installs only the second,
-# while `js-optimize` needs the directory: the `all.externs.js` the linker leaves
-# there is what keeps closure-compiler from renaming the names the runtime
-# reaches by name. The nixpkgs builder copies the directory out on its own, so
-# there is nothing to do on that side.
+# A haskell.nix module installing an executable's `.jsexe` directory beside
+# the executable itself. The js backend links a program into
+# `<exe>.jsexe/all.js` and a single bundled `<exe>` next to it, and this
+# builder installs only the second. `js-optimize` needs the whole
+# directory: the `all.externs.js` the linker leaves there keeps
+# closure-compiler from renaming the names the runtime reaches by name. The
+# nixpkgs builder copies the directory out on its own, so there is nothing
+# to do on that side.
 #
 # The executables are the ones a project named under
 # `packages.<name>.components.exes`. Nothing else says which executables a
-# package has: asking the module system would mean deriving these definitions
-# from the very keys they add.
+# package has. Asking the module system would derive these definitions from
+# the very keys they add.
 #
 # Example:
 #
@@ -39,8 +40,9 @@ let install = exe: ''
 
 in {
 
-  # `mkIf` rather than a conditional body: `pkgs` reaches a module through
-  # `_module.args`, so deciding the module's own attributes on it is a cycle.
+  # This module must use mkIf, not a conditional body. `pkgs` reaches a
+  # module through `_module.args`, so a module body that depends on `pkgs`
+  # is a cycle.
   config = lib.mkIf pkgs.stdenv.hostPlatform.isGhcjs {
     packages = lib.mapAttrs (_: names: {
       components.exes = lib.genAttrs names (exe: { postInstall = install exe; });

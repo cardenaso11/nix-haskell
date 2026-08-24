@@ -1,8 +1,8 @@
 {
   inputs = {
-    # pins/haskell-nix is a git submodule; this makes nix fetch it
-    # automatically when the flake is fetched over git (Nix 2.27+; on older
-    # Nix, add ?submodules=1 to the flake URL).
+    # pins/haskell-nix is a git submodule. This line makes nix fetch it
+    # when the flake is fetched over git (Nix 2.27+). On older Nix, add
+    # ?submodules=1 to the flake URL.
     self.submodules = true;
 
     nixpkgs.url = ./pins/nixpkgs;
@@ -12,21 +12,31 @@
   };
 
   outputs = inputs@{ self, ... }:
-    let nixpkgs = if inputs ? "nixpkgs" then inputs.nixpkgs else builtins.getFlake "nixpkgs";
+    let nixpkgs =
+          if inputs ? "nixpkgs"
+          then inputs.nixpkgs
+          else builtins.getFlake "nixpkgs";
+
         eachSystem = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
+
+        pkgsFor = system: import nixpkgs { inherit system; };
+
+        nix-haskellFor = system: import ./default.nix {
+          inherit system inputs;
+          pkgs = pkgsFor system;
+        };
     in {
       lib = eachSystem (system:
-        let pkgs = import nixpkgs { inherit system; };
-            nix-haskell = import ./default.nix { inherit system pkgs inputs; };
+        let nix-haskell = nix-haskellFor system;
+            emptyProject = nix-haskell {};
+            attrAsFunction = name: _: module: (nix-haskell module).${name};
         in {
           inherit nix-haskell;
-        } // nixpkgs.lib.mapAttrs (name: _: module: (nix-haskell module).${name}) (nix-haskell {})
+        } // nixpkgs.lib.mapAttrs attrAsFunction emptyProject
       );
 
       packages = eachSystem (system:
-        let pkgs = import nixpkgs { inherit system; };
-            nix-haskell = import ./default.nix { inherit system pkgs inputs; };
-            project = nix-haskell { src = ./.; };
+        let project = (nix-haskellFor system) { src = ./.; };
         in {
           manual-view = project.manual.view;
           manual-md = project.manual.md;
@@ -34,9 +44,10 @@
         }
       );
 
-      # A tree rather than the flat set `packages` has to be, and its example
-      # matrix cross-compiles for every driver and compiler, so it stays out of
-      # `checks`, which is the repo's own and quick.
+      # The release set is a tree, which the flat `packages` cannot hold,
+      # and its example matrix cross-compiles for every driver and compiler.
+      # It therefore stays out of `checks`, which are the repo's own and
+      # quick.
       legacyPackages = eachSystem (system: {
         release = import ./release.nix { inherit system inputs; };
       });
@@ -44,7 +55,7 @@
       checks = eachSystem (system:
         import ./tests {
           inherit system inputs;
-          pkgs = import nixpkgs { inherit system; };
+          pkgs = pkgsFor system;
         }
       );
     };

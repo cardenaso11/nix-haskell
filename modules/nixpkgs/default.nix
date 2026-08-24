@@ -12,6 +12,7 @@
 { config, options, lib, pkgs, ... }:
 
 with lib;
+with (import ../../libs/prelude { inherit lib; });
 
 let cfg = config.nixpkgs;
 
@@ -22,32 +23,74 @@ let cfg = config.nixpkgs;
     # mirror.
     common = import ../../libs/driver-common.nix {
       inherit lib pkgs cfg;
+      driver = "nixpkgs";
       topConfig = config;
       topOptions = options;
     };
-    mkDriverDefault = common.mkDriverDefault;
-
-    functionOption = import ../../libs/function-option.nix { inherit lib; };
-
-    # The `compiler` option resolved per platform.
-    compilers = import ../../libs/compiler.nix { inherit lib; } {
-      compiler = cfg.compiler;
-      system = cfg.system;
-    };
+    # `compiler` is the native entry, which names the project-wide compiler.
+    compilers = common.compilers;
     compiler = compilers.native;
+
+    platformsWithToolchain =
+      filterAttrs (_: entry: entry.hasToolchain) compilers.platforms;
+
+    crossSetFor = platform: import ../../libs/nixpkgs/cross-pkgs.nix {
+      inherit lib platform;
+      nixpkgs = config.inputs.nixpkgs;
+      system = cfg.system;
+      compiler = compilers.resolve platform;
+      defaults = cfg.options.cross-package-defaults;
+    };
+
+    packageFields = import ../../libs/package-fields.nix { inherit lib; };
+
+    flagField = default: description: mkOption {
+      type = types.bool;
+      inherit default description;
+    };
+
+    translations = import ../../libs/translation.nix { inherit lib; };
 
 in {
 
-  options.nixpkgs = common.options // {
+  options.nixpkgs = common.options
+    // common.interface {
+
+      compiler-version = {
+        fallback = cfg.haskellPackages.ghc.version;
+        defaultText = literalMD ''
+          the version `compiler.version` states, or the one carried by the
+          compiler the driver resolves: the package a project brought, or the
+          `ghc` of the package set it selected
+        '';
+      };
+
+      cross-compiler = {
+        default = platform: cfg.project.projectCross.${platform}.haskellPackages.ghc;
+        defaultText = fenced-code ''platform: config.nixpkgs.project.projectCross.<platform>.haskellPackages.ghc'';
+      };
+
+      cross-exe = {
+        default = { platform, package, exe }:
+          cfg.project.projectCross.${platform}.packages.${package};
+        defaultText = fenced-code ''
+          { platform, package, exe }:
+            config.nixpkgs.project.projectCross.<platform>.packages.<package>
+        '';
+        extraDescription = ''
+
+          This driver builds one derivation per package, so the executable's
+          own name does not affect the lookup. The function takes it only to
+          keep the one interface both drivers answer to.
+        '';
+      };
+
+    } // {
 
       pkgs = mkOption {
         type = types.raw;
         default = pkgs;
-        defaultText = literalMD ''
-          ```
-          import config.inputs.nixpkgs { inherit (config) system; }
-          ```
-        '';
+        defaultText = fenced-code ''import config.inputs.nixpkgs { inherit (config) system; }'';
         description = ''
           The nixpkgs package set the driver builds with.
         '';
@@ -55,15 +98,7 @@ in {
 
       pkgsCross = mkOption {
         type = types.attrsOf types.raw;
-        default = mapAttrs
-          (platform: _: import ../../libs/nixpkgs/cross-pkgs.nix {
-            inherit lib platform;
-            nixpkgs = config.inputs.nixpkgs;
-            system = cfg.system;
-            compiler = compilers.resolve platform;
-            defaults = cfg.options.cross-package-defaults;
-          })
-          (filterAttrs (_: spec: spec.toolchain.package != null) cfg.compiler.platforms);
+        default = mapAttrs (platform: _: crossSetFor platform) platformsWithToolchain;
         defaultText = literalMD ''
           ```
           <nix-haskell>/libs/nixpkgs/cross-pkgs.nix
@@ -77,8 +112,8 @@ in {
         description = ''
           Cross package sets for `project.projectCross`, keyed by
           `pkgs.pkgsCross` platform name. An entry replaces the package set
-          the driver would otherwise take from `pkgs.pkgsCross`, which is
-          what a compiler bringing its own toolchain needs, since that
+          the driver would otherwise take from `pkgs.pkgsCross`. A compiler
+          bringing its own toolchain needs the replacement, since that
           toolchain has to become the whole set's.
         '';
       };
@@ -120,11 +155,7 @@ in {
                 applied after everything the driver generates. The escape
                 hatch for anything the common options do not cover.
               '';
-              example = literalMD ''
-                ```
-                [ (self: super: { my-dep = pkgs.haskell.lib.dontCheck super.my-dep; }) ]
-                ```
-              '';
+              example = fenced-code ''[ (self: super: { my-dep = pkgs.haskell.lib.dontCheck super.my-dep; }) ]'';
             };
 
             packages = mkOption {
@@ -142,13 +173,11 @@ in {
                 Explicit map of the project's local packages, keyed by cabal
                 package name. Overrides discovery entirely.
               '';
-              example = literalMD ''
-                ```
+              example = fenced-code ''
                 {
                   common.subdir = "common";
                   frontend.subdir = "frontend";
                 }
-                ```
               '';
             };
 
@@ -157,15 +186,16 @@ in {
               default = false;
               description = ''
                 Take the project's structure (local packages, their
-                directories, source-repository-packages) from the cabal plan
-                of the haskell.nix driver instead of the root of the source.
-                This is cabal's own reading of cabal.project, so globs,
-                optional-packages and conditionals are all exact, at the cost
-                of evaluating the haskell.nix toolchain (import from
-                derivation). The packages are still built from nixpkgs.
+                directories, source-repository-packages) from the cabal
+                plan of the haskell.nix driver instead of the root of the
+                source. The plan is cabal's own reading of cabal.project,
+                so globs, optional-packages and conditionals are all exact.
+                The cost is evaluating the haskell.nix toolchain (import
+                from derivation). The packages are still built from
+                nixpkgs.
 
-                This turns `exact-configuration` on by default, since the
-                bounds of the packages a plan brings in are the other half of
+                This turns `exact-configuration` on by default. The bounds
+                of the packages a plan brings in are the other half of
                 reading a cabal.project on a driver with no solver.
               '';
             };
@@ -176,24 +206,27 @@ in {
               defaultText = literalMD "`nixpkgs.options.use-plan`";
               description = ''
                 Tell Cabal every direct dependency, by the id its package
-                database records, and every flag the package declares, so it
-                resolves nothing itself. It then reads no version bound, which
-                is what lets a package build against a compiler its cabal file
-                was written before, including where the bound sits inside a
-                conditional stanza and `jailbreak` cannot reach it. This is how
-                the haskell.nix driver configures every package, which is why
-                `allow-newer` in a cabal.project takes effect there and not
-                here.
+                database records, and every flag the package declares. Cabal
+                then resolves nothing itself and reads no version bound.
+
+                With no bounds read, a package builds against a compiler
+                released after its cabal file was written. This includes a
+                bound inside a conditional stanza, which `jailbreak` cannot
+                reach.
+
+                The haskell.nix driver configures every package this way.
+                That is why `allow-newer` in a cabal.project takes effect in
+                that driver and not in this one.
 
                 A flag the project states in `packages.<name>.flags` still
-                decides: the generated assignments go first, and Cabal takes the
-                last one given.
+                decides. The generated assignments go first, and Cabal takes
+                the last assignment of a flag.
 
-                It follows `use-plan` unless the project says otherwise: a plan
-                read from a cabal.project brings in the packages that file's
-                `allow-newer` was written for, and this driver has no other way
-                to get past their bounds. Set it outright to break the link, in
-                either direction.
+                The default follows `use-plan` unless the project sets this
+                option. A plan read from a cabal.project brings in the
+                packages that the file's `allow-newer` was written for, and
+                this driver has no other way past their bounds. Set the
+                option explicitly to break the link, in either direction.
               '';
             };
 
@@ -207,21 +240,9 @@ in {
               '';
               type = types.submodule {
                 options = {
-                  jailbreak = mkOption {
-                    type = types.bool;
-                    default = true;
-                    description = "Lift version bounds (`haskell.lib.doJailbreak`).";
-                  };
-                  check = mkOption {
-                    type = types.bool;
-                    default = false;
-                    description = "Run their test suites.";
-                  };
-                  haddock = mkOption {
-                    type = types.bool;
-                    default = false;
-                    description = "Build their documentation.";
-                  };
+                  jailbreak = flagField true "Lift version bounds (`haskell.lib.doJailbreak`).";
+                  check = flagField false "Run the test suites of these packages.";
+                  haddock = flagField false "Build the documentation of these packages.";
                 };
               };
             };
@@ -230,32 +251,21 @@ in {
               default = {};
               description = ''
                 Defaults applied to every package of a cross set the driver
-                builds itself, the one a compiler bringing its own toolchain
-                needs (`nixpkgs.pkgsCross`). They sit under the project's own
-                `packages.<name>` settings, which the driver layers on after.
-                Tests and benchmarks are not among them: a cross set has no
-                way to run what it builds, so they are always off there.
+                builds itself (`nixpkgs.pkgsCross`), the set a compiler
+                bringing its own toolchain needs. They sit under the
+                project's own `packages.<name>` settings, which the driver
+                layers on after. Tests and benchmarks are not among the
+                fields: a cross set has no way to run what it builds, so
+                they are always off there.
               '';
               type = types.submodule {
                 options = {
-                  jailbreak = mkOption {
-                    type = types.bool;
-                    default = true;
-                    description = ''
-                      Lift version bounds (`haskell.lib.doJailbreak`). A cross
-                      set has no solver to satisfy them with.
-                    '';
-                  };
-                  haddock = mkOption {
-                    type = types.bool;
-                    default = false;
-                    description = "Build documentation.";
-                  };
-                  profiling = mkOption {
-                    type = types.bool;
-                    default = false;
-                    description = "Build profiling libraries.";
-                  };
+                  jailbreak = flagField true ''
+                    Lift version bounds (`haskell.lib.doJailbreak`). A cross
+                    set has no solver to satisfy them with.
+                  '';
+                  haddock = flagField false "Build documentation.";
+                  profiling = flagField false "Build profiling libraries.";
                 };
               };
             };
@@ -263,24 +273,16 @@ in {
             tool-packages = mkOption {
               type = types.attrsOf types.package;
               default = {};
-              defaultText = literalMD ''
-                ```
-                { cabal = config.nixpkgs.pkgs.cabal-install; }
-                ```
-              '';
+              defaultText = fenced-code ''{ cabal = config.nixpkgs.pkgs.cabal-install; }'';
               description = ''
                 Overrides for `shell.tools` resolution, keyed by tool name.
-                A tool is looked up here first, then as `pkgs.<name>`, then in
-                the Haskell package set; version requests are ignored, since
-                nixpkgs carries a single version. `cabal` is here because the
-                tool's name is not the name of the package carrying it; an
-                entry of the project's own replaces it.
+                A tool is looked up here first, then as `pkgs.<name>`, then
+                in the Haskell package set. Version requests are ignored,
+                since nixpkgs carries a single version. `cabal` is here
+                because the tool's name is not the name of the package
+                carrying it. An entry of the project's own replaces it.
               '';
-              example = literalMD ''
-                ```
-                { haskell-language-server = pkgs.haskell-language-server; }
-                ```
-              '';
+              example = fenced-code ''{ haskell-language-server = pkgs.haskell-language-server; }'';
             };
 
             shellFor-args = mkOption {
@@ -298,14 +300,8 @@ in {
 
 
 
-      translation = mkOption {
-        type = import ../../libs/translation.nix { inherit lib; };
-        readOnly = true;
-        internal = true;
-        description = ''
-          How each common option maps onto nixpkgs. The keys are compared
-          against the common options by the totality check.
-        '';
+      translation = translations.declare {
+        driver = "nixpkgs";
         default = {
 
           system.via = "the package set is instantiated for `system`";
@@ -314,14 +310,9 @@ in {
 
           src.via = "local packages are discovered in `src-cleaned` and built with callCabal2nix";
 
-          clean-src.via = "consumed by `src-cleaned`, which local packages are built from";
-          clean-src-ignore-files.via = "consumed by `src-cleaned`, which local packages are built from";
-          clean-src-patterns.via = "consumed by `src-cleaned`, which local packages are built from";
-
           "compiler.name".via = "selects `pkgs.haskell.packages.<name>`; with a package, names the set whose `ghc` it replaces";
           "compiler.package".via = "replaces the `ghc` of the base package set";
           "compiler.version".via = "spliced onto the compiler as `ghc.version`; the package set the project is built against is the one of that major.minor.patch";
-          "compiler.targetPrefix".via = "spliced onto the compiler as `ghc.targetPrefix`, which names every tool the builders call";
           "compiler.enableShared".via = "a cross package set is built non-static, with shared and not static libraries";
           "compiler.toolchain".via = "becomes a cross package set's own toolchain, a setup dependency of every package, and every package's configure flags";
           "compiler.haskell-nix".via = "read by the haskell.nix driver only";
@@ -344,27 +335,6 @@ in {
 
           ghcOptions.via = "`--ghc-option` configure flags on the project's packages";
 
-          "packages.*.flags".via = "`--flag` cabal2nix options for generated packages, enableCabalFlag/disableCabalFlag otherwise";
-          "packages.*.patches".via = "haskell.lib appendPatches";
-          "packages.*.ghcOptions".via = "`--ghc-option` configure flags";
-          "packages.*.configureFlags".via = "haskell.lib appendConfigureFlags";
-          "packages.*.setupBuildFlags".via = "mkDerivation `buildFlags`";
-          "packages.*.setupHaddockFlags".via = "mkDerivation `haddockFlags`";
-          "packages.*.doCheck".via = "mkDerivation `doCheck`";
-          "packages.*.doHaddock".via = "mkDerivation `doHaddock`";
-          "packages.*.doCoverage".via = "mkDerivation `doCoverage`";
-          "packages.*.doHoogle".via = "mkDerivation `doHoogle`";
-          "packages.*.doHyperlinkSource".via = "mkDerivation `hyperlinkSource`";
-          "packages.*.doQuickjump".via = "mkDerivation `doHaddockQuickjump`";
-          "packages.*.dontStrip".via = "mkDerivation `dontStrip`";
-          "packages.*.enableDeadCodeElimination".via = "mkDerivation `enableDeadCodeElimination`";
-          "packages.*.enableLibraryProfiling".via = "mkDerivation `enableLibraryProfiling`";
-          "packages.*.enableProfiling".via = "mkDerivation `enableLibraryProfiling` and `enableExecutableProfiling`";
-          "packages.*.profilingDetail".via = "mkDerivation `profilingDetail`";
-          "packages.*.enableShared".via = "mkDerivation `enableSharedLibraries`";
-          "packages.*.enableStatic".via = "mkDerivation `enableStaticLibraries`";
-          "packages.*.enableSeparateDataOutput".via = "mkDerivation `enableSeparateDataOutput`";
-          "packages.*.enableLibraryForGhci".via = "mkDerivation `enableLibraryForGhci`";
           "packages.*.src".via = "haskell.lib overrideSrc";
 
           "shell.packages".via = "shellFor `packages`, selecting from the project's packages and source-repository-packages";
@@ -376,20 +346,12 @@ in {
           "shell.crossPlatforms".via = "cross wrapper scripts from the selected `pkgsCross` compilers; full cross package sets under `project.projectCross`";
 
           inputs.via = "`inputs.nixpkgs` supplies the package set; `inputs.haskell-nix` supplies the reused parsers";
-          optimizations.via = "writes the common `ghcOptions` option";
-          isGhcjs.via = "adds nodejs to the common `shell.buildInputs`";
-          isWasm.via = "adds nodejs to the common `shell.buildInputs`";
-          wasm-opt.via = "nothing the driver builds; read by `wasm-optimize`";
-          closure-compiler.via = "nothing the driver builds; read by `js-optimize`";
-          wasm-optimize.via = "applied by the project to a wasm binary the driver has already built";
-          wasm-jsffi.via = "applied by the project to a wasm binary the driver has already built, with the compiler `nixpkgs.cross-compiler` names";
-          js-optimize.via = "applied by the project to a jsexe the driver has already built";
 
-        } // listToAttrs (map
-          (field: nameValuePair "packages.*.${field}" { via = "mkDerivation `${field}`"; })
-          ( [ "hardeningDisable" ]
-            ++ concatMap (phase: [ "pre${phase}" "post${phase}" ])
-                 [ "Unpack" "Patch" "Configure" "Build" "Check" "Haddock" "Install" ] ));
+        } // packageFields.vias
+          // translations.common-vias {
+            namespace = "nixpkgs";
+            src-consumer = "local packages are built from";
+          };
       };
 
 
@@ -401,14 +363,12 @@ in {
           haskellPackages = config.nixpkgs.haskellPackages;
           inherit lib config;
         };
-        defaultText = literalMD ''
-          ```
+        defaultText = fenced-code ''
           import <nix-haskell>/libs/nixpkgs/driver.nix {
             pkgs = config.nixpkgs.pkgs;
             haskellPackages = config.nixpkgs.haskellPackages;
             inherit lib config;
           }
-          ```
         '';
         description = ''
           The built project: `packages` (the project's own packages),
@@ -417,92 +377,14 @@ in {
         '';
       };
 
-      compiler-version = mkOption {
-        type = types.str;
-        default =
-          if compiler.version != null
-          then compiler.version
-          else cfg.haskellPackages.ghc.version;
-        defaultText = literalMD ''
-          the version `compiler.version` states, or the one carried by the
-          compiler the driver resolves: the package a project brought, or the
-          `ghc` of the package set it selected
-        '';
-        description = ''
-          The version of the compiler this driver builds with. Both drivers
-          answer to the same name, and each answers for itself: they mirror
-          `compiler` separately and fall back to different compilers of their
-          own, so a project asking what it is building against asks the driver:
-
-          ```
-          config.<driver>.compiler-version
-          ```
-        '';
-      };
-
-      cross-compiler = functionOption {
-        default = platform: cfg.project.projectCross.${platform}.haskellPackages.ghc;
-        defaultText = literalMD ''
-          ```
-          platform: config.nixpkgs.project.projectCross.<platform>.haskellPackages.ghc
-          ```
-        '';
-        description = ''
-          The compiler this driver builds a cross target with, by
-          `pkgs.pkgsCross` name. Both drivers answer to the same name, so a
-          step that needs the compiler an artifact was built with, as
-          `wasm-jsffi` does, asks for it the same way whichever driver built
-          the artifact:
-
-          ```
-          config.<driver>.cross-compiler "wasi32"
-          ```
-        '';
-      };
-
-      cross-exe = functionOption {
-        default = { platform, package, exe }:
-          cfg.project.projectCross.${platform}.packages.${package};
-        defaultText = literalMD ''
-          ```
-          { platform, package, exe }:
-            config.nixpkgs.project.projectCross.<platform>.packages.<package>
-          ```
-        '';
-        description = ''
-          What this driver builds an executable into, for one cross target. Both
-          drivers answer to the same name, and what they answer with carries the
-          executable at `bin/<exe>`, with a wasm target's binary at
-          `bin/<exe>.wasm` and a javascript target's linked directory at
-          `bin/<exe>.jsexe`. It is what `bundles` optimizes.
-
-          This driver builds one derivation per package, so the executable's own
-          name says nothing about where to look; it is taken for the sake of the
-          one interface both drivers answer to.
-        '';
-      };
-
   };
 
-  config = mkMerge [
-
-    {
-      nixpkgs = common.seeds;
-    }
-
-    {
-      nixpkgs = common.config;
-    }
-
-    {
-      # This driver's own compiler, for a project that names none: no stackage
-      # snapshot covers ghc 9.14 yet, so the nixpkgs ghc914 package set has
-      # neither consistent bounds nor cached builds. A compiler package names
-      # itself through its version, so the default would stand in front of
-      # that rather than behind it.
-      nixpkgs.compiler.name =
-        mkIf (cfg.compiler.package == null) (mkDriverDefault "ghc912");
-    }
+  config = mkMerge (common.mirror-config {
+    namespace = "nixpkgs";
+    # No stackage snapshot covers ghc 9.14 yet, so the nixpkgs ghc914
+    # package set has neither consistent bounds nor cached builds.
+    defaultCompiler = "ghc912";
+  } ++ [
 
     {
       # The one shell tool whose name is not the name of the package carrying
@@ -511,6 +393,6 @@ in {
       nixpkgs.options.tool-packages.cabal = mkOptionDefault cfg.pkgs.cabal-install;
     }
 
-  ];
+  ]);
 
 }

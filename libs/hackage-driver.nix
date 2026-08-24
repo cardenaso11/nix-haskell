@@ -1,13 +1,11 @@
-# NOTE(dgreen):
-# Haskell.nix doesn't currently have a way to overlay packages on the hackage index
-# so this is what this does
-# We generate a dummy hackage for the cabal solver to use, which if our constraints match up they will
-# pull from our local "overlay" hackage
-
-# Based off of
-# https://github.com/ilyakooo0/haskell-nix-extra-hackage/blob/master/default.nix
-# https://github.com/mlabs-haskell/mlabs-tooling.nix/blob/main/mk-hackage.nix
-# Makes it a bit more basic
+# haskell.nix currently has no way to overlay packages on the hackage
+# index, so this generates a hackage index of its own. The cabal solver
+# reads it beside the real one and, where the constraints match, picks the
+# packages from this overlay.
+#
+# A simpler take on:
+# - https://github.com/ilyakooo0/haskell-nix-extra-hackage/blob/master/default.nix
+# - https://github.com/mlabs-haskell/mlabs-tooling.nix/blob/main/mk-hackage.nix
 #
 # Example:
 #
@@ -26,61 +24,72 @@
 #   import ./hackage-driver.nix { inherit pkgs; }
 #   => the same shape with an empty index: `extra-hackages` still holds one
 #      entry, and `package-overlays` is empty
-{ pkgs, modules ? [ ] }: let
-  packageDef = { name, version, src, signatures ? [ ], type ? "Targets", expires ? null }: {
-    inherit signatures;
-    signed = {
-      "_type" = type;
-      inherit expires;
-      targets = {
-        "<repo>/package/${name}-${version}.tar.gz" = {
-          hashes = {
-            sha256 = builtins.hashFile "sha256" "${src}/${name}.cabal";
+{ pkgs, modules ? [ ] }:
+
+let packageDef = { name, version, src, signatures ? [ ], type ? "Targets", expires ? null }:
+      let cabalHash = builtins.hashFile "sha256" "${src}/${name}.cabal";
+
+          target = {
+            hashes = {
+              sha256 = cabalHash;
+            };
+            length = 1;
           };
-          length = 1;
+
+      in {
+        inherit signatures;
+        signed = {
+          "_type" = type;
+          inherit expires;
+          targets = {
+            "<repo>/package/${name}-${version}.tar.gz" = target;
+          };
+          version = 0;
         };
       };
-      version = 0;
-    };
-  };
 
-  genBuildCommands = defs: map (a: let
-    name = a.name;
-    version = a.version;
-    json = builtins.toFile "${a.name}.json" (builtins.toJSON (packageDef { inherit (a) name version src; }));
-  in ''
-    mkdir -p $packagedef/${name}/${version}
-    cp ${json} $packagedef/${name}/${version}/package.json
-    cp ${a.src}/*.cabal $packagedef/${name}/${version}
-  '') defs;
+    commandFor = a:
+      let json = builtins.toFile "${a.name}.json"
+            (builtins.toJSON (packageDef { inherit (a) name version src; }));
+      in ''
+        mkdir -p $packagedef/${a.name}/${a.version}
+        cp ${json} $packagedef/${a.name}/${a.version}/package.json
+        cp ${a.src}/*.cabal $packagedef/${a.name}/${a.version}
+      '';
 
-  writePackageDefs = defs: pkgs.runCommand "index.tar.gz" {
-    outputs = [ "packagedef" "out" ];
-  } ''
-    set -eux
-    ${builtins.concatStringsSep "\n" defs}
-    mkdir -p $packagedef
-    cd $packagedef
-    tar --sort=name --owner=root:0 --group=root:0 --mtime='UTC 2009-01-01' -hczvf $out */*/*
-  '';
+    writePackageDefs = defs: pkgs.runCommand "index.tar.gz" {
+      outputs = [ "packagedef" "out" ];
+    } ''
+      set -eux
+      ${builtins.concatStringsSep "\n" defs}
+      mkdir -p $packagedef
+      cd $packagedef
+      tar --sort=name --owner=root:0 --group=root:0 --mtime='UTC 2009-01-01' -hczvf $out */*/*
+    '';
 
-  genHackageForNix = hackagetar: pkgs.runCommand "hackage-for-nix" { } ''
-    cp ${hackagetar} 01-index.tar.gz
-    ${pkgs.gzip}/bin/gunzip 01-index.tar.gz
-    ${pkgs.haskell-nix.nix-tools.exes.hackage-to-nix}/bin/hackage-to-nix $out 01-index.tar "https://hackagefornix/"
-  '';
+    genHackageForNix = hackagetar: pkgs.runCommand "hackage-for-nix" { } ''
+      cp ${hackagetar} 01-index.tar.gz
+      ${pkgs.gzip}/bin/gunzip 01-index.tar.gz
+      ${pkgs.haskell-nix.nix-tools.exes.hackage-to-nix}/bin/hackage-to-nix $out 01-index.tar "https://hackagefornix/"
+    '';
 
-  hackageOverlay = defs: rec {
-    inherit modules;
-    buildCommands = genBuildCommands defs;
-    generatedHackage = genHackageForNix extra-hackage-tarballs.overlay;
-    package-overlays = map (a: { packages.${a.name}.src = pkgs.lib.mkForce a.src; }) (defs);
+    buildCommands = map commandFor modules;
+
+    indexTarball = (writePackageDefs buildCommands).out;
+
     extra-hackage-tarballs = {
-      overlay = (writePackageDefs buildCommands).out;
+      overlay = indexTarball;
     };
+
+    generatedHackage = genHackageForNix indexTarball;
+
+    package-overlays = map (a: { packages.${a.name}.src = pkgs.lib.mkForce a.src; }) modules;
+
     extra-hackages = [
       (import generatedHackage)
     ];
-  };
 
-in (hackageOverlay modules)
+in {
+  inherit modules buildCommands generatedHackage package-overlays;
+  inherit extra-hackage-tarballs extra-hackages;
+}

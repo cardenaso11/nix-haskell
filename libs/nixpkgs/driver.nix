@@ -25,10 +25,9 @@ let compose = pkgs.haskell.lib.compose;
     ocfg = cfg.options;
 
     # What the project asked for, with a cross platform's own customization
-    # over the top. The platform's flags have to be here rather than applied to
-    # a built package, because this is what cabal2nix is told, and a flag it
-    # does not know about leaves the dependencies of the platform it was not
-    # meant for in place.
+    # over the top. The platform's flags have to sit here rather than on a
+    # built package. cabal2nix is told these flags, and a flag it does not
+    # know about leaves the other platform's dependencies in place.
     packages =
       if platform == null
       then lib.seq unknownPlatforms cfg.packages
@@ -36,23 +35,27 @@ let compose = pkgs.haskell.lib.compose;
 
     # Checked once, from the project this driver was asked for, since a name
     # that denotes no platform would otherwise simply never be looked up.
+    prefix = import ../message-prefix.nix { driver = "nixpkgs"; };
+
     unknownPlatforms =
       let unknown = lib.subtractLists (builtins.attrNames pkgs.pkgsCross)
             (builtins.attrNames cfg.platforms);
       in if unknown == []
          then null
-         else throw ("nix-haskell (nixpkgs driver): `platforms` names no such"
-           + " platform: ${lib.concatStringsSep ", " unknown}");
+         else throw (prefix ("`platforms` names no such"
+           + " platform: ${lib.concatStringsSep ", " unknown}"));
 
     # The `compiler` option resolved per platform.
     resolveCompiler = (import ../compiler.nix { inherit lib; } {
       compiler = cfg.compiler;
       system = cfg.system;
+      driver = "nixpkgs";
     }).resolve;
 
-    # The package set a cross platform is built from: its own when the compiler
-    # there brings a toolchain that has to become the whole set's, else the one
-    # nixpkgs assembles for the platform.
+    # The package set a cross platform is built from:
+    # - its own, when the compiler there brings a toolchain that has to
+    #   become the whole set's
+    # - else the one nixpkgs assembles for the platform
     crossPkgs = platform: cfg.pkgsCross.${platform} or pkgs.pkgsCross.${platform};
 
     haskell-nix-src = config.inputs."haskell-nix";
@@ -61,10 +64,11 @@ let compose = pkgs.haskell.lib.compose;
     project-file = import ./project-file.nix { inherit pkgs parser; };
     conditionHolds = import ./condition.nix { inherit lib hostMap; };
     decodeSrp = import ../source-repository-package.nix;
+    packageFields = import ../package-fields.nix { inherit lib; };
 
-
-
-    # ---- Local packages: { <package-name> = { src; external; }; } ----
+    # ------------------------------------------------------------------------
+    # Local packages: { <package-name> = { src; external; }; }
+    # ------------------------------------------------------------------------
 
     # cabal's own reading of the project, taken from the haskell.nix driver's
     # plan. Packages rooted outside the project source (fetched
@@ -90,31 +94,34 @@ let compose = pkgs.haskell.lib.compose;
 
       in lib.listToAttrs (lib.mapAttrsToList entry locals);
 
+    # Discovered packages enter the set as { src; external; }. A package
+    # the project source carries is never external.
+    local = lib.mapAttrs (_: p: { inherit (p) src; external = false; });
+
     discovered =
       if ocfg.packages != null
-      then lib.mapAttrs (_: p: { inherit (p) src; external = false; })
-             (project-file.discover { src = cfg.src-cleaned; explicit = ocfg.packages; })
+      then local (project-file.discover { src = cfg.src-cleaned; explicit = ocfg.packages; })
       else if ocfg.use-plan
       then planPackages
-      else lib.mapAttrs (_: p: { inherit (p) src; external = false; })
-             (project-file.discover { src = cfg.src-cleaned; });
+      else local (project-file.discover { src = cfg.src-cleaned; });
 
+    # ------------------------------------------------------------------------
+    # source-repository-packages: { <package-name> = <src dir>; }
+    # ------------------------------------------------------------------------
 
+    # Skipped under use-plan: the plan already contains them.
 
-    # ---- source-repository-packages (skipped under use-plan: the plan
-    # already contains them): { <package-name> = <src dir>; } ----
+    packageAt = project-file.packageAt;
 
     srpOptionPackages =
       let entry = attrName: spec:
             let inherit (decodeSrp spec) src condition subdirs;
-                pkgAt = d:
-                  let dir = if d == "." then src else src + "/${d}";
-                      name = project-file.packageNameIn dir;
-                  in if name == null
-                     then throw "nix-haskell (nixpkgs driver): no cabal package in ${toString dir} (source-repository-packages.${attrName})"
-                     else lib.nameValuePair name dir;
+                subdirsOrRoot =
+                  if subdirs == []
+                  then [ "." ]
+                  else subdirs;
             in lib.optionals (condition == null || conditionHolds condition)
-                 (map pkgAt (if subdirs == [] then [ "." ] else subdirs));
+                 (map (packageAt src "source-repository-packages.${attrName}") subdirsOrRoot);
       in builtins.listToAttrs
            (lib.concatLists (lib.mapAttrsToList entry cfg.source-repository-packages));
 
@@ -138,70 +145,77 @@ let compose = pkgs.haskell.lib.compose;
       let fetch = r:
             let url = builtins.unsafeDiscardStringContext r.url;
                 rev = builtins.unsafeDiscardStringContext (r.rev or r.ref or "");
-            in cfg.inputMap."${url}/${rev}"
-                 or (cfg.inputMap.${url}
-                 or (if (r.sha256 or null) != null
-                     then pkgs.fetchgit { url = r.url; rev = r.rev or r.ref; inherit (r) sha256; }
-                     else builtins.fetchGit
-                       ({ url = r.url; }
-                        // lib.optionalAttrs (r ? rev) { inherit (r) rev; }
-                        // lib.optionalAttrs (r ? ref) { inherit (r) ref; })));
+                byHash = pkgs.fetchgit { url = r.url; rev = r.rev or r.ref; inherit (r) sha256; };
+                byGit = builtins.fetchGit
+                  ({ url = r.url; }
+                   // lib.optionalAttrs (r ? rev) { inherit (r) rev; }
+                   // lib.optionalAttrs (r ? ref) { inherit (r) ref; });
+                fetched =
+                  if (r.sha256 or null) != null
+                  then byHash
+                  else byGit;
+            in cfg.inputMap."${url}/${rev}" or (cfg.inputMap.${url} or fetched);
           entry = r:
-            let src = fetch r;
-                pkgAt = d:
-                  let dir = if d == "." then src else src + "/${d}";
-                      name = project-file.packageNameIn dir;
-                  in if name == null
-                     then throw "nix-haskell (nixpkgs driver): no cabal package in ${toString dir} (source-repository-package ${r.url})"
-                     else lib.nameValuePair name dir;
-            in map pkgAt r.subdirs;
+            map (packageAt (fetch r) "source-repository-package ${r.url}") r.subdirs;
       in builtins.listToAttrs
            (lib.concatLists (map entry (project-file.sourceRepoStanzas cfg.sha256map projectText)));
 
     srpPackages =
       lib.optionalAttrs (!ocfg.use-plan) (srpOptionPackages // srpStanzaPackages);
 
-
-
-    # ---- The package set: one fixpoint extension over the base set ----
+    # ------------------------------------------------------------------------
+    # The package set: one fixpoint extension over the base set
+    # ------------------------------------------------------------------------
 
     # Cabal flags of generated packages go through cabal2nix, so the
     # dependency graph is computed under the right flag assignment, and
     # disabled tests and documentation are baked into the generated
-    # expression. Note that cabal2nix keeps test dependencies as required
-    # arguments even with --no-check: a test dependency absent from the
-    # package set still needs an explicit null override.
+    # expression. cabal2nix keeps test dependencies as required arguments
+    # even with --no-check. A test dependency absent from the package set
+    # still needs an explicit null override.
     cabal2nixOptions = name: external:
-      let t = packages.${name} or {};
-          d = ocfg.extra-package-defaults;
-          noCheck = (t.doCheck or null) == false
-            || (external && !d.check && (t.doCheck or null) == null);
-          noHaddock = (t.doHaddock or null) == false
-            || (external && !d.haddock && (t.doHaddock or null) == null);
+      let tweaks = packages.${name} or {};
+
+          extraDefaults = ocfg.extra-package-defaults;
+
+          disabled = field: tweaks.${field} or null == false;
+
+          unset = field: tweaks.${field} or null == null;
+
+          noCheck = disabled "doCheck"
+            || (external && !extraDefaults.check && unset "doCheck");
+
+          noHaddock = disabled "doHaddock"
+            || (external && !extraDefaults.haddock && unset "doHaddock");
+
+          flagOptions = lib.mapAttrsToList
+            (f: enabled: "--flag=${lib.optionalString (!enabled) "-"}${f}")
+            (tweaks.flags or {});
+
       in lib.concatStringsSep " " (
-           lib.mapAttrsToList
-             (f: enabled: "--flag=${lib.optionalString (!enabled) "-"}${f}")
-             (t.flags or {})
+           flagOptions
            ++ lib.optional noCheck "--no-check"
            ++ lib.optional noHaddock "--no-haddock");
 
-    localPackagesOverlay = self: _:
+    # Every package source reaches the set the same way: cabal2nix over a
+    # { src; external; } entry, keyed by package name.
+    cabal2nixOverlay = entries: self: _:
       lib.mapAttrs
-        (name: p: self.callCabal2nixWithOptions name p.src (cabal2nixOptions name p.external) {})
-        discovered;
+        (name: e: self.callCabal2nixWithOptions name e.src (cabal2nixOptions name e.external) {})
+        entries;
 
-    srpOverlay = self: _:
-      lib.mapAttrs
-        (name: dir: self.callCabal2nixWithOptions name dir (cabal2nixOptions name true) {})
-        srpPackages;
+    localPackagesOverlay = cabal2nixOverlay discovered;
 
-    hackageOverlay = self: _:
-      builtins.listToAttrs
-        (map (o: lib.nameValuePair o.name (self.callCabal2nixWithOptions o.name o.src (cabal2nixOptions o.name true) {}))
-          cfg.hackage-overlays);
+    srpOverlay = cabal2nixOverlay
+      (lib.mapAttrs (_: src: { inherit src; external = true; }) srpPackages);
 
-    # Packages rooted outside the project source get pragmatic defaults:
-    # without a solver their version bounds routinely need loosening.
+    hackageOverlay = cabal2nixOverlay
+      (builtins.listToAttrs
+        (map (o: lib.nameValuePair o.name { inherit (o) src; external = true; })
+          cfg.hackage-overlays));
+
+    # Packages rooted outside the project source get pragmatic defaults.
+    # Without a solver, their version bounds routinely need loosening.
     externalNames =
       lib.attrNames (lib.filterAttrs (_: p: p.external) discovered)
       ++ lib.attrNames srpPackages
@@ -219,58 +233,75 @@ let compose = pkgs.haskell.lib.compose;
     # Common `packages` fields that set one argument each of the Haskell
     # mkDerivation, mapped to the name that builder knows it by, which is not
     # always the option's own.
-    packagesFieldArgs = {
-      doCheck = "doCheck";
-      doHaddock = "doHaddock";
-      doCoverage = "doCoverage";
-      doHoogle = "doHoogle";
-      doHyperlinkSource = "hyperlinkSource";
-      doQuickjump = "doHaddockQuickjump";
-      dontStrip = "dontStrip";
-      enableDeadCodeElimination = "enableDeadCodeElimination";
-      enableLibraryProfiling = "enableLibraryProfiling";
-      profilingDetail = "profilingDetail";
-      enableShared = "enableSharedLibraries";
-      enableStatic = "enableStaticLibraries";
-      enableSeparateDataOutput = "enableSeparateDataOutput";
-      enableLibraryForGhci = "enableLibraryForGhci";
-    } // lib.genAttrs
-      ( [ "hardeningDisable" ]
-        ++ lib.concatMap (phase: [ "pre${phase}" "post${phase}" ])
-             [ "Unpack" "Patch" "Configure" "Build" "Check" "Haddock" "Install" ] )
-      lib.id;
+    packagesFieldArgs = packageFields.args;
 
     # Overlay attribute names must never depend on package values, or the
-    # fixpoint recurses: presence (super ? name) decides the names, nulls are
-    # passed through in the values.
+    # fixpoint recurses. Presence (super ? name) decides the names, and
+    # nulls pass through in the values.
     packageTweaksOverlay = _: super:
       let setArg = attr: value: compose.overrideCabal (drv: { ${attr} = value; });
-          appendArg = attr: values: compose.overrideCabal (drv: { ${attr} = drv.${attr} or [] ++ values; });
-          tweak = name: t: if super.${name} == null then null else lib.pipe super.${name} (
-            lib.optional (t.patches != []) (compose.appendPatches t.patches)
-            # flags of generated packages were already applied through cabal2nix
-            ++ lib.optionals (t.flags != {} && !(lib.elem name generatedNames))
-                 (lib.mapAttrsToList
-                   (f: enabled: (if enabled then compose.enableCabalFlag else compose.disableCabalFlag) f)
-                   t.flags)
-            ++ map (f: compose.appendConfigureFlag "--ghc-option=${f}") t.ghcOptions
-            ++ lib.optional (t.configureFlags != []) (compose.appendConfigureFlags t.configureFlags)
-            ++ lib.optional (t.setupBuildFlags != []) (appendArg "buildFlags" t.setupBuildFlags)
-            ++ lib.optional (t.setupHaddockFlags != []) (appendArg "haddockFlags" t.setupHaddockFlags)
-            ++ lib.concatLists (lib.mapAttrsToList
-                 (field: attr: lib.optional (t.${field} != null) (setArg attr t.${field}))
-                 packagesFieldArgs)
-            ++ lib.optional (t.enableProfiling != null)
-                 (compose.overrideCabal (drv: {
-                   enableLibraryProfiling = t.enableProfiling;
-                   enableExecutableProfiling = t.enableProfiling;
-                 }))
-            ++ lib.optional (t.src != null) (compose.overrideSrc { inherit (t) src; }));
-      # tweaks for packages absent from the set are silently ignored
-      in lib.mapAttrs tweak
-           (lib.filterAttrs (name: _: super ? ${name}) packages);
 
-    # Project-wide ghcOptions apply to the project's own packages: applying
+          appendArg = attr: values: compose.overrideCabal (drv: { ${attr} = drv.${attr} or [] ++ values; });
+
+          toggleFlag = f: enabled:
+            (if enabled
+             then compose.enableCabalFlag
+             else compose.disableCabalFlag) f;
+
+          patchSteps = tweaks:
+            lib.optional (tweaks.patches != []) (compose.appendPatches tweaks.patches);
+
+          # flags of generated packages were already applied through cabal2nix
+          flagSteps = name: tweaks:
+            lib.optionals (tweaks.flags != {} && !(lib.elem name generatedNames))
+              (lib.mapAttrsToList toggleFlag tweaks.flags);
+
+          ghcOptionSteps = tweaks:
+            map (f: compose.appendConfigureFlag "--ghc-option=${f}") tweaks.ghcOptions;
+
+          configureSteps = tweaks:
+            lib.optional (tweaks.configureFlags != []) (compose.appendConfigureFlags tweaks.configureFlags);
+
+          setupSteps = tweaks:
+            lib.optional (tweaks.setupBuildFlags != []) (appendArg "buildFlags" tweaks.setupBuildFlags)
+            ++ lib.optional (tweaks.setupHaddockFlags != []) (appendArg "haddockFlags" tweaks.setupHaddockFlags);
+
+          fieldSteps = tweaks:
+            lib.concatLists (lib.mapAttrsToList
+              (field: attr: lib.optional (tweaks.${field} != null) (setArg attr tweaks.${field}))
+              packagesFieldArgs);
+
+          profilingStep = tweaks:
+            lib.optional (tweaks.enableProfiling != null)
+              (compose.overrideCabal (drv: {
+                enableLibraryProfiling = tweaks.enableProfiling;
+                enableExecutableProfiling = tweaks.enableProfiling;
+              }));
+
+          srcStep = tweaks:
+            lib.optional (tweaks.src != null) (compose.overrideSrc { inherit (tweaks) src; });
+
+          steps = name: tweaks:
+            patchSteps tweaks
+            ++ flagSteps name tweaks
+            ++ ghcOptionSteps tweaks
+            ++ configureSteps tweaks
+            ++ setupSteps tweaks
+            ++ fieldSteps tweaks
+            ++ profilingStep tweaks
+            ++ srcStep tweaks;
+
+          tweak = name: tweaks:
+            if super.${name} == null
+            then null
+            else lib.pipe super.${name} (steps name tweaks);
+
+          # tweaks for packages absent from the set are silently ignored
+          present = lib.filterAttrs (name: _: super ? ${name}) packages;
+
+      in lib.mapAttrs tweak present;
+
+    # Project-wide ghcOptions apply to the project's own packages. Applying
     # them to the whole set would invalidate the binary cache for the entire
     # dependency closure.
     ghcOptionsOverlay = _: super:
@@ -288,58 +319,59 @@ let compose = pkgs.haskell.lib.compose;
       });
     };
 
-    hp = haskellPackages.extend (lib.composeManyExtensions (
+    projectOverlays =
       lib.optional ocfg.exact-configuration exactConfigurationOverlay
       ++ [ localPackagesOverlay srpOverlay hackageOverlay extraDefaultsOverlay packageTweaksOverlay ]
       ++ lib.optional (cfg.ghcOptions != []) ghcOptionsOverlay
-      ++ ocfg.overrides));
+      ++ ocfg.overrides;
 
+    hp = haskellPackages.extend (lib.composeManyExtensions projectOverlays);
 
-
-    # ---- Shell ----
+    # ------------------------------------------------------------------------
+    # Shell
+    # ------------------------------------------------------------------------
 
     # What `shell.packages` selects from: the project's packages plus
     # source-repository-packages, tagged the way selection functions expect.
     # Tagging with // preserves outPath, which shellFor's local-package
-    # detection compares. The full package set is never offered: it contains
+    # detection compares. The full package set is never offered. It contains
     # null (boot) and throwing (removed) attributes.
     selectionSet =
       lib.genAttrs generatedNames
         (name: hp.${name} // { isLocal = true; identifier = { inherit name; }; });
 
-    selection =
-      if cfg.shell.packages != null
-      then cfg.shell.packages
-      else ps: builtins.filter
-        (p: (p.isLocal or false) && !(cfg.source-repository-packages ? ${p.identifier.name or ""}))
-        (builtins.attrValues ps);
+    selection = import ../shell-packages-selection.nix {
+      packages = cfg.shell.packages;
+      inherit (cfg) source-repository-packages;
+    };
 
-    # Tools are resolved by name; version requests cannot be honored without
+    # Tools are resolved by name. Version requests cannot be honored without
     # a solver and are ignored.
     resolveTool = name: _:
       let sources = [ ocfg.tool-packages pkgs hp ];
           found = lib.findFirst (set: set ? ${name}) null sources;
       in if found == null
-         then throw "nix-haskell (nixpkgs driver): cannot find the shell tool \"${name}\"; set nixpkgs.options.tool-packages.\"${name}\""
+         then throw (prefix "cannot find the shell tool \"${name}\"; set nixpkgs.options.tool-packages.\"${name}\"")
          else found.${name};
 
     # The wrapped cross compiler carries the dependencies of the shell
-    # selection in its package database, like shellFor's environment does for
-    # the native compiler: without a hackage index in the shell, cabal can
-    # only resolve against installed packages. Setup dependencies are left
-    # out; they build on the native side.
+    # selection in its package database, like shellFor's environment does
+    # for the native compiler. Without a hackage index in the shell, cabal
+    # can only resolve against installed packages. Setup dependencies are
+    # left out. They build on the native side.
     #
-    # `cross-ghc-env.nix` rather than the set's own `ghcWithPackages`, which
-    # aims the compiler at a library directory it builds from the version and
-    # so cannot wrap a relocatable bindist.
+    # The wrapper comes from cross-ghc-env.nix rather than from the set's
+    # own `ghcWithPackages`, which aims the compiler at a library directory
+    # it builds from the version and so cannot wrap a relocatable bindist.
     crossGhcEnv = platform:
       let chp = projectCross.${platform}.haskellPackages;
           selected = map (p: chp.${p.identifier.name}) (selection selectionSet);
           notSelected = d: lib.all (p: (d.outPath or null) != p.outPath) selected;
-          depsOf = p: lib.concatLists (lib.attrValues (lib.filterAttrs
-            (n: _: n == "buildDepends"
-              || (lib.hasSuffix "HaskellDepends" n && n != "setupHaskellDepends"))
-            p.getCabalDeps));
+          isRunDep = n:
+            n == "buildDepends"
+            || (lib.hasSuffix "HaskellDepends" n && n != "setupHaskellDepends");
+          depsOf = p: lib.concatLists
+            (lib.attrValues (lib.filterAttrs (n: _: isRunDep n) p.getCabalDeps));
       in import ./cross-ghc-env.nix { inherit pkgs lib; } {
            ghc = chp.ghc;
            packages = lib.filter (d: d != null && notSelected d) (lib.concatMap depsOf selected);
@@ -347,11 +379,11 @@ let compose = pkgs.haskell.lib.compose;
 
     crossWrappers =
       let mkWrappers = import ../cross-wrappers.nix { inherit pkgs lib; };
-          probe = lib.genAttrs (builtins.attrNames pkgs.pkgsCross) (n: n);
+          probe = (import ../cross-platform.nix { inherit lib; }).probe pkgs;
       in lib.concatMap (platform: mkWrappers (crossGhcEnv platform))
            (cfg.shell.crossPlatforms probe);
 
-    shell = hp.shellFor ({
+    shellArgs = {
       packages = _: selection selectionSet;
       withHoogle = cfg.shell.withHoogle;
       nativeBuildInputs =
@@ -361,25 +393,26 @@ let compose = pkgs.haskell.lib.compose;
       buildInputs = cfg.shell.buildInputs;
       shellHook = cfg.shell.shellHook;
     } // lib.optionalAttrs (cfg.name != null) { name = "${cfg.name}-shell"; }
-      // ocfg.shellFor-args);
+      // ocfg.shellFor-args;
 
+    shell = hp.shellFor shellArgs;
 
-
-    # ---- Cross ----
+    # ------------------------------------------------------------------------
+    # Cross
+    # ------------------------------------------------------------------------
 
     projectCross = lib.genAttrs (builtins.attrNames pkgs.pkgsCross) (crossPlatform:
-      import ./driver.nix {
-        pkgs = crossPkgs crossPlatform;
+      let platformPkgs = crossPkgs crossPlatform;
+      in import ./driver.nix {
+        pkgs = platformPkgs;
         haskellPackages = import ./haskell-packages.nix {
           inherit lib;
-          pkgs = crossPkgs crossPlatform;
+          pkgs = platformPkgs;
           compiler = resolveCompiler crossPlatform;
         };
         inherit lib config;
         platform = crossPlatform;
       });
-
-
 
 in {
   inherit pkgs shell projectCross;

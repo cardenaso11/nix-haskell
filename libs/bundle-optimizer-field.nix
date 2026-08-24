@@ -1,11 +1,13 @@
-# One field of a bundle optimizer's settings, declared for the kind of layer it
-# sits on. `inherits` names what a `null` falls through to: give it and the field
-# is `nullOr` of its type, defaults to `null`, and its description gains a
-# paragraph saying so; leave it out and the field carries its real type and the
-# value every other layer falls back to.
+# One field of a bundle optimizer's settings, declared for the kind of layer
+# it sits on:
+# - Without `inherits`, the field carries its real type and the value every
+#   other layer falls back to.
+# - With `inherits`, the field is nullable and defaults to `null`, and its
+#   description gains a paragraph saying what `null` leaves it to.
 #
-# Naming what a `null` leaves the field to is not optional, since supplying that
-# name is what makes the layer nullable at all. The two cannot drift apart.
+# `inherits` names what a `null` falls through to. The same name switches
+# the field to nullable, so the name and the nullability cannot drift apart.
+# Every other argument passes to `mkOption` as given.
 #
 # Example:
 #
@@ -29,22 +31,22 @@
 #   => <option, type nullOr (enum [ "0" "1" "2" ]), default null, no example,
 #      description "The `-O` level wasm-opt runs at.
 #
-#                   `null` states nothing, leaving the field to the layer
+#                   `null` states nothing and leaves the field to the layer
 #                   beneath it.">
 { lib, inherits ? null }:
 
 let stated = inherits == null;
 
-    # A leading blank line, so the sentence becomes its own paragraph rather
-    # than running on from the description it is appended to.
+    # The leading blank line makes the sentence its own paragraph instead of
+    # running on from the description it is appended to.
     leftTo = lib.optionalString (! stated) ''
 
-      `null` states nothing, leaving the field to ${inherits}.
+      `null` states nothing and leaves the field to ${inherits}.
     '';
 
-in { type, default, description, example ? null }:
-     lib.mkOption ({
+in args@{ type, default, description, ... }:
+     lib.mkOption (args // {
        type = if stated then type else lib.types.nullOr type;
        default = if stated then default else null;
        description = description + leftTo;
-     } // lib.optionalAttrs (example != null) { inherit example; })
+     })

@@ -1,10 +1,14 @@
-# The common `compiler` option interpreted: per-platform resolution to the
-# names a build needs and to a compiler derivation carrying the attributes the
-# drivers read off it.
+# Interprets the common `compiler` option. Each platform resolves to the
+# names a build needs, and to a compiler derivation carrying the attributes
+# the drivers read off it.
 #
-# Each entry resolves a field first, then whatever the package already carries
-# (so a driver's own compilers need no fields at all), then a neutral value.
-# Three names come out of it:
+# A field of an entry resolves in this order:
+# 1. The value the entry states.
+# 2. Whatever the compiler package already carries, so a driver's own
+#    compilers need no fields at all.
+# 3. A neutral value.
+#
+# The entry carries three names:
 #
 #   name       the project-wide key: the compiler the driver looks up by name,
 #              and the package set whose compiler a package replaces
@@ -35,72 +39,85 @@
 #   compilers.targetKey <elaborated aarch64>   => null
 { lib }:
 
-{ compiler, system }:
+{ compiler, system, driver ? null }:
 
 with lib;
 
-let crossPlatform = import ./cross-platform.nix { inherit lib; };
+let prefix = import ./message-prefix.nix { inherit driver; };
+
+    crossPlatform = import ./cross-platform.nix { inherit lib; };
 
     platforms = compiler.platforms;
 
     entry = where: spec:
       let package = spec.package;
 
+          # A field the entry states wins; the compiler package is asked
+          # next; the last resort is the given fallback.
+          fromSpecOr = specValue: attr: fallback:
+            if specValue != null
+            then specValue
+            else package.${attr} or fallback;
+
           version =
-            if spec.version != null then spec.version
-            else if package == null then null
-            else let parsed = getVersion package;
-                 in if parsed != "" then parsed
-                    else throw ("nix-haskell: cannot derive a version for"
-                      + " `compiler${where}` from ${package.name or "<compiler package>"};"
-                      + " set `compiler${where}.version`");
+            if spec.version != null
+            then spec.version
+            else if package == null
+            then null
+            else
+              let parsed = getVersion package;
+              in if parsed != ""
+                 then parsed
+                 else throw (prefix ("cannot derive a version for"
+                   + " `compiler${where}` from ${package.name or "<compiler package>"};"
+                   + " set `compiler${where}.version`"));
 
           name =
-            if spec.name != null then spec.name
-            else if version != null then "ghc" + replaceStrings [ "." ] [ "" ] version
-            else throw ("nix-haskell: `compiler${where}` has no name and nothing"
-              + " to derive one from; set `compiler${where}.name`");
+            if spec.name != null
+            then spec.name
+            else if version != null
+            then "ghc" + replaceStrings [ "." ] [ "" ] version
+            else throw (prefix ("`compiler${where}` has no name and nothing"
+              + " to derive one from; set `compiler${where}.name`"));
 
           stockName =
-            if version == null then name
+            if version == null
+            then name
             else "ghc" + concatStrings (take 3 (splitVersion version));
 
-          targetPrefix =
-            if spec.targetPrefix != null then spec.targetPrefix
-            else package.targetPrefix or "";
+          targetPrefix = fromSpecOr spec.targetPrefix "targetPrefix" "";
 
-          enableShared =
-            if spec.enableShared != null then spec.enableShared
-            else package.enableShared or true;
+          enableShared = fromSpecOr spec.enableShared "enableShared" true;
 
           libDir = spec.haskell-nix.libDir;
 
+          versionedCompilerName =
+            if version == null
+            then null
+            else "ghc-${version}";
+
           haskellCompilerName =
-            if spec.nixpkgs.haskellCompilerName != null then spec.nixpkgs.haskellCompilerName
-            else package.haskellCompilerName or
-              (if version == null then null else "ghc-${version}");
+            fromSpecOr spec.nixpkgs.haskellCompilerName "haskellCompilerName" versionedCompilerName;
 
           toolchain = spec.toolchain;
 
+          hasToolchain = toolchain.package != null;
+
           # The cabal flags pointing a build at the compiler's own C tools.
           # One list for both drivers, so a build gets the same toolchain
-          # whichever one runs it. A repeated flag is taken by cabal from the
-          # last occurrence, which is how these override what a driver passes
-          # from the surrounding package set.
+          # whichever one runs it. cabal takes a repeated flag from its last
+          # occurrence, so these override what a driver passes from the
+          # surrounding package set.
           toolchainFlags =
-            let flag = cabalName: tool:
-                  optional (tool != null)
-                    "--with-${cabalName}=${toolchain.package}/bin/${tool}";
-            in optionals (toolchain.package != null) (concatLists [
-                 (flag "gcc" toolchain.cc)
-                 (flag "ar" toolchain.ar)
-                 (flag "ld" toolchain.ld)
-                 (flag "strip" toolchain.strip)
-               ]);
+            let flag = tool:
+                  optional (toolchain.${tool.name} != null)
+                    "--with-${tool.flag}=${toolchain.package}/bin/${toolchain.${tool.name}}";
+            in optionals hasToolchain
+                 (concatMap flag (import ./toolchain-tools.nix));
 
       in {
         inherit name stockName version targetPrefix enableShared package;
-        inherit toolchain toolchainFlags;
+        inherit toolchain toolchainFlags hasToolchain;
         inherit (spec.haskell-nix) extraNonReinstallablePkgs;
         inherit (spec.nixpkgs) enableExternalInterpreter;
 
@@ -123,6 +140,9 @@ in {
 
   native = nativeEntry;
 
+  # The per-platform entries, keyed as the `platforms` table declares them.
+  platforms = platformEntries;
+
   # A platform's own entry when it has one, else the compiler above the table.
   # An entry is additive, so an ordinary cross target keeps working with only
   # one compiler declared.
@@ -134,7 +154,7 @@ in {
   # Whether any entry asks for machinery a driver only needs when a compiler
   # is described this way: a toolchain to point builds at, boot packages to
   # take from the compiler rather than build.
-  anyToolchain = any (e: e.toolchain.package != null) allEntries;
+  anyToolchain = any (e: e.hasToolchain) allEntries;
 
   anyExtraNonReinstallablePkgs = any (e: e.extraNonReinstallablePkgs != []) allEntries;
 

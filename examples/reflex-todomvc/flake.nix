@@ -1,10 +1,11 @@
 {
   inputs = {
-    # This example is part of the nix-haskell repository two directories up,
-    # so the flake commands and plain nix-shell/nix-build (which go through
-    # default.nix) build from the same checkout, and nix-haskell's pins/
-    # submodules are this flake's submodules too: Nix 2.27+ fetches them from
-    # the line below, on older Nix add ?submodules=1 to the flake URL.
+    # This example is part of the nix-haskell repository two directories
+    # up. The flake commands and plain nix-shell/nix-build (which go through
+    # default.nix) therefore build from the same checkout, and nix-haskell's
+    # pins/ submodules are this flake's submodules too. Nix 2.27+ fetches
+    # them from the line below. On older Nix, add ?submodules=1 to the flake
+    # URL.
     self.submodules = true;
 
     nix-haskell.url = ../..;
@@ -13,27 +14,36 @@
   };
 
   outputs = inputs@{ self, ... }:
-    let nixpkgs = if inputs ? "nixpkgs" then inputs.nixpkgs else builtins.getFlake "nixpkgs";
+    let nixpkgs =
+          if inputs ? "nixpkgs"
+          then inputs.nixpkgs
+          else builtins.getFlake "nixpkgs";
+
         eachSystem = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
+
+        projectFor = system: import ./default.nix { inherit system inputs; };
+
+        todomvcExe = crossProject:
+          crossProject.hsPkgs.reflex-todomvc.components.exes.reflex-todomvc;
     in {
       legacyPackages = eachSystem (system:
-        import ./default.nix { inherit system inputs; } // {
-          # every driver, compiler and cross target this example is meant to
-          # work for, built both ways
+        projectFor system // {
+          # Every driver, compiler and cross target this example is meant
+          # to work for, built both ways.
           release = import ./release.nix { inherit system inputs; };
         }
       );
 
       packages = eachSystem (system:
-        let project = import ./default.nix { inherit system inputs; };
+        let project = projectFor system;
         in rec {
           default = haskell-nix;
-          haskell-nix = project.haskell-nix.projectCross.wasi32.hsPkgs.reflex-todomvc.components.exes.reflex-todomvc;
+          haskell-nix = todomvcExe project.haskell-nix.projectCross.wasi32;
           nixpkgs = project.nixpkgs.projectCross.ghcjs.packages.reflex-todomvc;
 
-          # the same wasm target, built with ghc-wasm-meta's GHC 9.12 instead
-          # of the drivers' own compilers
-          haskell-nix-wasm-meta = project.haskell-nix-wasm-meta.projectCross.wasi32.hsPkgs.reflex-todomvc.components.exes.reflex-todomvc;
+          # Builds the wasm target with the GHC 9.12 bindist from the
+          # ghc-wasm-meta pin instead of the drivers' own compilers.
+          haskell-nix-wasm-meta = todomvcExe project.haskell-nix-wasm-meta.projectCross.wasi32;
           nixpkgs-wasm-meta = project.nixpkgs-wasm-meta.projectCross.wasi32.packages.reflex-todomvc;
         });
 
