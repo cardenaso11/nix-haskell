@@ -423,7 +423,7 @@ Driver configuration:
 | `nixpkgs.cross-compiler` | `platform` to the compiler this driver builds that target with |
 | `nixpkgs.cross-exe` | `{ platform, package, exe }` to what this driver builds that executable into |
 | `nixpkgs.pkgsCross` | Cross package sets for `projectCross`, replacing the ones from `pkgs.pkgsCross` |
-| `nixpkgs.options.exact-configuration` | Tell Cabal every dependency and flag, so it resolves nothing and reads no version bound |
+| `nixpkgs.options.exact-configuration` | Tell Cabal every dependency and flag, so it resolves nothing and reads no version bound (follows `use-plan`) |
 | `nixpkgs.options.overrides` | Overlays over the package set, applied last |
 | `nixpkgs.options.packages` | Explicit local package map (bypasses discovery) |
 | `nixpkgs.options.use-plan` | Take the project structure from the cabal plan of the haskell.nix driver |

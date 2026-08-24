@@ -29,8 +29,22 @@
   };
 
   nixpkgs = {
-    # without a solver, the arch-conditional flag stanzas of cabal.project
-    # cannot be followed; assign the flags for this driver directly
+    # Where this driver builds against a compiler newer than the bounds its
+    # package set was written for, the bounds are what is wrong: 9.14 ships
+    # ghc-experimental 9.1401.0 and template-haskell 2.24, which jsaddle-wasm
+    # and dependent-sum-template exclude. Reading cabal.project through cabal
+    # brings `exact-configuration` with it, which is what the
+    # `allow-newer: *:*` of that same file amounts to for a driver with no
+    # solver: Cabal is told every dependency and reads no bound.
+    options.use-plan =
+      lib.versionAtLeast config.nixpkgs.compiler-version "9.14";
+
+    # The plan carries the project's structure, not the flag assignments of an
+    # arch-conditional stanza, and configuring exactly gives a flag the default
+    # its cabal file declares. Both differ from what the `!arch(wasm32)` stanza
+    # of cabal.project asks for, so assign them for this driver directly. The
+    # generated assignments go first and Cabal takes the last one given, so
+    # these still decide.
     packages = {
       reflex-dom.flags = {
         use-warp = true;
@@ -38,15 +52,6 @@
       };
       reflex-todomvc.flags.webkitgtk = false;
     };
-
-    # Where this driver builds against a compiler newer than the bounds its
-    # package set was written for, the bounds are what is wrong: 9.14 ships
-    # ghc-experimental 9.1401.0 and template-haskell 2.24, which jsaddle-wasm
-    # and dependent-sum-template exclude. Configuring exactly is what the
-    # `allow-newer: *:*` of cabal.project amounts to for a driver with no
-    # solver: Cabal is told the answer and reads no bound.
-    options.exact-configuration =
-      lib.versionAtLeast config.nixpkgs.compiler-version "9.14";
 
     options.overrides = [
       # test dependency of reflex-dom-core, lives in the reflex-dom

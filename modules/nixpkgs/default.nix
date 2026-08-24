@@ -163,12 +163,17 @@ in {
                 optional-packages and conditionals are all exact, at the cost
                 of evaluating the haskell.nix toolchain (import from
                 derivation). The packages are still built from nixpkgs.
+
+                This turns `exact-configuration` on by default, since the
+                bounds of the packages a plan brings in are the other half of
+                reading a cabal.project on a driver with no solver.
               '';
             };
 
             exact-configuration = mkOption {
               type = types.bool;
-              default = false;
+              default = cfg.options.use-plan;
+              defaultText = literalMD "`nixpkgs.options.use-plan`";
               description = ''
                 Tell Cabal every direct dependency, by the id its package
                 database records, and every flag the package declares, so it
@@ -183,6 +188,12 @@ in {
                 A flag the project states in `packages.<name>.flags` still
                 decides: the generated assignments go first, and Cabal takes the
                 last one given.
+
+                It follows `use-plan` unless the project says otherwise: a plan
+                read from a cabal.project brings in the packages that file's
+                `allow-newer` was written for, and this driver has no other way
+                to get past their bounds. Set it outright to break the link, in
+                either direction.
               '';
             };
 

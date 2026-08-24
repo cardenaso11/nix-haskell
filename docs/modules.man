@@ -3521,7 +3521,7 @@ Optional name for better error messages.
 \f[I]Default:\f[R]
 .IP
 .EX
-\(dqf1x6cr6h8w6c6w43ggdls29db85l02xg\-source\(dq
+\(dqhsnyxxl0yj0lbjv77aa93chgwdqa9gs3\-source\(dq
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
@@ -3763,13 +3763,15 @@ A flag the project states in \f[CR]packages.<name>.flags\f[R] still
 decides: the generated assignments go first, and Cabal takes the last
 one given.
 .PP
+It follows \f[CR]use\-plan\f[R] unless the project says otherwise: a
+plan read from a cabal.project brings in the packages that file\(cqs
+\f[CR]allow\-newer\f[R] was written for, and this driver has no other
+way to get past their bounds.
+Set it outright to break the link, in either direction.
+.PP
 \f[I]Type:\f[R] boolean
 .PP
-\f[I]Default:\f[R]
-.IP
-.EX
-false
-.EE
+\f[I]Default:\f[R] \f[CR]nixpkgs.options.use\-plan\f[R]
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/nixpkgs
@@ -3910,6 +3912,10 @@ This is cabal\(cqs own reading of cabal.project, so globs,
 optional\-packages and conditionals are all exact, at the cost of
 evaluating the haskell.nix toolchain (import from derivation).
 The packages are still built from nixpkgs.
+.PP
+This turns \f[CR]exact\-configuration\f[R] on by default, since the
+bounds of the packages a plan brings in are the other half of reading a
+cabal.project on a driver with no solver.
 .PP
 \f[I]Type:\f[R] boolean
 .PP

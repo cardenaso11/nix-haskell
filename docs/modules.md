@@ -5163,7 +5163,7 @@ null or string
 *Default:*
 
 ```nix
-"f1x6cr6h8w6c6w43ggdls29db85l02xg-source"
+"hsnyxxl0yj0lbjv77aa93chgwdqa9gs3-source"
 ```
 
 *Declared by:*
@@ -5504,6 +5504,12 @@ A flag the project states in ` packages.<name>.flags ` still
 decides: the generated assignments go first, and Cabal takes the
 last one given\.
 
+It follows ` use-plan ` unless the project says otherwise: a plan
+read from a cabal\.project brings in the packages that file’s
+` allow-newer ` was written for, and this driver has no other way
+to get past their bounds\. Set it outright to break the link, in
+either direction\.
+
 
 
 *Type:*
@@ -5512,10 +5518,7 @@ boolean
 
 
 *Default:*
-
-```nix
-false
-```
+` nixpkgs.options.use-plan `
 
 *Declared by:*
  - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
@@ -5728,6 +5731,10 @@ This is cabal’s own reading of cabal\.project, so globs,
 optional-packages and conditionals are all exact, at the cost
 of evaluating the haskell\.nix toolchain (import from
 derivation)\. The packages are still built from nixpkgs\.
+
+This turns ` exact-configuration ` on by default, since the
+bounds of the packages a plan brings in are the other half of
+reading a cabal\.project on a driver with no solver\.
 
 
 
