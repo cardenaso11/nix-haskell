@@ -19,7 +19,7 @@
 #                                         #   export default (__exports) => ({ ... })
 { pkgs, lib }:
 
-with (import ./prelude { inherit lib; });
+with (import ../prelude { inherit lib; });
 
 { ghc, wasm }:
 

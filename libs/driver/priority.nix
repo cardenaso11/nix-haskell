@@ -9,7 +9,7 @@
 #
 # Example:
 #
-#   mkDriverDefault = import ./driver-default.nix { inherit lib; };
+#   mkDriverDefault = import ./priority.nix { inherit lib; };
 #
 #   { haskell-nix.compiler.name = mkDriverDefault "ghc914"; }
 #   => config."haskell-nix".compiler.name == "ghc914", the driver's own choice,

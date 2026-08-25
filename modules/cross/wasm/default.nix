@@ -17,13 +17,13 @@ with (import ../../../libs/prelude { inherit lib; });
 {
 
   imports = [
-    (import ../../../libs/cross-target-module.nix "wasm")
+    (import ../../../libs/cross/target-module.nix "wasm")
   ];
 
   options.wasm-jsffi = function-option {
     default = { ghc, wasm }:
-      import ../../../libs/wasm-jsffi.nix { inherit pkgs lib; } { inherit ghc wasm; };
-    defaultText = fenced-code ''<nix-haskell>/libs/wasm-jsffi.nix'';
+      import ../../../libs/cross/wasm-jsffi.nix { inherit pkgs lib; } { inherit ghc wasm; };
+    defaultText = fenced-code ''<nix-haskell>/libs/cross/wasm-jsffi.nix'';
     description = ''
       The `ghc_wasm_jsffi.js` without which a GHC-built wasm module cannot
       be instantiated, read out of the binary by the compiler that built

@@ -1,6 +1,7 @@
 { lib, ... }:
 
 with lib;
+with (import ../libs/prelude { inherit lib; });
 
 {
 
@@ -16,6 +17,7 @@ with lib;
         a checkout, or a packed thunk. Add entries beyond the ones in
         `pins/` freely.
       '';
+      example = fenced-code ''{ ghc-wasm-meta = ./deps/ghc-wasm-meta; }'';
     };
 
   };

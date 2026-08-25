@@ -12,6 +12,12 @@
 #   bundle-optimizers           wasm-opt and closure-compiler run over the
 #                               smallest inputs they accept, with the flag sets
 #                               the settings produce
+#   package-arguments-spec      a raw mkDerivation argument set through
+#                               nixpkgs.options.package-arguments lands on
+#                               the package derivation (pure eval)
+#   cross-target-row-spec       a user-supplied cross-target row is a full
+#                               target: options, registry, node opt-out,
+#                               and settings tolerance (pure eval)
 #   every-option-<driver>       the every-option fixture instantiates through
 #                               the driver's whole translation (no compiling)
 #   hello-<driver>              the hello example builds
@@ -29,17 +35,25 @@ with pkgs.lib;
 
 let eval = import ../eval.nix { inherit system pkgs inputs; };
 
+    # ------------------------------------------------------------------------
+    # Fixtures
+    # ------------------------------------------------------------------------
+
     drivers = [ "haskell-nix" "nixpkgs" ];
 
     fixture = eval ./fixtures/every-option.nix;
 
     hello = eval (import ../examples/hello/project.nix);
 
-    common = import ../libs/option-names.nix {
+    common = import ../libs/driver/option-names.nix {
       inherit (pkgs) lib;
       options = fixture.options;
       excludes = drivers;
     };
+
+    # ------------------------------------------------------------------------
+    # translation-totality
+    # ------------------------------------------------------------------------
 
     translation-totality =
       let check = driver:
@@ -54,6 +68,10 @@ let eval = import ../eval.nix { inherit system pkgs inputs; };
       in if failures == []
          then pkgs.runCommand "translation-totality" {} "echo ok > $out"
          else throw (concatStringsSep "\n" failures);
+
+    # ------------------------------------------------------------------------
+    # compiler-spec
+    # ------------------------------------------------------------------------
 
     # How a compiler is resolved: the name a driver falls back to, the names
     # derived from a compiler package, the attributes spliced onto it, and the
@@ -97,7 +115,7 @@ let eval = import ../eval.nix { inherit system pkgs inputs; };
             };
           };
 
-          resolved = p: import ../libs/compiler.nix { inherit (pkgs) lib; } {
+          resolved = p: import ../libs/compiler { inherit (pkgs) lib; } {
             compiler = p.config.compiler;
             inherit system;
           };
@@ -193,6 +211,10 @@ let eval = import ../eval.nix { inherit system pkgs inputs; };
       in if failures == []
          then pkgs.runCommand "compiler-spec" {} "echo ok > $out"
          else throw (concatStringsSep "\n" failures);
+
+    # ------------------------------------------------------------------------
+    # bundle-optimizer-spec
+    # ------------------------------------------------------------------------
 
     # Which layer of the bundle optimizer settings decides a field, read off the
     # command line each optimizer would run. The fixture states a different
@@ -311,6 +333,10 @@ let eval = import ../eval.nix { inherit system pkgs inputs; };
          then pkgs.runCommand "bundle-optimizer-spec" {} "echo ok > $out"
          else throw (concatStringsSep "\n" failures);
 
+    # ------------------------------------------------------------------------
+    # bundle-optimizers
+    # ------------------------------------------------------------------------
+
     # The flag sets the tools are actually handed, over the smallest inputs they
     # accept, so a flag one of them rejects fails here rather than in a project
     # after a cross build.
@@ -370,13 +396,119 @@ let eval = import ../eval.nix { inherit system pkgs inputs; };
         echo ok > $out
       '';
 
+    # ------------------------------------------------------------------------
+    # package-arguments-spec
+    # ------------------------------------------------------------------------
+
+    # A raw mkDerivation argument set through `package-arguments` lands on
+    # the package's derivation.
+    package-arguments-spec =
+      let project = eval {
+            name = "package-arguments";
+            src = ../examples/hello;
+            nixpkgs.options.package-arguments.hello.postInstall = "cp -r static $out";
+          };
+          postInstall = project.config.nixpkgs.project.packages.hello.postInstall;
+      in if postInstall == "cp -r static $out"
+         then pkgs.runCommand "package-arguments-spec" {} "echo ok > $out"
+         else throw "package-arguments: postInstall is ${builtins.toJSON postInstall}";
+
+    # ------------------------------------------------------------------------
+    # cross-target-row-spec
+    # ------------------------------------------------------------------------
+
+    # A user-supplied cross-target row is a full target: its options exist,
+    # the row registers for the bundle dispatch, node = false keeps Node.js
+    # out of the shell, and the settings resolver tolerates a tool that no
+    # layer of the settings trees declares.
+    cross-target-row-spec =
+      let row = {
+            name = "probe";
+            flag = "isProbe";
+            matches = t: t.isAarch64 or false;
+            selected = names: elem "aarch64-multiplatform" names;
+            selectedText = "whether the selection names aarch64-multiplatform";
+            optimizer = "probe-opt";
+            optimize = "probe-optimize";
+            runPath = "probe/run.nix";
+            artifact = "binary";
+            extension = "";
+            examplePlatform = "aarch64-multiplatform";
+            lead = "A probe target.";
+            node = false;
+            optimizer-fields = {
+              enable = {
+                type = pkgs.lib.types.bool;
+                default = true;
+                description = "Whether the probe runs.";
+              };
+            };
+            optimize-defaultText = pkgs.lib.literalMD "the probe";
+            mkOptimize = { pkgs, lib, settings }:
+              { platform ? null, package ? null, exe ? null, binary }:
+              pkgs.runCommand "probe-optimized" {
+                resolved = builtins.toJSON (settings { inherit platform package exe; });
+              } "echo $resolved > $out";
+          };
+
+          project = eval {
+            name = "cross-target-row";
+            src = ../examples/hello;
+            imports = [ (import ../libs/cross/target-module.nix row) ];
+            shell.crossPlatforms = ps: with ps; [ aarch64-multiplatform ];
+            packages.hello = {};
+            platforms.aarch64-multiplatform.bundle-optimizers.probe-opt.enable = false;
+            platforms.aarch64-multiplatform.packages.hello.components.exes.hello.bundle-optimizers.probe-opt.enable = true;
+          };
+
+          cfg = project.config;
+
+          resolvedWith = keys: builtins.fromJSON
+            (cfg.probe-optimize (keys // { binary = "/probe"; })).resolved;
+
+          resolvedBare = resolvedWith {};
+          resolvedPackage = resolvedWith { package = "hello"; };
+          resolvedPlatform = resolvedWith { platform = "aarch64-multiplatform"; };
+          resolvedExe = resolvedWith {
+            platform = "aarch64-multiplatform";
+            package = "hello";
+            exe = "hello";
+          };
+
+          failures =
+            optional (!cfg.isProbe) "isProbe did not follow the selection"
+            ++ optional (!(cfg.cross-targets ? probe)) "the row did not register"
+            ++ optional (elem pkgs.nodejs-slim cfg.shell.buildInputs) "node = false still added nodejs"
+            ++ optional (resolvedBare != { enable = true; })
+                 "no names did not take the defaults: ${builtins.toJSON resolvedBare}"
+            ++ optional (resolvedPackage != { enable = true; })
+                 "a package entry without the tool did not state nothing: ${builtins.toJSON resolvedPackage}"
+            ++ optional (resolvedPlatform != { enable = false; })
+                 "the platform bundle-optimizers layer did not decide: ${builtins.toJSON resolvedPlatform}"
+            ++ optional (resolvedExe != { enable = true; })
+                 "the platform exe layer did not beat the whole-target layer: ${builtins.toJSON resolvedExe}";
+
+      in if failures == []
+         then pkgs.runCommand "cross-target-row-spec" {} "echo ok > $out"
+         else throw (concatStringsSep "\n" failures);
+
+    # ------------------------------------------------------------------------
+    # every-option
+    # ------------------------------------------------------------------------
+
     every-option = driver: pkgs.runCommand "every-option-${driver}" {
       drvPath = builtins.unsafeDiscardStringContext
         fixture.config.${driver}.project.shell.drvPath;
     } "echo $drvPath > $out";
 
 in {
+
+  # --------------------------------------------------------------------------
+  # What the flake exposes
+  # --------------------------------------------------------------------------
+
   inherit translation-totality compiler-spec bundle-optimizer-spec bundle-optimizers;
+  inherit package-arguments-spec cross-target-row-spec;
 
   every-option-haskell-nix = every-option "haskell-nix";
   every-option-nixpkgs = every-option "nixpkgs";

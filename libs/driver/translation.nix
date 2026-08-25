@@ -86,9 +86,12 @@ in {
       optimizations.via = "writes the common `ghcOptions` option";
       isGhcjs.via = "adds nodejs to the common `shell.buildInputs`";
       isWasm.via = "adds nodejs to the common `shell.buildInputs`";
+      native-ldflags-hook.via = "consumed by the common `shell.shellHook`";
 
       wasm-opt.via = "nothing the driver builds; read by `wasm-optimize`";
       closure-compiler.via = "nothing the driver builds; read by `js-optimize`";
+      "platforms.*.bundle-optimizers".via = "nothing the driver builds; read by a registered target's optimize function";
+      "packages.*.bundle-optimizers".via = "nothing the driver builds; read by a registered target's optimize function";
       wasm-optimize.via = "applied by the project to a wasm binary the driver has already built";
       js-optimize.via = "applied by the project to a jsexe the driver has already built";
       wasm-jsffi.via = "applied by the project to a wasm binary the driver has already built, with the compiler `${namespace}.cross-compiler` names";

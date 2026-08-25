@@ -56,9 +56,13 @@ let cfg = config.optimizations;
       inherit (row) description;
     });
 
-    flags = lib.concatMap
+    rowFlags = lib.concatMap
       (row: lib.optional cfg.${row.name} (row.flag or "-f${row.name}"))
       rows;
+
+    extraFlags = lib.attrNames (lib.filterAttrs (_: on: on) cfg.extra);
+
+    flags = rowFlags ++ extraFlags;
 
 in {
   options.optimizations = {
@@ -68,6 +72,21 @@ in {
       description = ''
         Enable every optimization flag in this module. Each flag can still
         be turned off on its own.
+      '';
+    };
+
+    extra = lib.mkOption {
+      type = lib.types.attrsOf lib.types.bool;
+      default = {};
+      example = { "-fllvm" = true; };
+      description = ''
+        Extra GHC flags by literal spelling:
+
+        - a true value emits its key after the named rows, and GHC takes
+          the last flag given
+        - a false value emits nothing
+
+        Entries are independent of `all`.
       '';
     };
   } // lib.listToAttrs (map flagOption rows);

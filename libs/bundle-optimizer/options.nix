@@ -1,14 +1,14 @@
-# The settings every bundle optimizer takes, keyed by the tool whose flags
-# they are. The fields are each tool's own flags, so a layer is checked
-# against the vocabulary that reads it rather than against another tool's.
-# A caller declaring a whole layer of the tree names it once instead of
-# naming each tool. With `inherits` set, every field becomes nullable:
-# `null` states nothing, and the field falls to the layer the `inherits`
-# text names.
+# The settings every bundle optimizer takes, keyed by tool. Each tool's
+# fields are its own flags, so a layer is checked against the vocabulary
+# that reads it. A caller declaring a whole layer names this set once
+# instead of naming each tool. With `inherits` set, every field becomes
+# nullable: `null`
+# states nothing, and the field falls to the layer the `inherits` text
+# names.
 #
 # Example:
 #
-#   import ./bundle-optimizer-options.nix { inherit lib; }
+#   import ./options.nix { inherit lib; }
 #   => { wasm-opt         = { enable = <bool, default true>;
 #                             level  = <enum [ "0" "1" "2" "3" "4" "s" "z" ], default "2">;
 #                             extraFlags = <listOf str>; };
@@ -18,7 +18,7 @@
 #                             extraFlags = <listOf str>; };
 #      }
 #
-#   import ./bundle-optimizer-options.nix {
+#   import ./options.nix {
 #     inherit lib;
 #     inherits = "the setting for this package whatever the target";
 #   }
@@ -26,9 +26,16 @@
 #      `null`, its description saying what `null` leaves it to
 { lib, inherits ? null }:
 
-let field = import ./bundle-optimizer-field.nix { inherit lib inherits; };
+with lib;
+with (import ../prelude { inherit lib; });
+
+let field = import ./field.nix { inherit lib inherits; };
 
     tools = {
+
+      # ----------------------------------------------------------------------
+      # wasm-opt
+      # ----------------------------------------------------------------------
 
       wasm-opt = {
 
@@ -63,9 +70,14 @@ let field = import ./bundle-optimizer-field.nix { inherit lib inherits; };
             of `-O1`, drop the memory a module never reads, discard debug
             information, and repeat the passes until they find nothing more.
           '';
+          example = [ "--enable-bulk-memory" ];
         };
 
       };
+
+      # ----------------------------------------------------------------------
+      # closure-compiler
+      # ----------------------------------------------------------------------
 
       closure-compiler = {
 
@@ -96,6 +108,7 @@ let field = import ./bundle-optimizer-field.nix { inherit lib inherits; };
             always goes ahead of these, since ADVANCED renames everything it is
             not told the runtime knows by name.
           '';
+          example = fenced-code ''[ ./externs.js ]'';
         };
 
         extraFlags = {
@@ -118,6 +131,7 @@ let field = import ./bundle-optimizer-field.nix { inherit lib inherits; };
             assume nothing escapes from, ask for strict mode, and silence the
             warning about names the runtime defines elsewhere.
           '';
+          example = [ "--formatting PRETTY_PRINT" ];
         };
 
       };

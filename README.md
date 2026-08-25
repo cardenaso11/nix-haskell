@@ -491,6 +491,121 @@ Caveats, by construction of nixpkgs' Haskell infrastructure:
   set can be given one.
 
 
+### Overriding a driver step
+
+The nixpkgs driver reads the project, builds a package set from it, and
+assembles a shell. Every step of that is an option under `nixpkgs.options`
+whose default is what the driver would do anyway. Assigning one replaces
+that step and leaves the rest alone:
+
+```nix
+nixpkgs.options = {
+  # reach a cabal2nix flag the driver never emits
+  cabal2nix-options = args:
+    "--jailbreak " + import "${nix-haskell-libs}/nixpkgs/cabal2nix-options.nix" { inherit lib; } args;
+
+  # add to the shell's inputs instead of replacing them, which is all
+  # `shellFor-args` can do
+  shell-arguments = { args }: args // {
+    nativeBuildInputs = args.nativeBuildInputs ++ [ pkgs.sqlite ];
+  };
+};
+```
+
+The steps, in the order the driver runs them:
+
+- reading the project: `discover-packages`, `project-text`,
+  `evaluate-condition`, `fetch-stanza-source`
+- building the package set: `haskell-packages-for`, `cabal2nix-options`,
+  `package-steps`, `exact-configuration-hook`, `project-overlays`
+- the shell: `resolve-shell-tool`, `cross-ghc-env`, `shell-arguments`
+
+The haskell.nix driver generates three things before handing the project to
+haskell.nix, and each is an option as well:
+
+- `haskell-nix.stages.src`: the source with the generated `cabal.project`
+  lines appended
+- `haskell-nix.stages.source-repository-packages`: the stanzas and their
+  pins
+- `haskell-nix.stages.hackage`: the index that makes `hackage-overlays`
+  visible to the solver
+
+The manual carries each step's call shape, its default, and an example.
+
+
+### Adding a cross target
+
+The two targets this library ships, wasm and GHCJS, are rows handed to a
+factory. A project adds one of its own the same way, by importing that
+factory with a row of its own:
+
+```nix
+{ nix-haskell-libs, pkgs, lib, ... }: {
+
+  imports = [
+    (import "${nix-haskell-libs}/cross/target-module.nix" {
+      name = "android";
+      flag = "isAndroid";
+      matches = target: target.isAndroid;
+      selected = names: builtins.elem "aarch64-android" names;
+      selectedText = "whether `shell.crossPlatforms` selects `aarch64-android`";
+      target = "Android";
+      node = false;
+
+      optimizer = "android-strip";
+      optimize = "android-optimize";
+      artifact = "binary";
+      extension = "";
+      examplePlatform = "aarch64-android";
+      lead = "The built executable with its symbols stripped.";
+
+      optimizer-fields.enable = {
+        type = lib.types.bool;
+        default = true;
+        description = "Whether `android-optimize` strips the binary.";
+      };
+
+      optimize-defaultText = lib.literalMD "`strip` on the built executable";
+
+      mkOptimize = { pkgs, lib, settings }:
+        { platform ? null, package ? null, exe ? null, binary }:
+        let stated = settings { inherit platform package exe; };
+        in pkgs.runCommand "android-optimized" {} (
+             if stated.enable
+             then "${pkgs.binutils}/bin/strip -o $out ${binary}"
+             else "cp ${binary} $out");
+    })
+  ];
+
+}
+```
+
+That import declares three options of the project's own (`isAndroid`,
+`android-strip` and `android-optimize`) and registers the row.
+`platforms.<platform>.packages.<name>.bundles.<exe>.optimized` then
+dispatches to it for every platform the row matches.
+`<nix-haskell>/libs/cross/targets.nix` documents every field a row carries.
+
+Four things a target of a project's own does not get:
+
+- no `translation` entries: those tables are this library's contract with
+  its own common options
+- no per-driver mirror: `nixpkgs.isAndroid` does not exist, and neither
+  does `nixpkgs.isWasm`
+- no new `bundles` fields: those are option names, and an option name
+  cannot come from configuration, so `jsffi` stays wasm-only
+- no `.jsexe`-style install step on the haskell.nix driver: a target that
+  needs one adds it through `haskell-nix.overrides`
+
+Settings for the target's optimizer are stated at the top level, and per
+platform, package or executable through `bundle-optimizers`:
+
+```nix
+android-strip.enable = false;
+platforms.aarch64-android.bundle-optimizers.android-strip.enable = true;
+```
+
+
 ### Checks
 
 Every driver declares a `translation` table: one entry per common option,

@@ -10,14 +10,14 @@
 #    every field is answered.
 #
 # `null` states nothing. An optimizer told no names takes the defaults
-# whole. A target, package or executable with no entry is a layer that
-# states nothing rather than an error: the settings are optional at every
-# layer, and an optimizer is told these names only to pick up whatever was
-# said about them.
+# whole. A target, package or executable with no entry states nothing
+# rather than an error. A tool this repo does not bundle has no typed
+# options on the layers. It states them through `bundle-optimizers`
+# instead.
 #
 # Example:
 #
-#   settings = import ./bundle-optimizer-settings.nix { inherit lib; };
+#   settings = import ./settings.nix { inherit lib; };
 #
 #   settings {
 #     tool = "wasm-opt";
@@ -54,18 +54,33 @@
 #   }
 #   => the defaults, whole: an optimizer told no names has no other layer to
 #      read
+#
+#   settings {
+#     tool = "probe-opt";
+#     defaults = { enable = true; };
+#     platforms.wasi32.packages.frontend = {};
+#     platform = "wasi32";
+#     package = "frontend";
+#   }
+#   => { enable = true; }: layers that do not carry the tool state nothing
 { lib }:
 
 { tool, defaults, packages ? {}, platforms ? {}, platform ? null, package ? null, exe ? null }:
 
-let # What a `packages` tree states, the executable's own layer ahead of the
-    # whole package's.
+let # One layer's statement of the tool: its typed options when the tool is
+    # bundled, its raw `bundle-optimizers` entry otherwise, null when it
+    # says nothing.
+    layerOf = entry: entry.${tool} or (entry.bundle-optimizers.${tool} or null);
+
+    # What a `packages` tree states, the executable's own layer ahead of the
+    # whole package's. A layer without the tool is null here: it states
+    # nothing.
     layersIn = tree:
       let named = package != null && tree ? ${package};
           entry = tree.${package};
-          exes = entry.components.exes;
-      in lib.optional (named && exe != null && exes ? ${exe}) exes.${exe}.${tool}
-      ++ lib.optional named entry.${tool};
+          exes = entry.components.exes or {};
+      in lib.optional (named && exe != null && exes ? ${exe}) (layerOf exes.${exe})
+      ++ lib.optional named (layerOf entry);
 
     onTarget = platform != null && platforms ? ${platform};
 
@@ -74,8 +89,9 @@ let # What a `packages` tree states, the executable's own layer ahead of the
     stated = value: value != null;
 
     layers =
-      lib.optionals onTarget (layersIn target.packages ++ [ target.${tool} ])
-      ++ layersIn packages
+      lib.filter stated (
+        lib.optionals onTarget (layersIn target.packages ++ [ (layerOf target) ])
+        ++ layersIn packages)
       ++ [ defaults ];
 
     firstStated = lib.zipAttrsWith (_: lib.findFirst stated null);

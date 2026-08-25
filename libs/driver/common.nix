@@ -14,7 +14,7 @@
 #
 # Example:
 #
-#   import ./driver-common.nix {
+#   import ./common.nix {
 #     inherit lib pkgs cfg;
 #     driver = "nixpkgs";    # names the driver in error messages
 #     topConfig = config;    # a project defining packages.reflex-dom.flags.webkit2gtk
@@ -45,15 +45,19 @@
 { lib, pkgs, topConfig, topOptions, cfg, driver }:
 
 with lib;
-with (import ./prelude { inherit lib; });
+with (import ../prelude { inherit lib; });
 
 let # The mirror gets `topConfig` too. An option settled once for the whole
     # project, rather than per driver, is read from `topConfig`, even though
     # the mirror also carries a declaration of it.
-    commonModule = import ../modules/common.nix {
+    commonModule = import ../../modules/common {
       inherit lib pkgs topConfig;
       config = cfg;
     };
+
+    # ------------------------------------------------------------------------
+    # Seeds
+    # ------------------------------------------------------------------------
 
     # The seed rules:
     # - Seeds sit at 1400, between mkDefault (1000) and declaration defaults
@@ -126,16 +130,20 @@ let # The mirror gets `topConfig` too. An option settled once for the whole
 
     # A default a driver states for itself, weaker than the seeds above, so it
     # applies only where the project said nothing.
-    mkDriverDefault = import ./driver-default.nix { inherit lib; };
+    mkDriverDefault = import ./priority.nix { inherit lib; };
 
     # The `compiler` option resolved per platform, from the mirror's values.
-    compilers = import ./compiler.nix { inherit lib; } {
+    compilers = import ../compiler { inherit lib; } {
       compiler = cfg.compiler;
       system = cfg.system;
       inherit driver;
     };
 
 in {
+
+  # --------------------------------------------------------------------------
+  # What the mirror hands its driver
+  # --------------------------------------------------------------------------
 
   options = mapAttrs (_: option: option // { visible = false; }) commonModule.options;
 
@@ -144,6 +152,10 @@ in {
   inherit (commonModule) config;
 
   inherit mkDriverDefault compilers;
+
+  # --------------------------------------------------------------------------
+  # Mirror config
+  # --------------------------------------------------------------------------
 
   # The driver's shared `config` entries, keyed under its namespace: the
   # seeds, the common module's own config, and the driver's own default
@@ -158,9 +170,13 @@ in {
     }
   ];
 
+  # --------------------------------------------------------------------------
+  # Driver interface
+  # --------------------------------------------------------------------------
+
   # The three options both drivers answer to by the same name. The
   # descriptions are the cross-driver interface spec, stated once. A driver
-  # passes its own fallbacks, defaults and defaultTexts; `extraDescription`
+  # passes its own fallbacks, defaults and defaultTexts. `extraDescription`
   # appends a driver's own paragraph.
   interface = { compiler-version, cross-compiler, cross-exe }: {
 

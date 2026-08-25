@@ -86,6 +86,51 @@
   javascript one. The driver builds the wrapped cross compiler itself,
   because nixpkgs' `ghcWithPackages` cannot wrap a relocatable bindist. The
   package database stays where the compiler keeps it.
+- Every step of the nixpkgs driver is an option under `nixpkgs.options`,
+  with what the driver did before as its default, so a project replaces
+  one step and keeps the rest:
+  - `discover-packages`, `project-text`, `evaluate-condition` and
+    `fetch-stanza-source` read the project
+  - `haskell-packages-for`, `cabal2nix-options`, `package-steps`,
+    `exact-configuration-hook` and `project-overlays` build the package set
+  - `resolve-shell-tool`, `cross-ghc-env` and `shell-arguments` assemble
+    the shell
+
+  Between them they reach what nothing else could:
+  - a cabal2nix flag the driver never emits
+  - an overlay ordered before the generated ones
+  - a shell field edited rather than overwritten
+  - a truthful answer to an `impl(ghc >= ...)` condition
+  - a package layout discovery cannot see
+  - the package set of every cross platform rather than the native one
+    alone
+- `haskell-nix.stages.src`, `haskell-nix.stages.source-repository-packages`
+  and `haskell-nix.stages.hackage`: what the haskell.nix driver generates
+  before handing the project over. Each carries typed fields and can be
+  replaced on its own. They were internal and read-only before.
+- `haskell-nix.default-compiler` and `nixpkgs.default-compiler`: the
+  compiler name a driver falls back to, `ghc914` and `ghc912`, which were
+  written into the drivers.
+- `cross-wrappers` and `native-ldflags-hook`: the wrapper scripts a shell
+  gets for a cross compiler, and the hook that keeps native and cross link
+  flags apart. Both drivers call the same two options.
+- A project can add a cross target of its own. `cross/target-module.nix`
+  takes a whole row as well as the name of a bundled one, and the row
+  registers for the `bundles.<exe>.optimized` dispatch. A row brings its
+  own optimizer settings and run function, and can opt out of Node.js in
+  the shell. The README has a worked example.
+- `bundle-optimizers` on every settings layer: settings for an optimizer
+  this library does not bundle, keyed by tool name, so a target of a
+  project's own resolves its settings through the same five layers.
+- `optimizations.extra`, GHC flags by literal spelling, for the ones the
+  module does not name.
+- `compiler.toolchain.extra`, further `--with-<tool>` flags for a toolchain
+  that carries more than cc, ar, ld and strip.
+- `nixpkgs.options.package-arguments`, mkDerivation arguments per package,
+  for arguments and phase hooks the `packages` fields do not name.
+- Examples on the options that teach a shape: the per-package fields, the
+  optimizer flag lists, the compiler and toolchain, the shell, the cabal
+  project text, and every function-valued option.
 
 ### Changed (breaking)
 
@@ -128,6 +173,25 @@
   `modules.*` option tree. Those options are set through
   `haskell-nix.overrides` and documented by haskell.nix itself.
 - The `nixpkgs` pin is a nix-thunk instead of a git submodule.
+- `libs/` is grouped into directories, so an import through the
+  `nix-haskell-libs` argument moves with it:
+  - `cross-*.nix` and `wasm-jsffi.nix` to `cross/` (`platform`, `targets`,
+    `target-module`, `wrappers`, `wasm-jsffi`, `native-ldflags-hook`)
+  - the bundle optimizer files and both tool directories to
+    `bundle-optimizer/`
+  - `compiler.nix` and `toolchain-tools.nix` to `compiler/`
+  - `driver-common.nix`, `driver-default.nix`, `translation.nix` and
+    `option-names.nix` to `driver/` (as `common`, `priority`,
+    `translation`, `option-names`)
+  - `src-driver.nix` and `hackage-driver.nix` to `haskell-nix/`
+  - `modules/common.nix` to `modules/common/`, one file per group of
+    options
+- `libs/nixpkgs/driver.nix` no longer takes the project's `config`. It
+  takes the values it needs (`common`, `options`, `haskell-nix-src`,
+  `haskell-nix`, `cross-wrappers`), so everything under `libs/` is a
+  function over its arguments and reads no module configuration.
+  `libs/nixpkgs/project-file.nix` builds haskell.nix's parser itself from
+  `haskell-nix-src`. Passing a `parser` still replaces it.
 
 ### Removed
 

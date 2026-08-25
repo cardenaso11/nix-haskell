@@ -29,12 +29,11 @@ let decode = import ./source-repository-package.nix;
             then package-repo
             else { inherit name; outPath = builtins.path { path = src; inherit name; }; };
           subdirLine = optionalString (subdirs != []) "subdir: ${concatStringsSep " " subdirs}";
-          # Same string as before, but with its context intact, so that a
-          # derivation embedding this stanza in a cabal.project registers a
-          # reference to the source it names, which is what keeps that source
-          # alive in the store. `input` is only ever used as an
-          # attribute name, where context is not permitted, and that is the one
-          # place it still has to be discarded.
+          # `location` keeps its string context, so a derivation embedding
+          # this stanza in a cabal.project registers a reference that keeps
+          # the source alive in the store. `input` is only ever an attribute
+          # name, where context is not permitted, so only `input` discards
+          # the context.
           location = "${src}";
           input = builtins.unsafeDiscardStringContext location;
       in {
@@ -70,7 +69,7 @@ let decode = import ./source-repository-package.nix;
     source-repository-packages = package-repos:
       let packages = mapAttrsToList source-repository-package package-repos;
 
-          # Stanzas accumulate into a list; the inputMap entries merge into
+          # Stanzas accumulate into a list. The inputMap entries merge into
           # one attrset.
           mergeField = k: vs:
             if k == "cabalProject"
@@ -81,7 +80,7 @@ let decode = import ./source-repository-package.nix;
 
       in {
         inputMap = zippedPackages.inputMap or {};
-        cabalProject = zippedPackages.cabalProject or "";
+        cabalProject = zippedPackages.cabalProject or [];
       };
 
     # inline-cabal-project

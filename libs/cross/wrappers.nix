@@ -11,10 +11,10 @@
 #
 # Example:
 #
-#   import ./cross-wrappers.nix { inherit pkgs lib; } wasiCrossGhc
+#   import ./wrappers.nix { inherit pkgs lib; } wasiCrossGhc
 #   => [ <a "wasm32-unknown-wasi" script in a derivation> ]
 #
-#   import ./cross-wrappers.nix { inherit pkgs lib; } nativeGhc
+#   import ./wrappers.nix { inherit pkgs lib; } nativeGhc
 #   => [ ]                                     # no target prefix, no wrapper
 { pkgs, lib }:
 

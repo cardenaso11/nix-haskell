@@ -2,10 +2,10 @@
 
 
 
-Per-package customization, keyed by cabal package name\. Entries for
-packages that do not exist in the final package set are silently
-ignored, so platform-conditional packages can be customized
-unconditionally\.
+Per-package customization, keyed by cabal package name\. A driver
+ignores an entry for a package that is not in the final package
+set, and warns about nothing, so a platform-conditional package can
+be customized unconditionally\.
 
 
 
@@ -33,7 +33,7 @@ attribute set of (submodule)
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -57,7 +57,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -81,7 +81,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -105,7 +105,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -129,7 +129,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -153,7 +153,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -177,7 +177,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -201,7 +201,46 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+
+
+
+## packages\.\<name>\.bundle-optimizers
+
+
+
+Settings layers for optimizer tools a project registered through an
+imported cross-target module: tool name, then field, then value\.
+The bundled tools use their typed ` wasm-opt ` and ` closure-compiler `
+options beside this instead\. A field absent here states nothing\.
+
+
+
+*Type:*
+attribute set of attribute set of raw value
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+
+
+*Example:*
+
+```nix
+{
+  probe-opt = {
+    level = 2;
+  };
+}
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -228,7 +267,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -256,8 +295,16 @@ null or (list of absolute path)
 null
 ```
 
+
+
+*Example:*
+
+```
+[ ./externs.js ]
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -289,8 +336,18 @@ null or (list of string)
 null
 ```
 
+
+
+*Example:*
+
+```nix
+[
+  "--formatting PRETTY_PRINT"
+]
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -324,7 +381,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -349,7 +406,7 @@ submodule
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -360,7 +417,7 @@ submodule
 Bundle optimizer settings for one executable of the
 package, keyed by the name cabal gives it\. They sit under
 an executable rather than the package, because a bundle
-belongs to one linked executable and a package can carry
+belongs to one linked executable\. A package can carry
 several\.
 
 Naming an executable here also tells the haskell\.nix
@@ -381,7 +438,46 @@ attribute set of (submodule)
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+
+
+
+## packages\.\<name>\.components\.exes\.\<name>\.bundle-optimizers
+
+
+
+Settings layers for optimizer tools a project registered through an
+imported cross-target module: tool name, then field, then value\.
+The bundled tools use their typed ` wasm-opt ` and ` closure-compiler `
+options beside this instead\. A field absent here states nothing\.
+
+
+
+*Type:*
+attribute set of attribute set of raw value
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+
+
+*Example:*
+
+```nix
+{
+  probe-opt = {
+    level = 2;
+  };
+}
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -408,7 +504,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -436,8 +532,16 @@ null or (list of absolute path)
 null
 ```
 
+
+
+*Example:*
+
+```
+[ ./externs.js ]
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -469,8 +573,18 @@ null or (list of string)
 null
 ```
 
+
+
+*Example:*
+
+```nix
+[
+  "--formatting PRETTY_PRINT"
+]
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -504,13 +618,11 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
 ## packages\.\<name>\.components\.exes\.\<name>\.wasm-opt\.enable
-
-
 
 Whether ` wasm-optimize ` runs wasm-opt and the strip that follows it\.
 When false, ` wasm-optimize ` copies its input through, so a caller
@@ -532,7 +644,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -563,8 +675,18 @@ null or (list of string)
 null
 ```
 
+
+
+*Example:*
+
+```nix
+[
+  "--enable-bulk-memory"
+]
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -598,7 +720,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -621,8 +743,18 @@ list of string
 [ ]
 ```
 
+
+
+*Example:*
+
+```nix
+[
+  "-v"
+]
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -646,7 +778,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -670,7 +802,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -694,7 +826,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -718,7 +850,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -742,7 +874,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -766,7 +898,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -790,7 +922,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -814,8 +946,19 @@ attribute set of boolean
 { }
 ```
 
+
+
+*Example:*
+
+```nix
+{
+  use-warp = true;
+  webkit2gtk = false;
+}
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -838,8 +981,19 @@ list of string
 [ ]
 ```
 
+
+
+*Example:*
+
+```nix
+[
+  "-Wall"
+  "-Werror"
+]
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -873,7 +1027,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -896,8 +1050,16 @@ list of absolute path
 [ ]
 ```
 
+
+
+*Example:*
+
+```
+[ ./splitmix.patch ]
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -922,8 +1084,16 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```nix
+"export HOME=$TMPDIR"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -948,8 +1118,16 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```nix
+"export HOME=$TMPDIR"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -974,8 +1152,16 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```nix
+"export HOME=$TMPDIR"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -1000,8 +1186,16 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```nix
+"export HOME=$TMPDIR"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -1026,8 +1220,16 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```nix
+"export HOME=$TMPDIR"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -1052,8 +1254,16 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```nix
+"export HOME=$TMPDIR"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -1078,8 +1288,16 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```nix
+"export HOME=$TMPDIR"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -1104,12 +1322,22 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```nix
+"export HOME=$TMPDIR"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
 ## packages\.\<name>\.preCheck
+
+
 
 Shell code run before the
 check phase\. ` null ` leaves the default in
@@ -1128,8 +1356,16 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```nix
+"export HOME=$TMPDIR"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -1154,8 +1390,16 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```nix
+"export HOME=$TMPDIR"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -1180,8 +1424,16 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```nix
+"export HOME=$TMPDIR"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -1206,8 +1458,16 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```nix
+"export HOME=$TMPDIR"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -1232,8 +1492,16 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```nix
+"export HOME=$TMPDIR"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -1258,8 +1526,16 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```nix
+"export HOME=$TMPDIR"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -1291,7 +1567,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -1314,8 +1590,18 @@ list of string
 [ ]
 ```
 
+
+
+*Example:*
+
+```nix
+[
+  "-v"
+]
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -1338,8 +1624,18 @@ list of string
 [ ]
 ```
 
+
+
+*Example:*
+
+```nix
+[
+  "-v"
+]
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -1362,8 +1658,16 @@ null or absolute path or package
 null
 ```
 
+
+
+*Example:*
+
+```
+./vendored/my-dep
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -1391,7 +1695,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -1422,8 +1726,18 @@ null or (list of string)
 null
 ```
 
+
+
+*Example:*
+
+```nix
+[
+  "--enable-bulk-memory"
+]
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -1457,7 +1771,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -1552,8 +1866,17 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```
+packages: .
+tests: true
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -1577,7 +1900,7 @@ string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -1600,8 +1923,16 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```nix
+"allow-newer: aeson:*"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -1612,8 +1943,8 @@ null
 Filter ` src ` through the ` .gitignore ` it carries before copying it
 into the store\. Build artifacts (` dist-newstyle `, ` result `, ` .git `)
 then do not become part of every derivation that names the project
-source, and a rebuild does not rehash them\. Only applies when ` src `
-is a path\. A derivation is used as-is\.
+source\. A rebuild then does not rehash them\. This applies only when
+` src ` is a path\. A derivation is used as-is\.
 
 
 
@@ -1629,7 +1960,7 @@ true
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -1672,7 +2003,7 @@ list of string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -1710,7 +2041,7 @@ strings concatenated with “\\n”
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -1761,6 +2092,14 @@ list of absolute path
 [ ]
 ```
 
+
+
+*Example:*
+
+```
+[ ./externs.js ]
+```
+
 *Declared by:*
  - [<nix-haskell>/modules/cross/ghcjs](file://<nix-haskell>/modules/cross/ghcjs)
 
@@ -1796,6 +2135,16 @@ list of string
   "--assume_function_wrapper"
   "--emit_use_strict"
   "--jscomp_off=undefinedVars"
+]
+```
+
+
+
+*Example:*
+
+```nix
+[
+  "--formatting PRETTY_PRINT"
 ]
 ```
 
@@ -1840,11 +2189,14 @@ one of “BUNDLE”, “WHITESPACE_ONLY”, “SIMPLE”, “TRANSPILE_ONLY”, 
 
 
 
-The GHC to build with\. ` name ` selects one of the driver’s own
-compilers\. ` package ` supplies one from outside them, and the sibling
-fields are the attributes the drivers read off a compiler\.
-` platforms ` gives cross targets their own compiler and toolchain\. A
-platform without an entry uses the fields above it\.
+The GHC to build with:
+
+ - ` name ` selects one of the driver’s own compilers
+ - ` package ` supplies one from outside them, and the sibling fields
+   are the attributes the drivers read off a compiler
+ - ` platforms ` gives cross targets their own compiler and toolchain
+
+A platform without an entry uses the fields above it\.
 
 Describe such a compiler once\. The modules under
 ` nix-haskell-compilers ` are ready-made entries for compilers
@@ -1894,7 +2246,7 @@ submodule
 ````
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -1902,11 +2254,15 @@ submodule
 
 
 
-Whether the compiler can build shared libraries\. The haskell\.nix
-driver reads it for every component’s ` shared: ` flag\. The nixpkgs
-driver builds a cross package set non-static, with shared and not
-static libraries\. GHC’s wasm backend needs it, because its
-Template Haskell interpreter loads shared objects\.
+Whether the compiler can build shared libraries\. Each driver reads
+it:
+
+ - haskell\.nix sets every component’s ` shared: ` flag from it
+ - nixpkgs builds a cross package set non-static, with shared
+   libraries instead of static ones
+
+GHC’s wasm backend needs it, because its Template Haskell
+interpreter loads shared objects\.
 
 
 
@@ -1919,7 +2275,7 @@ null or boolean
 ` null `: the ` enableShared ` of ` package `, else ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -1928,10 +2284,15 @@ null or boolean
 
 
 A compiler used directly instead of one from the driver’s package
-sets: a bindist, an out-of-tree cross compiler, a locally built
-GHC\. The sibling fields are spliced onto it, since both drivers
-read them off the compiler itself and a bindist generally carries
-none of them\.
+sets:
+
+ - a bindist
+ - an out-of-tree cross compiler
+ - a locally built GHC
+
+The sibling fields are spliced onto the package\. Both drivers
+read them off the compiler itself, and a bindist generally
+carries none of them\.
 
 
 
@@ -1946,8 +2307,16 @@ null or package
 null
 ```
 
+
+
+*Example:*
+
+```
+pkgs.haskell.compiler.ghc912
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -1971,7 +2340,7 @@ submodule
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -1981,12 +2350,13 @@ submodule
 
 Packages taken from the compiler’s own database rather than
 built, on top of the ones the driver already takes from
-there\. A package the compiler was configured against, but
-absent from the lists the driver copies out of it, belongs
-here\. Without the entry, a build that needs the package
-finds nothing to depend on, and everything downstream of it
-breaks\. One example: a compiler whose ` text ` is built
-against simdutf needs ` system-cxx-std-lib ` here\.
+there\. Put a package here when the compiler was configured
+against it, but the lists the driver copies out of the
+compiler do not name it\. Without the entry, a build that
+needs the package finds nothing to depend on, and
+everything downstream of it breaks\. One example: a compiler
+whose ` text ` is built against simdutf needs
+` system-cxx-std-lib ` here\.
 
 
 
@@ -2012,7 +2382,7 @@ list of string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2045,7 +2415,7 @@ null or string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2055,10 +2425,10 @@ null or string
 
 The compiler’s name in the driver’s package sets
 (` haskell-nix.compiler.<name> `, ` pkgs.haskell.packages.<name> `),
-and the name the project’s packages are pinned under\. With
+and the name the driver pins the project’s packages under\. With
 ` package ` set, the name selects the set whose compiler the package
-replaces\. Set it only when the name derived from the version is
-not one the driver knows\.
+replaces\. Set it only when the driver does not know the name
+derived from the version\.
 
 
 
@@ -2080,7 +2450,7 @@ null or string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2104,7 +2474,7 @@ submodule
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2114,9 +2484,11 @@ submodule
 
 Whether to run Template Haskell splices through nixpkgs’
 external interpreter, which proxies them to the target over
-a socket\. Set ` false ` for a compiler that runs splices
-itself, such as GHC’s wasm backend\. A target that has no
-sockets to proxy over needs ` false `\.
+a socket\. Set ` false ` when:
+
+ - the compiler runs splices itself, such as GHC’s wasm
+   backend
+ - the target has no sockets to proxy over
 
 
 
@@ -2131,7 +2503,7 @@ interpreter whenever it is cross-compiling and an emulator
 exists for the target
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2162,7 +2534,7 @@ null or string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2172,10 +2544,11 @@ null or string
 
 Per-platform compilers, keyed by ` pkgsCross ` platform name
 (the keys of ` shell.crossPlatforms ` and ` projectCross `)\. An
-entry has the same fields as the compiler above\. The fields an
-entry leaves unset are resolved from its own ` package `, not
-inherited\. A per-driver definition anywhere under
-` compiler.platforms ` replaces the whole table for that driver\.
+entry has the same fields as the compiler above\. A field an
+entry leaves unset resolves from that entry’s own ` package `,
+not from the compiler above\. A per-driver definition anywhere
+under ` compiler.platforms ` replaces the whole table for that
+driver\.
 
 
 
@@ -2190,8 +2563,16 @@ attribute set of (submodule)
 { }
 ```
 
+
+
+*Example:*
+
+```
+{ wasi32 = { package = ghc-wasm-bindist; haskell-nix.libDir = "lib"; }; }
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2199,11 +2580,15 @@ attribute set of (submodule)
 
 
 
-Whether the compiler can build shared libraries\. The haskell\.nix
-driver reads it for every component’s ` shared: ` flag\. The nixpkgs
-driver builds a cross package set non-static, with shared and not
-static libraries\. GHC’s wasm backend needs it, because its
-Template Haskell interpreter loads shared objects\.
+Whether the compiler can build shared libraries\. Each driver reads
+it:
+
+ - haskell\.nix sets every component’s ` shared: ` flag from it
+ - nixpkgs builds a cross package set non-static, with shared
+   libraries instead of static ones
+
+GHC’s wasm backend needs it, because its Template Haskell
+interpreter loads shared objects\.
 
 
 
@@ -2216,7 +2601,7 @@ null or boolean
 ` null `: the ` enableShared ` of ` package `, else ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2225,10 +2610,15 @@ null or boolean
 
 
 A compiler used directly instead of one from the driver’s package
-sets: a bindist, an out-of-tree cross compiler, a locally built
-GHC\. The sibling fields are spliced onto it, since both drivers
-read them off the compiler itself and a bindist generally carries
-none of them\.
+sets:
+
+ - a bindist
+ - an out-of-tree cross compiler
+ - a locally built GHC
+
+The sibling fields are spliced onto the package\. Both drivers
+read them off the compiler itself, and a bindist generally
+carries none of them\.
 
 
 
@@ -2243,8 +2633,16 @@ null or package
 null
 ```
 
+
+
+*Example:*
+
+```
+pkgs.haskell.compiler.ghc912
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2268,7 +2666,7 @@ submodule
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2278,12 +2676,13 @@ submodule
 
 Packages taken from the compiler’s own database rather than
 built, on top of the ones the driver already takes from
-there\. A package the compiler was configured against, but
-absent from the lists the driver copies out of it, belongs
-here\. Without the entry, a build that needs the package
-finds nothing to depend on, and everything downstream of it
-breaks\. One example: a compiler whose ` text ` is built
-against simdutf needs ` system-cxx-std-lib ` here\.
+there\. Put a package here when the compiler was configured
+against it, but the lists the driver copies out of the
+compiler do not name it\. Without the entry, a build that
+needs the package finds nothing to depend on, and
+everything downstream of it breaks\. One example: a compiler
+whose ` text ` is built against simdutf needs
+` system-cxx-std-lib ` here\.
 
 
 
@@ -2309,7 +2708,7 @@ list of string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2342,7 +2741,7 @@ null or string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2352,10 +2751,10 @@ null or string
 
 The compiler’s name in the driver’s package sets
 (` haskell-nix.compiler.<name> `, ` pkgs.haskell.packages.<name> `),
-and the name the project’s packages are pinned under\. With
+and the name the driver pins the project’s packages under\. With
 ` package ` set, the name selects the set whose compiler the package
-replaces\. Set it only when the name derived from the version is
-not one the driver knows\.
+replaces\. Set it only when the driver does not know the name
+derived from the version\.
 
 
 
@@ -2377,7 +2776,7 @@ null or string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2401,7 +2800,7 @@ submodule
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2411,9 +2810,11 @@ submodule
 
 Whether to run Template Haskell splices through nixpkgs’
 external interpreter, which proxies them to the target over
-a socket\. Set ` false ` for a compiler that runs splices
-itself, such as GHC’s wasm backend\. A target that has no
-sockets to proxy over needs ` false `\.
+a socket\. Set ` false ` when:
+
+ - the compiler runs splices itself, such as GHC’s wasm
+   backend
+ - the target has no sockets to proxy over
 
 
 
@@ -2428,7 +2829,7 @@ interpreter whenever it is cross-compiling and an emulator
 exists for the target
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2459,7 +2860,7 @@ null or string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2489,7 +2890,7 @@ null or string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2498,12 +2899,12 @@ null or string
 
 
 The C toolchain the compiler was configured with, when that is not
-the one the surrounding package set supplies\. Everything built
-with the compiler is pointed back at it, since ` Setup configure `’s
-foreign-dependency checks otherwise look in the wrong sysroot\. The
-haskell\.nix driver passes it as every package’s configure flags\.
-The nixpkgs driver makes it the cross package set’s toolchain
-outright\.
+the one the surrounding package set supplies\. The drivers point
+everything built with the compiler back at it, since ` Setup configure `’s foreign-dependency checks otherwise look in the wrong
+sysroot\. Each driver does that its own way:
+
+ - haskell\.nix passes it as every package’s configure flags
+ - nixpkgs makes it the cross package set’s toolchain outright
 
 
 
@@ -2518,8 +2919,16 @@ submodule
 { }
 ```
 
+
+
+*Example:*
+
+```
+{ package = wasi-sdk; cc = "clang"; ar = "llvm-ar"; }
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2546,7 +2955,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2578,7 +2987,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2610,7 +3019,45 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+
+
+
+## compiler\.platforms\.\<name>\.toolchain\.extra
+
+
+
+Extra ` --with-<key> ` tools of the toolchain\. The key is
+cabal’s name for the tool, the value its executable name in
+the toolchain package’s ` bin `\. The driver emits them after
+the fixed tools\. Cabal takes a flag’s last occurrence, so
+an entry can also override one of them\.
+
+
+
+*Type:*
+attribute set of string
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+
+
+*Example:*
+
+```nix
+{
+  pkg-config = "wasm32-wasi-pkg-config";
+}
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2642,7 +3089,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2674,7 +3121,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2685,9 +3132,12 @@ null
 The compiler’s version\. Both drivers read it off the compiler, for
 paths and for ` impl(ghc >= ...) ` conditionals\.
 
-Some builds cannot use the compiler package itself: the nixpkgs
-package set the project is built against, and haskell\.nix’s shell
-tools\. These builds use the driver’s stock compiler of the same
+Some builds cannot use the compiler package itself:
+
+ - the nixpkgs package set the driver builds the project against
+ - haskell\.nix’s shell tools
+
+These builds use the driver’s stock compiler of the same
 major\.minor\.patch instead\.
 
 Set this for a nightly bindist\. A nightly’s name carries only its
@@ -2712,7 +3162,7 @@ null or string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2742,7 +3192,7 @@ null or string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2751,12 +3201,12 @@ null or string
 
 
 The C toolchain the compiler was configured with, when that is not
-the one the surrounding package set supplies\. Everything built
-with the compiler is pointed back at it, since ` Setup configure `’s
-foreign-dependency checks otherwise look in the wrong sysroot\. The
-haskell\.nix driver passes it as every package’s configure flags\.
-The nixpkgs driver makes it the cross package set’s toolchain
-outright\.
+the one the surrounding package set supplies\. The drivers point
+everything built with the compiler back at it, since ` Setup configure `’s foreign-dependency checks otherwise look in the wrong
+sysroot\. Each driver does that its own way:
+
+ - haskell\.nix passes it as every package’s configure flags
+ - nixpkgs makes it the cross package set’s toolchain outright
 
 
 
@@ -2771,8 +3221,16 @@ submodule
 { }
 ```
 
+
+
+*Example:*
+
+```
+{ package = wasi-sdk; cc = "clang"; ar = "llvm-ar"; }
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2799,7 +3257,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2831,7 +3289,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2863,7 +3321,45 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+
+
+
+## compiler\.toolchain\.extra
+
+
+
+Extra ` --with-<key> ` tools of the toolchain\. The key is
+cabal’s name for the tool, the value its executable name in
+the toolchain package’s ` bin `\. The driver emits them after
+the fixed tools\. Cabal takes a flag’s last occurrence, so
+an entry can also override one of them\.
+
+
+
+*Type:*
+attribute set of string
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+
+
+*Example:*
+
+```nix
+{
+  pkg-config = "wasm32-wasi-pkg-config";
+}
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2895,7 +3391,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2927,7 +3423,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -2938,9 +3434,12 @@ null
 The compiler’s version\. Both drivers read it off the compiler, for
 paths and for ` impl(ghc >= ...) ` conditionals\.
 
-Some builds cannot use the compiler package itself: the nixpkgs
-package set the project is built against, and haskell\.nix’s shell
-tools\. These builds use the driver’s stock compiler of the same
+Some builds cannot use the compiler package itself:
+
+ - the nixpkgs package set the driver builds the project against
+ - haskell\.nix’s shell tools
+
+These builds use the driver’s stock compiler of the same
 major\.minor\.patch instead\.
 
 Set this for a nightly bindist\. A nightly’s name carries only its
@@ -2965,7 +3464,50 @@ null or string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+
+
+
+## cross-wrappers
+
+
+
+**A function, not a setting\.** A project calls it and uses the
+result\. Assign it only to replace what the call does\.
+
+The wrapper scripts a shell gets for one cross compiler\. Each is
+a ` <target-prefix> ` dispatcher that runs the compiler’s tools with
+the native link flags filtered away\. The call carries:
+
+ - ` ghc `, the cross compiler
+ - ` pkgs `, what the scripts are built with
+
+The default returns no script for a compiler without a target
+prefix\.
+
+
+
+*Type:*
+function that evaluates to a(n) list of package
+
+
+
+*Default:*
+
+```
+<nix-haskell>/libs/cross/wrappers.nix
+```
+
+
+
+*Example:*
+
+```
+{ ghc, pkgs }: []
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/cross](file://<nix-haskell>/modules/cross)
 
 
 
@@ -2988,8 +3530,18 @@ list of strings concatenated with “\\n”
 [ ]
 ```
 
+
+
+*Example:*
+
+```nix
+[
+  "allow-newer: aeson:*"
+]
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -3024,7 +3576,7 @@ list of string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -3068,7 +3620,7 @@ list of (attribute set)
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -3172,6 +3724,40 @@ function that evaluates to a(n) package
 
 
 
+## haskell-nix\.default-compiler
+
+
+
+The ` compiler.name ` this driver falls back to when no
+` compiler.package ` is set\. A project’s own ` compiler.name `
+overrides it\.
+
+
+
+*Type:*
+string
+
+
+
+*Default:*
+
+```nix
+"ghc914"
+```
+
+
+
+*Example:*
+
+```nix
+"ghc910"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+
+
+
 ## haskell-nix\.extraSrcFiles
 
 
@@ -3191,6 +3777,20 @@ attribute set
 
 ```nix
 { }
+```
+
+
+
+*Example:*
+
+```nix
+{
+  library = {
+    extraSrcFiles = [
+      "static/style.css"
+    ];
+  };
+}
 ```
 
 *Declared by:*
@@ -3306,7 +3906,7 @@ import config."haskell-nix".nixpkgsSource ({ inherit system; } // config."haskel
 
 
 
-The arguments that nixpkgs is imported with: haskell\.nix’s own
+The arguments the driver imports nixpkgs with: haskell\.nix’s own
 overlays, which put ` haskell-nix ` into the package set, and the
 configuration its compilers are built under\.
 
@@ -4072,12 +4672,12 @@ null
 
 
 Specifies the contents of urls in the cabal\.project file\.
-The ` .rev ` attribute is checked against the ` tag ` for
-` source-repository-packages `\.
+For a ` source-repository-packages ` stanza, haskell\.nix
+checks the ` .rev ` attribute against the ` tag `\.
 
-For ` revision ` blocks, ` inputMap.<url> ` is used, and the
-` .tar.gz ` files of the ` packages ` used are also looked up
-in the ` inputMap `\.
+For a ` revision ` block, it reads ` inputMap.<url> `, and
+looks up the ` .tar.gz ` file of each named package in the
+` inputMap ` as well\.
 
 
 
@@ -4269,8 +4869,6 @@ list of package
 
 ## haskell-nix\.options\.projectFileName
 
-
-
 This option has no description\.
 
 
@@ -4446,6 +5044,8 @@ unspecified value
 
 
 ## haskell-nix\.options\.shell\.allToolDeps
+
+
 
 Indicates if the shell should include all the tool dependencies
 of the haskell packages in the project\.  Defaulted to ` false ` in
@@ -4905,9 +5505,9 @@ false
 
 
 
-haskell\.nix ` modules ` to add to the project\. The escape hatch for
-anything the common options do not cover\. Lists are concatenated
-when composed (not replaced)\.
+haskell\.nix ` modules ` to add to the project\. Use it for anything
+the common options do not cover\. Two definitions concatenate
+rather than replace one another\.
 
 
 
@@ -4920,6 +5520,14 @@ list of unspecified value
 
 ```nix
 [ ]
+```
+
+
+
+*Example:*
+
+```
+[ { packages.my-dep.flags.debug = true; } ]
 ```
 
 *Declared by:*
@@ -4955,13 +5563,245 @@ config.haskell-nix.haskell-nix.project config.haskell-nix.options
 
 
 
+## haskell-nix\.stages\.hackage
+
+
+
+A generated hackage index that makes ` hackage-overlays ` visible to
+the cabal solver\.
+
+
+
+*Type:*
+submodule
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+
+
+
+## haskell-nix\.stages\.hackage\.package-overlays
+
+
+
+Project modules that force each overlaid package’s ` src ` to
+its local source\.
+
+
+
+*Type:*
+list of module
+
+
+
+*Default:*
+
+```
+package-overlays from <nix-haskell>/libs/haskell-nix/hackage-driver.nix
+```
+
+
+
+*Example:*
+
+```
+[ { packages.reflex-dom.src = lib.mkForce ./deps/reflex-dom; } ]
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+
+
+
+## haskell-nix\.stages\.hackage\.extra-hackage-tarballs
+
+
+
+The generated hackage index tarballs, keyed by repository
+name\.
+
+
+
+*Type:*
+attribute set of package
+
+
+
+*Default:*
+
+```
+extra-hackage-tarballs from <nix-haskell>/libs/haskell-nix/hackage-driver.nix
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+
+
+
+## haskell-nix\.stages\.hackage\.extra-hackages
+
+
+
+The imported hackage expressions the cabal solver reads
+beside the real index\. haskell\.nix merges each one over its
+hackage set\.
+
+
+
+*Type:*
+list of (attribute set)
+
+
+
+*Default:*
+
+```
+extra-hackages from <nix-haskell>/libs/haskell-nix/hackage-driver.nix
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+
+
+
+## haskell-nix\.stages\.source-repository-packages
+
+
+
+` source-repository-package ` stanzas and the ` inputMap ` entries
+that pin their sources, generated from the common
+` source-repository-packages `\.
+
+
+
+*Type:*
+submodule
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+
+
+
+## haskell-nix\.stages\.source-repository-packages\.cabalProject
+
+
+
+The generated ` source-repository-package ` stanzas, as
+cabal\.project lines to append\.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+
+```
+cabalProject from <nix-haskell>/libs/cabal.nix source-repository-packages
+```
+
+
+
+*Example:*
+
+```
+[ ''
+  source-repository-package
+    type: git
+    location: https://github.com/reflex-frp/reflex-dom
+    tag: HEAD
+'' ]
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+
+
+
+## haskell-nix\.stages\.source-repository-packages\.inputMap
+
+
+
+Pins each generated stanza’s ` location ` to its fetched
+source\.
+
+
+
+*Type:*
+attribute set of (attribute set)
+
+
+
+*Default:*
+
+```
+inputMap from <nix-haskell>/libs/cabal.nix source-repository-packages
+```
+
+
+
+*Example:*
+
+```
+{ "https://github.com/reflex-frp/reflex-dom" = { outPath = ./deps/reflex-dom; rev = "HEAD"; }; }
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+
+
+
+## haskell-nix\.stages\.src
+
+
+
+` src-cleaned `, with the ` extraCabalProject ` lines and the
+generated ` source-repository-package ` stanzas appended to its
+` cabal.project `\. The driver builds the project from this\.
+
+
+
+*Type:*
+absolute path
+
+
+
+*Default:*
+
+```
+<nix-haskell>/libs/haskell-nix/src-driver.nix
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+
+
+
 ## inputMap
 
 
 
 Maps a url named in the cabal\.project file to its source, so the
 source resolves without fetching\. For a ` source-repository-package `
-stanza, the entry’s ` .rev ` attribute is checked against the
+stanza, the driver checks the entry’s ` .rev ` attribute against the
 stanza’s ` tag `\.
 
 
@@ -4989,7 +5829,7 @@ attribute set
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -5015,6 +5855,14 @@ attribute set of raw value
 { }
 ```
 
+
+
+*Example:*
+
+```
+{ ghc-wasm-meta = ./deps/ghc-wasm-meta; }
+```
+
 *Declared by:*
  - [<nix-haskell>/modules/inputs\.nix](file://<nix-haskell>/modules/inputs.nix)
 
@@ -5025,7 +5873,7 @@ attribute set of raw value
 
 
 Whether the project targets GHCJS, natively or through
-cross-compilation\. When true, Node\.js is added to
+cross-compilation\. When true, Node\.js joins
 ` shell.buildInputs `\.
 
 
@@ -5049,7 +5897,7 @@ boolean
 
 
 Whether the project targets wasm, natively or through
-cross-compilation\. When true, Node\.js is added to
+cross-compilation\. When true, Node\.js joins
 ` shell.buildInputs `\.
 
 
@@ -5092,8 +5940,9 @@ js-optimize {
 ` platform `, ` package ` and ` exe ` are only lookup keys for the
 settings\. Each can be left out, and an omitted key states nothing\.
 
-The ` closure-compiler ` settings are resolved per field\. The most
-specific layer that states a field decides it, in this order:
+Each field of the ` closure-compiler ` settings resolves on its own\.
+The most specific layer that states a field decides it, in this
+order:
 
  1. ` platforms.<platform>.packages.<package>.components.exes.<exe>.closure-compiler `
  2. ` platforms.<platform>.packages.<package>.closure-compiler `
@@ -5116,7 +5965,7 @@ function that evaluates to a(n) package
 *Default:*
 
 ```
-<nix-haskell>/libs/closure-compiler/run.nix, run with the settings the named target, package and executable resolve to
+<nix-haskell>/libs/bundle-optimizer/closure-compiler/run.nix, run with the settings the named target, package and executable resolve to
 ```
 
 *Declared by:*
@@ -5142,7 +5991,46 @@ null or string
 the base name of ` src `
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+
+
+
+## native-ldflags-hook
+
+
+
+**A function, not a setting\.** A project calls it and uses the
+result\. Assign it only to replace what the call does\.
+
+The shell hook run when ` shell.crossPlatforms ` selects targets\.
+The call carries the selected ` platforms ` names\. The default drops
+every selected target’s ` -L ` paths from ` NIX_LDFLAGS ` and
+` NIX_LDFLAGS_FOR_TARGET `\. The unfiltered values stay in the
+environment for the cross wrappers to start from\.
+
+
+
+*Type:*
+function that evaluates to a(n) strings concatenated with “\\n”
+
+
+
+*Default:*
+
+```
+<nix-haskell>/libs/cross/native-ldflags-hook.nix
+```
+
+
+
+*Example:*
+
+```
+{ platforms }: ""
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/cross](file://<nix-haskell>/modules/cross)
 
 
 
@@ -5248,12 +6136,48 @@ function that evaluates to a(n) package
 
 
 
+## nixpkgs\.default-compiler
+
+
+
+The ` compiler.name ` this driver falls back to when no
+` compiler.package ` is set\. A project’s own ` compiler.name `
+overrides it\. No stackage snapshot covers ghc 9\.14 yet, so the
+nixpkgs ghc914 package set has neither consistent bounds nor
+cached builds\.
+
+
+
+*Type:*
+string
+
+
+
+*Default:*
+
+```nix
+"ghc912"
+```
+
+
+
+*Example:*
+
+```nix
+"ghc910"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
 ## nixpkgs\.haskellPackages
 
 
 
-The base Haskell package set, before the project’s packages and
-overrides are layered on top\.
+The base Haskell package set, before the driver adds the
+project’s packages and overrides\.
 
 
 
@@ -5270,6 +6194,14 @@ config.nixpkgs.pkgs.haskell.packages.${config.nixpkgs.compiler.name}
 
 A compiler package replaces that set’s ` ghc ` instead, preferring
 the set of its own major\.minor\.patch version\.
+
+
+
+*Example:*
+
+```
+pkgs.haskell.packages.ghc912
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
@@ -5300,12 +6232,95 @@ submodule
 
 
 
+## nixpkgs\.options\.package-arguments
+
+
+
+mkDerivation arguments set per package, applied with
+` overrideCabal ` after every tweak the driver generates and
+before ` overrides `\. An entry replaces the argument’s value
+whole\. This covers arguments and phase hooks the ` packages `
+fields do not name\. The haskell\.nix counterpart is a module
+in ` haskell-nix.overrides `\.
+
+
+
+*Type:*
+attribute set of attribute set of raw value
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+
+
+*Example:*
+
+```
+{ reflex-todomvc.postInstall = "cp -r static $out"; }
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
+## nixpkgs\.options\.package-steps
+
+
+
+**A function, not a setting\.** A project calls it and uses the
+result\. Assign it only to replace what the call does\.
+
+The ` drv -> drv ` steps that apply a package’s ` packages `
+entry, in order\. The call carries:
+
+ - ` name `, the package name
+ - ` tweaks `, the platform-merged ` packages ` entry
+ - ` generated `, true when cabal2nix generated the expression
+   and already applied its cabal flags
+ - ` compose `, the set’s ` haskell.lib.compose `
+
+Replace it to add a step, reorder the steps, or apply a
+field the shipped steps do not know\.
+
+
+
+*Type:*
+function that evaluates to a(n) list of raw value
+
+
+
+*Default:*
+
+```
+<nix-haskell>/libs/nixpkgs/package-steps.nix
+```
+
+
+
+*Example:*
+
+```
+args: import "${nix-haskell-libs}/nixpkgs/package-steps.nix" { inherit lib; } args
+  ++ [ args.compose.disableLibraryProfiling ]
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
 ## nixpkgs\.options\.packages
 
 
 
 Explicit map of the project’s local packages, keyed by cabal
-package name\. Overrides discovery entirely\.
+package name\. The map replaces discovery\.
 
 
 
@@ -5360,17 +6375,109 @@ string
 
 
 
+## nixpkgs\.options\.cabal2nix-options
+
+
+
+**A function, not a setting\.** A project calls it and uses the
+result\. Assign it only to replace what the call does\.
+
+Builds the option string ` callCabal2nixWithOptions `
+generates a package expression with\. The call carries:
+
+ - ` name `, the package name
+ - ` external `, true for a package rooted outside the project
+ - ` tweaks `, the platform-merged ` packages ` entry, ` {} ` when
+   there is none
+ - ` extra-package-defaults `
+
+The default emits ` --flag `,
+` --no-check ` and ` --no-haddock `\. Replace it to add a flag
+nothing else emits, such as ` --jailbreak `, ` --benchmark ` or
+` --hpack `\.
+
+
+
+*Type:*
+function that evaluates to a(n) string
+
+
+
+*Default:*
+
+```
+<nix-haskell>/libs/nixpkgs/cabal2nix-options.nix
+```
+
+
+
+*Example:*
+
+```
+args: "--jailbreak " + import "${nix-haskell-libs}/nixpkgs/cabal2nix-options.nix" { inherit lib; } args
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
+## nixpkgs\.options\.cross-ghc-env
+
+
+
+**A function, not a setting\.** A project calls it and uses the
+result\. Assign it only to replace what the call does\.
+
+Wraps a cross compiler with the given packages in its
+package database, the cross counterpart of ` shellFor `’s
+native environment\. The call carries:
+
+ - ` ghc `, the cross compiler
+ - ` packages `, the packages to register
+ - ` pkgs `, what the wrapper is built with
+
+The default does not use ` ghcWithPackages `\. That
+function aims the compiler at a library directory named
+after the version, so it cannot wrap a relocatable bindist\.
+
+
+
+*Type:*
+function that evaluates to a(n) package
+
+
+
+*Default:*
+
+```
+<nix-haskell>/libs/nixpkgs/cross-ghc-env.nix
+```
+
+
+
+*Example:*
+
+```
+{ ghc, packages, pkgs }: ghc
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
 ## nixpkgs\.options\.cross-package-defaults
 
 
 
 Defaults applied to every package of a cross set the driver
 builds itself (` nixpkgs.pkgsCross `), the set a compiler
-bringing its own toolchain needs\. They sit under the
-project’s own ` packages.<name> ` settings, which the driver
-layers on after\. Tests and benchmarks are not among the
-fields: a cross set has no way to run what it builds, so
-they are always off there\.
+needs when it brings its own toolchain\. The project’s own
+` packages.<name> ` settings take priority, since the driver
+applies them after\. There is no field for tests or
+benchmarks\. A cross set cannot run what it builds, so both
+stay off\.
 
 
 
@@ -5463,6 +6570,106 @@ false
 
 
 
+## nixpkgs\.options\.discover-packages
+
+
+
+**A function, not a setting\.** A project calls it and uses the
+result\. Assign it only to replace what the call does\.
+
+Finds the project’s local packages\. The result is
+` { <name> = { subdir; src; }; } `\. The call carries:
+
+ - ` src `, the cleaned project source
+ - ` explicit `, the ` packages ` option’s map, ` null ` when
+   unset
+
+The default takes, in order:
+
+ 1. ` explicit `, resolved against ` src `
+ 2. the one package at the root of ` src `
+
+It throws when there is neither\. Replace it for a layout
+the default cannot find, such as globs or a multi-package
+tree with no explicit map\.
+
+
+
+*Type:*
+function that evaluates to a(n) attribute set of (attribute set)
+
+
+
+*Default:*
+
+```
+<nix-haskell>/libs/nixpkgs/project-file.nix: discover
+```
+
+
+
+*Example:*
+
+```
+{ src, explicit }: {
+  frontend = { subdir = "frontend"; src = src + "/frontend"; };
+  backend = { subdir = "backend"; src = src + "/backend"; };
+}
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
+## nixpkgs\.options\.evaluate-condition
+
+
+
+**A function, not a setting\.** A project calls it and uses the
+result\. Assign it only to replace what the call does\.
+
+Evaluates the ` condition ` of a ` source-repository-packages `
+entry against the target platform\. The call carries:
+
+ - ` condition `, the condition string
+ - ` hostMap `, haskell\.nix’s map for the platform, holding
+   its cabal ` os ` and ` arch ` names
+
+The default handles ` os(..) `, ` arch(..) `, ` ! `, ` && `, ` || `
+and parentheses\. It assumes ` impl(..) ` and ` flag(..) ` hold,
+with a warning\. Replace it to answer ` impl(..) ` from
+` compiler-version `\.
+
+
+
+*Type:*
+function that evaluates to a(n) boolean
+
+
+
+*Default:*
+
+```
+<nix-haskell>/libs/nixpkgs/condition.nix
+```
+
+
+
+*Example:*
+
+```
+{ condition, hostMap }:
+  if condition == "impl(ghc >= 9.6)"
+  then lib.versionAtLeast config.nixpkgs.compiler-version "9.6"
+  else import "${nix-haskell-libs}/nixpkgs/condition.nix" { inherit lib hostMap; } condition
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
 ## nixpkgs\.options\.exact-configuration
 
 
@@ -5481,14 +6688,14 @@ That is why ` allow-newer ` in a cabal\.project takes effect in
 that driver and not in this one\.
 
 A flag the project states in ` packages.<name>.flags ` still
-decides\. The generated assignments go first, and Cabal takes
+wins\. The generated assignments go first, and Cabal takes
 the last assignment of a flag\.
 
 The default follows ` use-plan ` unless the project sets this
 option\. A plan read from a cabal\.project brings in the
-packages that the file’s ` allow-newer ` was written for, and
-this driver has no other way past their bounds\. Set the
-option explicitly to break the link, in either direction\.
+packages that file’s ` allow-newer ` was written for\. This
+driver has no other way past their bounds\. Set the option
+explicitly to break the link, in either direction\.
 
 
 
@@ -5505,14 +6712,59 @@ boolean
 
 
 
+## nixpkgs\.options\.exact-configuration-hook
+
+
+
+**A function, not a setting\.** A project calls it and uses the
+result\. Assign it only to replace what the call does\.
+
+The shell text ` exact-configuration ` appends to each
+package’s ` preConfigure `\. The text assembles the exact
+` --dependency ` list from the compiler’s package databases,
+so cabal resolves against installed packages instead of
+version bounds\. The call carries ` ghc `, the executable name
+the script reads the databases with\. The hook runs only
+while ` exact-configuration ` is on\.
+
+
+
+*Type:*
+function that evaluates to a(n) strings concatenated with “\\n”
+
+
+
+*Default:*
+
+```
+<nix-haskell>/libs/nixpkgs/exact-configuration.nix
+```
+
+
+
+*Example:*
+
+```
+args: import "${nix-haskell-libs}/nixpkgs/exact-configuration.nix" args + "echo exact configuration written\n"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
 ## nixpkgs\.options\.extra-package-defaults
 
 
 
 Defaults applied to packages rooted outside the project
-source (source-repository-packages, hackage-overlays)\.
-Without a solver their version bounds routinely need
-loosening\.
+source:
+
+ - a ` source-repository-packages ` entry
+ - a ` hackage-overlays ` entry
+
+This driver has no solver, so their version bounds usually
+need lifting\.
 
 
 
@@ -5604,13 +6856,107 @@ true
 
 
 
+## nixpkgs\.options\.fetch-stanza-source
+
+
+
+**A function, not a setting\.** A project calls it and uses the
+result\. Assign it only to replace what the call does\.
+
+Fetches the source a cabal\.project
+` source-repository-package ` stanza names\. The call carries:
+
+ - ` stanza `, the parsed stanza, with its ` url `, ` ref ` or
+   ` rev `, ` sha256 ` and ` subdirs `
+ - ` inputMap `
+ - ` pkgs `
+
+The default takes, in order:
+
+ 1. ` inputMap."<url>/<rev>" ` (rev falls back to the ref)
+ 2. ` inputMap.<url> `
+ 3. ` pkgs.fetchgit `, when the stanza carries a sha256
+ 4. ` builtins.fetchGit `
+
+Replace it to fetch through another tool or a mirror\.
+
+
+
+*Type:*
+function that evaluates to a(n) raw value
+
+
+
+*Default:*
+
+```
+<nix-haskell>/libs/nixpkgs/fetch-stanza-source.nix
+```
+
+
+
+*Example:*
+
+```
+{ stanza, inputMap, pkgs }:
+  inputMap.${stanza.url} or (throw "unpinned source-repository-package: ${stanza.url}")
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
+## nixpkgs\.options\.haskell-packages-for
+
+
+
+**A function, not a setting\.** A project calls it and uses the
+result\. Assign it only to replace what the call does\.
+
+The base Haskell package set for one platform, before the
+driver adds the project’s packages and overrides\. The call
+carries:
+
+ - ` pkgs `, that platform’s package set
+ - ` compiler `, its resolved compiler entry
+
+` haskellPackages ` replaces the native set only\. This
+function also builds the set of every cross platform\.
+
+
+
+*Type:*
+function that evaluates to a(n) raw value
+
+
+
+*Default:*
+
+```
+<nix-haskell>/libs/nixpkgs/haskell-packages.nix
+```
+
+
+
+*Example:*
+
+```
+{ pkgs, compiler }: pkgs.haskell.packages.${compiler.stockName}
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
 ## nixpkgs\.options\.overrides
 
 
 
 Overlays over the Haskell package set (` self: super: { ... } `),
-applied after everything the driver generates\. The escape
-hatch for anything the common options do not cover\.
+applied after everything the driver generates\. Use it for
+anything the common options do not cover\.
 
 
 
@@ -5638,6 +6984,175 @@ list of raw value
 
 
 
+## nixpkgs\.options\.project-overlays
+
+
+
+**A function, not a setting\.** A project calls it and uses the
+result\. Assign it only to replace what the call does\.
+
+The overlays that extend the package set\. The call’s
+` overlays ` field carries every generated overlay, with
+` overrides ` last\. Replace it to prepend, reorder, drop or
+wrap them\.
+
+
+
+*Type:*
+function that evaluates to a(n) list of raw value
+
+
+
+*Default:*
+
+```
+{ overlays }: overlays
+```
+
+
+
+*Example:*
+
+```
+{ overlays }: [ (self: super: { chrome-test-utils = null; }) ] ++ overlays
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
+## nixpkgs\.options\.project-text
+
+
+
+**A function, not a setting\.** A project calls it and uses the
+result\. Assign it only to replace what the call does\.
+
+Assembles the project text the driver reads
+` source-repository-package ` stanzas from\. The call carries:
+
+ - ` projectFile `, the project file’s text, ` null ` when there
+   is none
+ - ` cabalProject `
+ - ` cabalProjectLocal `
+ - ` extraCabalProject `
+
+In the default ` cabalProject ` replaces the file text, and
+` cabalProjectLocal ` and the ` extraCabalProject ` lines
+follow it\.
+
+
+
+*Type:*
+function that evaluates to a(n) string
+
+
+
+*Default:*
+
+```
+<nix-haskell>/libs/nixpkgs/project-text.nix
+```
+
+
+
+*Example:*
+
+```
+{ projectFile, extraCabalProject, ... }:
+  lib.concatStringsSep "\n" (lib.optional (projectFile != null) projectFile ++ extraCabalProject)
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
+## nixpkgs\.options\.resolve-shell-tool
+
+
+
+**A function, not a setting\.** A project calls it and uses the
+result\. Assign it only to replace what the call does\.
+
+Resolves one ` shell.tools ` entry to the package that provides
+it\. The call carries:
+
+ - ` name `, the tool’s name
+ - ` request `, the entry’s value, a version request
+ - ` tool-packages `
+ - ` pkgs `
+ - ` haskellPackages `, the project’s extended set
+
+The default ignores the request, because honoring one needs
+a solver\. It takes the first source that has the name, and
+throws when none does\.
+
+
+
+*Type:*
+function that evaluates to a(n) package
+
+
+
+*Default:*
+
+```
+<nix-haskell>/libs/nixpkgs/resolve-shell-tool.nix
+```
+
+
+
+*Example:*
+
+```
+{ name, haskellPackages, ... }: haskellPackages.${name}
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
+## nixpkgs\.options\.shell-arguments
+
+
+
+**A function, not a setting\.** A project calls it and uses the
+result\. Assign it only to replace what the call does\.
+
+The arguments the shell is built from\. That is what
+` shellFor ` receives, with ` shellFor-args ` already merged in\.
+Replace it to edit a field in place\. The same field set
+through ` shellFor-args ` replaces the whole field\.
+
+
+
+*Type:*
+function that evaluates to a(n) (attribute set)
+
+
+
+*Default:*
+
+```
+{ args }: args
+```
+
+
+
+*Example:*
+
+```
+{ args }: args // { nativeBuildInputs = args.nativeBuildInputs ++ [ pkgs.sqlite ]; }
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
 ## nixpkgs\.options\.shellFor-args
 
 
@@ -5658,6 +7173,16 @@ attribute set
 { }
 ```
 
+
+
+*Example:*
+
+```nix
+{
+  doBenchmark = true;
+}
+```
+
 *Declared by:*
  - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
 
@@ -5668,11 +7193,16 @@ attribute set
 
 
 Overrides for ` shell.tools ` resolution, keyed by tool name\.
-A tool is looked up here first, then as ` pkgs.<name> `, then
-in the Haskell package set\. Version requests are ignored,
-since nixpkgs carries a single version\. ` cabal ` is here
-because the tool’s name is not the name of the package
-carrying it\. An entry of the project’s own replaces it\.
+The driver takes the first source that has the name:
+
+ 1. this map
+ 2. ` pkgs.<name> `
+ 3. the Haskell package set
+
+It ignores version requests, since nixpkgs carries a single
+version\. ` cabal ` is here because the tool’s name is not the
+name of the package carrying it\. An entry of the project’s
+own replaces it\.
 
 
 
@@ -5708,14 +7238,15 @@ Take the project’s structure (local packages, their
 directories, source-repository-packages) from the cabal
 plan of the haskell\.nix driver instead of the root of the
 source\. The plan is cabal’s own reading of cabal\.project,
-so globs, optional-packages and conditionals are all exact\.
+so globs, optional-packages and conditionals are exact\.
 The cost is evaluating the haskell\.nix toolchain (import
-from derivation)\. The packages are still built from
-nixpkgs\.
+from derivation)\. The driver still builds the packages
+from nixpkgs\.
 
-This turns ` exact-configuration ` on by default\. The bounds
-of the packages a plan brings in are the other half of
-reading a cabal\.project on a driver with no solver\.
+This turns ` exact-configuration ` on by default\. A plan
+brings in packages with version bounds this driver has no
+solver to satisfy, so reading a cabal\.project needs the
+bound relief as well\.
 
 
 
@@ -5754,6 +7285,14 @@ raw value
 import config.inputs.nixpkgs { inherit (config) system; }
 ```
 
+
+
+*Example:*
+
+```
+import config.inputs.nixpkgs { inherit (config) system; overlays = [ my-overlay ]; }
+```
+
 *Declared by:*
  - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
 
@@ -5784,9 +7323,17 @@ attribute set of raw value
 
 for every ` compiler.platforms ` entry carrying a ` toolchain `: a
 package set for that platform whose whole toolchain is the
-compiler’s own, built non-static so that the compiler’s shared
-libraries can be used\. A platform without an entry gets none, and
-the driver falls back to ` pkgs.pkgsCross.<platform> `\.
+compiler’s own, built non-static so a build can use the
+compiler’s shared libraries\. A platform without an entry gets
+none, and the driver falls back to ` pkgs.pkgsCross.<platform> `\.
+
+
+
+*Example:*
+
+```
+{ wasi32 = my-wasi-pkgs; }
+```
 
 *Declared by:*
  - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
@@ -5812,9 +7359,14 @@ raw value
 
 ```
 import <nix-haskell>/libs/nixpkgs/driver.nix {
+  inherit lib;
   pkgs = config.nixpkgs.pkgs;
   haskellPackages = config.nixpkgs.haskellPackages;
-  inherit lib config;
+  common = config.nixpkgs;
+  options = config.nixpkgs.options;
+  haskell-nix-src = config.inputs."haskell-nix";
+  haskell-nix = config."haskell-nix";
+  cross-wrappers = config.cross-wrappers;
 }
 ```
 
@@ -5925,6 +7477,46 @@ false
 
 
 
+## optimizations\.extra
+
+
+
+Extra GHC flags by literal spelling:
+
+ - a true value emits its key after the named rows, and GHC takes
+   the last flag given
+ - a false value emits nothing
+
+Entries are independent of ` all `\.
+
+
+
+*Type:*
+attribute set of boolean
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+
+
+*Example:*
+
+```nix
+{
+  "-fllvm" = true;
+}
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/optimizations\.nix](file://<nix-haskell>/modules/optimizations.nix)
+
+
+
 ## optimizations\.late-specialise
 
 
@@ -6010,11 +7602,15 @@ Per-platform customization, keyed by ` pkgs.pkgsCross ` platform name
 (the keys of ` shell.crossPlatforms ` and ` projectCross `)\.
 
 A cabal file or project file can make a package’s flags, and through
-them its dependencies, conditional on the platform\. The haskell\.nix
-driver follows those conditionals through its solver\. The nixpkgs
-driver has no solver, so state here what the conditionals would have
-decided\. The flags reach the point where a package’s dependencies
-are computed, not only its configuration\.
+them its dependencies, conditional on the platform\. Each driver
+handles that differently:
+
+ - haskell\.nix follows those conditionals through its solver
+ - nixpkgs has no solver, so state here what the conditionals would
+   have decided
+
+The flags reach the point where a package’s dependencies are
+computed, not only its configuration\.
 
 ` wasm-opt ` and ` closure-compiler ` are the bundle optimizer settings
 for whatever is built for this target\. The ` packages ` entries under
@@ -6046,7 +7642,7 @@ attribute set of (submodule)
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6085,7 +7681,7 @@ attribute set of (submodule)
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6109,7 +7705,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6133,7 +7729,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6157,7 +7753,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6181,7 +7777,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6205,7 +7801,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6229,7 +7825,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6253,7 +7849,46 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.bundle-optimizers
+
+
+
+Settings layers for optimizer tools a project registered through an
+imported cross-target module: tool name, then field, then value\.
+The bundled tools use their typed ` wasm-opt ` and ` closure-compiler `
+options beside this instead\. A field absent here states nothing\.
+
+
+
+*Type:*
+attribute set of attribute set of raw value
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+
+
+*Example:*
+
+```nix
+{
+  probe-opt = {
+    level = 2;
+  };
+}
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6277,7 +7912,7 @@ attribute set of (submodule)
 one entry per executable named under ` components.exes `
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6286,9 +7921,10 @@ one entry per executable named under ` components.exes `
 
 
 The ` ghc_wasm_jsffi.js ` without which this target’s binary
-cannot be instantiated\. It is read out of the binary as linked,
-not out of ` optimized `: the optimizer strips the sections the
-read needs\. ` null ` for every target that is not wasm\.
+cannot be instantiated\. ` wasm-jsffi ` reads it out of the binary
+as linked, not out of ` optimized `, because the optimizer strips
+the sections the read needs\. ` null ` for every target that is
+not wasm\.
 
 
 
@@ -6302,7 +7938,7 @@ null or package
 was built with
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6310,10 +7946,12 @@ was built with
 
 
 
-What gets shipped: the executable a driver built for this
-target, sent through that target’s optimizer\. ` null ` for a
-target that has no optimizer, and ` null ` when read anywhere but
-through a driver\.
+The executable a driver built for this target, sent through
+that target’s optimizer\. This is what a project ships\. It is
+` null `:
+
+ - for a target that has no optimizer
+ - when read anywhere but through a driver
 
 
 
@@ -6327,7 +7965,7 @@ the executable this driver built for this target, through
 ` wasm-optimize ` or ` js-optimize `
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6354,7 +7992,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6382,8 +8020,16 @@ null or (list of absolute path)
 null
 ```
 
+
+
+*Example:*
+
+```
+[ ./externs.js ]
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6415,8 +8061,18 @@ null or (list of string)
 null
 ```
 
+
+
+*Example:*
+
+```nix
+[
+  "--formatting PRETTY_PRINT"
+]
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6450,7 +8106,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6475,8 +8131,8 @@ submodule
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6487,7 +8143,7 @@ submodule
 Bundle optimizer settings for one executable of the
 package, keyed by the name cabal gives it\. They sit under
 an executable rather than the package, because a bundle
-belongs to one linked executable and a package can carry
+belongs to one linked executable\. A package can carry
 several\.
 
 Naming an executable here also tells the haskell\.nix
@@ -6508,8 +8164,47 @@ attribute set of (submodule)
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.components\.exes\.\<name>\.bundle-optimizers
+
+
+
+Settings layers for optimizer tools a project registered through an
+imported cross-target module: tool name, then field, then value\.
+The bundled tools use their typed ` wasm-opt ` and ` closure-compiler `
+options beside this instead\. A field absent here states nothing\.
+
+
+
+*Type:*
+attribute set of attribute set of raw value
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+
+
+*Example:*
+
+```nix
+{
+  probe-opt = {
+    level = 2;
+  };
+}
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6518,9 +8213,10 @@ attribute set of (submodule)
 
 
 The ` ghc_wasm_jsffi.js ` without which this target’s binary
-cannot be instantiated\. It is read out of the binary as linked,
-not out of ` optimized `: the optimizer strips the sections the
-read needs\. ` null ` for every target that is not wasm\.
+cannot be instantiated\. ` wasm-jsffi ` reads it out of the binary
+as linked, not out of ` optimized `, because the optimizer strips
+the sections the read needs\. ` null ` for every target that is
+not wasm\.
 
 
 
@@ -6534,7 +8230,7 @@ null or package
 was built with
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6542,10 +8238,12 @@ was built with
 
 
 
-What gets shipped: the executable a driver built for this
-target, sent through that target’s optimizer\. ` null ` for a
-target that has no optimizer, and ` null ` when read anywhere but
-through a driver\.
+The executable a driver built for this target, sent through
+that target’s optimizer\. This is what a project ships\. It is
+` null `:
+
+ - for a target that has no optimizer
+ - when read anywhere but through a driver
 
 
 
@@ -6559,7 +8257,7 @@ the executable this driver built for this target, through
 ` wasm-optimize ` or ` js-optimize `
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6586,7 +8284,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6614,8 +8312,16 @@ null or (list of absolute path)
 null
 ```
 
+
+
+*Example:*
+
+```
+[ ./externs.js ]
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6647,8 +8353,18 @@ null or (list of string)
 null
 ```
 
+
+
+*Example:*
+
+```nix
+[
+  "--formatting PRETTY_PRINT"
+]
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6682,7 +8398,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6710,7 +8426,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6741,8 +8457,18 @@ null or (list of string)
 null
 ```
 
+
+
+*Example:*
+
+```nix
+[
+  "--enable-bulk-memory"
+]
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6776,7 +8502,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6799,8 +8525,18 @@ list of string
 [ ]
 ```
 
+
+
+*Example:*
+
+```nix
+[
+  "-v"
+]
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6824,7 +8560,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6848,7 +8584,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6872,7 +8608,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6896,7 +8632,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6920,7 +8656,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6944,7 +8680,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6968,7 +8704,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -6992,8 +8728,19 @@ attribute set of boolean
 { }
 ```
 
+
+
+*Example:*
+
+```nix
+{
+  use-warp = true;
+  webkit2gtk = false;
+}
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7016,8 +8763,19 @@ list of string
 [ ]
 ```
 
+
+
+*Example:*
+
+```nix
+[
+  "-Wall"
+  "-Werror"
+]
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7051,7 +8809,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7074,8 +8832,16 @@ list of absolute path
 [ ]
 ```
 
+
+
+*Example:*
+
+```
+[ ./splitmix.patch ]
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7100,8 +8866,16 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```nix
+"export HOME=$TMPDIR"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7126,8 +8900,16 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```nix
+"export HOME=$TMPDIR"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7152,8 +8934,16 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```nix
+"export HOME=$TMPDIR"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7178,8 +8968,16 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```nix
+"export HOME=$TMPDIR"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7204,8 +9002,16 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```nix
+"export HOME=$TMPDIR"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7230,8 +9036,16 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```nix
+"export HOME=$TMPDIR"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7256,8 +9070,16 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```nix
+"export HOME=$TMPDIR"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7282,8 +9104,16 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```nix
+"export HOME=$TMPDIR"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7308,8 +9138,16 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```nix
+"export HOME=$TMPDIR"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7334,8 +9172,16 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```nix
+"export HOME=$TMPDIR"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7360,14 +9206,20 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```nix
+"export HOME=$TMPDIR"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
 ## platforms\.\<name>\.packages\.\<name>\.preInstall
-
-
 
 Shell code run before the
 install phase\. ` null ` leaves the default in
@@ -7386,8 +9238,16 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```nix
+"export HOME=$TMPDIR"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7412,8 +9272,16 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```nix
+"export HOME=$TMPDIR"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7438,8 +9306,16 @@ null or strings concatenated with “\\n”
 null
 ```
 
+
+
+*Example:*
+
+```nix
+"export HOME=$TMPDIR"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7471,7 +9347,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7494,8 +9370,18 @@ list of string
 [ ]
 ```
 
+
+
+*Example:*
+
+```nix
+[
+  "-v"
+]
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7518,8 +9404,18 @@ list of string
 [ ]
 ```
 
+
+
+*Example:*
+
+```nix
+[
+  "-v"
+]
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7542,8 +9438,16 @@ null or absolute path or package
 null
 ```
 
+
+
+*Example:*
+
+```
+./vendored/my-dep
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7571,7 +9475,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7602,8 +9506,18 @@ null or (list of string)
 null
 ```
 
+
+
+*Example:*
+
+```nix
+[
+  "--enable-bulk-memory"
+]
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7637,7 +9551,46 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+
+
+
+## platforms\.\<name>\.bundle-optimizers
+
+
+
+Settings layers for optimizer tools a project registered through an
+imported cross-target module: tool name, then field, then value\.
+The bundled tools use their typed ` wasm-opt ` and ` closure-compiler `
+options beside this instead\. A field absent here states nothing\.
+
+
+
+*Type:*
+attribute set of attribute set of raw value
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+
+
+*Example:*
+
+```nix
+{
+  probe-opt = {
+    level = 2;
+  };
+}
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7664,7 +9617,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7692,8 +9645,16 @@ null or (list of absolute path)
 null
 ```
 
+
+
+*Example:*
+
+```
+[ ./externs.js ]
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7725,8 +9686,18 @@ null or (list of string)
 null
 ```
 
+
+
+*Example:*
+
+```nix
+[
+  "--formatting PRETTY_PRINT"
+]
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7760,7 +9731,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7788,7 +9759,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7819,8 +9790,18 @@ null or (list of string)
 null
 ```
 
+
+
+*Example:*
+
+```nix
+[
+  "--enable-bulk-memory"
+]
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7854,7 +9835,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7866,9 +9847,11 @@ Hashes for the sources that ` source-repository-package ` stanzas in
 the cabal\.project name\. An alternative to ` --sha256 ` comments in
 that file\.
 
-Keys are stanza ` location ` URLs\. Each value is an attribute set
-from the stanza’s ` tag ` to the sha256 of the source\. For a
-` repository ` block, the value is the hash string itself\.
+Keys are stanza ` location ` URLs\. The value depends on the block:
+
+ - for a ` source-repository-package `, an attribute set from the
+   stanza’s ` tag ` to the sha256 of the source
+ - for a ` repository ` block, the hash string itself
 
 
 
@@ -7896,7 +9879,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7904,7 +9887,7 @@ null
 
 
 
-Development shell configuration\.
+The development shell\.
 
 
 
@@ -7920,7 +9903,7 @@ submodule
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7943,8 +9926,8 @@ null or unspecified value
 
 
 *Default:*
-` null ` (all local packages that are not
-` source-repository-packages ` are selected)
+` null ` (selects every local package that is not a
+` source-repository-packages ` entry)
 
 
 
@@ -7959,7 +9942,7 @@ ps: with ps; [
 ````
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7982,8 +9965,16 @@ list of package
 [ ]
 ```
 
+
+
+*Example:*
+
+```
+[ pkgs.sqlite ]
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -7991,7 +9982,7 @@ list of package
 
 
 
-Selects the cross-compilation targets, from an attribute set
+Selects the cross-compilation targets from an attribute set
 keyed by ` pkgs.pkgsCross ` platform names\.
 
 
@@ -8016,7 +10007,7 @@ ps: with ps; [ ghcjs wasi32 ]
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -8039,8 +10030,16 @@ list of package
 [ ]
 ```
 
+
+
+*Example:*
+
+```
+[ pkgs.pkg-config ]
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -8063,8 +10062,16 @@ strings concatenated with “\\n”
 ""
 ```
 
+
+
+*Example:*
+
+```nix
+"export MY_APP_PORT=8000"
+```
+
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -8073,8 +10080,11 @@ strings concatenated with “\\n”
 
 
 Haskell tools available in the shell, keyed by executable name\.
-The value is a version request such as ` "latest" `, a version
-string, or a tool argument set\.
+The value is one of:
+
+ - a version request such as ` "latest" `
+ - a version string
+ - a tool argument set
 
 
 
@@ -8098,7 +10108,7 @@ attribute set of raw value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -8122,7 +10132,7 @@ false
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -8169,7 +10179,7 @@ attribute set of (absolute path or (attribute set))
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -8178,9 +10188,12 @@ attribute set of (absolute path or (attribute set))
 
 
 The project source: the tree holding the cabal project file and the
-packages it names\. A path is copied into the store, filtered first
-when ` clean-src ` is enabled\. A derivation or a store path is used as
-it is, because whatever produced it already chose what it contains\.
+packages it names\.
+
+ - A path is copied into the store, filtered first when ` clean-src `
+   is enabled\.
+ - A derivation or a store path is used as it is, because whatever
+   produced it already chose what it contains\.
 
 
 
@@ -8196,7 +10209,7 @@ absolute path or package
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -8205,7 +10218,7 @@ absolute path or package
 
 
 ` src ` with build artifacts filtered out, or ` src ` itself when
-` clean-src ` is disabled\. The project is built from this\.
+` clean-src ` is disabled\. The drivers build the project from this\.
 
 
 
@@ -8217,7 +10230,7 @@ absolute path or package *(read only)*
 *Default:*
 
 ```
-  import ../libs/clean-source.nix { inherit pkgs; } {
+  import ../../libs/clean-source.nix { inherit pkgs; } {
     src = config.src;
     name = config.name;
     ignoreFiles = config.clean-src-ignore-files;
@@ -8226,7 +10239,7 @@ absolute path or package *(read only)*
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -8235,7 +10248,7 @@ absolute path or package *(read only)*
 
 
 The system the project is built on\. Each driver instantiates its
-package set for this system, and a cross target is named relative
+package set for this system, and cross target names are relative
 to it\.
 
 
@@ -8254,7 +10267,7 @@ string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common\.nix](file://<nix-haskell>/modules/common.nix)
+ - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
 
 
 
@@ -8291,7 +10304,7 @@ function that evaluates to a(n) package
 *Default:*
 
 ```
-<nix-haskell>/libs/wasm-jsffi.nix
+<nix-haskell>/libs/cross/wasm-jsffi.nix
 ```
 
 *Declared by:*
@@ -8356,6 +10369,16 @@ list of string
 ]
 ```
 
+
+
+*Example:*
+
+```nix
+[
+  "--enable-bulk-memory"
+]
+```
+
 *Declared by:*
  - [<nix-haskell>/modules/cross/wasm](file://<nix-haskell>/modules/cross/wasm)
 
@@ -8416,8 +10439,9 @@ wasm-optimize {
 ` platform `, ` package ` and ` exe ` are only lookup keys for the
 settings\. Each can be left out, and an omitted key states nothing\.
 
-The ` wasm-opt ` settings are resolved per field\. The most
-specific layer that states a field decides it, in this order:
+Each field of the ` wasm-opt ` settings resolves on its own\.
+The most specific layer that states a field decides it, in this
+order:
 
  1. ` platforms.<platform>.packages.<package>.components.exes.<exe>.wasm-opt `
  2. ` platforms.<platform>.packages.<package>.wasm-opt `
@@ -8440,7 +10464,7 @@ function that evaluates to a(n) package
 *Default:*
 
 ```
-<nix-haskell>/libs/wasm-opt/run.nix, run with the settings the named target, package and executable resolve to
+<nix-haskell>/libs/bundle-optimizer/wasm-opt/run.nix, run with the settings the named target, package and executable resolve to
 ```
 
 *Declared by:*

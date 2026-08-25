@@ -22,8 +22,13 @@
 { lib }:
 
 with lib;
+with (import ./prelude { inherit lib; });
 
 let buildPhases = import ./build-phases.nix { inherit lib; };
+
+    # ------------------------------------------------------------------------
+    # Generators
+    # ------------------------------------------------------------------------
 
     setupFlags = phase: mkOption {
       type = types.listOf types.str;
@@ -31,6 +36,7 @@ let buildPhases = import ./build-phases.nix { inherit lib; };
       description = ''
         Extra flags passed to `Setup ${phase}`.
       '';
+      example = [ "-v" ];
     };
 
     nullableOption = row: mkOption ({
@@ -48,11 +54,16 @@ let buildPhases = import ./build-phases.nix { inherit lib; };
           ${toLower phase} phase. `null` leaves the default in
           place.
         '';
+        example = "export HOME=$TMPDIR";
       });
 
     phaseHookOptions =
       listToAttrs (concatMap (phase: [ (phaseHook true phase) (phaseHook false phase) ])
         buildPhases.names);
+
+    # ------------------------------------------------------------------------
+    # The fields
+    # ------------------------------------------------------------------------
 
     # The fields whose empty value ({} or []) already means "nothing
     # stated". Each carries its own declaration and via.
@@ -67,6 +78,7 @@ let buildPhases = import ./build-phases.nix { inherit lib; };
             Cabal flag assignments for the package (`true` enables,
             `false` disables).
           '';
+          example = { use-warp = true; webkit2gtk = false; };
         };
       }
 
@@ -78,6 +90,7 @@ let buildPhases = import ./build-phases.nix { inherit lib; };
           description = ''
             Patches applied to the package source.
           '';
+          example = fenced-code ''[ ./splitmix.patch ]'';
         };
       }
 
@@ -89,6 +102,7 @@ let buildPhases = import ./build-phases.nix { inherit lib; };
           description = ''
             GHC flags for this package only.
           '';
+          example = [ "-Wall" "-Werror" ];
         };
       }
 
@@ -152,6 +166,10 @@ let buildPhases = import ./build-phases.nix { inherit lib; };
     ];
 
 in {
+
+  # --------------------------------------------------------------------------
+  # What each consumer reads
+  # --------------------------------------------------------------------------
 
   names =
     map (row: row.name) (statedRows ++ nullableRows)

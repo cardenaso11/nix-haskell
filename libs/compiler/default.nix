@@ -22,7 +22,7 @@
 #
 # Example:
 #
-#   compilers = import ./compiler.nix { inherit lib; } {
+#   compilers = import ./compiler { inherit lib; } {
 #     compiler = config.compiler;
 #     system = "x86_64-linux";
 #   };
@@ -43,17 +43,21 @@
 
 with lib;
 
-let prefix = import ./message-prefix.nix { inherit driver; };
+let prefix = import ../message-prefix.nix { inherit driver; };
 
-    crossPlatform = import ./cross-platform.nix { inherit lib; };
+    crossPlatform = import ../cross/platform.nix { inherit lib; };
 
     platforms = compiler.platforms;
+
+    # ------------------------------------------------------------------------
+    # One entry
+    # ------------------------------------------------------------------------
 
     entry = where: spec:
       let package = spec.package;
 
-          # A field the entry states wins; the compiler package is asked
-          # next; the last resort is the given fallback.
+          # A field resolves to the entry's value, then to the package's
+          # attribute, then to the given fallback.
           fromSpecOr = specValue: attr: fallback:
             if specValue != null
             then specValue
@@ -112,8 +116,13 @@ let prefix = import ./message-prefix.nix { inherit driver; };
             let flag = tool:
                   optional (toolchain.${tool.name} != null)
                     "--with-${tool.flag}=${toolchain.package}/bin/${toolchain.${tool.name}}";
+
+                extraFlags = mapAttrsToList
+                  (key: bin: "--with-${key}=${toolchain.package}/bin/${bin}")
+                  (toolchain.extra or {});
+
             in optionals hasToolchain
-                 (concatMap flag (import ./toolchain-tools.nix));
+                 (concatMap flag (import ./toolchain-tools.nix) ++ extraFlags);
 
       in {
         inherit name stockName version targetPrefix enableShared package;
@@ -130,6 +139,10 @@ let prefix = import ./message-prefix.nix { inherit driver; };
             // optionalAttrs (haskellCompilerName != null) { inherit haskellCompilerName; };
       };
 
+    # ------------------------------------------------------------------------
+    # Every entry the project declared
+    # ------------------------------------------------------------------------
+
     nativeEntry = entry "" (removeAttrs compiler [ "platforms" ]);
 
     platformEntries = mapAttrs (key: entry ".platforms.${key}") platforms;
@@ -137,6 +150,10 @@ let prefix = import ./message-prefix.nix { inherit driver; };
     allEntries = [ nativeEntry ] ++ attrValues platformEntries;
 
 in {
+
+  # --------------------------------------------------------------------------
+  # What a driver asks
+  # --------------------------------------------------------------------------
 
   native = nativeEntry;
 

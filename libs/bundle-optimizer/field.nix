@@ -5,13 +5,13 @@
 # - With `inherits`, the field is nullable and defaults to `null`, and its
 #   description gains a paragraph saying what `null` leaves it to.
 #
-# `inherits` names what a `null` falls through to. The same name switches
-# the field to nullable, so the name and the nullability cannot drift apart.
-# Every other argument passes to `mkOption` as given.
+# The one `inherits` argument both names the fall-through and switches the
+# field to nullable, so the two cannot drift apart. Every other argument
+# passes to `mkOption` as given.
 #
 # Example:
 #
-#   import ./bundle-optimizer-field.nix { inherit lib; } {
+#   import ./field.nix { inherit lib; } {
 #     type = lib.types.enum [ "0" "1" "2" ];
 #     default = "2";
 #     description = "The `-O` level wasm-opt runs at.";
@@ -20,7 +20,7 @@
 #   => <option, type enum [ "0" "1" "2" ], default "2", example "0",
 #      description as given>
 #
-#   import ./bundle-optimizer-field.nix {
+#   import ./field.nix {
 #     inherit lib;
 #     inherits = "the layer beneath it";
 #   } {
@@ -37,8 +37,7 @@
 
 let stated = inherits == null;
 
-    # The leading blank line makes the sentence its own paragraph instead of
-    # running on from the description it is appended to.
+    # The leading blank line makes the appended sentence its own paragraph.
     leftTo = lib.optionalString (! stated) ''
 
       `null` states nothing and leaves the field to ${inherits}.

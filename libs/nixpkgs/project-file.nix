@@ -1,10 +1,10 @@
 # The project's cabal.project, as seen by the nixpkgs driver.
 #
-# All parsing is haskell.nix's, passed in as `parser`, combined with this
-# repo's own inlining of `import:` lines. The `packages:` field is
-# deliberately not interpreted. haskell.nix has no nix parser for it either
-# (real cabal reads it inside the plan derivation), and this driver follows
-# the same structure. Local packages come from one of three places:
+# All parsing is haskell.nix's, combined with this repo's own inlining of
+# `import:` lines. The `packages:` field is deliberately not interpreted.
+# haskell.nix has no nix parser for it either (real cabal reads it inside
+# the plan derivation), and this driver follows the same structure. Local
+# packages come from one of three places:
 # - the root of the source (haskell.nix's own `packages: ./*.cabal` default)
 # - an explicit `nixpkgs.options.packages` map
 # - the cabal plan, when `nixpkgs.options.use-plan` is set
@@ -26,7 +26,10 @@
 #
 #   packageAt ./monorepo "source-repository-packages.dep" "frontend"
 #   => { name = "frontend"; value = ./monorepo/frontend; }
-{ pkgs, parser }:
+{ pkgs
+, haskell-nix-src ? null
+, parser ? import (haskell-nix-src + "/lib/cabal-project-parser.nix") { inherit pkgs; }
+}:
 
 with pkgs.lib;
 

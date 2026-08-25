@@ -3,9 +3,9 @@
 .TH "" "" "" ""
 .SS packages
 Per\-package customization, keyed by cabal package name.
-Entries for packages that do not exist in the final package set are
-silently ignored, so platform\-conditional packages can be customized
-unconditionally.
+A driver ignores an entry for a package that is not in the final package
+set, and warns about nothing, so a platform\-conditional package can be
+customized unconditionally.
 .PP
 \f[I]Type:\f[R] attribute set of (submodule)
 .PP
@@ -26,8 +26,8 @@ unconditionally.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.enableDeadCodeElimination
 Whether to eliminate unused code at link time.
@@ -42,8 +42,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.enableLibraryForGhci
 Whether to build a pre\-linked object of the library for loading into
@@ -59,8 +59,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.enableLibraryProfiling
 Whether to build the package\(cqs library with profiling support.
@@ -75,8 +75,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.enableProfiling
 Whether to build the whole package with profiling support.
@@ -91,8 +91,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.enableSeparateDataOutput
 Whether to install the package\(cqs data files into a separate output.
@@ -107,8 +107,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.enableShared
 Whether to build a shared library.
@@ -123,8 +123,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.enableStatic
 Whether to build a static library.
@@ -139,8 +139,37 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
+.UE \c
+.SS packages.<name>.bundle\-optimizers
+Settings layers for optimizer tools a project registered through an
+imported cross\-target module: tool name, then field, then value.
+The bundled tools use their typed \f[CR]wasm\-opt\f[R] and
+\f[CR]closure\-compiler\f[R] options beside this instead.
+A field absent here states nothing.
+.PP
+\f[I]Type:\f[R] attribute set of attribute set of raw value
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{
+  probe\-opt = {
+    level = 2;
+  };
+}
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.closure\-compiler.enable
 Whether \f[CR]js\-optimize\f[R] runs closure\-compiler.
@@ -158,8 +187,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.closure\-compiler.externs
 Files passed as \f[CR]\-\-externs\f[R].
@@ -180,9 +209,15 @@ it, and last to the tool\(cqs own settings at the top level.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[ ./externs.js ]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.closure\-compiler.extraFlags
 Flags appended after the level and the externs, so one of these
@@ -206,9 +241,17 @@ it, and last to the tool\(cqs own settings at the top level.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[
+  \(dq\-\-formatting PRETTY_PRINT\(dq
+]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.closure\-compiler.level
 The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
@@ -232,8 +275,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.components
 Per\-component customization, grouped by the component kind cabal uses.
@@ -248,14 +291,15 @@ Only executables carry anything so far.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.components.exes
 Bundle optimizer settings for one executable of the package, keyed by
 the name cabal gives it.
 They sit under an executable rather than the package, because a bundle
-belongs to one linked executable and a package can carry several.
+belongs to one linked executable.
+A package can carry several.
 .PP
 Naming an executable here also tells the haskell.nix driver to install
 that executable\(cqs \f[CR].jsexe\f[R] directory, which it otherwise
@@ -270,8 +314,37 @@ leaves in the build tree.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
+.UE \c
+.SS packages.<name>.components.exes.<name>.bundle\-optimizers
+Settings layers for optimizer tools a project registered through an
+imported cross\-target module: tool name, then field, then value.
+The bundled tools use their typed \f[CR]wasm\-opt\f[R] and
+\f[CR]closure\-compiler\f[R] options beside this instead.
+A field absent here states nothing.
+.PP
+\f[I]Type:\f[R] attribute set of attribute set of raw value
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{
+  probe\-opt = {
+    level = 2;
+  };
+}
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.components.exes.<name>.closure\-compiler.enable
 Whether \f[CR]js\-optimize\f[R] runs closure\-compiler.
@@ -289,8 +362,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.components.exes.<name>.closure\-compiler.externs
 Files passed as \f[CR]\-\-externs\f[R].
@@ -311,9 +384,15 @@ it, and last to the tool\(cqs own settings at the top level.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[ ./externs.js ]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.components.exes.<name>.closure\-compiler.extraFlags
 Flags appended after the level and the externs, so one of these
@@ -337,9 +416,17 @@ it, and last to the tool\(cqs own settings at the top level.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[
+  \(dq\-\-formatting PRETTY_PRINT\(dq
+]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.components.exes.<name>.closure\-compiler.level
 The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
@@ -363,8 +450,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.components.exes.<name>.wasm\-opt.enable
 Whether \f[CR]wasm\-optimize\f[R] runs wasm\-opt and the strip that
@@ -384,8 +471,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.components.exes.<name>.wasm\-opt.extraFlags
 Flags appended after \f[CR]\-all \-O<level>\f[R], so one of these
@@ -409,9 +496,17 @@ it, and last to the tool\(cqs own settings at the top level.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[
+  \(dq\-\-enable\-bulk\-memory\(dq
+]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.components.exes.<name>.wasm\-opt.level
 The \f[CR]\-O\f[R] level wasm\-opt runs at.
@@ -435,8 +530,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.configureFlags
 Extra flags passed to \f[CR]Setup configure\f[R].
@@ -449,9 +544,17 @@ Extra flags passed to \f[CR]Setup configure\f[R].
 [ ]
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[
+  \(dq\-v\(dq
+]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.doCheck
 Whether to run the package\(cqs test suites.
@@ -466,8 +569,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.doCoverage
 Whether to generate a coverage report for the package.
@@ -482,8 +585,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.doHaddock
 Whether to build the package\(cqs documentation.
@@ -498,8 +601,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.doHoogle
 Whether to generate a hoogle index for the package\(cqs documentation.
@@ -514,8 +617,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.doHyperlinkSource
 Whether to generate hyperlinked source code alongside the package\(cqs
@@ -531,8 +634,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.doQuickjump
 Whether to generate the quickjump index of the package\(cqs
@@ -548,8 +651,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.dontStrip
 Whether to leave the produced binaries unstripped.
@@ -564,8 +667,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.flags
 Cabal flag assignments for the package (\f[CR]true\f[R] enables,
@@ -579,9 +682,18 @@ Cabal flag assignments for the package (\f[CR]true\f[R] enables,
 { }
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{
+  use\-warp = true;
+  webkit2gtk = false;
+}
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.ghcOptions
 GHC flags for this package only.
@@ -594,9 +706,18 @@ GHC flags for this package only.
 [ ]
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[
+  \(dq\-Wall\(dq
+  \(dq\-Werror\(dq
+]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.hardeningDisable
 Hardening flags to disable when building the package.
@@ -619,8 +740,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.patches
 Patches applied to the package source.
@@ -633,9 +754,15 @@ Patches applied to the package source.
 [ ]
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[ ./splitmix.patch ]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.postBuild
 Shell code run after the build phase.
@@ -649,9 +776,15 @@ Shell code run after the build phase.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqexport HOME=$TMPDIR\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.postCheck
 Shell code run after the check phase.
@@ -665,9 +798,15 @@ Shell code run after the check phase.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqexport HOME=$TMPDIR\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.postConfigure
 Shell code run after the configure phase.
@@ -681,9 +820,15 @@ Shell code run after the configure phase.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqexport HOME=$TMPDIR\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.postHaddock
 Shell code run after the haddock phase.
@@ -697,9 +842,15 @@ Shell code run after the haddock phase.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqexport HOME=$TMPDIR\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.postInstall
 Shell code run after the install phase.
@@ -713,9 +864,15 @@ Shell code run after the install phase.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqexport HOME=$TMPDIR\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.postPatch
 Shell code run after the patch phase.
@@ -729,9 +886,15 @@ Shell code run after the patch phase.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqexport HOME=$TMPDIR\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.postUnpack
 Shell code run after the unpack phase.
@@ -745,9 +908,15 @@ Shell code run after the unpack phase.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqexport HOME=$TMPDIR\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.preBuild
 Shell code run before the build phase.
@@ -761,9 +930,15 @@ Shell code run before the build phase.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqexport HOME=$TMPDIR\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.preCheck
 Shell code run before the check phase.
@@ -777,9 +952,15 @@ Shell code run before the check phase.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqexport HOME=$TMPDIR\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.preConfigure
 Shell code run before the configure phase.
@@ -793,9 +974,15 @@ Shell code run before the configure phase.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqexport HOME=$TMPDIR\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.preHaddock
 Shell code run before the haddock phase.
@@ -809,9 +996,15 @@ Shell code run before the haddock phase.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqexport HOME=$TMPDIR\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.preInstall
 Shell code run before the install phase.
@@ -825,9 +1018,15 @@ Shell code run before the install phase.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqexport HOME=$TMPDIR\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.prePatch
 Shell code run before the patch phase.
@@ -841,9 +1040,15 @@ Shell code run before the patch phase.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqexport HOME=$TMPDIR\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.preUnpack
 Shell code run before the unpack phase.
@@ -857,9 +1062,15 @@ Shell code run before the unpack phase.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqexport HOME=$TMPDIR\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.profilingDetail
 The profiling detail level.
@@ -880,8 +1091,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.setupBuildFlags
 Extra flags passed to \f[CR]Setup build\f[R].
@@ -894,9 +1105,17 @@ Extra flags passed to \f[CR]Setup build\f[R].
 [ ]
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[
+  \(dq\-v\(dq
+]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.setupHaddockFlags
 Extra flags passed to \f[CR]Setup haddock\f[R].
@@ -909,9 +1128,17 @@ Extra flags passed to \f[CR]Setup haddock\f[R].
 [ ]
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[
+  \(dq\-v\(dq
+]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.src
 Replacement source for the package.
@@ -924,9 +1151,15 @@ Replacement source for the package.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\&./vendored/my\-dep
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.wasm\-opt.enable
 Whether \f[CR]wasm\-optimize\f[R] runs wasm\-opt and the strip that
@@ -946,8 +1179,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.wasm\-opt.extraFlags
 Flags appended after \f[CR]\-all \-O<level>\f[R], so one of these
@@ -971,9 +1204,17 @@ it, and last to the tool\(cqs own settings at the top level.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[
+  \(dq\-\-enable\-bulk\-memory\(dq
+]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS packages.<name>.wasm\-opt.level
 The \f[CR]\-O\f[R] level wasm\-opt runs at.
@@ -997,8 +1238,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS _module.args
 Additional arguments passed to each module in addition to ones like
@@ -1080,9 +1321,16 @@ Content of the \f[CR]cabal.project\f[R] file.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+packages: .
+tests: true
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS cabalProjectFileName
 Name of the cabal project file.
@@ -1096,8 +1344,8 @@ Name of the cabal project file.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS cabalProjectLocal
 Content of the \f[CR]cabal.project.local\f[R] file.
@@ -1110,17 +1358,24 @@ Content of the \f[CR]cabal.project.local\f[R] file.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqallow\-newer: aeson:*\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS clean\-src
 Filter \f[CR]src\f[R] through the \f[CR].gitignore\f[R] it carries
 before copying it into the store.
 Build artifacts (\f[CR]dist\-newstyle\f[R], \f[CR]result\f[R],
 \f[CR].git\f[R]) then do not become part of every derivation that names
-the project source, and a rebuild does not rehash them.
-Only applies when \f[CR]src\f[R] is a path.
+the project source.
+A rebuild then does not rehash them.
+This applies only when \f[CR]src\f[R] is a path.
 A derivation is used as\-is.
 .PP
 \f[I]Type:\f[R] boolean
@@ -1132,8 +1387,8 @@ true
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS clean\-src\-ignore\-files
 The ignore files read when \f[CR]clean\-src\f[R] is enabled.
@@ -1165,8 +1420,8 @@ instead.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS clean\-src\-patterns
 Extra gitignore\-syntax patterns, applied on top of the files
@@ -1193,8 +1448,8 @@ An anchored pattern read against the root cannot.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS closure\-compiler.enable
 Whether \f[CR]js\-optimize\f[R] runs closure\-compiler.
@@ -1228,6 +1483,12 @@ name.
 [ ]
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[ ./externs.js ]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/cross/ghcjs
 /modules/cross/ghcjs
@@ -1258,6 +1519,14 @@ names the runtime defines elsewhere.
 ]
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[
+  \(dq\-\-formatting PRETTY_PRINT\(dq
+]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/cross/ghcjs
 /modules/cross/ghcjs
@@ -1285,12 +1554,16 @@ The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
 /modules/cross/ghcjs
 .UE \c
 .SS compiler
-The GHC to build with.
-\f[CR]name\f[R] selects one of the driver\(cqs own compilers.
+The GHC to build with:
+.IP \(bu 2
+\f[CR]name\f[R] selects one of the driver\(cqs own compilers
+.IP \(bu 2
 \f[CR]package\f[R] supplies one from outside them, and the sibling
-fields are the attributes the drivers read off a compiler.
+fields are the attributes the drivers read off a compiler
+.IP \(bu 2
 \f[CR]platforms\f[R] gives cross targets their own compiler and
-toolchain.
+toolchain
+.PP
 A platform without an entry uses the fields above it.
 .PP
 Describe such a compiler once.
@@ -1333,15 +1606,18 @@ entries for compilers distributed outside the drivers\(cq package sets.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.enableShared
 Whether the compiler can build shared libraries.
-The haskell.nix driver reads it for every component\(cqs
-\f[CR]shared:\f[R] flag.
-The nixpkgs driver builds a cross package set non\-static, with shared
-and not static libraries.
+Each driver reads it:
+.IP \(bu 2
+haskell.nix sets every component\(cqs \f[CR]shared:\f[R] flag from it
+.IP \(bu 2
+nixpkgs builds a cross package set non\-static, with shared libraries
+instead of static ones
+.PP
 GHC\(cqs wasm backend needs it, because its Template Haskell interpreter
 loads shared objects.
 .PP
@@ -1351,14 +1627,22 @@ loads shared objects.
 \f[CR]package\f[R], else \f[CR]true\f[R]
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.package
 A compiler used directly instead of one from the driver\(cqs package
-sets: a bindist, an out\-of\-tree cross compiler, a locally built GHC.
-The sibling fields are spliced onto it, since both drivers read them off
-the compiler itself and a bindist generally carries none of them.
+sets:
+.IP \(bu 2
+a bindist
+.IP \(bu 2
+an out\-of\-tree cross compiler
+.IP \(bu 2
+a locally built GHC
+.PP
+The sibling fields are spliced onto the package.
+Both drivers read them off the compiler itself, and a bindist generally
+carries none of them.
 .PP
 \f[I]Type:\f[R] null or package
 .PP
@@ -1368,9 +1652,15 @@ the compiler itself and a bindist generally carries none of them.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+pkgs.haskell.compiler.ghc912
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.haskell\-nix
 Compiler details only the haskell.nix driver reads.
@@ -1384,14 +1674,14 @@ Compiler details only the haskell.nix driver reads.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.haskell\-nix.extraNonReinstallablePkgs
 Packages taken from the compiler\(cqs own database rather than built, on
 top of the ones the driver already takes from there.
-A package the compiler was configured against, but absent from the lists
-the driver copies out of it, belongs here.
+Put a package here when the compiler was configured against it, but the
+lists the driver copies out of the compiler do not name it.
 Without the entry, a build that needs the package finds nothing to
 depend on, and everything downstream of it breaks.
 One example: a compiler whose \f[CR]text\f[R] is built against simdutf
@@ -1414,8 +1704,8 @@ needs \f[CR]system\-cxx\-std\-lib\f[R] here.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.haskell\-nix.libDir
 The compiler\(cqs library directory, relative to its store path, where
@@ -1436,18 +1726,18 @@ version\-named install.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.name
 The compiler\(cqs name in the driver\(cqs package sets
 (\f[CR]haskell\-nix.compiler.<name>\f[R],
-\f[CR]pkgs.haskell.packages.<name>\f[R]), and the name the project\(cqs
-packages are pinned under.
+\f[CR]pkgs.haskell.packages.<name>\f[R]), and the name the driver pins
+the project\(cqs packages under.
 With \f[CR]package\f[R] set, the name selects the set whose compiler the
 package replaces.
-Set it only when the name derived from the version is not one the driver
-knows.
+Set it only when the driver does not know the name derived from the
+version.
 .PP
 \f[I]Type:\f[R] null or string
 .PP
@@ -1462,8 +1752,8 @@ where no stackage snapshot covers 9.14 yet
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.nixpkgs
 Compiler details only the nixpkgs driver reads.
@@ -1477,15 +1767,17 @@ Compiler details only the nixpkgs driver reads.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.nixpkgs.enableExternalInterpreter
 Whether to run Template Haskell splices through nixpkgs\(cq external
 interpreter, which proxies them to the target over a socket.
-Set \f[CR]false\f[R] for a compiler that runs splices itself, such as
-GHC\(cqs wasm backend.
-A target that has no sockets to proxy over needs \f[CR]false\f[R].
+Set \f[CR]false\f[R] when:
+.IP \(bu 2
+the compiler runs splices itself, such as GHC\(cqs wasm backend
+.IP \(bu 2
+the target has no sockets to proxy over
 .PP
 \f[I]Type:\f[R] null or boolean
 .PP
@@ -1494,8 +1786,8 @@ use the external interpreter whenever it is cross\-compiling and an
 emulator exists for the target
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.nixpkgs.haskellCompilerName
 The compiler\(cqs cabal name.
@@ -1515,16 +1807,16 @@ of \f[CR]package\f[R], else \f[CR]ghc\-<version>\f[R]
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.platforms
 Per\-platform compilers, keyed by \f[CR]pkgsCross\f[R] platform name
 (the keys of \f[CR]shell.crossPlatforms\f[R] and
 \f[CR]projectCross\f[R]).
 An entry has the same fields as the compiler above.
-The fields an entry leaves unset are resolved from its own
-\f[CR]package\f[R], not inherited.
+A field an entry leaves unset resolves from that entry\(cqs own
+\f[CR]package\f[R], not from the compiler above.
 A per\-driver definition anywhere under \f[CR]compiler.platforms\f[R]
 replaces the whole table for that driver.
 .PP
@@ -1536,16 +1828,25 @@ replaces the whole table for that driver.
 { }
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{ wasi32 = { package = ghc\-wasm\-bindist; haskell\-nix.libDir = \(dqlib\(dq; }; }
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.platforms.<name>.enableShared
 Whether the compiler can build shared libraries.
-The haskell.nix driver reads it for every component\(cqs
-\f[CR]shared:\f[R] flag.
-The nixpkgs driver builds a cross package set non\-static, with shared
-and not static libraries.
+Each driver reads it:
+.IP \(bu 2
+haskell.nix sets every component\(cqs \f[CR]shared:\f[R] flag from it
+.IP \(bu 2
+nixpkgs builds a cross package set non\-static, with shared libraries
+instead of static ones
+.PP
 GHC\(cqs wasm backend needs it, because its Template Haskell interpreter
 loads shared objects.
 .PP
@@ -1555,14 +1856,22 @@ loads shared objects.
 \f[CR]package\f[R], else \f[CR]true\f[R]
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.platforms.<name>.package
 A compiler used directly instead of one from the driver\(cqs package
-sets: a bindist, an out\-of\-tree cross compiler, a locally built GHC.
-The sibling fields are spliced onto it, since both drivers read them off
-the compiler itself and a bindist generally carries none of them.
+sets:
+.IP \(bu 2
+a bindist
+.IP \(bu 2
+an out\-of\-tree cross compiler
+.IP \(bu 2
+a locally built GHC
+.PP
+The sibling fields are spliced onto the package.
+Both drivers read them off the compiler itself, and a bindist generally
+carries none of them.
 .PP
 \f[I]Type:\f[R] null or package
 .PP
@@ -1572,9 +1881,15 @@ the compiler itself and a bindist generally carries none of them.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+pkgs.haskell.compiler.ghc912
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.platforms.<name>.haskell\-nix
 Compiler details only the haskell.nix driver reads.
@@ -1588,14 +1903,14 @@ Compiler details only the haskell.nix driver reads.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.platforms.<name>.haskell\-nix.extraNonReinstallablePkgs
 Packages taken from the compiler\(cqs own database rather than built, on
 top of the ones the driver already takes from there.
-A package the compiler was configured against, but absent from the lists
-the driver copies out of it, belongs here.
+Put a package here when the compiler was configured against it, but the
+lists the driver copies out of the compiler do not name it.
 Without the entry, a build that needs the package finds nothing to
 depend on, and everything downstream of it breaks.
 One example: a compiler whose \f[CR]text\f[R] is built against simdutf
@@ -1618,8 +1933,8 @@ needs \f[CR]system\-cxx\-std\-lib\f[R] here.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.platforms.<name>.haskell\-nix.libDir
 The compiler\(cqs library directory, relative to its store path, where
@@ -1640,18 +1955,18 @@ version\-named install.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.platforms.<name>.name
 The compiler\(cqs name in the driver\(cqs package sets
 (\f[CR]haskell\-nix.compiler.<name>\f[R],
-\f[CR]pkgs.haskell.packages.<name>\f[R]), and the name the project\(cqs
-packages are pinned under.
+\f[CR]pkgs.haskell.packages.<name>\f[R]), and the name the driver pins
+the project\(cqs packages under.
 With \f[CR]package\f[R] set, the name selects the set whose compiler the
 package replaces.
-Set it only when the name derived from the version is not one the driver
-knows.
+Set it only when the driver does not know the name derived from the
+version.
 .PP
 \f[I]Type:\f[R] null or string
 .PP
@@ -1666,8 +1981,8 @@ where no stackage snapshot covers 9.14 yet
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.platforms.<name>.nixpkgs
 Compiler details only the nixpkgs driver reads.
@@ -1681,15 +1996,17 @@ Compiler details only the nixpkgs driver reads.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.platforms.<name>.nixpkgs.enableExternalInterpreter
 Whether to run Template Haskell splices through nixpkgs\(cq external
 interpreter, which proxies them to the target over a socket.
-Set \f[CR]false\f[R] for a compiler that runs splices itself, such as
-GHC\(cqs wasm backend.
-A target that has no sockets to proxy over needs \f[CR]false\f[R].
+Set \f[CR]false\f[R] when:
+.IP \(bu 2
+the compiler runs splices itself, such as GHC\(cqs wasm backend
+.IP \(bu 2
+the target has no sockets to proxy over
 .PP
 \f[I]Type:\f[R] null or boolean
 .PP
@@ -1698,8 +2015,8 @@ use the external interpreter whenever it is cross\-compiling and an
 emulator exists for the target
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.platforms.<name>.nixpkgs.haskellCompilerName
 The compiler\(cqs cabal name.
@@ -1719,8 +2036,8 @@ of \f[CR]package\f[R], else \f[CR]ghc\-<version>\f[R]
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.platforms.<name>.targetPrefix
 The prefix on the compiler\(cqs executables.
@@ -1738,18 +2055,20 @@ Both drivers invoke every tool by its prefixed name.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.platforms.<name>.toolchain
 The C toolchain the compiler was configured with, when that is not the
 one the surrounding package set supplies.
-Everything built with the compiler is pointed back at it, since
+The drivers point everything built with the compiler back at it, since
 \f[CR]Setup configure\f[R]\(cqs foreign\-dependency checks otherwise
 look in the wrong sysroot.
-The haskell.nix driver passes it as every package\(cqs configure flags.
-The nixpkgs driver makes it the cross package set\(cqs toolchain
-outright.
+Each driver does that its own way:
+.IP \(bu 2
+haskell.nix passes it as every package\(cqs configure flags
+.IP \(bu 2
+nixpkgs makes it the cross package set\(cqs toolchain outright
 .PP
 \f[I]Type:\f[R] submodule
 .PP
@@ -1759,9 +2078,15 @@ outright.
 { }
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{ package = wasi\-sdk; cc = \(dqclang\(dq; ar = \(dqllvm\-ar\(dq; }
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.platforms.<name>.toolchain.package
 The toolchain itself.
@@ -1778,8 +2103,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.platforms.<name>.toolchain.ar
 The archiver\(cqs name in the toolchain\(cqs \f[CR]bin\f[R], passed to
@@ -1800,8 +2125,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.platforms.<name>.toolchain.cc
 The C compiler\(cqs name in the toolchain\(cqs \f[CR]bin\f[R], passed to
@@ -1822,8 +2147,36 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
+.UE \c
+.SS compiler.platforms.<name>.toolchain.extra
+Extra \f[CR]\-\-with\-<key>\f[R] tools of the toolchain.
+The key is cabal\(cqs name for the tool, the value its executable name
+in the toolchain package\(cqs \f[CR]bin\f[R].
+The driver emits them after the fixed tools.
+Cabal takes a flag\(cqs last occurrence, so an entry can also override
+one of them.
+.PP
+\f[I]Type:\f[R] attribute set of string
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{
+  pkg\-config = \(dqwasm32\-wasi\-pkg\-config\(dq;
+}
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.platforms.<name>.toolchain.ld
 The linker\(cqs name in the toolchain\(cqs \f[CR]bin\f[R], passed to
@@ -1844,8 +2197,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.platforms.<name>.toolchain.strip
 The strip utility\(cqs name in the toolchain\(cqs \f[CR]bin\f[R], passed
@@ -1866,16 +2219,20 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.platforms.<name>.version
 The compiler\(cqs version.
 Both drivers read it off the compiler, for paths and for
 \f[CR]impl(ghc >= ...)\f[R] conditionals.
 .PP
-Some builds cannot use the compiler package itself: the nixpkgs package
-set the project is built against, and haskell.nix\(cqs shell tools.
+Some builds cannot use the compiler package itself:
+.IP \(bu 2
+the nixpkgs package set the driver builds the project against
+.IP \(bu 2
+haskell.nix\(cqs shell tools
+.PP
 These builds use the driver\(cqs stock compiler of the same
 major.minor.patch instead.
 .PP
@@ -1894,8 +2251,8 @@ A nightly\(cqs name carries only its series.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.targetPrefix
 The prefix on the compiler\(cqs executables.
@@ -1913,18 +2270,20 @@ Both drivers invoke every tool by its prefixed name.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.toolchain
 The C toolchain the compiler was configured with, when that is not the
 one the surrounding package set supplies.
-Everything built with the compiler is pointed back at it, since
+The drivers point everything built with the compiler back at it, since
 \f[CR]Setup configure\f[R]\(cqs foreign\-dependency checks otherwise
 look in the wrong sysroot.
-The haskell.nix driver passes it as every package\(cqs configure flags.
-The nixpkgs driver makes it the cross package set\(cqs toolchain
-outright.
+Each driver does that its own way:
+.IP \(bu 2
+haskell.nix passes it as every package\(cqs configure flags
+.IP \(bu 2
+nixpkgs makes it the cross package set\(cqs toolchain outright
 .PP
 \f[I]Type:\f[R] submodule
 .PP
@@ -1934,9 +2293,15 @@ outright.
 { }
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{ package = wasi\-sdk; cc = \(dqclang\(dq; ar = \(dqllvm\-ar\(dq; }
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.toolchain.package
 The toolchain itself.
@@ -1953,8 +2318,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.toolchain.ar
 The archiver\(cqs name in the toolchain\(cqs \f[CR]bin\f[R], passed to
@@ -1975,8 +2340,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.toolchain.cc
 The C compiler\(cqs name in the toolchain\(cqs \f[CR]bin\f[R], passed to
@@ -1997,8 +2362,36 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
+.UE \c
+.SS compiler.toolchain.extra
+Extra \f[CR]\-\-with\-<key>\f[R] tools of the toolchain.
+The key is cabal\(cqs name for the tool, the value its executable name
+in the toolchain package\(cqs \f[CR]bin\f[R].
+The driver emits them after the fixed tools.
+Cabal takes a flag\(cqs last occurrence, so an entry can also override
+one of them.
+.PP
+\f[I]Type:\f[R] attribute set of string
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{
+  pkg\-config = \(dqwasm32\-wasi\-pkg\-config\(dq;
+}
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.toolchain.ld
 The linker\(cqs name in the toolchain\(cqs \f[CR]bin\f[R], passed to
@@ -2019,8 +2412,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.toolchain.strip
 The strip utility\(cqs name in the toolchain\(cqs \f[CR]bin\f[R], passed
@@ -2041,16 +2434,20 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS compiler.version
 The compiler\(cqs version.
 Both drivers read it off the compiler, for paths and for
 \f[CR]impl(ghc >= ...)\f[R] conditionals.
 .PP
-Some builds cannot use the compiler package itself: the nixpkgs package
-set the project is built against, and haskell.nix\(cqs shell tools.
+Some builds cannot use the compiler package itself:
+.IP \(bu 2
+the nixpkgs package set the driver builds the project against
+.IP \(bu 2
+haskell.nix\(cqs shell tools
+.PP
 These builds use the driver\(cqs stock compiler of the same
 major.minor.patch instead.
 .PP
@@ -2069,8 +2466,42 @@ A nightly\(cqs name carries only its series.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
+.UE \c
+.SS cross\-wrappers
+\f[B]A function, not a setting.\f[R] A project calls it and uses the
+result.
+Assign it only to replace what the call does.
+.PP
+The wrapper scripts a shell gets for one cross compiler.
+Each is a \f[CR]<target\-prefix>\f[R] dispatcher that runs the
+compiler\(cqs tools with the native link flags filtered away.
+The call carries:
+.IP \(bu 2
+\f[CR]ghc\f[R], the cross compiler
+.IP \(bu 2
+\f[CR]pkgs\f[R], what the scripts are built with
+.PP
+The default returns no script for a compiler without a target prefix.
+.PP
+\f[I]Type:\f[R] function that evaluates to a(n) list of package
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+<nix\-haskell>/libs/cross/wrappers.nix
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{ ghc, pkgs }: []
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/cross
+/modules/cross
 .UE \c
 .SS extraCabalProject
 Lines to append to \f[CR]cabal.project\f[R].
@@ -2083,9 +2514,17 @@ Lines to append to \f[CR]cabal.project\f[R].
 [ ]
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[
+  \(dqallow\-newer: aeson:*\(dq
+]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS ghcOptions
 GHC flags applied project\-wide.
@@ -2108,8 +2547,8 @@ GHC flags applied project\-wide.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS hackage\-overlays
 Packages to make visible to dependency resolution without being
@@ -2142,8 +2581,8 @@ One example is obelisk\-generated\-static.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS haskell\-nix.compiler\-version
 The version of the compiler this driver builds with.
@@ -2221,6 +2660,29 @@ javascript target\(cqs linked directory at \f[CR]bin/<exe>.jsexe\f[R].
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
 /modules/haskell.nix
 .UE \c
+.SS haskell\-nix.default\-compiler
+The \f[CR]compiler.name\f[R] this driver falls back to when no
+\f[CR]compiler.package\f[R] is set.
+A project\(cqs own \f[CR]compiler.name\f[R] overrides it.
+.PP
+\f[I]Type:\f[R] string
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+\(dqghc914\(dq
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqghc910\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/haskell.nix
+/modules/haskell.nix
+.UE \c
 .SS haskell\-nix.extraSrcFiles
 Files from the project source to add to component builds, in
 haskell.nix\(cqs \f[CR]extraSrcFiles\f[R] shape:
@@ -2233,6 +2695,18 @@ and so on.
 .IP
 .EX
 { }
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{
+  library = {
+    extraSrcFiles = [
+      \(dqstatic/style.css\(dq
+    ];
+  };
+}
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
@@ -2308,7 +2782,7 @@ import config.\(dqhaskell\-nix\(dq.nixpkgsSource ({ inherit system; } // config.
 /modules/haskell.nix
 .UE \c
 .SS haskell\-nix.nixpkgsArgs
-The arguments that nixpkgs is imported with: haskell.nix\(cqs own
+The arguments the driver imports nixpkgs with: haskell.nix\(cqs own
 overlays, which put \f[CR]haskell\-nix\f[R] into the package set, and
 the configuration its compilers are built under.
 .PP
@@ -2817,12 +3291,12 @@ null
 .UE \c
 .SS haskell\-nix.options.inputMap
 Specifies the contents of urls in the cabal.project file.
-The \f[CR].rev\f[R] attribute is checked against the \f[CR]tag\f[R] for
-\f[CR]source\-repository\-packages\f[R].
+For a \f[CR]source\-repository\-packages\f[R] stanza, haskell.nix checks
+the \f[CR].rev\f[R] attribute against the \f[CR]tag\f[R].
 .PP
-For \f[CR]revision\f[R] blocks, \f[CR]inputMap.<url>\f[R] is used, and
-the \f[CR].tar.gz\f[R] files of the \f[CR]packages\f[R] used are also
-looked up in the \f[CR]inputMap\f[R].
+For a \f[CR]revision\f[R] block, it reads \f[CR]inputMap.<url>\f[R], and
+looks up the \f[CR].tar.gz\f[R] file of each named package in the
+\f[CR]inputMap\f[R] as well.
 .PP
 \f[I]Type:\f[R] null or (attribute set)
 .PP
@@ -3366,8 +3840,8 @@ false
 .UE \c
 .SS haskell\-nix.overrides
 haskell.nix \f[CR]modules\f[R] to add to the project.
-The escape hatch for anything the common options do not cover.
-Lists are concatenated when composed (not replaced).
+Use it for anything the common options do not cover.
+Two definitions concatenate rather than replace one another.
 .PP
 \f[I]Type:\f[R] list of unspecified value
 .PP
@@ -3375,6 +3849,12 @@ Lists are concatenated when composed (not replaced).
 .IP
 .EX
 [ ]
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[ { packages.my\-dep.flags.debug = true; } ]
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
@@ -3403,11 +3883,165 @@ config.haskell\-nix.haskell\-nix.project config.haskell\-nix.options
 .UR file://%3Cnix-haskell%3E/modules/haskell.nix
 /modules/haskell.nix
 .UE \c
+.SS haskell\-nix.stages.hackage
+A generated hackage index that makes \f[CR]hackage\-overlays\f[R]
+visible to the cabal solver.
+.PP
+\f[I]Type:\f[R] submodule
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/haskell.nix
+/modules/haskell.nix
+.UE \c
+.SS haskell\-nix.stages.hackage.package\-overlays
+Project modules that force each overlaid package\(cqs \f[CR]src\f[R] to
+its local source.
+.PP
+\f[I]Type:\f[R] list of module
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+package\-overlays from <nix\-haskell>/libs/haskell\-nix/hackage\-driver.nix
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[ { packages.reflex\-dom.src = lib.mkForce ./deps/reflex\-dom; } ]
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/haskell.nix
+/modules/haskell.nix
+.UE \c
+.SS haskell\-nix.stages.hackage.extra\-hackage\-tarballs
+The generated hackage index tarballs, keyed by repository name.
+.PP
+\f[I]Type:\f[R] attribute set of package
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+extra\-hackage\-tarballs from <nix\-haskell>/libs/haskell\-nix/hackage\-driver.nix
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/haskell.nix
+/modules/haskell.nix
+.UE \c
+.SS haskell\-nix.stages.hackage.extra\-hackages
+The imported hackage expressions the cabal solver reads beside the real
+index.
+haskell.nix merges each one over its hackage set.
+.PP
+\f[I]Type:\f[R] list of (attribute set)
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+extra\-hackages from <nix\-haskell>/libs/haskell\-nix/hackage\-driver.nix
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/haskell.nix
+/modules/haskell.nix
+.UE \c
+.SS haskell\-nix.stages.source\-repository\-packages
+\f[CR]source\-repository\-package\f[R] stanzas and the
+\f[CR]inputMap\f[R] entries that pin their sources, generated from the
+common \f[CR]source\-repository\-packages\f[R].
+.PP
+\f[I]Type:\f[R] submodule
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/haskell.nix
+/modules/haskell.nix
+.UE \c
+.SS haskell\-nix.stages.source\-repository\-packages.cabalProject
+The generated \f[CR]source\-repository\-package\f[R] stanzas, as
+cabal.project lines to append.
+.PP
+\f[I]Type:\f[R] list of string
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+cabalProject from <nix\-haskell>/libs/cabal.nix source\-repository\-packages
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[ \(aq\(aq
+  source\-repository\-package
+    type: git
+    location: https://github.com/reflex\-frp/reflex\-dom
+    tag: HEAD
+\(aq\(aq ]
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/haskell.nix
+/modules/haskell.nix
+.UE \c
+.SS haskell\-nix.stages.source\-repository\-packages.inputMap
+Pins each generated stanza\(cqs \f[CR]location\f[R] to its fetched
+source.
+.PP
+\f[I]Type:\f[R] attribute set of (attribute set)
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+inputMap from <nix\-haskell>/libs/cabal.nix source\-repository\-packages
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{ \(dqhttps://github.com/reflex\-frp/reflex\-dom\(dq = { outPath = ./deps/reflex\-dom; rev = \(dqHEAD\(dq; }; }
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/haskell.nix
+/modules/haskell.nix
+.UE \c
+.SS haskell\-nix.stages.src
+\f[CR]src\-cleaned\f[R], with the \f[CR]extraCabalProject\f[R] lines and
+the generated \f[CR]source\-repository\-package\f[R] stanzas appended to
+its \f[CR]cabal.project\f[R].
+The driver builds the project from this.
+.PP
+\f[I]Type:\f[R] absolute path
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+<nix\-haskell>/libs/haskell\-nix/src\-driver.nix
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/haskell.nix
+/modules/haskell.nix
+.UE \c
 .SS inputMap
 Maps a url named in the cabal.project file to its source, so the source
 resolves without fetching.
-For a \f[CR]source\-repository\-package\f[R] stanza, the entry\(cqs
-\f[CR].rev\f[R] attribute is checked against the stanza\(cqs
+For a \f[CR]source\-repository\-package\f[R] stanza, the driver checks
+the entry\(cqs \f[CR].rev\f[R] attribute against the stanza\(cqs
 \f[CR]tag\f[R].
 .PP
 \f[I]Type:\f[R] attribute set
@@ -3428,8 +4062,8 @@ For a \f[CR]source\-repository\-package\f[R] stanza, the entry\(cqs
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS inputs
 Sources of dependencies, keyed the way flake inputs are.
@@ -3445,6 +4079,12 @@ Add entries beyond the ones in \f[CR]pins/\f[R] freely.
 { }
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{ ghc\-wasm\-meta = ./deps/ghc\-wasm\-meta; }
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/inputs.nix
 /modules/inputs.nix
@@ -3452,7 +4092,7 @@ Add entries beyond the ones in \f[CR]pins/\f[R] freely.
 .SS isGhcjs
 Whether the project targets GHCJS, natively or through
 cross\-compilation.
-When true, Node.js is added to \f[CR]shell.buildInputs\f[R].
+When true, Node.js joins \f[CR]shell.buildInputs\f[R].
 .PP
 \f[I]Type:\f[R] boolean
 .PP
@@ -3466,7 +4106,7 @@ when \f[CR]shell.crossPlatforms\f[R] selects \f[CR]ghcjs\f[R].
 .SS isWasm
 Whether the project targets wasm, natively or through
 cross\-compilation.
-When true, Node.js is added to \f[CR]shell.buildInputs\f[R].
+When true, Node.js joins \f[CR]shell.buildInputs\f[R].
 .PP
 \f[I]Type:\f[R] boolean
 .PP
@@ -3501,7 +4141,8 @@ js\-optimize {
 lookup keys for the settings.
 Each can be left out, and an omitted key states nothing.
 .PP
-The \f[CR]closure\-compiler\f[R] settings are resolved per field.
+Each field of the \f[CR]closure\-compiler\f[R] settings resolves on its
+own.
 The most specific layer that states a field decides it, in this order:
 .IP "1." 3
 \f[CR]platforms.<platform>.packages.<package>.components.exes.<exe>.closure\-compiler\f[R]
@@ -3524,7 +4165,7 @@ This function runs on a built artifact, outside any driver.
 \f[I]Default:\f[R]
 .IP
 .EX
-<nix\-haskell>/libs/closure\-compiler/run.nix, run with the settings the named target, package and executable resolve to
+<nix\-haskell>/libs/bundle\-optimizer/closure\-compiler/run.nix, run with the settings the named target, package and executable resolve to
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
@@ -3541,8 +4182,39 @@ with it.
 \f[I]Default:\f[R] the base name of \f[CR]src\f[R]
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
+.UE \c
+.SS native\-ldflags\-hook
+\f[B]A function, not a setting.\f[R] A project calls it and uses the
+result.
+Assign it only to replace what the call does.
+.PP
+The shell hook run when \f[CR]shell.crossPlatforms\f[R] selects targets.
+The call carries the selected \f[CR]platforms\f[R] names.
+The default drops every selected target\(cqs \f[CR]\-L\f[R] paths from
+\f[CR]NIX_LDFLAGS\f[R] and \f[CR]NIX_LDFLAGS_FOR_TARGET\f[R].
+The unfiltered values stay in the environment for the cross wrappers to
+start from.
+.PP
+\f[I]Type:\f[R] function that evaluates to a(n) strings concatenated
+with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+<nix\-haskell>/libs/cross/native\-ldflags\-hook.nix
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{ platforms }: \(dq\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/cross
+/modules/cross
 .UE \c
 .SS nixpkgs.compiler\-version
 The version of the compiler this driver builds with.
@@ -3623,9 +4295,34 @@ to.
 .UR file://%3Cnix-haskell%3E/modules/nixpkgs
 /modules/nixpkgs
 .UE \c
+.SS nixpkgs.default\-compiler
+The \f[CR]compiler.name\f[R] this driver falls back to when no
+\f[CR]compiler.package\f[R] is set.
+A project\(cqs own \f[CR]compiler.name\f[R] overrides it.
+No stackage snapshot covers ghc 9.14 yet, so the nixpkgs ghc914 package
+set has neither consistent bounds nor cached builds.
+.PP
+\f[I]Type:\f[R] string
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+\(dqghc912\(dq
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqghc910\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
 .SS nixpkgs.haskellPackages
-The base Haskell package set, before the project\(cqs packages and
-overrides are layered on top.
+The base Haskell package set, before the driver adds the project\(cqs
+packages and overrides.
 .PP
 \f[I]Type:\f[R] raw value
 .PP
@@ -3637,6 +4334,12 @@ config.nixpkgs.pkgs.haskell.packages.${config.nixpkgs.compiler.name}
 .PP
 A compiler package replaces that set\(cqs \f[CR]ghc\f[R] instead,
 preferring the set of its own major.minor.patch version.
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+pkgs.haskell.packages.ghc912
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/nixpkgs
@@ -3657,10 +4360,78 @@ nixpkgs\-specific project options.
 .UR file://%3Cnix-haskell%3E/modules/nixpkgs
 /modules/nixpkgs
 .UE \c
+.SS nixpkgs.options.package\-arguments
+mkDerivation arguments set per package, applied with
+\f[CR]overrideCabal\f[R] after every tweak the driver generates and
+before \f[CR]overrides\f[R].
+An entry replaces the argument\(cqs value whole.
+This covers arguments and phase hooks the \f[CR]packages\f[R] fields do
+not name.
+The haskell.nix counterpart is a module in
+\f[CR]haskell\-nix.overrides\f[R].
+.PP
+\f[I]Type:\f[R] attribute set of attribute set of raw value
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{ reflex\-todomvc.postInstall = \(dqcp \-r static $out\(dq; }
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
+.SS nixpkgs.options.package\-steps
+\f[B]A function, not a setting.\f[R] A project calls it and uses the
+result.
+Assign it only to replace what the call does.
+.PP
+The \f[CR]drv \-> drv\f[R] steps that apply a package\(cqs
+\f[CR]packages\f[R] entry, in order.
+The call carries:
+.IP \(bu 2
+\f[CR]name\f[R], the package name
+.IP \(bu 2
+\f[CR]tweaks\f[R], the platform\-merged \f[CR]packages\f[R] entry
+.IP \(bu 2
+\f[CR]generated\f[R], true when cabal2nix generated the expression and
+already applied its cabal flags
+.IP \(bu 2
+\f[CR]compose\f[R], the set\(cqs \f[CR]haskell.lib.compose\f[R]
+.PP
+Replace it to add a step, reorder the steps, or apply a field the
+shipped steps do not know.
+.PP
+\f[I]Type:\f[R] function that evaluates to a(n) list of raw value
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+<nix\-haskell>/libs/nixpkgs/package\-steps.nix
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+args: import \(dq${nix\-haskell\-libs}/nixpkgs/package\-steps.nix\(dq { inherit lib; } args
+  ++ [ args.compose.disableLibraryProfiling ]
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
 .SS nixpkgs.options.packages
 Explicit map of the project\(cqs local packages, keyed by cabal package
 name.
-Overrides discovery entirely.
+The map replaces discovery.
 .PP
 \f[I]Type:\f[R] null or (attribute set of (submodule))
 .PP
@@ -3698,14 +4469,93 @@ Directory of the package within the project source.
 .UR file://%3Cnix-haskell%3E/modules/nixpkgs
 /modules/nixpkgs
 .UE \c
+.SS nixpkgs.options.cabal2nix\-options
+\f[B]A function, not a setting.\f[R] A project calls it and uses the
+result.
+Assign it only to replace what the call does.
+.PP
+Builds the option string \f[CR]callCabal2nixWithOptions\f[R] generates a
+package expression with.
+The call carries:
+.IP \(bu 2
+\f[CR]name\f[R], the package name
+.IP \(bu 2
+\f[CR]external\f[R], true for a package rooted outside the project
+.IP \(bu 2
+\f[CR]tweaks\f[R], the platform\-merged \f[CR]packages\f[R] entry,
+\f[CR]{}\f[R] when there is none
+.IP \(bu 2
+\f[CR]extra\-package\-defaults\f[R]
+.PP
+The default emits \f[CR]\-\-flag\f[R], \f[CR]\-\-no\-check\f[R] and
+\f[CR]\-\-no\-haddock\f[R].
+Replace it to add a flag nothing else emits, such as
+\f[CR]\-\-jailbreak\f[R], \f[CR]\-\-benchmark\f[R] or
+\f[CR]\-\-hpack\f[R].
+.PP
+\f[I]Type:\f[R] function that evaluates to a(n) string
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+<nix\-haskell>/libs/nixpkgs/cabal2nix\-options.nix
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+args: \(dq\-\-jailbreak \(dq + import \(dq${nix\-haskell\-libs}/nixpkgs/cabal2nix\-options.nix\(dq { inherit lib; } args
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
+.SS nixpkgs.options.cross\-ghc\-env
+\f[B]A function, not a setting.\f[R] A project calls it and uses the
+result.
+Assign it only to replace what the call does.
+.PP
+Wraps a cross compiler with the given packages in its package database,
+the cross counterpart of \f[CR]shellFor\f[R]\(cqs native environment.
+The call carries:
+.IP \(bu 2
+\f[CR]ghc\f[R], the cross compiler
+.IP \(bu 2
+\f[CR]packages\f[R], the packages to register
+.IP \(bu 2
+\f[CR]pkgs\f[R], what the wrapper is built with
+.PP
+The default does not use \f[CR]ghcWithPackages\f[R].
+That function aims the compiler at a library directory named after the
+version, so it cannot wrap a relocatable bindist.
+.PP
+\f[I]Type:\f[R] function that evaluates to a(n) package
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+<nix\-haskell>/libs/nixpkgs/cross\-ghc\-env.nix
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{ ghc, packages, pkgs }: ghc
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
 .SS nixpkgs.options.cross\-package\-defaults
 Defaults applied to every package of a cross set the driver builds
-itself (\f[CR]nixpkgs.pkgsCross\f[R]), the set a compiler bringing its
-own toolchain needs.
-They sit under the project\(cqs own \f[CR]packages.<name>\f[R] settings,
-which the driver layers on after.
-Tests and benchmarks are not among the fields: a cross set has no way to
-run what it builds, so they are always off there.
+itself (\f[CR]nixpkgs.pkgsCross\f[R]), the set a compiler needs when it
+brings its own toolchain.
+The project\(cqs own \f[CR]packages.<name>\f[R] settings take priority,
+since the driver applies them after.
+There is no field for tests or benchmarks.
+A cross set cannot run what it builds, so both stay off.
 .PP
 \f[I]Type:\f[R] submodule
 .PP
@@ -3765,6 +4615,95 @@ false
 .UR file://%3Cnix-haskell%3E/modules/nixpkgs
 /modules/nixpkgs
 .UE \c
+.SS nixpkgs.options.discover\-packages
+\f[B]A function, not a setting.\f[R] A project calls it and uses the
+result.
+Assign it only to replace what the call does.
+.PP
+Finds the project\(cqs local packages.
+The result is \f[CR]{ <name> = { subdir; src; }; }\f[R].
+The call carries:
+.IP \(bu 2
+\f[CR]src\f[R], the cleaned project source
+.IP \(bu 2
+\f[CR]explicit\f[R], the \f[CR]packages\f[R] option\(cqs map,
+\f[CR]null\f[R] when unset
+.PP
+The default takes, in order:
+.IP "1." 3
+\f[CR]explicit\f[R], resolved against \f[CR]src\f[R]
+.IP "2." 3
+the one package at the root of \f[CR]src\f[R]
+.PP
+It throws when there is neither.
+Replace it for a layout the default cannot find, such as globs or a
+multi\-package tree with no explicit map.
+.PP
+\f[I]Type:\f[R] function that evaluates to a(n) attribute set of
+(attribute set)
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+<nix\-haskell>/libs/nixpkgs/project\-file.nix: discover
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{ src, explicit }: {
+  frontend = { subdir = \(dqfrontend\(dq; src = src + \(dq/frontend\(dq; };
+  backend = { subdir = \(dqbackend\(dq; src = src + \(dq/backend\(dq; };
+}
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
+.SS nixpkgs.options.evaluate\-condition
+\f[B]A function, not a setting.\f[R] A project calls it and uses the
+result.
+Assign it only to replace what the call does.
+.PP
+Evaluates the \f[CR]condition\f[R] of a
+\f[CR]source\-repository\-packages\f[R] entry against the target
+platform.
+The call carries:
+.IP \(bu 2
+\f[CR]condition\f[R], the condition string
+.IP \(bu 2
+\f[CR]hostMap\f[R], haskell.nix\(cqs map for the platform, holding its
+cabal \f[CR]os\f[R] and \f[CR]arch\f[R] names
+.PP
+The default handles \f[CR]os(..)\f[R], \f[CR]arch(..)\f[R],
+\f[CR]!\f[R], \f[CR]&&\f[R], \f[CR]||\f[R] and parentheses.
+It assumes \f[CR]impl(..)\f[R] and \f[CR]flag(..)\f[R] hold, with a
+warning.
+Replace it to answer \f[CR]impl(..)\f[R] from
+\f[CR]compiler\-version\f[R].
+.PP
+\f[I]Type:\f[R] function that evaluates to a(n) boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+<nix\-haskell>/libs/nixpkgs/condition.nix
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{ condition, hostMap }:
+  if condition == \(dqimpl(ghc >= 9.6)\(dq
+  then lib.versionAtLeast config.nixpkgs.compiler\-version \(dq9.6\(dq
+  else import \(dq${nix\-haskell\-libs}/nixpkgs/condition.nix\(dq { inherit lib hostMap; } condition
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
 .SS nixpkgs.options.exact\-configuration
 Tell Cabal every direct dependency, by the id its package database
 records, and every flag the package declares.
@@ -3780,15 +4719,15 @@ That is why \f[CR]allow\-newer\f[R] in a cabal.project takes effect in
 that driver and not in this one.
 .PP
 A flag the project states in \f[CR]packages.<name>.flags\f[R] still
-decides.
+wins.
 The generated assignments go first, and Cabal takes the last assignment
 of a flag.
 .PP
 The default follows \f[CR]use\-plan\f[R] unless the project sets this
 option.
-A plan read from a cabal.project brings in the packages that the
-file\(cqs \f[CR]allow\-newer\f[R] was written for, and this driver has
-no other way past their bounds.
+A plan read from a cabal.project brings in the packages that file\(cqs
+\f[CR]allow\-newer\f[R] was written for.
+This driver has no other way past their bounds.
 Set the option explicitly to break the link, in either direction.
 .PP
 \f[I]Type:\f[R] boolean
@@ -3799,10 +4738,47 @@ Set the option explicitly to break the link, in either direction.
 .UR file://%3Cnix-haskell%3E/modules/nixpkgs
 /modules/nixpkgs
 .UE \c
+.SS nixpkgs.options.exact\-configuration\-hook
+\f[B]A function, not a setting.\f[R] A project calls it and uses the
+result.
+Assign it only to replace what the call does.
+.PP
+The shell text \f[CR]exact\-configuration\f[R] appends to each
+package\(cqs \f[CR]preConfigure\f[R].
+The text assembles the exact \f[CR]\-\-dependency\f[R] list from the
+compiler\(cqs package databases, so cabal resolves against installed
+packages instead of version bounds.
+The call carries \f[CR]ghc\f[R], the executable name the script reads
+the databases with.
+The hook runs only while \f[CR]exact\-configuration\f[R] is on.
+.PP
+\f[I]Type:\f[R] function that evaluates to a(n) strings concatenated
+with \(lq\(rsn\(rq
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+<nix\-haskell>/libs/nixpkgs/exact\-configuration.nix
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+args: import \(dq${nix\-haskell\-libs}/nixpkgs/exact\-configuration.nix\(dq args + \(dqecho exact configuration written\(rsn\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
 .SS nixpkgs.options.extra\-package\-defaults
-Defaults applied to packages rooted outside the project source
-(source\-repository\-packages, hackage\-overlays).
-Without a solver their version bounds routinely need loosening.
+Defaults applied to packages rooted outside the project source:
+.IP \(bu 2
+a \f[CR]source\-repository\-packages\f[R] entry
+.IP \(bu 2
+a \f[CR]hackage\-overlays\f[R] entry
+.PP
+This driver has no solver, so their version bounds usually need lifting.
 .PP
 \f[I]Type:\f[R] submodule
 .PP
@@ -3861,10 +4837,92 @@ true
 .UR file://%3Cnix-haskell%3E/modules/nixpkgs
 /modules/nixpkgs
 .UE \c
+.SS nixpkgs.options.fetch\-stanza\-source
+\f[B]A function, not a setting.\f[R] A project calls it and uses the
+result.
+Assign it only to replace what the call does.
+.PP
+Fetches the source a cabal.project
+\f[CR]source\-repository\-package\f[R] stanza names.
+The call carries:
+.IP \(bu 2
+\f[CR]stanza\f[R], the parsed stanza, with its \f[CR]url\f[R],
+\f[CR]ref\f[R] or \f[CR]rev\f[R], \f[CR]sha256\f[R] and
+\f[CR]subdirs\f[R]
+.IP \(bu 2
+\f[CR]inputMap\f[R]
+.IP \(bu 2
+\f[CR]pkgs\f[R]
+.PP
+The default takes, in order:
+.IP "1." 3
+\f[CR]inputMap.\(dq<url>/<rev>\(dq\f[R] (rev falls back to the ref)
+.IP "2." 3
+\f[CR]inputMap.<url>\f[R]
+.IP "3." 3
+\f[CR]pkgs.fetchgit\f[R], when the stanza carries a sha256
+.IP "4." 3
+\f[CR]builtins.fetchGit\f[R]
+.PP
+Replace it to fetch through another tool or a mirror.
+.PP
+\f[I]Type:\f[R] function that evaluates to a(n) raw value
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+<nix\-haskell>/libs/nixpkgs/fetch\-stanza\-source.nix
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{ stanza, inputMap, pkgs }:
+  inputMap.${stanza.url} or (throw \(dqunpinned source\-repository\-package: ${stanza.url}\(dq)
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
+.SS nixpkgs.options.haskell\-packages\-for
+\f[B]A function, not a setting.\f[R] A project calls it and uses the
+result.
+Assign it only to replace what the call does.
+.PP
+The base Haskell package set for one platform, before the driver adds
+the project\(cqs packages and overrides.
+The call carries:
+.IP \(bu 2
+\f[CR]pkgs\f[R], that platform\(cqs package set
+.IP \(bu 2
+\f[CR]compiler\f[R], its resolved compiler entry
+.PP
+\f[CR]haskellPackages\f[R] replaces the native set only.
+This function also builds the set of every cross platform.
+.PP
+\f[I]Type:\f[R] function that evaluates to a(n) raw value
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+<nix\-haskell>/libs/nixpkgs/haskell\-packages.nix
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{ pkgs, compiler }: pkgs.haskell.packages.${compiler.stockName}
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
 .SS nixpkgs.options.overrides
 Overlays over the Haskell package set (\f[CR]self: super: { ... }\f[R]),
 applied after everything the driver generates.
-The escape hatch for anything the common options do not cover.
+Use it for anything the common options do not cover.
 .PP
 \f[I]Type:\f[R] list of raw value
 .PP
@@ -3884,6 +4942,145 @@ The escape hatch for anything the common options do not cover.
 .UR file://%3Cnix-haskell%3E/modules/nixpkgs
 /modules/nixpkgs
 .UE \c
+.SS nixpkgs.options.project\-overlays
+\f[B]A function, not a setting.\f[R] A project calls it and uses the
+result.
+Assign it only to replace what the call does.
+.PP
+The overlays that extend the package set.
+The call\(cqs \f[CR]overlays\f[R] field carries every generated overlay,
+with \f[CR]overrides\f[R] last.
+Replace it to prepend, reorder, drop or wrap them.
+.PP
+\f[I]Type:\f[R] function that evaluates to a(n) list of raw value
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ overlays }: overlays
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{ overlays }: [ (self: super: { chrome\-test\-utils = null; }) ] ++ overlays
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
+.SS nixpkgs.options.project\-text
+\f[B]A function, not a setting.\f[R] A project calls it and uses the
+result.
+Assign it only to replace what the call does.
+.PP
+Assembles the project text the driver reads
+\f[CR]source\-repository\-package\f[R] stanzas from.
+The call carries:
+.IP \(bu 2
+\f[CR]projectFile\f[R], the project file\(cqs text, \f[CR]null\f[R] when
+there is none
+.IP \(bu 2
+\f[CR]cabalProject\f[R]
+.IP \(bu 2
+\f[CR]cabalProjectLocal\f[R]
+.IP \(bu 2
+\f[CR]extraCabalProject\f[R]
+.PP
+In the default \f[CR]cabalProject\f[R] replaces the file text, and
+\f[CR]cabalProjectLocal\f[R] and the \f[CR]extraCabalProject\f[R] lines
+follow it.
+.PP
+\f[I]Type:\f[R] function that evaluates to a(n) string
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+<nix\-haskell>/libs/nixpkgs/project\-text.nix
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{ projectFile, extraCabalProject, ... }:
+  lib.concatStringsSep \(dq\(rsn\(dq (lib.optional (projectFile != null) projectFile ++ extraCabalProject)
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
+.SS nixpkgs.options.resolve\-shell\-tool
+\f[B]A function, not a setting.\f[R] A project calls it and uses the
+result.
+Assign it only to replace what the call does.
+.PP
+Resolves one \f[CR]shell.tools\f[R] entry to the package that provides
+it.
+The call carries:
+.IP \(bu 2
+\f[CR]name\f[R], the tool\(cqs name
+.IP \(bu 2
+\f[CR]request\f[R], the entry\(cqs value, a version request
+.IP \(bu 2
+\f[CR]tool\-packages\f[R]
+.IP \(bu 2
+\f[CR]pkgs\f[R]
+.IP \(bu 2
+\f[CR]haskellPackages\f[R], the project\(cqs extended set
+.PP
+The default ignores the request, because honoring one needs a solver.
+It takes the first source that has the name, and throws when none does.
+.PP
+\f[I]Type:\f[R] function that evaluates to a(n) package
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+<nix\-haskell>/libs/nixpkgs/resolve\-shell\-tool.nix
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{ name, haskellPackages, ... }: haskellPackages.${name}
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
+.SS nixpkgs.options.shell\-arguments
+\f[B]A function, not a setting.\f[R] A project calls it and uses the
+result.
+Assign it only to replace what the call does.
+.PP
+The arguments the shell is built from.
+That is what \f[CR]shellFor\f[R] receives, with
+\f[CR]shellFor\-args\f[R] already merged in.
+Replace it to edit a field in place.
+The same field set through \f[CR]shellFor\-args\f[R] replaces the whole
+field.
+.PP
+\f[I]Type:\f[R] function that evaluates to a(n) (attribute set)
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ args }: args
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{ args }: args // { nativeBuildInputs = args.nativeBuildInputs ++ [ pkgs.sqlite ]; }
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
 .SS nixpkgs.options.shellFor\-args
 Extra arguments passed to \f[CR]shellFor\f[R] verbatim
 (\f[CR]extraDependencies\f[R], \f[CR]doBenchmark\f[R], \&...).
@@ -3896,15 +5093,29 @@ Extra arguments passed to \f[CR]shellFor\f[R] verbatim
 { }
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{
+  doBenchmark = true;
+}
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/nixpkgs
 /modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.tool\-packages
 Overrides for \f[CR]shell.tools\f[R] resolution, keyed by tool name.
-A tool is looked up here first, then as \f[CR]pkgs.<name>\f[R], then in
-the Haskell package set.
-Version requests are ignored, since nixpkgs carries a single version.
+The driver takes the first source that has the name:
+.IP "1." 3
+this map
+.IP "2." 3
+\f[CR]pkgs.<name>\f[R]
+.IP "3." 3
+the Haskell package set
+.PP
+It ignores version requests, since nixpkgs carries a single version.
 \f[CR]cabal\f[R] is here because the tool\(cqs name is not the name of
 the package carrying it.
 An entry of the project\(cqs own replaces it.
@@ -3932,14 +5143,14 @@ Take the project\(cqs structure (local packages, their directories,
 source\-repository\-packages) from the cabal plan of the haskell.nix
 driver instead of the root of the source.
 The plan is cabal\(cqs own reading of cabal.project, so globs,
-optional\-packages and conditionals are all exact.
+optional\-packages and conditionals are exact.
 The cost is evaluating the haskell.nix toolchain (import from
 derivation).
-The packages are still built from nixpkgs.
+The driver still builds the packages from nixpkgs.
 .PP
 This turns \f[CR]exact\-configuration\f[R] on by default.
-The bounds of the packages a plan brings in are the other half of
-reading a cabal.project on a driver with no solver.
+A plan brings in packages with version bounds this driver has no solver
+to satisfy, so reading a cabal.project needs the bound relief as well.
 .PP
 \f[I]Type:\f[R] boolean
 .PP
@@ -3964,6 +5175,12 @@ The nixpkgs package set the driver builds with.
 import config.inputs.nixpkgs { inherit (config) system; }
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+import config.inputs.nixpkgs { inherit (config) system; overlays = [ my\-overlay ]; }
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/nixpkgs
 /modules/nixpkgs
@@ -3986,10 +5203,16 @@ toolchain has to become the whole set\(cqs.
 .PP
 for every \f[CR]compiler.platforms\f[R] entry carrying a
 \f[CR]toolchain\f[R]: a package set for that platform whose whole
-toolchain is the compiler\(cqs own, built non\-static so that the
-compiler\(cqs shared libraries can be used.
+toolchain is the compiler\(cqs own, built non\-static so a build can use
+the compiler\(cqs shared libraries.
 A platform without an entry gets none, and the driver falls back to
 \f[CR]pkgs.pkgsCross.<platform>\f[R].
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{ wasi32 = my\-wasi\-pkgs; }
+.EE
 .PP
 \f[I]Declared by:\f[R] \- \c
 .UR file://%3Cnix-haskell%3E/modules/nixpkgs
@@ -4007,9 +5230,14 @@ The built project: \f[CR]packages\f[R] (the project\(cqs own packages),
 .IP
 .EX
 import <nix\-haskell>/libs/nixpkgs/driver.nix {
+  inherit lib;
   pkgs = config.nixpkgs.pkgs;
   haskellPackages = config.nixpkgs.haskellPackages;
-  inherit lib config;
+  common = config.nixpkgs;
+  options = config.nixpkgs.options;
+  haskell\-nix\-src = config.inputs.\(dqhaskell\-nix\(dq;
+  haskell\-nix = config.\(dqhaskell\-nix\(dq;
+  cross\-wrappers = config.cross\-wrappers;
 }
 .EE
 .PP
@@ -4083,6 +5311,36 @@ false
 .UR file://%3Cnix-haskell%3E/modules/optimizations.nix
 /modules/optimizations.nix
 .UE \c
+.SS optimizations.extra
+Extra GHC flags by literal spelling:
+.IP \(bu 2
+a true value emits its key after the named rows, and GHC takes the last
+flag given
+.IP \(bu 2
+a false value emits nothing
+.PP
+Entries are independent of \f[CR]all\f[R].
+.PP
+\f[I]Type:\f[R] attribute set of boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{
+  \(dq\-fllvm\(dq = true;
+}
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/optimizations.nix
+/modules/optimizations.nix
+.UE \c
 .SS optimizations.late\-specialise
 Enable \-flate\-specialise: run one more specialisation pass late in the
 pipeline.
@@ -4141,9 +5399,13 @@ name (the keys of \f[CR]shell.crossPlatforms\f[R] and
 .PP
 A cabal file or project file can make a package\(cqs flags, and through
 them its dependencies, conditional on the platform.
-The haskell.nix driver follows those conditionals through its solver.
-The nixpkgs driver has no solver, so state here what the conditionals
-would have decided.
+Each driver handles that differently:
+.IP \(bu 2
+haskell.nix follows those conditionals through its solver
+.IP \(bu 2
+nixpkgs has no solver, so state here what the conditionals would have
+decided
+.PP
 The flags reach the point where a package\(cqs dependencies are
 computed, not only its configuration.
 .PP
@@ -4171,8 +5433,8 @@ of it.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages
 Per\-package customization for this platform only, merged over the
@@ -4199,8 +5461,8 @@ built for this target, in the form that ships.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.enableDeadCodeElimination
 Whether to eliminate unused code at link time.
@@ -4215,8 +5477,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.enableLibraryForGhci
 Whether to build a pre\-linked object of the library for loading into
@@ -4232,8 +5494,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.enableLibraryProfiling
 Whether to build the package\(cqs library with profiling support.
@@ -4248,8 +5510,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.enableProfiling
 Whether to build the whole package with profiling support.
@@ -4264,8 +5526,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.enableSeparateDataOutput
 Whether to install the package\(cqs data files into a separate output.
@@ -4280,8 +5542,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.enableShared
 Whether to build a shared library.
@@ -4296,8 +5558,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.enableStatic
 Whether to build a static library.
@@ -4312,8 +5574,37 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
+.UE \c
+.SS platforms.<name>.packages.<name>.bundle\-optimizers
+Settings layers for optimizer tools a project registered through an
+imported cross\-target module: tool name, then field, then value.
+The bundled tools use their typed \f[CR]wasm\-opt\f[R] and
+\f[CR]closure\-compiler\f[R] options beside this instead.
+A field absent here states nothing.
+.PP
+\f[I]Type:\f[R] attribute set of attribute set of raw value
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{
+  probe\-opt = {
+    level = 2;
+  };
+}
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.bundles
 What this package\(cqs executables are shipped as for this target, keyed
@@ -4326,14 +5617,15 @@ The whole set can be read at once, without naming each executable again.
 \f[CR]components.exes\f[R]
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.bundles.<name>.jsffi
 The \f[CR]ghc_wasm_jsffi.js\f[R] without which this target\(cqs binary
 cannot be instantiated.
-It is read out of the binary as linked, not out of \f[CR]optimized\f[R]:
-the optimizer strips the sections the read needs.
+\f[CR]wasm\-jsffi\f[R] reads it out of the binary as linked, not out of
+\f[CR]optimized\f[R], because the optimizer strips the sections the read
+needs.
 \f[CR]null\f[R] for every target that is not wasm.
 .PP
 \f[I]Type:\f[R] null or package
@@ -4342,14 +5634,18 @@ the optimizer strips the sections the read needs.
 built, with the compiler it was built with
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.bundles.<name>.optimized
-What gets shipped: the executable a driver built for this target, sent
-through that target\(cqs optimizer.
-\f[CR]null\f[R] for a target that has no optimizer, and \f[CR]null\f[R]
-when read anywhere but through a driver.
+The executable a driver built for this target, sent through that
+target\(cqs optimizer.
+This is what a project ships.
+It is \f[CR]null\f[R]:
+.IP \(bu 2
+for a target that has no optimizer
+.IP \(bu 2
+when read anywhere but through a driver
 .PP
 \f[I]Type:\f[R] null or package
 .PP
@@ -4357,8 +5653,8 @@ when read anywhere but through a driver.
 through \f[CR]wasm\-optimize\f[R] or \f[CR]js\-optimize\f[R]
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.closure\-compiler.enable
 Whether \f[CR]js\-optimize\f[R] runs closure\-compiler.
@@ -4376,8 +5672,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.closure\-compiler.externs
 Files passed as \f[CR]\-\-externs\f[R].
@@ -4398,9 +5694,15 @@ it, and last to the tool\(cqs own settings at the top level.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[ ./externs.js ]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.closure\-compiler.extraFlags
 Flags appended after the level and the externs, so one of these
@@ -4424,9 +5726,17 @@ it, and last to the tool\(cqs own settings at the top level.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[
+  \(dq\-\-formatting PRETTY_PRINT\(dq
+]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.closure\-compiler.level
 The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
@@ -4450,8 +5760,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.components
 Per\-component customization, grouped by the component kind cabal uses.
@@ -4466,18 +5776,19 @@ Only executables carry anything so far.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 \ \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.components.exes
 Bundle optimizer settings for one executable of the package, keyed by
 the name cabal gives it.
 They sit under an executable rather than the package, because a bundle
-belongs to one linked executable and a package can carry several.
+belongs to one linked executable.
+A package can carry several.
 .PP
 Naming an executable here also tells the haskell.nix driver to install
 that executable\(cqs \f[CR].jsexe\f[R] directory, which it otherwise
@@ -4492,18 +5803,48 @@ leaves in the build tree.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 \ \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
+.UE \c
+.SS platforms.<name>.packages.<name>.components.exes.<name>.bundle\-optimizers
+Settings layers for optimizer tools a project registered through an
+imported cross\-target module: tool name, then field, then value.
+The bundled tools use their typed \f[CR]wasm\-opt\f[R] and
+\f[CR]closure\-compiler\f[R] options beside this instead.
+A field absent here states nothing.
+.PP
+\f[I]Type:\f[R] attribute set of attribute set of raw value
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{
+  probe\-opt = {
+    level = 2;
+  };
+}
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.components.exes.<name>.bundles.jsffi
 The \f[CR]ghc_wasm_jsffi.js\f[R] without which this target\(cqs binary
 cannot be instantiated.
-It is read out of the binary as linked, not out of \f[CR]optimized\f[R]:
-the optimizer strips the sections the read needs.
+\f[CR]wasm\-jsffi\f[R] reads it out of the binary as linked, not out of
+\f[CR]optimized\f[R], because the optimizer strips the sections the read
+needs.
 \f[CR]null\f[R] for every target that is not wasm.
 .PP
 \f[I]Type:\f[R] null or package
@@ -4512,14 +5853,18 @@ the optimizer strips the sections the read needs.
 built, with the compiler it was built with
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.components.exes.<name>.bundles.optimized
-What gets shipped: the executable a driver built for this target, sent
-through that target\(cqs optimizer.
-\f[CR]null\f[R] for a target that has no optimizer, and \f[CR]null\f[R]
-when read anywhere but through a driver.
+The executable a driver built for this target, sent through that
+target\(cqs optimizer.
+This is what a project ships.
+It is \f[CR]null\f[R]:
+.IP \(bu 2
+for a target that has no optimizer
+.IP \(bu 2
+when read anywhere but through a driver
 .PP
 \f[I]Type:\f[R] null or package
 .PP
@@ -4527,8 +5872,8 @@ when read anywhere but through a driver.
 through \f[CR]wasm\-optimize\f[R] or \f[CR]js\-optimize\f[R]
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.components.exes.<name>.closure\-compiler.enable
 Whether \f[CR]js\-optimize\f[R] runs closure\-compiler.
@@ -4546,8 +5891,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.components.exes.<name>.closure\-compiler.externs
 Files passed as \f[CR]\-\-externs\f[R].
@@ -4568,9 +5913,15 @@ it, and last to the tool\(cqs own settings at the top level.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[ ./externs.js ]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.components.exes.<name>.closure\-compiler.extraFlags
 Flags appended after the level and the externs, so one of these
@@ -4594,9 +5945,17 @@ it, and last to the tool\(cqs own settings at the top level.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[
+  \(dq\-\-formatting PRETTY_PRINT\(dq
+]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.components.exes.<name>.closure\-compiler.level
 The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
@@ -4620,8 +5979,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.components.exes.<name>.wasm\-opt.enable
 Whether \f[CR]wasm\-optimize\f[R] runs wasm\-opt and the strip that
@@ -4641,8 +6000,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.components.exes.<name>.wasm\-opt.extraFlags
 Flags appended after \f[CR]\-all \-O<level>\f[R], so one of these
@@ -4666,9 +6025,17 @@ it, and last to the tool\(cqs own settings at the top level.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[
+  \(dq\-\-enable\-bulk\-memory\(dq
+]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.components.exes.<name>.wasm\-opt.level
 The \f[CR]\-O\f[R] level wasm\-opt runs at.
@@ -4692,8 +6059,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.configureFlags
 Extra flags passed to \f[CR]Setup configure\f[R].
@@ -4706,9 +6073,17 @@ Extra flags passed to \f[CR]Setup configure\f[R].
 [ ]
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[
+  \(dq\-v\(dq
+]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.doCheck
 Whether to run the package\(cqs test suites.
@@ -4723,8 +6098,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.doCoverage
 Whether to generate a coverage report for the package.
@@ -4739,8 +6114,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.doHaddock
 Whether to build the package\(cqs documentation.
@@ -4755,8 +6130,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.doHoogle
 Whether to generate a hoogle index for the package\(cqs documentation.
@@ -4771,8 +6146,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.doHyperlinkSource
 Whether to generate hyperlinked source code alongside the package\(cqs
@@ -4788,8 +6163,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.doQuickjump
 Whether to generate the quickjump index of the package\(cqs
@@ -4805,8 +6180,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.dontStrip
 Whether to leave the produced binaries unstripped.
@@ -4821,8 +6196,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.flags
 Cabal flag assignments for the package (\f[CR]true\f[R] enables,
@@ -4836,9 +6211,18 @@ Cabal flag assignments for the package (\f[CR]true\f[R] enables,
 { }
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{
+  use\-warp = true;
+  webkit2gtk = false;
+}
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.ghcOptions
 GHC flags for this package only.
@@ -4851,9 +6235,18 @@ GHC flags for this package only.
 [ ]
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[
+  \(dq\-Wall\(dq
+  \(dq\-Werror\(dq
+]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.hardeningDisable
 Hardening flags to disable when building the package.
@@ -4876,8 +6269,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.patches
 Patches applied to the package source.
@@ -4890,9 +6283,15 @@ Patches applied to the package source.
 [ ]
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[ ./splitmix.patch ]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.postBuild
 Shell code run after the build phase.
@@ -4906,9 +6305,15 @@ Shell code run after the build phase.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqexport HOME=$TMPDIR\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.postCheck
 Shell code run after the check phase.
@@ -4922,9 +6327,15 @@ Shell code run after the check phase.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqexport HOME=$TMPDIR\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.postConfigure
 Shell code run after the configure phase.
@@ -4938,9 +6349,15 @@ Shell code run after the configure phase.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqexport HOME=$TMPDIR\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.postHaddock
 Shell code run after the haddock phase.
@@ -4954,9 +6371,15 @@ Shell code run after the haddock phase.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqexport HOME=$TMPDIR\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.postInstall
 Shell code run after the install phase.
@@ -4970,9 +6393,15 @@ Shell code run after the install phase.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqexport HOME=$TMPDIR\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.postPatch
 Shell code run after the patch phase.
@@ -4986,9 +6415,15 @@ Shell code run after the patch phase.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqexport HOME=$TMPDIR\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.postUnpack
 Shell code run after the unpack phase.
@@ -5002,9 +6437,15 @@ Shell code run after the unpack phase.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqexport HOME=$TMPDIR\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.preBuild
 Shell code run before the build phase.
@@ -5018,9 +6459,15 @@ Shell code run before the build phase.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqexport HOME=$TMPDIR\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.preCheck
 Shell code run before the check phase.
@@ -5034,9 +6481,15 @@ Shell code run before the check phase.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqexport HOME=$TMPDIR\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.preConfigure
 Shell code run before the configure phase.
@@ -5050,9 +6503,15 @@ Shell code run before the configure phase.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqexport HOME=$TMPDIR\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.preHaddock
 Shell code run before the haddock phase.
@@ -5066,9 +6525,15 @@ Shell code run before the haddock phase.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqexport HOME=$TMPDIR\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.preInstall
 Shell code run before the install phase.
@@ -5082,9 +6547,15 @@ Shell code run before the install phase.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqexport HOME=$TMPDIR\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.prePatch
 Shell code run before the patch phase.
@@ -5098,9 +6569,15 @@ Shell code run before the patch phase.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqexport HOME=$TMPDIR\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.preUnpack
 Shell code run before the unpack phase.
@@ -5114,9 +6591,15 @@ Shell code run before the unpack phase.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqexport HOME=$TMPDIR\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.profilingDetail
 The profiling detail level.
@@ -5137,8 +6620,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.setupBuildFlags
 Extra flags passed to \f[CR]Setup build\f[R].
@@ -5151,9 +6634,17 @@ Extra flags passed to \f[CR]Setup build\f[R].
 [ ]
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[
+  \(dq\-v\(dq
+]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.setupHaddockFlags
 Extra flags passed to \f[CR]Setup haddock\f[R].
@@ -5166,9 +6657,17 @@ Extra flags passed to \f[CR]Setup haddock\f[R].
 [ ]
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[
+  \(dq\-v\(dq
+]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.src
 Replacement source for the package.
@@ -5181,9 +6680,15 @@ Replacement source for the package.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\&./vendored/my\-dep
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.wasm\-opt.enable
 Whether \f[CR]wasm\-optimize\f[R] runs wasm\-opt and the strip that
@@ -5203,8 +6708,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.wasm\-opt.extraFlags
 Flags appended after \f[CR]\-all \-O<level>\f[R], so one of these
@@ -5228,9 +6733,17 @@ it, and last to the tool\(cqs own settings at the top level.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[
+  \(dq\-\-enable\-bulk\-memory\(dq
+]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.wasm\-opt.level
 The \f[CR]\-O\f[R] level wasm\-opt runs at.
@@ -5254,8 +6767,37 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
+.UE \c
+.SS platforms.<name>.bundle\-optimizers
+Settings layers for optimizer tools a project registered through an
+imported cross\-target module: tool name, then field, then value.
+The bundled tools use their typed \f[CR]wasm\-opt\f[R] and
+\f[CR]closure\-compiler\f[R] options beside this instead.
+A field absent here states nothing.
+.PP
+\f[I]Type:\f[R] attribute set of attribute set of raw value
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+{
+  probe\-opt = {
+    level = 2;
+  };
+}
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.closure\-compiler.enable
 Whether \f[CR]js\-optimize\f[R] runs closure\-compiler.
@@ -5273,8 +6815,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.closure\-compiler.externs
 Files passed as \f[CR]\-\-externs\f[R].
@@ -5295,9 +6837,15 @@ it, and last to the tool\(cqs own settings at the top level.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[ ./externs.js ]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.closure\-compiler.extraFlags
 Flags appended after the level and the externs, so one of these
@@ -5321,9 +6869,17 @@ it, and last to the tool\(cqs own settings at the top level.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[
+  \(dq\-\-formatting PRETTY_PRINT\(dq
+]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.closure\-compiler.level
 The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
@@ -5347,8 +6903,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.wasm\-opt.enable
 Whether \f[CR]wasm\-optimize\f[R] runs wasm\-opt and the strip that
@@ -5368,8 +6924,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.wasm\-opt.extraFlags
 Flags appended after \f[CR]\-all \-O<level>\f[R], so one of these
@@ -5393,9 +6949,17 @@ it, and last to the tool\(cqs own settings at the top level.
 null
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[
+  \(dq\-\-enable\-bulk\-memory\(dq
+]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS platforms.<name>.wasm\-opt.level
 The \f[CR]\-O\f[R] level wasm\-opt runs at.
@@ -5419,8 +6983,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS sha256map
 Hashes for the sources that \f[CR]source\-repository\-package\f[R]
@@ -5428,9 +6992,12 @@ stanzas in the cabal.project name.
 An alternative to \f[CR]\-\-sha256\f[R] comments in that file.
 .PP
 Keys are stanza \f[CR]location\f[R] URLs.
-Each value is an attribute set from the stanza\(cqs \f[CR]tag\f[R] to
-the sha256 of the source.
-For a \f[CR]repository\f[R] block, the value is the hash string itself.
+The value depends on the block:
+.IP \(bu 2
+for a \f[CR]source\-repository\-package\f[R], an attribute set from the
+stanza\(cqs \f[CR]tag\f[R] to the sha256 of the source
+.IP \(bu 2
+for a \f[CR]repository\f[R] block, the hash string itself
 .PP
 \f[I]Type:\f[R] null or (attribute set of (string or attribute set of
 string))
@@ -5452,11 +7019,11 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS shell
-Development shell configuration.
+The development shell.
 .PP
 \f[I]Type:\f[R] submodule
 .PP
@@ -5467,8 +7034,8 @@ Development shell configuration.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS shell.packages
 Package selection function.
@@ -5481,8 +7048,8 @@ Use a name for a package whose availability depends on the platform.
 .PP
 \f[I]Type:\f[R] null or unspecified value
 .PP
-\f[I]Default:\f[R] \f[CR]null\f[R] (all local packages that are not
-\f[CR]source\-repository\-packages\f[R] are selected)
+\f[I]Default:\f[R] \f[CR]null\f[R] (selects every local package that is
+not a \f[CR]source\-repository\-packages\f[R] entry)
 .PP
 \f[I]Example:\f[R]
 .IP
@@ -5495,8 +7062,8 @@ ps: with ps; [
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS shell.buildInputs
 Extra packages available in the shell.
@@ -5509,12 +7076,18 @@ Extra packages available in the shell.
 [ ]
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[ pkgs.sqlite ]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS shell.crossPlatforms
-Selects the cross\-compilation targets, from an attribute set keyed by
+Selects the cross\-compilation targets from an attribute set keyed by
 \f[CR]pkgs.pkgsCross\f[R] platform names.
 .PP
 \f[I]Type:\f[R] unspecified value
@@ -5532,8 +7105,8 @@ ps: with ps; [ ghcjs wasi32 ]
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS shell.nativeBuildInputs
 Extra native packages available in the shell.
@@ -5546,9 +7119,15 @@ Extra native packages available in the shell.
 [ ]
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[ pkgs.pkg\-config ]
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS shell.shellHook
 Shell hook to run when entering the shell.
@@ -5561,14 +7140,25 @@ Shell hook to run when entering the shell.
 \(dq\(dq
 .EE
 .PP
+\f[I]Example:\f[R]
+.IP
+.EX
+\(dqexport MY_APP_PORT=8000\(dq
+.EE
+.PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS shell.tools
 Haskell tools available in the shell, keyed by executable name.
-The value is a version request such as \f[CR]\(dqlatest\(dq\f[R], a
-version string, or a tool argument set.
+The value is one of:
+.IP \(bu 2
+a version request such as \f[CR]\(dqlatest\(dq\f[R]
+.IP \(bu 2
+a version string
+.IP \(bu 2
+a tool argument set
 .PP
 \f[I]Type:\f[R] attribute set of raw value
 .PP
@@ -5585,8 +7175,8 @@ version string, or a tool argument set.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS shell.withHoogle
 Provide a hoogle database over the shell\(cqs package set.
@@ -5600,8 +7190,8 @@ false
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS source\-repository\-packages
 Local packages to add to the project.
@@ -5637,14 +7227,16 @@ multi\-package repository needs one entry rather than one per package.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS src
 The project source: the tree holding the cabal project file and the
 packages it names.
+.IP \(bu 2
 A path is copied into the store, filtered first when
 \f[CR]clean\-src\f[R] is enabled.
+.IP \(bu 2
 A derivation or a store path is used as it is, because whatever produced
 it already chose what it contains.
 .PP
@@ -5657,20 +7249,20 @@ it already chose what it contains.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS src\-cleaned
 \f[CR]src\f[R] with build artifacts filtered out, or \f[CR]src\f[R]
 itself when \f[CR]clean\-src\f[R] is disabled.
-The project is built from this.
+The drivers build the project from this.
 .PP
 \f[I]Type:\f[R] absolute path or package \f[I](read only)\f[R]
 .PP
 \f[I]Default:\f[R]
 .IP
 .EX
-  import ../libs/clean\-source.nix { inherit pkgs; } {
+  import ../../libs/clean\-source.nix { inherit pkgs; } {
     src = config.src;
     name = config.name;
     ignoreFiles = config.clean\-src\-ignore\-files;
@@ -5679,13 +7271,13 @@ The project is built from this.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS system
 The system the project is built on.
-Each driver instantiates its package set for this system, and a cross
-target is named relative to it.
+Each driver instantiates its package set for this system, and cross
+target names are relative to it.
 .PP
 \f[I]Type:\f[R] string
 .PP
@@ -5698,8 +7290,8 @@ target is named relative to it.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common.nix
-/modules/common.nix
+.UR file://%3Cnix-haskell%3E/modules/common
+/modules/common
 .UE \c
 .SS wasm\-jsffi
 \f[B]A function, not a setting.\f[R] A project calls it and uses the
@@ -5727,7 +7319,7 @@ strips the sections it reads.
 \f[I]Default:\f[R]
 .IP
 .EX
-<nix\-haskell>/libs/wasm\-jsffi.nix
+<nix\-haskell>/libs/cross/wasm\-jsffi.nix
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
@@ -5774,6 +7366,14 @@ more.
   \(dq\-\-low\-memory\-unused\(dq
   \(dq\-\-strip\-dwarf\(dq
   \(dq\-\-converge\(dq
+]
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[
+  \(dq\-\-enable\-bulk\-memory\(dq
 ]
 .EE
 .PP
@@ -5826,7 +7426,7 @@ wasm\-optimize {
 lookup keys for the settings.
 Each can be left out, and an omitted key states nothing.
 .PP
-The \f[CR]wasm\-opt\f[R] settings are resolved per field.
+Each field of the \f[CR]wasm\-opt\f[R] settings resolves on its own.
 The most specific layer that states a field decides it, in this order:
 .IP "1." 3
 \f[CR]platforms.<platform>.packages.<package>.components.exes.<exe>.wasm\-opt\f[R]
@@ -5849,7 +7449,7 @@ This function runs on a built artifact, outside any driver.
 \f[I]Default:\f[R]
 .IP
 .EX
-<nix\-haskell>/libs/wasm\-opt/run.nix, run with the settings the named target, package and executable resolve to
+<nix\-haskell>/libs/bundle\-optimizer/wasm\-opt/run.nix, run with the settings the named target, package and executable resolve to
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c

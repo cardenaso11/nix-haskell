@@ -4,7 +4,7 @@
 #
 # Example:
 #
-#   platforms = import ./cross-platform.nix { inherit lib; };
+#   platforms = import ./platform.nix { inherit lib; };
 #   platforms.matches "wasi32" <an elaborated wasm32-wasi platform>  => true
 #   platforms.keyFor [ "ghcjs" "wasi32" ] <elaborated wasm32-wasi>   => "wasi32"
 #   platforms.keyFor [ "ghcjs" ] <elaborated wasm32-wasi>            => null
@@ -18,7 +18,7 @@ with lib;
 rec {
 
   targetFor = key:
-    let prefix = import ./message-prefix.nix {};
+    let prefix = import ../message-prefix.nix {};
         example = systems.examples.${key}
           or (throw (prefix ("\"${key}\" names neither the native system"
             + " nor a pkgsCross platform")));

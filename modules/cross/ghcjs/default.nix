@@ -7,4 +7,4 @@
 # `js-optimize` turns a linked `.jsexe` into what ships: closure-compiler
 # over its `all.js`, settled by the `closure-compiler` settings.
 
-import ../../../libs/cross-target-module.nix "ghcjs"
+import ../../../libs/cross/target-module.nix "ghcjs"

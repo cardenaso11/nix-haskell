@@ -1,21 +1,31 @@
-# The bundled cross targets, one row each. The list order is the order
-# `bundleFields` dispatches in. A row carries:
-# 1. `name`: what ./cross-target-module.nix is called with.
+# The bundled cross targets, one row each. ./target-module.nix
+# accepts a row's `name`, or a full row of this same shape from a project.
+# `bundleFields` dispatches over the registered rows in target name order,
+# and at most one row may match a target. A row carries:
+# 1. `name`: the target's registry key, what ./target-module.nix is
+#    called with.
 # 2. `flag`: the option name, which is also the `hostPlatform` and
-#    elaborated-target attribute of the same question.
+#    elaborated-target attribute of the same question. A row whose flag is
+#    not a platform attribute supplies `matches` (elaborated platform ->
+#    bool) instead. The default reads the flag attribute, false when the
+#    platform lacks it.
 # 3. `selected`: whether a `shell.crossPlatforms` selection names the
-#    target, over the selected platform names; `selectedText` documents it.
+#    target, over the selected platform names. `selectedText` documents it.
 # 4. `optimizer`/`optimize`: the settings option and the function-option
-#    that applies them; `runPath` names the run library for the manual.
+#    that applies them. `runPath` names the run library for the manual. A
+#    row for a tool ../bundle-optimizer/options.nix does not know supplies
+#    `optimizer-fields` (field name -> { type, default, description }) and
+#    its own `optimize-defaultText`.
 # 5. `artifact`/`extension`: the argument the optimize function takes and
 #    the suffix of the built file; `examplePlatform` and `lead` feed the
 #    option's description.
 # 6. `mkOptimize`: builds the optimize function from pkgs, lib and the
 #    settings resolver.
+# 7. `node ? true`: whether the target needs Node.js in the shell.
 #
 # Example:
 #
-#   (builtins.head (import ./cross-targets.nix { inherit lib; })).flag
+#   (builtins.head (import ./targets.nix { inherit lib; })).flag
 #   => "isWasm"
 { lib }:
 
@@ -34,7 +44,7 @@ with lib;
     '';
     optimizer = "wasm-opt";
     optimize = "wasm-optimize";
-    runPath = "wasm-opt/run.nix";
+    runPath = "bundle-optimizer/wasm-opt/run.nix";
     artifact = "wasm";
     extension = ".wasm";
     examplePlatform = "wasi32";
@@ -44,7 +54,7 @@ with lib;
       holding it, so the caller installs it under any name:'';
     mkOptimize = { pkgs, lib, settings }:
       { platform ? null, package ? null, exe ? null, wasm }:
-        import ./wasm-opt/run.nix { inherit pkgs lib; }
+        import ../bundle-optimizer/wasm-opt/run.nix { inherit pkgs lib; }
           ({ inherit wasm; } // settings { inherit platform package exe; });
   }
 
@@ -58,7 +68,7 @@ with lib;
     '';
     optimizer = "closure-compiler";
     optimize = "js-optimize";
-    runPath = "closure-compiler/run.nix";
+    runPath = "bundle-optimizer/closure-compiler/run.nix";
     artifact = "jsexe";
     extension = ".jsexe";
     examplePlatform = "ghcjs";
@@ -68,7 +78,7 @@ with lib;
       not the package that carries it:'';
     mkOptimize = { pkgs, lib, settings }:
       { platform ? null, package ? null, exe ? null, jsexe }:
-        import ./closure-compiler/run.nix { inherit pkgs lib; }
+        import ../bundle-optimizer/closure-compiler/run.nix { inherit pkgs lib; }
           ({ inherit jsexe; } // settings { inherit platform package exe; });
   }
 
