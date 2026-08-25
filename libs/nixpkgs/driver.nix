@@ -102,10 +102,16 @@ let compose = pkgs.haskell.lib.compose;
           #
           # The source is still looked up under the unit id: the package set
           # answers to both, but only the unit id's entry carries a `src`.
+          # A package under a subdirectory arrives as that directory rather
+          # than as the project root: nixpkgs' `cleanSourceWith`, which
+          # cabal2nix re-wraps a source in, carries `origSrc` but not
+          # `origSubDir`, and would hand cabal2nix the root.
           entry = key: pkg:
             let src = proj.pkg-set.config.packages.${key}.src;
             in lib.nameValuePair pkg.identifier.name
-                 { inherit src; external = toString (src.origSrc or src) != projectSrc; };
+                 { src = src.outPath or src;
+                   external = toString (src.origSrc or src) != projectSrc;
+                 };
 
       in lib.listToAttrs (lib.mapAttrsToList entry locals);
 
