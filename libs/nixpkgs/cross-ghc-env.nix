@@ -10,26 +10,27 @@
 #   rm: cannot remove '.../lib/wasm32-wasi-ghc-9.12.4.20260731/package.conf.d/
 #       package.cache.lock': No such file or directory
 #
-# Everything else about that design is right and is kept. In particular the
-# database stays where the compiler has it, relative to the compiler's root.
-# A bindist registers its own libraries at paths under `${pkgroot}`, the
-# parent of `package.conf.d`, and a database built anywhere else sends every
-# one of them outside the store path. Only the way the position is found
-# changes, from computing it to asking the compiler for it.
+# The packages go in a second database instead, and the compiler keeps its
+# own. A compiler aimed at another directory with `-B` no longer finds the
+# Template Haskell interpreter the wasm backend loads from there, and every
+# splice dies with `readPipe: end of file`.
+#
+# The database holds the closure of the packages given, not only the packages
+# themselves. A registration names its dependencies by unit id, and one the
+# database lacks breaks the package that names it.
 #
 # Example:
 #
 #   import ./cross-ghc-env.nix { inherit pkgs lib; } {
 #     ghc = <wasm32-wasi-ghc-9.12, libdir lib, targetPrefix "wasm32-wasi-">;
-#     packages = [ <splitmix> ];
+#     packages = [ <random> ];
 #   }
 #   => <derivation wasm32-wasi-ghc-with-packages> holding
 #
-#        bin/wasm32-wasi-ghc      # -B <out>/lib
-#        bin/wasm32-wasi-ghc-pkg  # --global-package-db=<out>/lib/package.conf.d
-#        lib/                     # the compiler's, linked entry by entry
-#        lib/package.conf.d/base-4.21.3.0-....conf       # the compiler's own
-#        lib/package.conf.d/splitmix-0.1.3.2-....conf    # the package given
+#        bin/wasm32-wasi-ghc      # -package-db <out>/lib/extra-package.conf.d
+#        bin/wasm32-wasi-ghc-pkg  # --package-db=<out>/lib/extra-package.conf.d
+#        lib/extra-package.conf.d/random-1.2.1.3-....conf    # the package given
+#        lib/extra-package.conf.d/splitmix-0.1.1-....conf    # what it needs
 #
 #      with `targetPrefix` on its passthru, which the wrapper scripts read
 #      to name the dispatcher built around this.
@@ -46,14 +47,18 @@
 
 let prefix = ghc.targetPrefix;
 
-    # The executables that have to be told where the database went, and how each
-    # spells it. Named rather than probed, since the case arms are written
-    # before the compiler's `bin` can be listed. Every other tool there is
-    # linked through untouched: one that reads no database gains nothing from a
-    # wrapper.
+    # Everything the named packages were built against, which is what their
+    # registrations name.
+    closure = pkgs.closureInfo { rootPaths = packages; };
+
+    # The executables that have to be told about the second database, and how
+    # each spells it. Named rather than probed, since the case arms are
+    # written before the compiler's `bin` can be listed. Every other tool
+    # there is linked through untouched: one that reads no database gains
+    # nothing from a wrapper.
     databaseReaders =
-      [ { name = "${prefix}ghc-pkg"; flags = "--global-package-db=@libdir@/package.conf.d"; } ]
-      ++ map (name: { inherit name; flags = "-B@libdir@"; })
+      [ { name = "${prefix}ghc-pkg"; flags = "--package-db=@db@"; } ]
+      ++ map (name: { inherit name; flags = "-package-db @db@"; })
            ([ "${prefix}ghc" "${prefix}ghci" "${prefix}runghc" "${prefix}runhaskell" ]
             ++ lib.optionals (ghc ? version)
                  [ "${prefix}ghc-${ghc.version}" "${prefix}ghci-${ghc.version}" ]);
@@ -66,38 +71,54 @@ in if packages == []
    then ghc
    else pkgs.symlinkJoin {
      name = "${prefix}ghc-with-packages";
-     paths = [ ghc ] ++ packages;
+     paths = [ ghc ];
      nativeBuildInputs = [ pkgs.makeWrapper ];
      passthru = { inherit (ghc) targetPrefix; }
        // lib.optionalAttrs (ghc ? version) { inherit (ghc) version; };
      postBuild = ''
-       # The libdir is asked for rather than assumed. A version-named install
-       # keeps it under lib/<prefix>ghc-<version>/lib, a relocatable bindist
-       # directly under lib. `rel` is the same place inside the join.
-       libdir=$(${ghc}/bin/${prefix}ghc --print-libdir)
-       rel=''${libdir#${ghc}/}
+       # A database beside the compiler's own, rather than one replacing it.
+       # The compiler keeps its own directory, which the wasm backend loads
+       # its Template Haskell interpreter from: a compiler told to read
+       # another directory with `-B` finds no interpreter there and every
+       # splice dies with `readPipe: end of file`.
+       db=$out/lib/extra-package.conf.d
+       mkdir -p "$db"
 
-       # The join linked the whole directory, since only the compiler carries
-       # one at this path. Replace it with a real one holding the compiler's
-       # registrations and the packages', each found where its own layout keeps
-       # it.
-       rm -rf "$out/$rel/package.conf.d"
-       mkdir -p "$out/$rel/package.conf.d"
-
-       for conf in "$libdir"/package.conf.d/*.conf; do
-         ln -s "$conf" "$out/$rel/package.conf.d/"
-       done
-
-       # `-f`, since a package reachable by more than one path in the selection
+       # Every registration in the closure, not only the packages named. A
+       # registration names its dependencies by unit id, and one the
+       # database lacks breaks the package that names it. The closure holds
+       # exactly what the named packages were built against.
+       #
+       # The path filter keeps this target's registrations: a closure also
+       # reaches the build platform's, and the two databases are separate.
+       #
+       # The compiler's own registrations stay where they are. They name
+       # their files under `''${pkgroot}`, which resolves beside the database
+       # holding them and nowhere else, so one linked here names files that
+       # are not there. The closure reaches the compiler, and a
+       # version-named install keeps its database under a directory the
+       # path filter matches.
+       #
+       # `-f`, since a package reachable by more than one path in the closure
        # offers the same registration more than once.
-       for pkg in ${lib.escapeShellArgs (map toString packages)}; do
+       libdir=$(${ghc}/bin/${prefix}ghc --print-libdir)
+
+       for pkg in $(cat ${closure}/store-paths); do
          if [ -d "$pkg/lib" ]; then
-           find "$pkg/lib" -name '*.conf' -path '*/package.conf.d/*' \
-             -exec ln -sf {} "$out/$rel/package.conf.d/" \;
+           for conf in $(find "$pkg/lib" -path "*/${prefix}ghc-*/package.conf.d/*.conf"); do
+             if [ ! -e "$libdir/package.conf.d/$(basename "$conf")" ]; then
+               ln -sf "$conf" "$db/"
+             fi
+           done
          fi
        done
 
-       ${ghc}/bin/${prefix}ghc-pkg --global-package-db="$out/$rel/package.conf.d" recache
+       ${ghc}/bin/${prefix}ghc-pkg --package-db="$db" recache
+
+       # A database naming an absent unit id fails here, rather than in
+       # whichever cabal run reaches it first and reports it as a package
+       # it cannot resolve.
+       ${ghc}/bin/${prefix}ghc-pkg --package-db="$db" check
 
        for exe in ${ghc}/bin/*; do
          name=$(basename "$exe")
@@ -108,7 +129,7 @@ in if packages == []
          if [ -n "$flags" ]; then
            rm -f "$out/bin/$name"
            makeWrapper "$exe" "$out/bin/$name" \
-             --add-flags "''${flags//@libdir@/$out/$rel}"
+             --add-flags "''${flags//@db@/$db}"
          fi
        done
      '';
