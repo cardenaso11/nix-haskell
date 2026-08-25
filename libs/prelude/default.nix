@@ -23,6 +23,10 @@
 
   is-visible = import ./is-visible.nix { inherit lib; };
 
+  link-farm-entries = import ./link-farm-entries.nix { inherit lib; };
+
+  recurse-for-derivations = import ./recurse-for-derivations.nix { inherit lib; };
+
   submodule-type = import ./submodule-type.nix;
 
   under = import ./under.nix;
