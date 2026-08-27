@@ -2558,8 +2558,8 @@ Lines to append to \f[CR]cabal.project\f[R].
 /media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS fine\-grained
-Builds the selected packages one module at a time, so that a change to
-one module rebuilds one module.
+Experimental: builds the selected packages one module at a time, so that
+a change to one module rebuilds one module.
 Evaluation reads \f[CR]builtins.outputOf\f[R], and the builds need the
 Nix of \f[CR]nix\f[R] below.
 .PP
@@ -3287,7 +3287,7 @@ A version of the source that does not require building
 \f[I]Default:\f[R]
 .IP
 .EX
-\(dq/nix/store/j8298dfxg87q20hp0applxszxgksn3ah\-nix\-haskell\-tmp\(dq
+\(dq/nix/store/c6543858dkn0pkv92jc2i6ag8458pqyf\-nix\-haskell\-tmp\(dq
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c

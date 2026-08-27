@@ -3591,8 +3591,8 @@ list of strings concatenated with “\\n”
 
 
 
-Builds the selected packages one module at a time, so that a change
-to one module rebuilds one module\. Evaluation reads
+Experimental: builds the selected packages one module at a time, so
+that a change to one module rebuilds one module\. Evaluation reads
 ` builtins.outputOf `, and the builds need the Nix of ` nix ` below\.
 
 The modules hold the ways of one ` Setup build `, so a package that
@@ -4619,7 +4619,7 @@ absolute path or package
 *Default:*
 
 ```nix
-"/nix/store/j8298dfxg87q20hp0applxszxgksn3ah-nix-haskell-tmp"
+"/nix/store/c6543858dkn0pkv92jc2i6ag8458pqyf-nix-haskell-tmp"
 ```
 
 *Declared by:*
