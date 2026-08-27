@@ -273,8 +273,6 @@ null
 
 ## packages\.\<name>\.closure-compiler\.externs
 
-
-
 Files passed as ` --externs `\. They declare what the program reaches by
 a name the compiler must not rename\. The jsexe’s own ` all.externs.js `
 always goes ahead of these, since ADVANCED renames everything it is
@@ -309,6 +307,8 @@ null
 
 
 ## packages\.\<name>\.closure-compiler\.extraFlags
+
+
 
 Flags appended after the level and the externs, so one of these
 overrides what they set\. Write one flag per element, with its value in
@@ -3820,6 +3820,34 @@ package
 
 
 
+## fine-grained\.run
+
+
+
+` bin/fine-grained-nix `: the Nix of ` nix ` above, driving a
+store of its own with the features on, for a machine whose
+daemon carries none of them\. The machine’s store fills that
+one by copy\. ` NIX_DYNAMIC_DRV_STORE ` names the store, and
+unset it is ` .nix/store ` under the nearest project root\.
+
+
+
+*Type:*
+package
+
+
+
+*Default:*
+
+```
+<nix-haskell>/libs/fine-grained/run.nix
+```
+
+*Declared by:*
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
+
+
+
 ## fine-grained\.sandstone
 
 
@@ -4619,7 +4647,7 @@ absolute path or package
 *Default:*
 
 ```nix
-"/nix/store/c6543858dkn0pkv92jc2i6ag8458pqyf-nix-haskell-tmp"
+"/nix/store/j5yfpg8cr7w3bdva3xnjidq7vc9khd3l-nix-haskell-tmp"
 ```
 
 *Declared by:*
@@ -4953,8 +4981,6 @@ false
 
 ## haskell-nix\.options\.index-sha256
 
-
-
 The hash of the truncated hackage index-state
 
 
@@ -4976,6 +5002,8 @@ null
 
 
 ## haskell-nix\.options\.index-state
+
+
 
 Hackage index-state, eg\. “2019-10-10T00:00:00Z”
 
@@ -9188,8 +9216,6 @@ list of absolute path
 
 ## platforms\.\<name>\.packages\.\<name>\.postBuild
 
-
-
 Shell code run after the
 build phase\. ` null ` leaves the default in
 place\.
@@ -9221,6 +9247,8 @@ null
 
 
 ## platforms\.\<name>\.packages\.\<name>\.postCheck
+
+
 
 Shell code run after the
 check phase\. ` null ` leaves the default in

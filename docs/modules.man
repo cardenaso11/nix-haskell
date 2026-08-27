@@ -2733,6 +2733,26 @@ Build it and run it as the daemon, or drive a store of its own with it.
 .UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
 /media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
+.SS fine\-grained.run
+\f[CR]bin/fine\-grained\-nix\f[R]: the Nix of \f[CR]nix\f[R] above,
+driving a store of its own with the features on, for a machine whose
+daemon carries none of them.
+The machine\(cqs store fills that one by copy.
+\f[CR]NIX_DYNAMIC_DRV_STORE\f[R] names the store, and unset it is
+\f[CR].nix/store\f[R] under the nearest project root.
+.PP
+\f[I]Type:\f[R] package
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+<nix\-haskell>/libs/fine\-grained/run.nix
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
+.UE \c
 .SS fine\-grained.sandstone
 The sandstone checkout, read with the nixpkgs and the Nix overlay that
 it pins itself.
@@ -3287,7 +3307,7 @@ A version of the source that does not require building
 \f[I]Default:\f[R]
 .IP
 .EX
-\(dq/nix/store/c6543858dkn0pkv92jc2i6ag8458pqyf\-nix\-haskell\-tmp\(dq
+\(dq/nix/store/j5yfpg8cr7w3bdva3xnjidq7vc9khd3l\-nix\-haskell\-tmp\(dq
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
