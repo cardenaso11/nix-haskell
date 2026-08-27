@@ -33,7 +33,7 @@ attribute set of (submodule)
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -57,7 +57,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -81,7 +81,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -105,7 +105,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -129,7 +129,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -153,7 +153,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -177,7 +177,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -201,7 +201,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -240,7 +240,7 @@ attribute set of attribute set of raw value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -267,7 +267,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -304,7 +304,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -345,7 +345,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -379,7 +379,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -404,7 +404,7 @@ submodule
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -436,7 +436,7 @@ attribute set of (submodule)
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -475,7 +475,7 @@ attribute set of attribute set of raw value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -502,7 +502,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -539,7 +539,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -582,7 +582,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -616,7 +616,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -644,7 +644,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -686,7 +686,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -720,7 +720,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -754,7 +754,7 @@ list of string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -778,7 +778,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -802,7 +802,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -826,7 +826,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -850,7 +850,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -874,7 +874,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -898,7 +898,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -922,7 +922,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -958,7 +958,7 @@ attribute set of boolean
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -993,7 +993,7 @@ list of string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -1027,7 +1027,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -1059,7 +1059,7 @@ list of absolute path
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -1093,7 +1093,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -1127,7 +1127,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -1161,7 +1161,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -1195,7 +1195,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -1229,7 +1229,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -1263,7 +1263,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -1297,7 +1297,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -1331,7 +1331,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -1365,7 +1365,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -1399,7 +1399,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -1433,7 +1433,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -1467,7 +1467,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -1501,7 +1501,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -1535,7 +1535,49 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
+
+
+
+## packages\.\<name>\.previousIntermediates
+
+
+
+Compiled modules of an earlier build to resume from: a path
+carrying ` share/haskell/<ghc-version>/<pname>-<version>/dist/build `,
+which the build restores before ` Setup build `\. Modules ghc
+accepts are not compiled again\. ` fine-grained ` sets this to a
+plan’s output for the packages it selects, over a value set
+here\.
+
+The nixpkgs driver builds a package as one derivation and
+restores the whole tree\. The haskell\.nix driver builds per
+component and restores the library’s, the only component
+whose build the tree holds\.
+
+
+
+*Type:*
+null or string or package
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+
+
+*Example:*
+
+```
+builtins.outputOf plan.outPath "out"
+```
+
+*Declared by:*
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -1567,7 +1609,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -1601,7 +1643,7 @@ list of string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -1635,7 +1677,7 @@ list of string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -1667,7 +1709,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -1695,7 +1737,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -1737,7 +1779,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -1771,7 +1813,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -1876,7 +1918,7 @@ tests: true
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -1900,7 +1942,7 @@ string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -1932,7 +1974,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -1960,7 +2002,7 @@ true
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -2003,7 +2045,7 @@ list of string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -2041,7 +2083,7 @@ strings concatenated with “\\n”
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -2066,7 +2108,7 @@ true
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/cross/ghcjs](file://<nix-haskell>/modules/cross/ghcjs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/ghcjs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/ghcjs)
 
 
 
@@ -2101,7 +2143,7 @@ list of absolute path
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/cross/ghcjs](file://<nix-haskell>/modules/cross/ghcjs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/ghcjs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/ghcjs)
 
 
 
@@ -2149,7 +2191,7 @@ list of string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/cross/ghcjs](file://<nix-haskell>/modules/cross/ghcjs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/ghcjs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/ghcjs)
 
 
 
@@ -2181,7 +2223,7 @@ one of “BUNDLE”, “WHITESPACE_ONLY”, “SIMPLE”, “TRANSPILE_ONLY”, 
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/cross/ghcjs](file://<nix-haskell>/modules/cross/ghcjs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/ghcjs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/ghcjs)
 
 
 
@@ -2246,7 +2288,7 @@ submodule
 ````
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -2275,7 +2317,7 @@ null or boolean
 ` null `: the ` enableShared ` of ` package `, else ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -2316,7 +2358,7 @@ pkgs.haskell.compiler.ghc912
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -2340,7 +2382,7 @@ submodule
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -2382,7 +2424,7 @@ list of string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -2415,7 +2457,7 @@ null or string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -2450,7 +2492,7 @@ null or string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -2474,7 +2516,7 @@ submodule
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -2503,7 +2545,7 @@ interpreter whenever it is cross-compiling and an emulator
 exists for the target
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -2534,7 +2576,7 @@ null or string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -2572,7 +2614,7 @@ attribute set of (submodule)
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -2601,7 +2643,7 @@ null or boolean
 ` null `: the ` enableShared ` of ` package `, else ` true `
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -2642,7 +2684,7 @@ pkgs.haskell.compiler.ghc912
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -2666,7 +2708,7 @@ submodule
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -2708,7 +2750,7 @@ list of string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -2741,7 +2783,7 @@ null or string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -2776,7 +2818,7 @@ null or string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -2800,7 +2842,7 @@ submodule
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -2829,7 +2871,7 @@ interpreter whenever it is cross-compiling and an emulator
 exists for the target
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -2860,7 +2902,7 @@ null or string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -2890,7 +2932,7 @@ null or string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -2928,7 +2970,7 @@ submodule
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -2955,7 +2997,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -2987,7 +3029,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -3019,7 +3061,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -3057,7 +3099,7 @@ attribute set of string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -3089,7 +3131,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -3121,7 +3163,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -3162,7 +3204,7 @@ null or string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -3192,7 +3234,7 @@ null or string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -3230,7 +3272,7 @@ submodule
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -3257,7 +3299,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -3289,7 +3331,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -3321,7 +3363,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -3359,7 +3401,7 @@ attribute set of string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -3391,7 +3433,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -3423,7 +3465,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -3464,7 +3506,7 @@ null or string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -3507,7 +3549,7 @@ function that evaluates to a(n) list of package
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/cross](file://<nix-haskell>/modules/cross)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross)
 
 
 
@@ -3541,7 +3583,297 @@ list of strings concatenated with “\\n”
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
+
+
+
+## fine-grained
+
+
+
+Builds the selected packages one module at a time, so that a change
+to one module rebuilds one module\. Evaluation reads
+` builtins.outputOf `, and the builds need the Nix of ` nix ` below\.
+
+The modules hold the ways of one ` Setup build `, so a package that
+keeps ` packages.<name>.enableLibraryProfiling ` on compiles every
+module a second time\. The drivers warn when that happens\.
+
+
+
+*Type:*
+submodule
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+*Declared by:*
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
+
+
+
+## fine-grained\.enable
+
+
+
+Whether to build the packages ` packages ` names module by
+module\. Off leaves the drivers’ own build paths in place\.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+
+```nix
+false
+```
+
+*Declared by:*
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
+
+
+
+## fine-grained\.packages
+
+
+
+The packages built module by module, by cabal package name\.
+` null ` takes every local package, and ` [] ` takes none\. Cross
+platforms are never built this way\.
+
+
+
+*Type:*
+null or (list of string)
+
+
+
+*Default:*
+every local package
+
+
+
+*Example:*
+
+```nix
+[
+  "frontend"
+  "common"
+]
+```
+
+*Declared by:*
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
+
+
+
+## fine-grained\.configure-flags
+
+
+
+**A function, not a setting\.** A project calls it and uses the
+result\. Assign it only to replace what the call does\.
+
+The configure flags of one package’s plan, one step per
+driver\. The nixpkgs call carries ` name `, ` tweaks `,
+` ghc-options `, ` ghc ` and ` pkgs `\. The haskell\.nix call carries
+` name `, ` component `, ` ghc ` and ` pkgs `\.
+
+The flags must make configure compute the ghc flags that the
+package’s own configure computes\. A mismatch costs
+recompilation\. Replace this step where something the default
+cannot read changes a build way, such as the nixpkgs driver’s
+` package-arguments ` or ` overrides `\.
+
+
+
+*Type:*
+function that evaluates to a(n) string
+
+
+
+*Default:*
+
+```
+<nix-haskell>/libs/nixpkgs/fine-grained/configure-flags.nix
+<nix-haskell>/libs/haskell-nix/fine-grained/configure-flags.nix
+```
+
+
+
+*Example:*
+
+```
+args: import "${nix-haskell-libs}/nixpkgs/fine-grained/configure-flags.nix" { inherit lib; } args
+  + " --ghc-option=-fno-ignore-asserts"
+```
+
+*Declared by:*
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
+
+
+
+## fine-grained\.ghc-shim
+
+
+
+**A function, not a setting\.** A project calls it and uses the
+result\. Assign it only to replace what the call does\.
+
+The compiler that a plan’s configure records, so that
+sandstone reads the flags Cabal computed\. The call carries
+` pkgs ` and ` ghc `, and each driver passes its own compiler\.
+
+
+
+*Type:*
+function that evaluates to a(n) package
+
+
+
+*Default:*
+
+```
+<nix-haskell>/libs/fine-grained/ghc-shim.nix
+```
+
+*Declared by:*
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
+
+
+
+## fine-grained\.intermediates
+
+
+
+**A function, not a setting\.** A project calls it and uses the
+result\. Assign it only to replace what the call does\.
+
+Builds one package’s plan, the derivation whose output is the
+derivation that assembles that package’s modules\. One step
+per driver\. The nixpkgs call carries ` name `, ` package `,
+` dependencies `, ` ghc `, ` shim `, ` tool `, ` configure-flags ` and
+` pkgs `\. The haskell\.nix call carries ` name `, ` version `,
+` src `, ` subdir `, ` setup `, ` config-files `, ` build-flags `,
+` ghc `, ` shim `, ` tool `, ` configure-flags ` and ` pkgs `\.
+
+
+
+*Type:*
+function that evaluates to a(n) raw value
+
+
+
+*Default:*
+
+```
+<nix-haskell>/libs/nixpkgs/fine-grained/intermediates.nix
+<nix-haskell>/libs/haskell-nix/fine-grained/intermediates.nix
+```
+
+
+
+*Example:*
+
+```
+args: import "${nix-haskell-libs}/nixpkgs/fine-grained/intermediates.nix" { inherit lib; }
+  (args // { configure-flags = args.configure-flags + " --enable-tests"; })
+```
+
+*Declared by:*
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
+
+
+
+## fine-grained\.nix
+
+
+
+The Nix that these builds need, with dynamic derivations and
+the ` builder-rpc-v0 ` system feature\. Build it and run it as
+the daemon, or drive a store of its own with it\.
+
+
+
+*Type:*
+package
+
+
+
+*Default:*
+
+```
+<sandstone>.nix
+```
+
+*Declared by:*
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
+
+
+
+## fine-grained\.sandstone
+
+
+
+The sandstone checkout, read with the nixpkgs and the Nix
+overlay that it pins itself\. Those are not a driver’s, and
+these builds use only the tool that it carries\.
+
+
+
+*Type:*
+raw value
+
+
+
+*Default:*
+
+```
+import config.inputs.sandstone {
+  nixpkgsArgs = {
+    localSystem = {
+      system = config.system;
+    };
+  };
+}
+```
+
+*Declared by:*
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
+
+
+
+## fine-grained\.tool
+
+
+
+The package that carries ` bin/cabal-dyn-drv `, which builds
+every plan\.
+
+
+
+*Type:*
+package
+
+
+
+*Default:*
+
+```
+<sandstone>.haskellPackages.sandstone
+```
+
+*Declared by:*
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -3576,7 +3908,7 @@ list of string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -3620,7 +3952,7 @@ list of (attribute set)
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -3651,7 +3983,7 @@ compiler the driver resolves: the package a project brought, or the
 one haskell\.nix has under that name
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -3687,7 +4019,7 @@ platform:
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -3720,7 +4052,7 @@ function that evaluates to a(n) package
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -3754,7 +4086,7 @@ string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -3794,7 +4126,7 @@ attribute set
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -3820,7 +4152,7 @@ config."haskell-nix".nixpkgs.haskell-nix
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -3847,7 +4179,7 @@ import config.inputs."haskell-nix" { inherit system; }
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -3873,7 +4205,7 @@ config."haskell-nix".haskell-nix.haskellLib
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -3898,7 +4230,7 @@ import config."haskell-nix".nixpkgsSource ({ inherit system; } // config."haskel
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -3924,7 +4256,7 @@ config."haskell-nix".input.nixpkgsArgs
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -3951,7 +4283,7 @@ config."haskell-nix".input.sources.nixpkgs-unstable
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -3980,7 +4312,7 @@ submodule
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4010,7 +4342,7 @@ signed integer
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4034,7 +4366,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4058,7 +4390,7 @@ string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4082,7 +4414,7 @@ strings concatenated with “\\n”
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4106,7 +4438,7 @@ strings concatenated with “\\n”
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4130,7 +4462,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4146,7 +4478,7 @@ The name of the ghc compiler to use eg\. “ghc884”
 string
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4170,7 +4502,7 @@ unspecified value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4198,7 +4530,7 @@ null or strings concatenated with " "
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4222,7 +4554,7 @@ unspecified value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4261,7 +4593,7 @@ else
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4287,11 +4619,11 @@ absolute path or package
 *Default:*
 
 ```nix
-<nix-haskell>
+"/nix/store/j8298dfxg87q20hp0applxszxgksn3ah-nix-haskell-tmp"
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4319,7 +4651,7 @@ string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4343,7 +4675,7 @@ null or (attribute set)
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4367,7 +4699,7 @@ null or (list of unspecified value)
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4391,7 +4723,7 @@ submodule
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4415,7 +4747,7 @@ unspecified value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4441,7 +4773,7 @@ unspecified value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4465,7 +4797,7 @@ unspecified value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4490,7 +4822,7 @@ false
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4527,7 +4859,7 @@ attribute set of unspecified value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4551,7 +4883,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4575,7 +4907,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4591,7 +4923,7 @@ This option has no description\.
 unspecified value
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4615,7 +4947,7 @@ false
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4639,13 +4971,11 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
 ## haskell-nix\.options\.index-state
-
-
 
 Hackage index-state, eg\. “2019-10-10T00:00:00Z”
 
@@ -4663,7 +4993,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4693,7 +5023,7 @@ null or (attribute set)
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4717,7 +5047,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4741,7 +5071,7 @@ null or (list of unspecified value)
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4765,7 +5095,7 @@ null or string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4789,7 +5119,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4813,7 +5143,7 @@ null or (list of unspecified value)
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4837,7 +5167,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4863,11 +5193,13 @@ list of package
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
 ## haskell-nix\.options\.projectFileName
+
+
 
 This option has no description\.
 
@@ -4885,7 +5217,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4917,7 +5249,7 @@ null or (attribute set of (string or attribute set of string))
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4943,7 +5275,7 @@ submodule
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4967,7 +5299,7 @@ false
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -4991,7 +5323,7 @@ true
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5015,7 +5347,7 @@ unspecified value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5039,7 +5371,7 @@ unspecified value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5066,7 +5398,7 @@ true
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5090,7 +5422,7 @@ list of unspecified value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5114,7 +5446,7 @@ unspecified value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5138,7 +5470,7 @@ unspecified value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5162,7 +5494,7 @@ false
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5199,7 +5531,7 @@ one of “cabal-store”, “ghc-pkg”
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5223,7 +5555,7 @@ list of unspecified value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5247,7 +5579,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5271,7 +5603,7 @@ list of unspecified value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5295,7 +5627,7 @@ attribute set of unspecified value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5319,7 +5651,7 @@ string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5343,7 +5675,7 @@ attribute set of unspecified value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5367,7 +5699,7 @@ true
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5391,7 +5723,7 @@ true
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5415,7 +5747,7 @@ attribute set of function that evaluates to a(n) (attribute set)
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5431,7 +5763,7 @@ This option has no description\.
 absolute path or package
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5455,7 +5787,7 @@ false
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5497,7 +5829,7 @@ false
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5531,7 +5863,7 @@ list of unspecified value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5540,10 +5872,18 @@ list of unspecified value
 
 
 The built project as haskell\.nix returns it: ` hsPkgs `, ` shell `,
-` projectCross ` per cross platform, ` plan-nix `, and the rest\. The
-shell is haskell\.nix’s own, with the common ` shell.shellHook `
+` projectCross ` per cross platform, ` plan-nix `, and the rest\. A
+replacement value must be a haskell\.nix project too: it answers
+` appendModule `, ` shell ` and ` pkg-set `\.
+
+The shell is haskell\.nix’s own, with the common ` shell.shellHook `
 appended and ` shell.withHoogle ` applied\. Both go through
 ` overrideAttrs `, so neither is evaluated unless the shell is\.
+
+With ` fine-grained ` on and selecting a package, the project is
+re-evaluated with a module restoring each selected library from
+its plan\. The plans read the project as set here, whose
+components differ from the final ones only by that restore\.
 
 
 
@@ -5559,7 +5899,7 @@ config.haskell-nix.haskell-nix.project config.haskell-nix.options
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5584,7 +5924,7 @@ submodule
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5617,7 +5957,7 @@ package-overlays from <nix-haskell>/libs/haskell-nix/hackage-driver.nix
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5642,7 +5982,7 @@ extra-hackage-tarballs from <nix-haskell>/libs/haskell-nix/hackage-driver.nix
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5668,7 +6008,7 @@ extra-hackages from <nix-haskell>/libs/haskell-nix/hackage-driver.nix
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5694,7 +6034,7 @@ submodule
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5732,7 +6072,7 @@ cabalProject from <nix-haskell>/libs/cabal.nix source-repository-packages
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5765,7 +6105,7 @@ inputMap from <nix-haskell>/libs/cabal.nix source-repository-packages
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5791,7 +6131,7 @@ absolute path
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/haskell\.nix](file://<nix-haskell>/modules/haskell.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix)
 
 
 
@@ -5829,7 +6169,7 @@ attribute set
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -5864,7 +6204,7 @@ attribute set of raw value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/inputs\.nix](file://<nix-haskell>/modules/inputs.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/inputs\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/inputs.nix)
 
 
 
@@ -5888,7 +6228,7 @@ boolean
 ` shell.crossPlatforms ` selects ` ghcjs `\.
 
 *Declared by:*
- - [<nix-haskell>/modules/cross/ghcjs](file://<nix-haskell>/modules/cross/ghcjs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/ghcjs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/ghcjs)
 
 
 
@@ -5913,7 +6253,7 @@ boolean
 ` wasm ` or starts with ` wasi `\.
 
 *Declared by:*
- - [<nix-haskell>/modules/cross/wasm](file://<nix-haskell>/modules/cross/wasm)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/wasm](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/wasm)
 
 
 
@@ -5969,7 +6309,7 @@ function that evaluates to a(n) package
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/cross/ghcjs](file://<nix-haskell>/modules/cross/ghcjs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/ghcjs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/ghcjs)
 
 
 
@@ -5991,7 +6331,7 @@ null or string
 the base name of ` src `
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -6030,7 +6370,7 @@ function that evaluates to a(n) strings concatenated with “\\n”
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/cross](file://<nix-haskell>/modules/cross)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross)
 
 
 
@@ -6061,7 +6401,7 @@ compiler the driver resolves: the package a project brought, or the
 ` ghc ` of the package set it selected
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -6096,7 +6436,7 @@ platform: config.nixpkgs.project.projectCross.<platform>.haskellPackages.ghc
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -6132,7 +6472,7 @@ function that evaluates to a(n) package
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -6168,7 +6508,7 @@ string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -6204,7 +6544,7 @@ pkgs.haskell.packages.ghc912
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -6228,7 +6568,7 @@ submodule
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -6265,7 +6605,7 @@ attribute set of attribute set of raw value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -6311,7 +6651,7 @@ args: import "${nix-haskell-libs}/nixpkgs/package-steps.nix" { inherit lib; } ar
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -6347,7 +6687,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -6371,7 +6711,7 @@ string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -6418,7 +6758,7 @@ args: "--jailbreak " + import "${nix-haskell-libs}/nixpkgs/cabal2nix-options.nix
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -6463,7 +6803,7 @@ function that evaluates to a(n) package
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -6493,7 +6833,7 @@ submodule
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -6517,7 +6857,7 @@ false
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -6542,7 +6882,7 @@ true
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -6566,7 +6906,7 @@ false
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -6618,7 +6958,7 @@ function that evaluates to a(n) attribute set of (attribute set)
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -6666,7 +7006,7 @@ function that evaluates to a(n) boolean
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -6708,7 +7048,7 @@ boolean
 ` nixpkgs.options.use-plan `
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -6749,7 +7089,7 @@ args: import "${nix-haskell-libs}/nixpkgs/exact-configuration.nix" args + "echo 
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -6780,7 +7120,7 @@ submodule
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -6804,7 +7144,7 @@ false
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -6828,7 +7168,7 @@ false
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -6852,7 +7192,7 @@ true
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -6903,287 +7243,7 @@ function that evaluates to a(n) raw value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
-
-
-
-## nixpkgs\.options\.fine-grained
-
-
-
-Builds the selected packages one module at a time, so that a change
-to one module rebuilds one module\. Evaluation reads
-` builtins.outputOf `, and the builds need the Nix of ` nix ` below\.
-
-The modules hold the ways of one ` Setup build `, so a package that
-keeps ` packages.<name>.enableLibraryProfiling ` on compiles every
-module a second time\. The driver warns when that happens\.
-
-
-
-*Type:*
-submodule
-
-
-
-*Default:*
-
-```nix
-{ }
-```
-
-*Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
-
-
-
-## nixpkgs\.options\.fine-grained\.enable
-
-
-
-Whether to build the packages ` packages ` names module by
-module\. Off leaves the driver’s own build path in place\.
-
-
-
-*Type:*
-boolean
-
-
-
-*Default:*
-
-```nix
-false
-```
-
-*Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
-
-
-
-## nixpkgs\.options\.fine-grained\.packages
-
-
-
-The packages built module by module, by cabal package name\.
-` null ` takes every local package, and ` [] ` takes none\. Cross
-platforms are never built this way\.
-
-
-
-*Type:*
-null or (list of string)
-
-
-
-*Default:*
-every local package
-
-
-
-*Example:*
-
-```nix
-[
-  "frontend"
-  "common"
-]
-```
-
-*Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
-
-
-
-## nixpkgs\.options\.fine-grained\.configure-flags
-
-
-
-**A function, not a setting\.** A project calls it and uses the
-result\. Assign it only to replace what the call does\.
-
-The configure flags of one package’s plan\. The call carries
-` name `, ` tweaks `, ` ghc-options `, ` ghc ` and ` pkgs `\.
-
-The flags must make configure compute the ghc flags that the
-package’s own configure computes\. A mismatch costs
-recompilation\. Replace this step where ` package-arguments `
-or ` overrides ` changes a build way, which the default cannot
-read\.
-
-
-
-*Type:*
-function that evaluates to a(n) string
-
-
-
-*Default:*
-
-```
-<nix-haskell>/libs/nixpkgs/fine-grained/configure-flags.nix
-```
-
-
-
-*Example:*
-
-```
-args: import "${nix-haskell-libs}/nixpkgs/fine-grained/configure-flags.nix" { inherit lib; } args
-  + " --ghc-option=-fno-ignore-asserts"
-```
-
-*Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
-
-
-
-## nixpkgs\.options\.fine-grained\.ghc-shim
-
-
-
-The compiler that a plan’s configure records, so that
-sandstone reads the flags Cabal computed\. It wraps this
-driver’s ghc\.
-
-
-
-*Type:*
-package
-
-
-
-*Default:*
-
-```
-<nix-haskell>/libs/nixpkgs/fine-grained/ghc-shim.nix
-```
-
-*Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
-
-
-
-## nixpkgs\.options\.fine-grained\.intermediates
-
-
-
-**A function, not a setting\.** A project calls it and uses the
-result\. Assign it only to replace what the call does\.
-
-Builds one package’s plan, the derivation whose output is the
-derivation that assembles that package’s modules\. The call
-carries ` name `, ` package `, ` dependencies `, ` ghc `, ` shim `,
-` tool `, ` configure-flags ` and ` pkgs `\.
-
-
-
-*Type:*
-function that evaluates to a(n) raw value
-
-
-
-*Default:*
-
-```
-<nix-haskell>/libs/nixpkgs/fine-grained/intermediates.nix
-```
-
-
-
-*Example:*
-
-```
-args: import "${nix-haskell-libs}/nixpkgs/fine-grained/intermediates.nix" { inherit lib; }
-  (args // { configure-flags = args.configure-flags + " --enable-tests"; })
-```
-
-*Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
-
-
-
-## nixpkgs\.options\.fine-grained\.nix
-
-
-
-The Nix that these builds need, with dynamic derivations and
-the ` builder-rpc-v0 ` system feature\. Build it and run it as
-the daemon, or drive a store of its own with it\.
-
-
-
-*Type:*
-package
-
-
-
-*Default:*
-
-```
-<sandstone>.nix
-```
-
-*Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
-
-
-
-## nixpkgs\.options\.fine-grained\.sandstone
-
-
-
-The sandstone checkout, read with the nixpkgs and the Nix
-overlay that it pins itself\. Those are not this driver’s, and
-these builds use only the tool that it carries\.
-
-
-
-*Type:*
-raw value
-
-
-
-*Default:*
-
-```
-import config.inputs.sandstone {
-  nixpkgsArgs = {
-    localSystem = {
-      system = config.nixpkgs.system;
-    };
-  };
-}
-```
-
-*Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
-
-
-
-## nixpkgs\.options\.fine-grained\.tool
-
-
-
-The package that carries ` bin/cabal-dyn-drv `, which builds
-every plan\.
-
-
-
-*Type:*
-package
-
-
-
-*Default:*
-
-```
-<sandstone>.haskellPackages.sandstone
-```
-
-*Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -7226,7 +7286,7 @@ function that evaluates to a(n) raw value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -7261,7 +7321,7 @@ list of raw value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -7299,7 +7359,7 @@ function that evaluates to a(n) list of raw value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -7346,7 +7406,7 @@ function that evaluates to a(n) string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -7392,7 +7452,7 @@ function that evaluates to a(n) package
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -7430,7 +7490,7 @@ function that evaluates to a(n) (attribute set)
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -7465,7 +7525,7 @@ attribute set
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -7507,7 +7567,7 @@ attribute set of package
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -7543,7 +7603,7 @@ false
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -7575,7 +7635,7 @@ import config.inputs.nixpkgs { inherit (config) system; overlays = [ my-overlay 
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -7617,7 +7677,7 @@ none, and the driver falls back to ` pkgs.pkgsCross.<platform> `\.
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -7652,7 +7712,7 @@ import <nix-haskell>/libs/nixpkgs/driver.nix {
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs)
 
 
 
@@ -7677,7 +7737,7 @@ false
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/optimizations\.nix](file://<nix-haskell>/modules/optimizations.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/optimizations\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/optimizations.nix)
 
 
 
@@ -7702,7 +7762,7 @@ false
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/optimizations\.nix](file://<nix-haskell>/modules/optimizations.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/optimizations\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/optimizations.nix)
 
 
 
@@ -7728,7 +7788,7 @@ false
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/optimizations\.nix](file://<nix-haskell>/modules/optimizations.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/optimizations\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/optimizations.nix)
 
 
 
@@ -7754,7 +7814,7 @@ false
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/optimizations\.nix](file://<nix-haskell>/modules/optimizations.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/optimizations\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/optimizations.nix)
 
 
 
@@ -7794,7 +7854,7 @@ attribute set of boolean
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/optimizations\.nix](file://<nix-haskell>/modules/optimizations.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/optimizations\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/optimizations.nix)
 
 
 
@@ -7820,7 +7880,7 @@ false
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/optimizations\.nix](file://<nix-haskell>/modules/optimizations.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/optimizations\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/optimizations.nix)
 
 
 
@@ -7845,7 +7905,7 @@ false
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/optimizations\.nix](file://<nix-haskell>/modules/optimizations.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/optimizations\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/optimizations.nix)
 
 
 
@@ -7871,7 +7931,7 @@ false
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/optimizations\.nix](file://<nix-haskell>/modules/optimizations.nix)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/optimizations\.nix](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/optimizations.nix)
 
 
 
@@ -7923,7 +7983,7 @@ attribute set of (submodule)
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -7962,7 +8022,7 @@ attribute set of (submodule)
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -7986,7 +8046,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8010,7 +8070,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8034,7 +8094,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8058,7 +8118,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8082,7 +8142,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8106,7 +8166,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8130,7 +8190,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8169,7 +8229,7 @@ attribute set of attribute set of raw value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8193,7 +8253,7 @@ attribute set of (submodule)
 one entry per executable named under ` components.exes `
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8219,7 +8279,7 @@ null or package
 was built with
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8246,7 +8306,7 @@ the executable this driver built for this target, through
 ` wasm-optimize ` or ` js-optimize `
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8273,7 +8333,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8310,7 +8370,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8353,7 +8413,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8387,7 +8447,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8412,8 +8472,8 @@ submodule
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8445,8 +8505,8 @@ attribute set of (submodule)
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8485,7 +8545,7 @@ attribute set of attribute set of raw value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8511,7 +8571,7 @@ null or package
 was built with
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8538,7 +8598,7 @@ the executable this driver built for this target, through
 ` wasm-optimize ` or ` js-optimize `
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8565,7 +8625,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8602,7 +8662,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8645,7 +8705,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8679,7 +8739,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8707,7 +8767,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8749,7 +8809,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8783,7 +8843,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8817,7 +8877,7 @@ list of string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8841,7 +8901,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8865,7 +8925,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8889,7 +8949,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8913,7 +8973,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8937,7 +8997,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8961,7 +9021,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -8985,7 +9045,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -9021,7 +9081,7 @@ attribute set of boolean
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -9056,7 +9116,7 @@ list of string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -9090,7 +9150,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -9122,7 +9182,7 @@ list of absolute path
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -9156,13 +9216,11 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
 ## platforms\.\<name>\.packages\.\<name>\.postCheck
-
-
 
 Shell code run after the
 check phase\. ` null ` leaves the default in
@@ -9190,11 +9248,13 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
 ## platforms\.\<name>\.packages\.\<name>\.postConfigure
+
+
 
 Shell code run after the
 configure phase\. ` null ` leaves the default in
@@ -9222,7 +9282,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -9256,7 +9316,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -9290,7 +9350,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -9324,7 +9384,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -9358,7 +9418,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -9392,7 +9452,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -9426,7 +9486,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -9460,7 +9520,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -9494,7 +9554,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -9528,7 +9588,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -9562,7 +9622,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -9596,7 +9656,49 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
+
+
+
+## platforms\.\<name>\.packages\.\<name>\.previousIntermediates
+
+
+
+Compiled modules of an earlier build to resume from: a path
+carrying ` share/haskell/<ghc-version>/<pname>-<version>/dist/build `,
+which the build restores before ` Setup build `\. Modules ghc
+accepts are not compiled again\. ` fine-grained ` sets this to a
+plan’s output for the packages it selects, over a value set
+here\.
+
+The nixpkgs driver builds a package as one derivation and
+restores the whole tree\. The haskell\.nix driver builds per
+component and restores the library’s, the only component
+whose build the tree holds\.
+
+
+
+*Type:*
+null or string or package
+
+
+
+*Default:*
+
+```nix
+null
+```
+
+
+
+*Example:*
+
+```
+builtins.outputOf plan.outPath "out"
+```
+
+*Declared by:*
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -9628,7 +9730,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -9662,7 +9764,7 @@ list of string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -9696,7 +9798,7 @@ list of string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -9728,7 +9830,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -9756,7 +9858,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -9798,7 +9900,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -9832,7 +9934,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -9871,7 +9973,7 @@ attribute set of attribute set of raw value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -9898,7 +10000,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -9935,7 +10037,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -9978,7 +10080,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -10012,7 +10114,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -10040,7 +10142,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -10082,7 +10184,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -10116,7 +10218,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -10160,7 +10262,7 @@ null
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -10184,7 +10286,7 @@ submodule
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -10223,7 +10325,7 @@ ps: with ps; [
 ````
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -10255,7 +10357,7 @@ list of package
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -10288,7 +10390,7 @@ ps: with ps; [ ghcjs wasi32 ]
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -10320,7 +10422,7 @@ list of package
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -10352,7 +10454,7 @@ strings concatenated with “\\n”
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -10389,7 +10491,7 @@ attribute set of raw value
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -10413,7 +10515,7 @@ false
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -10460,7 +10562,7 @@ attribute set of (absolute path or (attribute set))
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -10490,7 +10592,7 @@ absolute path or package
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -10520,7 +10622,7 @@ absolute path or package *(read only)*
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -10548,7 +10650,7 @@ string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/common](file://<nix-haskell>/modules/common)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common)
 
 
 
@@ -10589,7 +10691,7 @@ function that evaluates to a(n) package
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/cross/wasm](file://<nix-haskell>/modules/cross/wasm)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/wasm](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/wasm)
 
 
 
@@ -10615,7 +10717,7 @@ true
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/cross/wasm](file://<nix-haskell>/modules/cross/wasm)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/wasm](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/wasm)
 
 
 
@@ -10661,7 +10763,7 @@ list of string
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/cross/wasm](file://<nix-haskell>/modules/cross/wasm)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/wasm](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/wasm)
 
 
 
@@ -10693,7 +10795,7 @@ one of “0”, “1”, “2”, “3”, “4”, “s”, “z”
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/cross/wasm](file://<nix-haskell>/modules/cross/wasm)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/wasm](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/wasm)
 
 
 
@@ -10749,6 +10851,6 @@ function that evaluates to a(n) package
 ```
 
 *Declared by:*
- - [<nix-haskell>/modules/cross/wasm](file://<nix-haskell>/modules/cross/wasm)
+ - [/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/wasm](file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/wasm)
 
 

@@ -26,8 +26,8 @@ customized unconditionally.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.enableDeadCodeElimination
 Whether to eliminate unused code at link time.
@@ -42,8 +42,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.enableLibraryForGhci
 Whether to build a pre\-linked object of the library for loading into
@@ -59,8 +59,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.enableLibraryProfiling
 Whether to build the package\(cqs library with profiling support.
@@ -75,8 +75,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.enableProfiling
 Whether to build the whole package with profiling support.
@@ -91,8 +91,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.enableSeparateDataOutput
 Whether to install the package\(cqs data files into a separate output.
@@ -107,8 +107,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.enableShared
 Whether to build a shared library.
@@ -123,8 +123,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.enableStatic
 Whether to build a static library.
@@ -139,8 +139,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.bundle\-optimizers
 Settings layers for optimizer tools a project registered through an
@@ -168,8 +168,8 @@ A field absent here states nothing.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.closure\-compiler.enable
 Whether \f[CR]js\-optimize\f[R] runs closure\-compiler.
@@ -187,8 +187,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.closure\-compiler.externs
 Files passed as \f[CR]\-\-externs\f[R].
@@ -216,8 +216,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.closure\-compiler.extraFlags
 Flags appended after the level and the externs, so one of these
@@ -250,8 +250,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.closure\-compiler.level
 The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
@@ -275,8 +275,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.components
 Per\-component customization, grouped by the component kind cabal uses.
@@ -291,8 +291,8 @@ Only executables carry anything so far.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.components.exes
 Bundle optimizer settings for one executable of the package, keyed by
@@ -314,8 +314,8 @@ leaves in the build tree.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.components.exes.<name>.bundle\-optimizers
 Settings layers for optimizer tools a project registered through an
@@ -343,8 +343,8 @@ A field absent here states nothing.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.components.exes.<name>.closure\-compiler.enable
 Whether \f[CR]js\-optimize\f[R] runs closure\-compiler.
@@ -362,8 +362,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.components.exes.<name>.closure\-compiler.externs
 Files passed as \f[CR]\-\-externs\f[R].
@@ -391,8 +391,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.components.exes.<name>.closure\-compiler.extraFlags
 Flags appended after the level and the externs, so one of these
@@ -425,8 +425,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.components.exes.<name>.closure\-compiler.level
 The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
@@ -450,8 +450,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.components.exes.<name>.wasm\-opt.enable
 Whether \f[CR]wasm\-optimize\f[R] runs wasm\-opt and the strip that
@@ -471,8 +471,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.components.exes.<name>.wasm\-opt.extraFlags
 Flags appended after \f[CR]\-all \-O<level>\f[R], so one of these
@@ -505,8 +505,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.components.exes.<name>.wasm\-opt.level
 The \f[CR]\-O\f[R] level wasm\-opt runs at.
@@ -530,8 +530,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.configureFlags
 Extra flags passed to \f[CR]Setup configure\f[R].
@@ -553,8 +553,8 @@ Extra flags passed to \f[CR]Setup configure\f[R].
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.doCheck
 Whether to run the package\(cqs test suites.
@@ -569,8 +569,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.doCoverage
 Whether to generate a coverage report for the package.
@@ -585,8 +585,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.doHaddock
 Whether to build the package\(cqs documentation.
@@ -601,8 +601,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.doHoogle
 Whether to generate a hoogle index for the package\(cqs documentation.
@@ -617,8 +617,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.doHyperlinkSource
 Whether to generate hyperlinked source code alongside the package\(cqs
@@ -634,8 +634,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.doQuickjump
 Whether to generate the quickjump index of the package\(cqs
@@ -651,8 +651,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.dontStrip
 Whether to leave the produced binaries unstripped.
@@ -667,8 +667,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.flags
 Cabal flag assignments for the package (\f[CR]true\f[R] enables,
@@ -692,8 +692,8 @@ Cabal flag assignments for the package (\f[CR]true\f[R] enables,
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.ghcOptions
 GHC flags for this package only.
@@ -716,8 +716,8 @@ GHC flags for this package only.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.hardeningDisable
 Hardening flags to disable when building the package.
@@ -740,8 +740,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.patches
 Patches applied to the package source.
@@ -761,8 +761,8 @@ Patches applied to the package source.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.postBuild
 Shell code run after the build phase.
@@ -783,8 +783,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.postCheck
 Shell code run after the check phase.
@@ -805,8 +805,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.postConfigure
 Shell code run after the configure phase.
@@ -827,8 +827,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.postHaddock
 Shell code run after the haddock phase.
@@ -849,8 +849,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.postInstall
 Shell code run after the install phase.
@@ -871,8 +871,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.postPatch
 Shell code run after the patch phase.
@@ -893,8 +893,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.postUnpack
 Shell code run after the unpack phase.
@@ -915,8 +915,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.preBuild
 Shell code run before the build phase.
@@ -937,8 +937,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.preCheck
 Shell code run before the check phase.
@@ -959,8 +959,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.preConfigure
 Shell code run before the configure phase.
@@ -981,8 +981,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.preHaddock
 Shell code run before the haddock phase.
@@ -1003,8 +1003,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.preInstall
 Shell code run before the install phase.
@@ -1025,8 +1025,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.prePatch
 Shell code run before the patch phase.
@@ -1047,8 +1047,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.preUnpack
 Shell code run before the unpack phase.
@@ -1069,8 +1069,39 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
+.UE \c
+.SS packages.<name>.previousIntermediates
+Compiled modules of an earlier build to resume from: a path carrying
+\f[CR]share/haskell/<ghc\-version>/<pname>\-<version>/dist/build\f[R],
+which the build restores before \f[CR]Setup build\f[R].
+Modules ghc accepts are not compiled again.
+\f[CR]fine\-grained\f[R] sets this to a plan\(cqs output for the
+packages it selects, over a value set here.
+.PP
+The nixpkgs driver builds a package as one derivation and restores the
+whole tree.
+The haskell.nix driver builds per component and restores the
+library\(cqs, the only component whose build the tree holds.
+.PP
+\f[I]Type:\f[R] null or string or package
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+builtins.outputOf plan.outPath \(dqout\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.profilingDetail
 The profiling detail level.
@@ -1091,8 +1122,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.setupBuildFlags
 Extra flags passed to \f[CR]Setup build\f[R].
@@ -1114,8 +1145,8 @@ Extra flags passed to \f[CR]Setup build\f[R].
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.setupHaddockFlags
 Extra flags passed to \f[CR]Setup haddock\f[R].
@@ -1137,8 +1168,8 @@ Extra flags passed to \f[CR]Setup haddock\f[R].
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.src
 Replacement source for the package.
@@ -1158,8 +1189,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.wasm\-opt.enable
 Whether \f[CR]wasm\-optimize\f[R] runs wasm\-opt and the strip that
@@ -1179,8 +1210,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.wasm\-opt.extraFlags
 Flags appended after \f[CR]\-all \-O<level>\f[R], so one of these
@@ -1213,8 +1244,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS packages.<name>.wasm\-opt.level
 The \f[CR]\-O\f[R] level wasm\-opt runs at.
@@ -1238,8 +1269,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS _module.args
 Additional arguments passed to each module in addition to ones like
@@ -1329,8 +1360,8 @@ tests: true
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS cabalProjectFileName
 Name of the cabal project file.
@@ -1344,8 +1375,8 @@ Name of the cabal project file.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS cabalProjectLocal
 Content of the \f[CR]cabal.project.local\f[R] file.
@@ -1365,8 +1396,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS clean\-src
 Filter \f[CR]src\f[R] through the \f[CR].gitignore\f[R] it carries
@@ -1387,8 +1418,8 @@ true
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS clean\-src\-ignore\-files
 The ignore files read when \f[CR]clean\-src\f[R] is enabled.
@@ -1420,8 +1451,8 @@ instead.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS clean\-src\-patterns
 Extra gitignore\-syntax patterns, applied on top of the files
@@ -1448,8 +1479,8 @@ An anchored pattern read against the root cannot.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS closure\-compiler.enable
 Whether \f[CR]js\-optimize\f[R] runs closure\-compiler.
@@ -1464,8 +1495,8 @@ true
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/cross/ghcjs
-/modules/cross/ghcjs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/ghcjs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/cross/ghcjs
 .UE \c
 .SS closure\-compiler.externs
 Files passed as \f[CR]\-\-externs\f[R].
@@ -1490,8 +1521,8 @@ name.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/cross/ghcjs
-/modules/cross/ghcjs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/ghcjs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/cross/ghcjs
 .UE \c
 .SS closure\-compiler.extraFlags
 Flags appended after the level and the externs, so one of these
@@ -1528,8 +1559,8 @@ names the runtime defines elsewhere.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/cross/ghcjs
-/modules/cross/ghcjs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/ghcjs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/cross/ghcjs
 .UE \c
 .SS closure\-compiler.level
 The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
@@ -1550,8 +1581,8 @@ The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/cross/ghcjs
-/modules/cross/ghcjs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/ghcjs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/cross/ghcjs
 .UE \c
 .SS compiler
 The GHC to build with:
@@ -1606,8 +1637,8 @@ entries for compilers distributed outside the drivers\(cq package sets.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.enableShared
 Whether the compiler can build shared libraries.
@@ -1627,8 +1658,8 @@ loads shared objects.
 \f[CR]package\f[R], else \f[CR]true\f[R]
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.package
 A compiler used directly instead of one from the driver\(cqs package
@@ -1659,8 +1690,8 @@ pkgs.haskell.compiler.ghc912
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.haskell\-nix
 Compiler details only the haskell.nix driver reads.
@@ -1674,8 +1705,8 @@ Compiler details only the haskell.nix driver reads.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.haskell\-nix.extraNonReinstallablePkgs
 Packages taken from the compiler\(cqs own database rather than built, on
@@ -1704,8 +1735,8 @@ needs \f[CR]system\-cxx\-std\-lib\f[R] here.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.haskell\-nix.libDir
 The compiler\(cqs library directory, relative to its store path, where
@@ -1726,8 +1757,8 @@ version\-named install.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.name
 The compiler\(cqs name in the driver\(cqs package sets
@@ -1752,8 +1783,8 @@ where no stackage snapshot covers 9.14 yet
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.nixpkgs
 Compiler details only the nixpkgs driver reads.
@@ -1767,8 +1798,8 @@ Compiler details only the nixpkgs driver reads.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.nixpkgs.enableExternalInterpreter
 Whether to run Template Haskell splices through nixpkgs\(cq external
@@ -1786,8 +1817,8 @@ use the external interpreter whenever it is cross\-compiling and an
 emulator exists for the target
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.nixpkgs.haskellCompilerName
 The compiler\(cqs cabal name.
@@ -1807,8 +1838,8 @@ of \f[CR]package\f[R], else \f[CR]ghc\-<version>\f[R]
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.platforms
 Per\-platform compilers, keyed by \f[CR]pkgsCross\f[R] platform name
@@ -1835,8 +1866,8 @@ replaces the whole table for that driver.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.platforms.<name>.enableShared
 Whether the compiler can build shared libraries.
@@ -1856,8 +1887,8 @@ loads shared objects.
 \f[CR]package\f[R], else \f[CR]true\f[R]
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.platforms.<name>.package
 A compiler used directly instead of one from the driver\(cqs package
@@ -1888,8 +1919,8 @@ pkgs.haskell.compiler.ghc912
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.platforms.<name>.haskell\-nix
 Compiler details only the haskell.nix driver reads.
@@ -1903,8 +1934,8 @@ Compiler details only the haskell.nix driver reads.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.platforms.<name>.haskell\-nix.extraNonReinstallablePkgs
 Packages taken from the compiler\(cqs own database rather than built, on
@@ -1933,8 +1964,8 @@ needs \f[CR]system\-cxx\-std\-lib\f[R] here.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.platforms.<name>.haskell\-nix.libDir
 The compiler\(cqs library directory, relative to its store path, where
@@ -1955,8 +1986,8 @@ version\-named install.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.platforms.<name>.name
 The compiler\(cqs name in the driver\(cqs package sets
@@ -1981,8 +2012,8 @@ where no stackage snapshot covers 9.14 yet
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.platforms.<name>.nixpkgs
 Compiler details only the nixpkgs driver reads.
@@ -1996,8 +2027,8 @@ Compiler details only the nixpkgs driver reads.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.platforms.<name>.nixpkgs.enableExternalInterpreter
 Whether to run Template Haskell splices through nixpkgs\(cq external
@@ -2015,8 +2046,8 @@ use the external interpreter whenever it is cross\-compiling and an
 emulator exists for the target
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.platforms.<name>.nixpkgs.haskellCompilerName
 The compiler\(cqs cabal name.
@@ -2036,8 +2067,8 @@ of \f[CR]package\f[R], else \f[CR]ghc\-<version>\f[R]
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.platforms.<name>.targetPrefix
 The prefix on the compiler\(cqs executables.
@@ -2055,8 +2086,8 @@ Both drivers invoke every tool by its prefixed name.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.platforms.<name>.toolchain
 The C toolchain the compiler was configured with, when that is not the
@@ -2085,8 +2116,8 @@ nixpkgs makes it the cross package set\(cqs toolchain outright
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.platforms.<name>.toolchain.package
 The toolchain itself.
@@ -2103,8 +2134,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.platforms.<name>.toolchain.ar
 The archiver\(cqs name in the toolchain\(cqs \f[CR]bin\f[R], passed to
@@ -2125,8 +2156,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.platforms.<name>.toolchain.cc
 The C compiler\(cqs name in the toolchain\(cqs \f[CR]bin\f[R], passed to
@@ -2147,8 +2178,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.platforms.<name>.toolchain.extra
 Extra \f[CR]\-\-with\-<key>\f[R] tools of the toolchain.
@@ -2175,8 +2206,8 @@ one of them.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.platforms.<name>.toolchain.ld
 The linker\(cqs name in the toolchain\(cqs \f[CR]bin\f[R], passed to
@@ -2197,8 +2228,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.platforms.<name>.toolchain.strip
 The strip utility\(cqs name in the toolchain\(cqs \f[CR]bin\f[R], passed
@@ -2219,8 +2250,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.platforms.<name>.version
 The compiler\(cqs version.
@@ -2251,8 +2282,8 @@ A nightly\(cqs name carries only its series.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.targetPrefix
 The prefix on the compiler\(cqs executables.
@@ -2270,8 +2301,8 @@ Both drivers invoke every tool by its prefixed name.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.toolchain
 The C toolchain the compiler was configured with, when that is not the
@@ -2300,8 +2331,8 @@ nixpkgs makes it the cross package set\(cqs toolchain outright
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.toolchain.package
 The toolchain itself.
@@ -2318,8 +2349,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.toolchain.ar
 The archiver\(cqs name in the toolchain\(cqs \f[CR]bin\f[R], passed to
@@ -2340,8 +2371,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.toolchain.cc
 The C compiler\(cqs name in the toolchain\(cqs \f[CR]bin\f[R], passed to
@@ -2362,8 +2393,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.toolchain.extra
 Extra \f[CR]\-\-with\-<key>\f[R] tools of the toolchain.
@@ -2390,8 +2421,8 @@ one of them.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.toolchain.ld
 The linker\(cqs name in the toolchain\(cqs \f[CR]bin\f[R], passed to
@@ -2412,8 +2443,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.toolchain.strip
 The strip utility\(cqs name in the toolchain\(cqs \f[CR]bin\f[R], passed
@@ -2434,8 +2465,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS compiler.version
 The compiler\(cqs version.
@@ -2466,8 +2497,8 @@ A nightly\(cqs name carries only its series.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS cross\-wrappers
 \f[B]A function, not a setting.\f[R] A project calls it and uses the
@@ -2500,8 +2531,8 @@ The default returns no script for a compiler without a target prefix.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/cross
-/modules/cross
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/cross
 .UE \c
 .SS extraCabalProject
 Lines to append to \f[CR]cabal.project\f[R].
@@ -2523,8 +2554,224 @@ Lines to append to \f[CR]cabal.project\f[R].
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
+.UE \c
+.SS fine\-grained
+Builds the selected packages one module at a time, so that a change to
+one module rebuilds one module.
+Evaluation reads \f[CR]builtins.outputOf\f[R], and the builds need the
+Nix of \f[CR]nix\f[R] below.
+.PP
+The modules hold the ways of one \f[CR]Setup build\f[R], so a package
+that keeps \f[CR]packages.<name>.enableLibraryProfiling\f[R] on compiles
+every module a second time.
+The drivers warn when that happens.
+.PP
+\f[I]Type:\f[R] submodule
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
+.UE \c
+.SS fine\-grained.enable
+Whether to build the packages \f[CR]packages\f[R] names module by
+module.
+Off leaves the drivers\(cq own build paths in place.
+.PP
+\f[I]Type:\f[R] boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+false
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
+.UE \c
+.SS fine\-grained.packages
+The packages built module by module, by cabal package name.
+\f[CR]null\f[R] takes every local package, and \f[CR][]\f[R] takes none.
+Cross platforms are never built this way.
+.PP
+\f[I]Type:\f[R] null or (list of string)
+.PP
+\f[I]Default:\f[R] every local package
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[
+  \(dqfrontend\(dq
+  \(dqcommon\(dq
+]
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
+.UE \c
+.SS fine\-grained.configure\-flags
+\f[B]A function, not a setting.\f[R] A project calls it and uses the
+result.
+Assign it only to replace what the call does.
+.PP
+The configure flags of one package\(cqs plan, one step per driver.
+The nixpkgs call carries \f[CR]name\f[R], \f[CR]tweaks\f[R],
+\f[CR]ghc\-options\f[R], \f[CR]ghc\f[R] and \f[CR]pkgs\f[R].
+The haskell.nix call carries \f[CR]name\f[R], \f[CR]component\f[R],
+\f[CR]ghc\f[R] and \f[CR]pkgs\f[R].
+.PP
+The flags must make configure compute the ghc flags that the
+package\(cqs own configure computes.
+A mismatch costs recompilation.
+Replace this step where something the default cannot read changes a
+build way, such as the nixpkgs driver\(cqs \f[CR]package\-arguments\f[R]
+or \f[CR]overrides\f[R].
+.PP
+\f[I]Type:\f[R] function that evaluates to a(n) string
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+<nix\-haskell>/libs/nixpkgs/fine\-grained/configure\-flags.nix
+<nix\-haskell>/libs/haskell\-nix/fine\-grained/configure\-flags.nix
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+args: import \(dq${nix\-haskell\-libs}/nixpkgs/fine\-grained/configure\-flags.nix\(dq { inherit lib; } args
+  + \(dq \-\-ghc\-option=\-fno\-ignore\-asserts\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
+.UE \c
+.SS fine\-grained.ghc\-shim
+\f[B]A function, not a setting.\f[R] A project calls it and uses the
+result.
+Assign it only to replace what the call does.
+.PP
+The compiler that a plan\(cqs configure records, so that sandstone reads
+the flags Cabal computed.
+The call carries \f[CR]pkgs\f[R] and \f[CR]ghc\f[R], and each driver
+passes its own compiler.
+.PP
+\f[I]Type:\f[R] function that evaluates to a(n) package
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+<nix\-haskell>/libs/fine\-grained/ghc\-shim.nix
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
+.UE \c
+.SS fine\-grained.intermediates
+\f[B]A function, not a setting.\f[R] A project calls it and uses the
+result.
+Assign it only to replace what the call does.
+.PP
+Builds one package\(cqs plan, the derivation whose output is the
+derivation that assembles that package\(cqs modules.
+One step per driver.
+The nixpkgs call carries \f[CR]name\f[R], \f[CR]package\f[R],
+\f[CR]dependencies\f[R], \f[CR]ghc\f[R], \f[CR]shim\f[R],
+\f[CR]tool\f[R], \f[CR]configure\-flags\f[R] and \f[CR]pkgs\f[R].
+The haskell.nix call carries \f[CR]name\f[R], \f[CR]version\f[R],
+\f[CR]src\f[R], \f[CR]subdir\f[R], \f[CR]setup\f[R],
+\f[CR]config\-files\f[R], \f[CR]build\-flags\f[R], \f[CR]ghc\f[R],
+\f[CR]shim\f[R], \f[CR]tool\f[R], \f[CR]configure\-flags\f[R] and
+\f[CR]pkgs\f[R].
+.PP
+\f[I]Type:\f[R] function that evaluates to a(n) raw value
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+<nix\-haskell>/libs/nixpkgs/fine\-grained/intermediates.nix
+<nix\-haskell>/libs/haskell\-nix/fine\-grained/intermediates.nix
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+args: import \(dq${nix\-haskell\-libs}/nixpkgs/fine\-grained/intermediates.nix\(dq { inherit lib; }
+  (args // { configure\-flags = args.configure\-flags + \(dq \-\-enable\-tests\(dq; })
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
+.UE \c
+.SS fine\-grained.nix
+The Nix that these builds need, with dynamic derivations and the
+\f[CR]builder\-rpc\-v0\f[R] system feature.
+Build it and run it as the daemon, or drive a store of its own with it.
+.PP
+\f[I]Type:\f[R] package
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+<sandstone>.nix
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
+.UE \c
+.SS fine\-grained.sandstone
+The sandstone checkout, read with the nixpkgs and the Nix overlay that
+it pins itself.
+Those are not a driver\(cqs, and these builds use only the tool that it
+carries.
+.PP
+\f[I]Type:\f[R] raw value
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+import config.inputs.sandstone {
+  nixpkgsArgs = {
+    localSystem = {
+      system = config.system;
+    };
+  };
+}
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
+.UE \c
+.SS fine\-grained.tool
+The package that carries \f[CR]bin/cabal\-dyn\-drv\f[R], which builds
+every plan.
+.PP
+\f[I]Type:\f[R] package
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+<sandstone>.haskellPackages.sandstone
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS ghcOptions
 GHC flags applied project\-wide.
@@ -2547,8 +2794,8 @@ GHC flags applied project\-wide.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS hackage\-overlays
 Packages to make visible to dependency resolution without being
@@ -2581,8 +2828,8 @@ One example is obelisk\-generated\-static.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS haskell\-nix.compiler\-version
 The version of the compiler this driver builds with.
@@ -2602,8 +2849,8 @@ the one carried by the compiler the driver resolves: the package a
 project brought, or the one haskell.nix has under that name
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.cross\-compiler
 \f[B]A function, not a setting.\f[R] A project calls it and uses the
@@ -2631,8 +2878,8 @@ platform:
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.cross\-exe
 \f[B]A function, not a setting.\f[R] A project calls it and uses the
@@ -2657,8 +2904,8 @@ javascript target\(cqs linked directory at \f[CR]bin/<exe>.jsexe\f[R].
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.default\-compiler
 The \f[CR]compiler.name\f[R] this driver falls back to when no
@@ -2680,8 +2927,8 @@ A project\(cqs own \f[CR]compiler.name\f[R] overrides it.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.extraSrcFiles
 Files from the project source to add to component builds, in
@@ -2710,8 +2957,8 @@ and so on.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.haskell\-nix
 What the overlay adds to that package set: the compilers, the hackage
@@ -2727,8 +2974,8 @@ config.\(dqhaskell\-nix\(dq.nixpkgs.haskell\-nix
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.input
 The haskell.nix checkout this driver builds with, imported for
@@ -2745,8 +2992,8 @@ import config.inputs.\(dqhaskell\-nix\(dq { inherit system; }
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.lib
 haskell.nix\(cqs own helpers, \f[CR]haskellLib\f[R]: selecting a
@@ -2762,8 +3009,8 @@ config.\(dqhaskell\-nix\(dq.haskell\-nix.haskellLib
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.nixpkgs
 The package set the driver builds with, and the one every native tool in
@@ -2778,8 +3025,8 @@ import config.\(dqhaskell\-nix\(dq.nixpkgsSource ({ inherit system; } // config.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.nixpkgsArgs
 The arguments the driver imports nixpkgs with: haskell.nix\(cqs own
@@ -2795,8 +3042,8 @@ config.\(dqhaskell\-nix\(dq.input.nixpkgsArgs
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.nixpkgsSource
 The nixpkgs this driver builds from: the one haskell.nix pins, not the
@@ -2814,8 +3061,8 @@ config.\(dqhaskell\-nix\(dq.input.sources.nixpkgs\-unstable
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options
 haskell.nix project options, passed to haskell.nix\(cqs
@@ -2836,8 +3083,8 @@ The driver fills many of them from the common options through its
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.builderVersion
 Selects which component builder is used for per\-component derivations.
@@ -2860,8 +3107,8 @@ per\-component opt\-in.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.cabalProject
 This option has no description.
@@ -2875,8 +3122,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.cabalProjectFileName
 This option has no description.
@@ -2890,8 +3137,8 @@ This option has no description.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.cabalProjectFreeze
 This option has no description.
@@ -2905,8 +3152,8 @@ This option has no description.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.cabalProjectLocal
 This option has no description.
@@ -2920,8 +3167,8 @@ This option has no description.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.checkMaterialization
 If true the nix files will be generated used to check plan\-sha256 and
@@ -2936,8 +3183,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.compiler\-nix\-name
 The name of the ghc compiler to use eg.
@@ -2946,8 +3193,8 @@ The name of the ghc compiler to use eg.
 \f[I]Type:\f[R] string
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.compilerSelection
 Use GHC from pkgs.haskell instead of pkgs.haskell\-nix
@@ -2961,8 +3208,8 @@ Use GHC from pkgs.haskell instead of pkgs.haskell\-nix
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.configureArgs
 Extra arguments to pass to \f[CR]cabal v2\-configure\f[R].
@@ -2981,8 +3228,8 @@ to be chosen, then we can use
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.crossPlatforms
 This option has no description.
@@ -2996,8 +3243,8 @@ This option has no description.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.evalPackages
 Packages used to run \f[CR]cabal\f[R] and \f[CR]nix\-tools\f[R].
@@ -3022,8 +3269,8 @@ else
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.evalSrc
 Allows a different version of the src to be used at eval time.
@@ -3040,12 +3287,12 @@ A version of the source that does not require building
 \f[I]Default:\f[R]
 .IP
 .EX
-<nix\-haskell>
+\(dq/nix/store/j8298dfxg87q20hp0applxszxgksn3ah\-nix\-haskell\-tmp\(dq
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.evalSystem
 Specifies the system on which \f[CR]cabal\f[R] and \f[CR]nix\-tools\f[R]
@@ -3064,8 +3311,8 @@ evaluation of the haskell project to work.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.extra\-hackage\-tarballs
 This option has no description.
@@ -3079,8 +3326,8 @@ This option has no description.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.extra\-hackages
 This option has no description.
@@ -3094,8 +3341,8 @@ This option has no description.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.flake
 Default arguments to use for the \f[CR]p.flake\f[R].
@@ -3109,8 +3356,8 @@ Default arguments to use for the \f[CR]p.flake\f[R].
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.flake.packages
 This option has no description.
@@ -3124,8 +3371,8 @@ This option has no description.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.flake.coverageProjectModule
 Project module for use when generating coverage reports.
@@ -3141,8 +3388,8 @@ on by default.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.flake.crossPlatforms
 This option has no description.
@@ -3156,8 +3403,8 @@ This option has no description.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.flake.doCoverage
 Specifies if the flake \f[CR]ciJobs\f[R] and \f[CR]hydraJobs\f[R] should
@@ -3172,8 +3419,8 @@ false
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.flake.variants
 This allows flakes to easily include variations of the project by with
@@ -3200,8 +3447,8 @@ Then use it with:
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.ghc
 Deprecated in favour of \f[CR]compiler\-nix\-name\f[R]
@@ -3215,8 +3462,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.ghcOverride
 Used when we need to set ghc explicitly during bootstrapping
@@ -3230,8 +3477,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.hsPkgs
 This option has no description.
@@ -3239,8 +3486,8 @@ This option has no description.
 \f[I]Type:\f[R] unspecified value
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.ignorePackageYaml
 If set, prevents nix\-tools from attempting to load package.yaml even if
@@ -3255,8 +3502,8 @@ false
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.index\-sha256
 The hash of the truncated hackage index\-state
@@ -3270,8 +3517,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.index\-state
 Hackage index\-state, eg.
@@ -3286,8 +3533,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.inputMap
 Specifies the contents of urls in the cabal.project file.
@@ -3307,8 +3554,8 @@ looks up the \f[CR].tar.gz\f[R] file of each named package in the
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.materialized
 Location of a materialized copy of the nix files
@@ -3322,8 +3569,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.modules
 This option has no description.
@@ -3337,8 +3584,8 @@ This option has no description.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.name
 Optional name for better error messages
@@ -3352,8 +3599,8 @@ Optional name for better error messages
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.nix\-tools
 nix\-tools to use when converting the \f[CR]plan.json\f[R] to nix
@@ -3367,8 +3614,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.pkg\-def\-extras
 This option has no description.
@@ -3382,8 +3629,8 @@ This option has no description.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.plan\-sha256
 The hash of the plan\-to\-nix output (makes the plan\-to\-nix step a
@@ -3398,8 +3645,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.prebuilt\-depends
 pre\-built (perhaps proprietary) Haskell packages to make available as
@@ -3416,8 +3663,8 @@ See Note [prebuilt dependencies] for more details
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.projectFileName
 This option has no description.
@@ -3431,8 +3678,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.sha256map
 An alternative to adding \f[CR]\-\-sha256\f[R] comments into the
@@ -3454,8 +3701,8 @@ string))
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.shell
 Arguments to use for the default shell \f[CR]p.shell\f[R] (these are
@@ -3472,8 +3719,8 @@ use shell = { tools.cabal = {}; crossPlatforms = p: [ p.ghcjs ]; }
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.shell.enableDWARF
 This option has no description.
@@ -3487,8 +3734,8 @@ false
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.shell.packageSetupDeps
 This option has no description.
@@ -3502,8 +3749,8 @@ true
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.shell.packages
 This option has no description.
@@ -3517,8 +3764,8 @@ This option has no description.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.shell.additional
 This option has no description.
@@ -3532,8 +3779,8 @@ This option has no description.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.shell.allToolDeps
 Indicates if the shell should include all the tool dependencies of the
@@ -3550,8 +3797,8 @@ true
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.shell.buildInputs
 This option has no description.
@@ -3565,8 +3812,8 @@ This option has no description.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.shell.components
 This option has no description.
@@ -3580,8 +3827,8 @@ This option has no description.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.shell.crossPlatforms
 This option has no description.
@@ -3595,8 +3842,8 @@ This option has no description.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.shell.exactDeps
 This option has no description.
@@ -3610,8 +3857,8 @@ false
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.shell.exposePackagesVia
 How the v2 shell\(cqs pre\-built library deps are made visible to tools
@@ -3641,8 +3888,8 @@ Only affects \f[CR]shellFor\f[R] under \f[CR]builderVersion = 2\f[R].
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.shell.inputsFrom
 This option has no description.
@@ -3656,8 +3903,8 @@ This option has no description.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.shell.name
 This option has no description.
@@ -3671,8 +3918,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.shell.nativeBuildInputs
 This option has no description.
@@ -3686,8 +3933,8 @@ This option has no description.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.shell.passthru
 This option has no description.
@@ -3701,8 +3948,8 @@ This option has no description.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.shell.shellHook
 This option has no description.
@@ -3716,8 +3963,8 @@ This option has no description.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.shell.tools
 This option has no description.
@@ -3731,8 +3978,8 @@ This option has no description.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.shell.withHaddock
 This option has no description.
@@ -3746,8 +3993,8 @@ true
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.shell.withHoogle
 This option has no description.
@@ -3761,8 +4008,8 @@ true
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.source\-repo\-override
 This option has no description.
@@ -3777,8 +4024,8 @@ This option has no description.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.src
 This option has no description.
@@ -3786,8 +4033,8 @@ This option has no description.
 \f[I]Type:\f[R] absolute path or package
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.supportHpack
 This option has no description.
@@ -3801,8 +4048,8 @@ false
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.options.useLocalGhcLib
 Expose the GHC compiler tree (configured\-src + generated, the
@@ -3835,8 +4082,8 @@ false
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.overrides
 haskell.nix \f[CR]modules\f[R] to add to the project.
@@ -3858,18 +4105,27 @@ Two definitions concatenate rather than replace one another.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.project
 The built project as haskell.nix returns it: \f[CR]hsPkgs\f[R],
 \f[CR]shell\f[R], \f[CR]projectCross\f[R] per cross platform,
 \f[CR]plan\-nix\f[R], and the rest.
+A replacement value must be a haskell.nix project too: it answers
+\f[CR]appendModule\f[R], \f[CR]shell\f[R] and \f[CR]pkg\-set\f[R].
+.PP
 The shell is haskell.nix\(cqs own, with the common
 \f[CR]shell.shellHook\f[R] appended and \f[CR]shell.withHoogle\f[R]
 applied.
 Both go through \f[CR]overrideAttrs\f[R], so neither is evaluated unless
 the shell is.
+.PP
+With \f[CR]fine\-grained\f[R] on and selecting a package, the project is
+re\-evaluated with a module restoring each selected library from its
+plan.
+The plans read the project as set here, whose components differ from the
+final ones only by that restore.
 .PP
 \f[I]Type:\f[R] raw value
 .PP
@@ -3880,8 +4136,8 @@ config.haskell\-nix.haskell\-nix.project config.haskell\-nix.options
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.stages.hackage
 A generated hackage index that makes \f[CR]hackage\-overlays\f[R]
@@ -3896,8 +4152,8 @@ visible to the cabal solver.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.stages.hackage.package\-overlays
 Project modules that force each overlaid package\(cqs \f[CR]src\f[R] to
@@ -3918,8 +4174,8 @@ package\-overlays from <nix\-haskell>/libs/haskell\-nix/hackage\-driver.nix
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.stages.hackage.extra\-hackage\-tarballs
 The generated hackage index tarballs, keyed by repository name.
@@ -3933,8 +4189,8 @@ extra\-hackage\-tarballs from <nix\-haskell>/libs/haskell\-nix/hackage\-driver.n
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.stages.hackage.extra\-hackages
 The imported hackage expressions the cabal solver reads beside the real
@@ -3950,8 +4206,8 @@ extra\-hackages from <nix\-haskell>/libs/haskell\-nix/hackage\-driver.nix
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.stages.source\-repository\-packages
 \f[CR]source\-repository\-package\f[R] stanzas and the
@@ -3967,8 +4223,8 @@ common \f[CR]source\-repository\-packages\f[R].
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.stages.source\-repository\-packages.cabalProject
 The generated \f[CR]source\-repository\-package\f[R] stanzas, as
@@ -3994,8 +4250,8 @@ cabalProject from <nix\-haskell>/libs/cabal.nix source\-repository\-packages
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.stages.source\-repository\-packages.inputMap
 Pins each generated stanza\(cqs \f[CR]location\f[R] to its fetched
@@ -4016,8 +4272,8 @@ inputMap from <nix\-haskell>/libs/cabal.nix source\-repository\-packages
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS haskell\-nix.stages.src
 \f[CR]src\-cleaned\f[R], with the \f[CR]extraCabalProject\f[R] lines and
@@ -4034,8 +4290,8 @@ The driver builds the project from this.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/haskell.nix
-/modules/haskell.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/haskell.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/haskell.nix
 .UE \c
 .SS inputMap
 Maps a url named in the cabal.project file to its source, so the source
@@ -4062,8 +4318,8 @@ the entry\(cqs \f[CR].rev\f[R] attribute against the stanza\(cqs
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS inputs
 Sources of dependencies, keyed the way flake inputs are.
@@ -4086,8 +4342,8 @@ Add entries beyond the ones in \f[CR]pins/\f[R] freely.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/inputs.nix
-/modules/inputs.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/inputs.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/inputs.nix
 .UE \c
 .SS isGhcjs
 Whether the project targets GHCJS, natively or through
@@ -4100,8 +4356,8 @@ When true, Node.js joins \f[CR]shell.buildInputs\f[R].
 when \f[CR]shell.crossPlatforms\f[R] selects \f[CR]ghcjs\f[R].
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/cross/ghcjs
-/modules/cross/ghcjs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/ghcjs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/cross/ghcjs
 .UE \c
 .SS isWasm
 Whether the project targets wasm, natively or through
@@ -4115,8 +4371,8 @@ when \f[CR]shell.crossPlatforms\f[R] selects a platform whose name
 contains \f[CR]wasm\f[R] or starts with \f[CR]wasi\f[R].
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/cross/wasm
-/modules/cross/wasm
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/wasm
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/cross/wasm
 .UE \c
 .SS js\-optimize
 \f[B]A function, not a setting.\f[R] A project calls it and uses the
@@ -4169,8 +4425,8 @@ This function runs on a built artifact, outside any driver.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/cross/ghcjs
-/modules/cross/ghcjs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/ghcjs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/cross/ghcjs
 .UE \c
 .SS name
 Optional project name.
@@ -4182,8 +4438,8 @@ with it.
 \f[I]Default:\f[R] the base name of \f[CR]src\f[R]
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS native\-ldflags\-hook
 \f[B]A function, not a setting.\f[R] A project calls it and uses the
@@ -4213,8 +4469,8 @@ with \(lq\(rsn\(rq
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/cross
-/modules/cross
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/cross
 .UE \c
 .SS nixpkgs.compiler\-version
 The version of the compiler this driver builds with.
@@ -4234,8 +4490,8 @@ the one carried by the compiler the driver resolves: the package a
 project brought, or the \f[CR]ghc\f[R] of the package set it selected
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.cross\-compiler
 \f[B]A function, not a setting.\f[R] A project calls it and uses the
@@ -4262,8 +4518,8 @@ platform: config.nixpkgs.project.projectCross.<platform>.haskellPackages.ghc
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.cross\-exe
 \f[B]A function, not a setting.\f[R] A project calls it and uses the
@@ -4292,8 +4548,8 @@ to.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.default\-compiler
 The \f[CR]compiler.name\f[R] this driver falls back to when no
@@ -4317,8 +4573,8 @@ set has neither consistent bounds nor cached builds.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.haskellPackages
 The base Haskell package set, before the driver adds the project\(cqs
@@ -4342,8 +4598,8 @@ pkgs.haskell.packages.ghc912
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.options
 nixpkgs\-specific project options.
@@ -4357,8 +4613,8 @@ nixpkgs\-specific project options.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.package\-arguments
 mkDerivation arguments set per package, applied with
@@ -4385,8 +4641,8 @@ The haskell.nix counterpart is a module in
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.package\-steps
 \f[B]A function, not a setting.\f[R] A project calls it and uses the
@@ -4425,8 +4681,8 @@ args: import \(dq${nix\-haskell\-libs}/nixpkgs/package\-steps.nix\(dq { inherit 
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.packages
 Explicit map of the project\(cqs local packages, keyed by cabal package
@@ -4451,8 +4707,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.packages.<name>.subdir
 Directory of the package within the project source.
@@ -4466,8 +4722,8 @@ Directory of the package within the project source.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.cabal2nix\-options
 \f[B]A function, not a setting.\f[R] A project calls it and uses the
@@ -4508,8 +4764,8 @@ args: \(dq\-\-jailbreak \(dq + import \(dq${nix\-haskell\-libs}/nixpkgs/cabal2ni
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.cross\-ghc\-env
 \f[B]A function, not a setting.\f[R] A project calls it and uses the
@@ -4545,8 +4801,8 @@ version, so it cannot wrap a relocatable bindist.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.cross\-package\-defaults
 Defaults applied to every package of a cross set the driver builds
@@ -4566,8 +4822,8 @@ A cross set cannot run what it builds, so both stay off.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.cross\-package\-defaults.haddock
 Build documentation.
@@ -4581,8 +4837,8 @@ false
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.cross\-package\-defaults.jailbreak
 Lift version bounds (\f[CR]haskell.lib.doJailbreak\f[R]).
@@ -4597,8 +4853,8 @@ true
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.cross\-package\-defaults.profiling
 Build profiling libraries.
@@ -4612,8 +4868,8 @@ false
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.discover\-packages
 \f[B]A function, not a setting.\f[R] A project calls it and uses the
@@ -4658,8 +4914,8 @@ multi\-package tree with no explicit map.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.evaluate\-condition
 \f[B]A function, not a setting.\f[R] A project calls it and uses the
@@ -4701,8 +4957,8 @@ Replace it to answer \f[CR]impl(..)\f[R] from
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.exact\-configuration
 Tell Cabal every direct dependency, by the id its package database
@@ -4735,8 +4991,8 @@ Set the option explicitly to break the link, in either direction.
 \f[I]Default:\f[R] \f[CR]nixpkgs.options.use\-plan\f[R]
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.exact\-configuration\-hook
 \f[B]A function, not a setting.\f[R] A project calls it and uses the
@@ -4768,8 +5024,8 @@ args: import \(dq${nix\-haskell\-libs}/nixpkgs/exact\-configuration.nix\(dq args
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.extra\-package\-defaults
 Defaults applied to packages rooted outside the project source:
@@ -4789,8 +5045,8 @@ This driver has no solver, so their version bounds usually need lifting.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.extra\-package\-defaults.check
 Run the test suites of these packages.
@@ -4804,8 +5060,8 @@ false
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.extra\-package\-defaults.haddock
 Build the documentation of these packages.
@@ -4819,8 +5075,8 @@ false
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.extra\-package\-defaults.jailbreak
 Lift version bounds (\f[CR]haskell.lib.doJailbreak\f[R]).
@@ -4834,8 +5090,8 @@ true
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.fetch\-stanza\-source
 \f[B]A function, not a setting.\f[R] A project calls it and uses the
@@ -4882,208 +5138,8 @@ Replace it to fetch through another tool or a mirror.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
-.UE \c
-.SS nixpkgs.options.fine\-grained
-Builds the selected packages one module at a time, so that a change to
-one module rebuilds one module.
-Evaluation reads \f[CR]builtins.outputOf\f[R], and the builds need the
-Nix of \f[CR]nix\f[R] below.
-.PP
-The modules hold the ways of one \f[CR]Setup build\f[R], so a package
-that keeps \f[CR]packages.<name>.enableLibraryProfiling\f[R] on compiles
-every module a second time.
-The driver warns when that happens.
-.PP
-\f[I]Type:\f[R] submodule
-.PP
-\f[I]Default:\f[R]
-.IP
-.EX
-{ }
-.EE
-.PP
-\f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
-.UE \c
-.SS nixpkgs.options.fine\-grained.enable
-Whether to build the packages \f[CR]packages\f[R] names module by
-module.
-Off leaves the driver\(cqs own build path in place.
-.PP
-\f[I]Type:\f[R] boolean
-.PP
-\f[I]Default:\f[R]
-.IP
-.EX
-false
-.EE
-.PP
-\f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
-.UE \c
-.SS nixpkgs.options.fine\-grained.packages
-The packages built module by module, by cabal package name.
-\f[CR]null\f[R] takes every local package, and \f[CR][]\f[R] takes none.
-Cross platforms are never built this way.
-.PP
-\f[I]Type:\f[R] null or (list of string)
-.PP
-\f[I]Default:\f[R] every local package
-.PP
-\f[I]Example:\f[R]
-.IP
-.EX
-[
-  \(dqfrontend\(dq
-  \(dqcommon\(dq
-]
-.EE
-.PP
-\f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
-.UE \c
-.SS nixpkgs.options.fine\-grained.configure\-flags
-\f[B]A function, not a setting.\f[R] A project calls it and uses the
-result.
-Assign it only to replace what the call does.
-.PP
-The configure flags of one package\(cqs plan.
-The call carries \f[CR]name\f[R], \f[CR]tweaks\f[R],
-\f[CR]ghc\-options\f[R], \f[CR]ghc\f[R] and \f[CR]pkgs\f[R].
-.PP
-The flags must make configure compute the ghc flags that the
-package\(cqs own configure computes.
-A mismatch costs recompilation.
-Replace this step where \f[CR]package\-arguments\f[R] or
-\f[CR]overrides\f[R] changes a build way, which the default cannot read.
-.PP
-\f[I]Type:\f[R] function that evaluates to a(n) string
-.PP
-\f[I]Default:\f[R]
-.IP
-.EX
-<nix\-haskell>/libs/nixpkgs/fine\-grained/configure\-flags.nix
-.EE
-.PP
-\f[I]Example:\f[R]
-.IP
-.EX
-args: import \(dq${nix\-haskell\-libs}/nixpkgs/fine\-grained/configure\-flags.nix\(dq { inherit lib; } args
-  + \(dq \-\-ghc\-option=\-fno\-ignore\-asserts\(dq
-.EE
-.PP
-\f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
-.UE \c
-.SS nixpkgs.options.fine\-grained.ghc\-shim
-The compiler that a plan\(cqs configure records, so that sandstone reads
-the flags Cabal computed.
-It wraps this driver\(cqs ghc.
-.PP
-\f[I]Type:\f[R] package
-.PP
-\f[I]Default:\f[R]
-.IP
-.EX
-<nix\-haskell>/libs/nixpkgs/fine\-grained/ghc\-shim.nix
-.EE
-.PP
-\f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
-.UE \c
-.SS nixpkgs.options.fine\-grained.intermediates
-\f[B]A function, not a setting.\f[R] A project calls it and uses the
-result.
-Assign it only to replace what the call does.
-.PP
-Builds one package\(cqs plan, the derivation whose output is the
-derivation that assembles that package\(cqs modules.
-The call carries \f[CR]name\f[R], \f[CR]package\f[R],
-\f[CR]dependencies\f[R], \f[CR]ghc\f[R], \f[CR]shim\f[R],
-\f[CR]tool\f[R], \f[CR]configure\-flags\f[R] and \f[CR]pkgs\f[R].
-.PP
-\f[I]Type:\f[R] function that evaluates to a(n) raw value
-.PP
-\f[I]Default:\f[R]
-.IP
-.EX
-<nix\-haskell>/libs/nixpkgs/fine\-grained/intermediates.nix
-.EE
-.PP
-\f[I]Example:\f[R]
-.IP
-.EX
-args: import \(dq${nix\-haskell\-libs}/nixpkgs/fine\-grained/intermediates.nix\(dq { inherit lib; }
-  (args // { configure\-flags = args.configure\-flags + \(dq \-\-enable\-tests\(dq; })
-.EE
-.PP
-\f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
-.UE \c
-.SS nixpkgs.options.fine\-grained.nix
-The Nix that these builds need, with dynamic derivations and the
-\f[CR]builder\-rpc\-v0\f[R] system feature.
-Build it and run it as the daemon, or drive a store of its own with it.
-.PP
-\f[I]Type:\f[R] package
-.PP
-\f[I]Default:\f[R]
-.IP
-.EX
-<sandstone>.nix
-.EE
-.PP
-\f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
-.UE \c
-.SS nixpkgs.options.fine\-grained.sandstone
-The sandstone checkout, read with the nixpkgs and the Nix overlay that
-it pins itself.
-Those are not this driver\(cqs, and these builds use only the tool that
-it carries.
-.PP
-\f[I]Type:\f[R] raw value
-.PP
-\f[I]Default:\f[R]
-.IP
-.EX
-import config.inputs.sandstone {
-  nixpkgsArgs = {
-    localSystem = {
-      system = config.nixpkgs.system;
-    };
-  };
-}
-.EE
-.PP
-\f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
-.UE \c
-.SS nixpkgs.options.fine\-grained.tool
-The package that carries \f[CR]bin/cabal\-dyn\-drv\f[R], which builds
-every plan.
-.PP
-\f[I]Type:\f[R] package
-.PP
-\f[I]Default:\f[R]
-.IP
-.EX
-<sandstone>.haskellPackages.sandstone
-.EE
-.PP
-\f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.haskell\-packages\-for
 \f[B]A function, not a setting.\f[R] A project calls it and uses the
@@ -5116,8 +5172,8 @@ This function also builds the set of every cross platform.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.overrides
 Overlays over the Haskell package set (\f[CR]self: super: { ... }\f[R]),
@@ -5140,8 +5196,8 @@ Use it for anything the common options do not cover.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.project\-overlays
 \f[B]A function, not a setting.\f[R] A project calls it and uses the
@@ -5168,8 +5224,8 @@ Replace it to prepend, reorder, drop or wrap them.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.project\-text
 \f[B]A function, not a setting.\f[R] A project calls it and uses the
@@ -5209,8 +5265,8 @@ follow it.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.resolve\-shell\-tool
 \f[B]A function, not a setting.\f[R] A project calls it and uses the
@@ -5249,8 +5305,8 @@ It takes the first source that has the name, and throws when none does.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.shell\-arguments
 \f[B]A function, not a setting.\f[R] A project calls it and uses the
@@ -5279,8 +5335,8 @@ field.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.shellFor\-args
 Extra arguments passed to \f[CR]shellFor\f[R] verbatim
@@ -5303,8 +5359,8 @@ Extra arguments passed to \f[CR]shellFor\f[R] verbatim
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.tool\-packages
 Overrides for \f[CR]shell.tools\f[R] resolution, keyed by tool name.
@@ -5336,8 +5392,8 @@ An entry of the project\(cqs own replaces it.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.options.use\-plan
 Take the project\(cqs structure (local packages, their directories,
@@ -5362,8 +5418,8 @@ false
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.pkgs
 The nixpkgs package set the driver builds with.
@@ -5383,8 +5439,8 @@ import config.inputs.nixpkgs { inherit (config) system; overlays = [ my\-overlay
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.pkgsCross
 Cross package sets for \f[CR]project.projectCross\f[R], keyed by
@@ -5416,8 +5472,8 @@ A platform without an entry gets none, and the driver falls back to
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS nixpkgs.project
 The built project: \f[CR]packages\f[R] (the project\(cqs own packages),
@@ -5443,8 +5499,8 @@ import <nix\-haskell>/libs/nixpkgs/driver.nix {
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/nixpkgs
-/modules/nixpkgs
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/nixpkgs
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/nixpkgs
 .UE \c
 .SS optimizations.O2
 Enable \-O2: GHC applies every non\-dangerous optimisation, at the cost
@@ -5459,8 +5515,8 @@ false
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/optimizations.nix
-/modules/optimizations.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/optimizations.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/optimizations.nix
 .UE \c
 .SS optimizations.all
 Enable every optimization flag in this module.
@@ -5475,8 +5531,8 @@ false
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/optimizations.nix
-/modules/optimizations.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/optimizations.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/optimizations.nix
 .UE \c
 .SS optimizations.cross\-module\-specialise
 Enable \-fcross\-module\-specialise: specialise INLINABLE overloaded
@@ -5492,8 +5548,8 @@ false
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/optimizations.nix
-/modules/optimizations.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/optimizations.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/optimizations.nix
 .UE \c
 .SS optimizations.expose\-all\-unfoldings
 Enable \-fexpose\-all\-unfoldings: write every function\(cqs unfolding
@@ -5509,8 +5565,8 @@ false
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/optimizations.nix
-/modules/optimizations.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/optimizations.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/optimizations.nix
 .UE \c
 .SS optimizations.extra
 Extra GHC flags by literal spelling:
@@ -5539,8 +5595,8 @@ Entries are independent of \f[CR]all\f[R].
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/optimizations.nix
-/modules/optimizations.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/optimizations.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/optimizations.nix
 .UE \c
 .SS optimizations.late\-specialise
 Enable \-flate\-specialise: run one more specialisation pass late in the
@@ -5557,8 +5613,8 @@ false
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/optimizations.nix
-/modules/optimizations.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/optimizations.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/optimizations.nix
 .UE \c
 .SS optimizations.specialise
 Enable \-fspecialise: specialise each overloaded function for the types
@@ -5573,8 +5629,8 @@ false
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/optimizations.nix
-/modules/optimizations.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/optimizations.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/optimizations.nix
 .UE \c
 .SS optimizations.specialise\-aggressively
 Enable \-fspecialise\-aggressively: specialise any overloaded function
@@ -5590,8 +5646,8 @@ false
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/optimizations.nix
-/modules/optimizations.nix
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/optimizations.nix
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/optimizations.nix
 .UE \c
 .SS platforms
 Per\-platform customization, keyed by \f[CR]pkgs.pkgsCross\f[R] platform
@@ -5634,8 +5690,8 @@ of it.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages
 Per\-package customization for this platform only, merged over the
@@ -5662,8 +5718,8 @@ built for this target, in the form that ships.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.enableDeadCodeElimination
 Whether to eliminate unused code at link time.
@@ -5678,8 +5734,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.enableLibraryForGhci
 Whether to build a pre\-linked object of the library for loading into
@@ -5695,8 +5751,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.enableLibraryProfiling
 Whether to build the package\(cqs library with profiling support.
@@ -5711,8 +5767,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.enableProfiling
 Whether to build the whole package with profiling support.
@@ -5727,8 +5783,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.enableSeparateDataOutput
 Whether to install the package\(cqs data files into a separate output.
@@ -5743,8 +5799,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.enableShared
 Whether to build a shared library.
@@ -5759,8 +5815,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.enableStatic
 Whether to build a static library.
@@ -5775,8 +5831,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.bundle\-optimizers
 Settings layers for optimizer tools a project registered through an
@@ -5804,8 +5860,8 @@ A field absent here states nothing.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.bundles
 What this package\(cqs executables are shipped as for this target, keyed
@@ -5818,8 +5874,8 @@ The whole set can be read at once, without naming each executable again.
 \f[CR]components.exes\f[R]
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.bundles.<name>.jsffi
 The \f[CR]ghc_wasm_jsffi.js\f[R] without which this target\(cqs binary
@@ -5835,8 +5891,8 @@ needs.
 built, with the compiler it was built with
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.bundles.<name>.optimized
 The executable a driver built for this target, sent through that
@@ -5854,8 +5910,8 @@ when read anywhere but through a driver
 through \f[CR]wasm\-optimize\f[R] or \f[CR]js\-optimize\f[R]
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.closure\-compiler.enable
 Whether \f[CR]js\-optimize\f[R] runs closure\-compiler.
@@ -5873,8 +5929,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.closure\-compiler.externs
 Files passed as \f[CR]\-\-externs\f[R].
@@ -5902,8 +5958,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.closure\-compiler.extraFlags
 Flags appended after the level and the externs, so one of these
@@ -5936,8 +5992,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.closure\-compiler.level
 The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
@@ -5961,8 +6017,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.components
 Per\-component customization, grouped by the component kind cabal uses.
@@ -5977,12 +6033,12 @@ Only executables carry anything so far.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 \ \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.components.exes
 Bundle optimizer settings for one executable of the package, keyed by
@@ -6004,12 +6060,12 @@ leaves in the build tree.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 \ \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.components.exes.<name>.bundle\-optimizers
 Settings layers for optimizer tools a project registered through an
@@ -6037,8 +6093,8 @@ A field absent here states nothing.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.components.exes.<name>.bundles.jsffi
 The \f[CR]ghc_wasm_jsffi.js\f[R] without which this target\(cqs binary
@@ -6054,8 +6110,8 @@ needs.
 built, with the compiler it was built with
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.components.exes.<name>.bundles.optimized
 The executable a driver built for this target, sent through that
@@ -6073,8 +6129,8 @@ when read anywhere but through a driver
 through \f[CR]wasm\-optimize\f[R] or \f[CR]js\-optimize\f[R]
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.components.exes.<name>.closure\-compiler.enable
 Whether \f[CR]js\-optimize\f[R] runs closure\-compiler.
@@ -6092,8 +6148,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.components.exes.<name>.closure\-compiler.externs
 Files passed as \f[CR]\-\-externs\f[R].
@@ -6121,8 +6177,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.components.exes.<name>.closure\-compiler.extraFlags
 Flags appended after the level and the externs, so one of these
@@ -6155,8 +6211,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.components.exes.<name>.closure\-compiler.level
 The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
@@ -6180,8 +6236,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.components.exes.<name>.wasm\-opt.enable
 Whether \f[CR]wasm\-optimize\f[R] runs wasm\-opt and the strip that
@@ -6201,8 +6257,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.components.exes.<name>.wasm\-opt.extraFlags
 Flags appended after \f[CR]\-all \-O<level>\f[R], so one of these
@@ -6235,8 +6291,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.components.exes.<name>.wasm\-opt.level
 The \f[CR]\-O\f[R] level wasm\-opt runs at.
@@ -6260,8 +6316,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.configureFlags
 Extra flags passed to \f[CR]Setup configure\f[R].
@@ -6283,8 +6339,8 @@ Extra flags passed to \f[CR]Setup configure\f[R].
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.doCheck
 Whether to run the package\(cqs test suites.
@@ -6299,8 +6355,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.doCoverage
 Whether to generate a coverage report for the package.
@@ -6315,8 +6371,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.doHaddock
 Whether to build the package\(cqs documentation.
@@ -6331,8 +6387,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.doHoogle
 Whether to generate a hoogle index for the package\(cqs documentation.
@@ -6347,8 +6403,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.doHyperlinkSource
 Whether to generate hyperlinked source code alongside the package\(cqs
@@ -6364,8 +6420,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.doQuickjump
 Whether to generate the quickjump index of the package\(cqs
@@ -6381,8 +6437,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.dontStrip
 Whether to leave the produced binaries unstripped.
@@ -6397,8 +6453,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.flags
 Cabal flag assignments for the package (\f[CR]true\f[R] enables,
@@ -6422,8 +6478,8 @@ Cabal flag assignments for the package (\f[CR]true\f[R] enables,
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.ghcOptions
 GHC flags for this package only.
@@ -6446,8 +6502,8 @@ GHC flags for this package only.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.hardeningDisable
 Hardening flags to disable when building the package.
@@ -6470,8 +6526,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.patches
 Patches applied to the package source.
@@ -6491,8 +6547,8 @@ Patches applied to the package source.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.postBuild
 Shell code run after the build phase.
@@ -6513,8 +6569,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.postCheck
 Shell code run after the check phase.
@@ -6535,8 +6591,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.postConfigure
 Shell code run after the configure phase.
@@ -6557,8 +6613,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.postHaddock
 Shell code run after the haddock phase.
@@ -6579,8 +6635,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.postInstall
 Shell code run after the install phase.
@@ -6601,8 +6657,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.postPatch
 Shell code run after the patch phase.
@@ -6623,8 +6679,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.postUnpack
 Shell code run after the unpack phase.
@@ -6645,8 +6701,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.preBuild
 Shell code run before the build phase.
@@ -6667,8 +6723,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.preCheck
 Shell code run before the check phase.
@@ -6689,8 +6745,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.preConfigure
 Shell code run before the configure phase.
@@ -6711,8 +6767,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.preHaddock
 Shell code run before the haddock phase.
@@ -6733,8 +6789,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.preInstall
 Shell code run before the install phase.
@@ -6755,8 +6811,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.prePatch
 Shell code run before the patch phase.
@@ -6777,8 +6833,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.preUnpack
 Shell code run before the unpack phase.
@@ -6799,8 +6855,39 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
+.UE \c
+.SS platforms.<name>.packages.<name>.previousIntermediates
+Compiled modules of an earlier build to resume from: a path carrying
+\f[CR]share/haskell/<ghc\-version>/<pname>\-<version>/dist/build\f[R],
+which the build restores before \f[CR]Setup build\f[R].
+Modules ghc accepts are not compiled again.
+\f[CR]fine\-grained\f[R] sets this to a plan\(cqs output for the
+packages it selects, over a value set here.
+.PP
+The nixpkgs driver builds a package as one derivation and restores the
+whole tree.
+The haskell.nix driver builds per component and restores the
+library\(cqs, the only component whose build the tree holds.
+.PP
+\f[I]Type:\f[R] null or string or package
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+null
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+builtins.outputOf plan.outPath \(dqout\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.profilingDetail
 The profiling detail level.
@@ -6821,8 +6908,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.setupBuildFlags
 Extra flags passed to \f[CR]Setup build\f[R].
@@ -6844,8 +6931,8 @@ Extra flags passed to \f[CR]Setup build\f[R].
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.setupHaddockFlags
 Extra flags passed to \f[CR]Setup haddock\f[R].
@@ -6867,8 +6954,8 @@ Extra flags passed to \f[CR]Setup haddock\f[R].
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.src
 Replacement source for the package.
@@ -6888,8 +6975,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.wasm\-opt.enable
 Whether \f[CR]wasm\-optimize\f[R] runs wasm\-opt and the strip that
@@ -6909,8 +6996,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.wasm\-opt.extraFlags
 Flags appended after \f[CR]\-all \-O<level>\f[R], so one of these
@@ -6943,8 +7030,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.packages.<name>.wasm\-opt.level
 The \f[CR]\-O\f[R] level wasm\-opt runs at.
@@ -6968,8 +7055,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.bundle\-optimizers
 Settings layers for optimizer tools a project registered through an
@@ -6997,8 +7084,8 @@ A field absent here states nothing.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.closure\-compiler.enable
 Whether \f[CR]js\-optimize\f[R] runs closure\-compiler.
@@ -7016,8 +7103,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.closure\-compiler.externs
 Files passed as \f[CR]\-\-externs\f[R].
@@ -7045,8 +7132,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.closure\-compiler.extraFlags
 Flags appended after the level and the externs, so one of these
@@ -7079,8 +7166,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.closure\-compiler.level
 The \f[CR]\-\-compilation_level\f[R] closure\-compiler runs at.
@@ -7104,8 +7191,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.wasm\-opt.enable
 Whether \f[CR]wasm\-optimize\f[R] runs wasm\-opt and the strip that
@@ -7125,8 +7212,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.wasm\-opt.extraFlags
 Flags appended after \f[CR]\-all \-O<level>\f[R], so one of these
@@ -7159,8 +7246,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS platforms.<name>.wasm\-opt.level
 The \f[CR]\-O\f[R] level wasm\-opt runs at.
@@ -7184,8 +7271,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS sha256map
 Hashes for the sources that \f[CR]source\-repository\-package\f[R]
@@ -7220,8 +7307,8 @@ null
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS shell
 The development shell.
@@ -7235,8 +7322,8 @@ The development shell.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS shell.packages
 Package selection function.
@@ -7263,8 +7350,8 @@ ps: with ps; [
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS shell.buildInputs
 Extra packages available in the shell.
@@ -7284,8 +7371,8 @@ Extra packages available in the shell.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS shell.crossPlatforms
 Selects the cross\-compilation targets from an attribute set keyed by
@@ -7306,8 +7393,8 @@ ps: with ps; [ ghcjs wasi32 ]
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS shell.nativeBuildInputs
 Extra native packages available in the shell.
@@ -7327,8 +7414,8 @@ Extra native packages available in the shell.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS shell.shellHook
 Shell hook to run when entering the shell.
@@ -7348,8 +7435,8 @@ Shell hook to run when entering the shell.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS shell.tools
 Haskell tools available in the shell, keyed by executable name.
@@ -7376,8 +7463,8 @@ a tool argument set
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS shell.withHoogle
 Provide a hoogle database over the shell\(cqs package set.
@@ -7391,8 +7478,8 @@ false
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS source\-repository\-packages
 Local packages to add to the project.
@@ -7428,8 +7515,8 @@ multi\-package repository needs one entry rather than one per package.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS src
 The project source: the tree holding the cabal project file and the
@@ -7450,8 +7537,8 @@ it already chose what it contains.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS src\-cleaned
 \f[CR]src\f[R] with build artifacts filtered out, or \f[CR]src\f[R]
@@ -7472,8 +7559,8 @@ The drivers build the project from this.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS system
 The system the project is built on.
@@ -7491,8 +7578,8 @@ target names are relative to it.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/common
-/modules/common
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/common
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/common
 .UE \c
 .SS wasm\-jsffi
 \f[B]A function, not a setting.\f[R] A project calls it and uses the
@@ -7524,8 +7611,8 @@ strips the sections it reads.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/cross/wasm
-/modules/cross/wasm
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/wasm
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/cross/wasm
 .UE \c
 .SS wasm\-opt.enable
 Whether \f[CR]wasm\-optimize\f[R] runs wasm\-opt and the strip that
@@ -7542,8 +7629,8 @@ true
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/cross/wasm
-/modules/cross/wasm
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/wasm
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/cross/wasm
 .UE \c
 .SS wasm\-opt.extraFlags
 Flags appended after \f[CR]\-all \-O<level>\f[R], so one of these
@@ -7579,8 +7666,8 @@ more.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/cross/wasm
-/modules/cross/wasm
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/wasm
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/cross/wasm
 .UE \c
 .SS wasm\-opt.level
 The \f[CR]\-O\f[R] level wasm\-opt runs at.
@@ -7601,8 +7688,8 @@ The \f[CR]\-O\f[R] level wasm\-opt runs at.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/cross/wasm
-/modules/cross/wasm
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/wasm
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/cross/wasm
 .UE \c
 .SS wasm\-optimize
 \f[B]A function, not a setting.\f[R] A project calls it and uses the
@@ -7654,6 +7741,6 @@ This function runs on a built artifact, outside any driver.
 .EE
 .PP
 \f[I]Declared by:\f[R] \- \c
-.UR file://%3Cnix-haskell%3E/modules/cross/wasm
-/modules/cross/wasm
+.UR file:///media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix-haskell-tmp/modules/cross/wasm
+/media/r4dix/Work/Tech/newmaterik/newmaterik/deps/obelisk/deps/nix\-haskell\-tmp/modules/cross/wasm
 .UE \c
