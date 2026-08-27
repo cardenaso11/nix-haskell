@@ -128,7 +128,8 @@ in {
         type = types.submodule {
           options =
             import ./options.nix { inherit lib cfg; }
-            // import ./hooks.nix { inherit lib pkgs config; };
+            // import ./hooks.nix { inherit lib pkgs config; }
+            // import ./fine-grained.nix { inherit lib cfg config; };
         };
       };
 

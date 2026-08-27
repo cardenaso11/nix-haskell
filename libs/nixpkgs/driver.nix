@@ -80,6 +80,7 @@ let compose = pkgs.haskell.lib.compose;
     project-file = import ./project-file.nix { inherit pkgs haskell-nix-src; };
     conditionHolds = condition: options.evaluate-condition { inherit condition hostMap; };
     decodeSrp = import ../source-repository-package.nix;
+    haskellDependencies = import ./haskell-dependencies.nix { inherit lib; };
 
     # ------------------------------------------------------------------------
     # Local packages: { <package-name> = { src; external; }; }
@@ -251,12 +252,59 @@ let compose = pkgs.haskell.lib.compose;
       in lib.mapAttrs override
            (lib.filterAttrs (name: _: super ? ${name}) options.package-arguments);
 
+    # ------------------------------------------------------------------------
+    # Fine-grained builds
+    # ------------------------------------------------------------------------
+
+    fineGrained = options.fine-grained;
+
+    # Native packages only. A plan builds Setup with the compiler it
+    # configures with, and a cross set's Setup cannot run on the builder.
+    fineGrainedNames =
+      if platform != null || !fineGrained.enable
+      then []
+      else if fineGrained.packages != null
+      then fineGrained.packages
+      else lib.attrNames (lib.filterAttrs (_: p: !p.external) discovered);
+
+    # This overlay comes last, so that each plan reads the package as it
+    # builds. The names come from the selection, never from a package value.
+    fineGrainedOverlay = _: super:
+      let plan = name:
+            let package = super.${name};
+                tweaks = packages.${name} or {};
+
+                flags = fineGrained.configure-flags {
+                  inherit name tweaks pkgs;
+                  ghc = haskellPackages.ghc;
+                  ghc-options = common.ghcOptions;
+                };
+
+                intermediates = fineGrained.intermediates {
+                  inherit name package pkgs;
+                  ghc = haskellPackages.ghc;
+                  dependencies = haskellDependencies package;
+                  shim = fineGrained.ghc-shim;
+                  tool = fineGrained.tool;
+                  configure-flags = flags;
+                };
+
+            in if !(super ? ${name}) || package == null
+               then throw (prefix ("`fine-grained.packages` names a package the"
+                      + " set carries no build for: ${name}"))
+               else compose.overrideCabal (_: {
+                      previousIntermediates = builtins.outputOf intermediates.outPath "out";
+                    }) package;
+
+      in lib.genAttrs fineGrainedNames plan;
+
     projectOverlays =
       lib.optional options.exact-configuration exactConfigurationOverlay
       ++ [ localPackagesOverlay srpOverlay hackageOverlay extraDefaultsOverlay packageTweaksOverlay ]
       ++ lib.optional (common.ghcOptions != []) ghcOptionsOverlay
       ++ lib.optional (options.package-arguments != {}) packageArgumentsOverlay
-      ++ options.overrides;
+      ++ options.overrides
+      ++ lib.optional (fineGrainedNames != []) fineGrainedOverlay;
 
     hp = haskellPackages.extend (lib.composeManyExtensions
       (options.project-overlays { overlays = projectOverlays; }));
@@ -288,8 +336,7 @@ let compose = pkgs.haskell.lib.compose;
     # The wrapped cross compiler carries the dependencies of the shell
     # selection in its package database, like shellFor's environment does
     # for the native compiler. Without a hackage index in the shell, cabal
-    # can only resolve against installed packages. Setup dependencies are
-    # left out. They build on the native side.
+    # can only resolve against installed packages.
     #
     # The wrapper comes from cross-ghc-env.nix rather than from the set's
     # own `ghcWithPackages`, which aims the compiler at a library directory
@@ -298,14 +345,9 @@ let compose = pkgs.haskell.lib.compose;
       let chp = projectCross.${platform}.haskellPackages;
           selected = map (p: chp.${p.identifier.name}) (selection selectionSet);
           notSelected = d: lib.all (p: (d.outPath or null) != p.outPath) selected;
-          isRunDep = n:
-            n == "buildDepends"
-            || (lib.hasSuffix "HaskellDepends" n && n != "setupHaskellDepends");
-          depsOf = p: lib.concatLists
-            (lib.attrValues (lib.filterAttrs (n: _: isRunDep n) p.getCabalDeps));
       in options.cross-ghc-env {
            ghc = chp.ghc;
-           packages = lib.filter (d: d != null && notSelected d) (lib.concatMap depsOf selected);
+           packages = lib.filter notSelected (lib.concatMap haskellDependencies selected);
            inherit pkgs;
          };
 

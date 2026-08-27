@@ -4885,6 +4885,206 @@ Replace it to fetch through another tool or a mirror.
 .UR file://%3Cnix-haskell%3E/modules/nixpkgs
 /modules/nixpkgs
 .UE \c
+.SS nixpkgs.options.fine\-grained
+Builds the selected packages one module at a time, so that a change to
+one module rebuilds one module.
+Evaluation reads \f[CR]builtins.outputOf\f[R], and the builds need the
+Nix of \f[CR]nix\f[R] below.
+.PP
+The modules hold the ways of one \f[CR]Setup build\f[R], so a package
+that keeps \f[CR]packages.<name>.enableLibraryProfiling\f[R] on compiles
+every module a second time.
+The driver warns when that happens.
+.PP
+\f[I]Type:\f[R] submodule
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+{ }
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
+.SS nixpkgs.options.fine\-grained.enable
+Whether to build the packages \f[CR]packages\f[R] names module by
+module.
+Off leaves the driver\(cqs own build path in place.
+.PP
+\f[I]Type:\f[R] boolean
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+false
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
+.SS nixpkgs.options.fine\-grained.packages
+The packages built module by module, by cabal package name.
+\f[CR]null\f[R] takes every local package, and \f[CR][]\f[R] takes none.
+Cross platforms are never built this way.
+.PP
+\f[I]Type:\f[R] null or (list of string)
+.PP
+\f[I]Default:\f[R] every local package
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+[
+  \(dqfrontend\(dq
+  \(dqcommon\(dq
+]
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
+.SS nixpkgs.options.fine\-grained.configure\-flags
+\f[B]A function, not a setting.\f[R] A project calls it and uses the
+result.
+Assign it only to replace what the call does.
+.PP
+The configure flags of one package\(cqs plan.
+The call carries \f[CR]name\f[R], \f[CR]tweaks\f[R],
+\f[CR]ghc\-options\f[R], \f[CR]ghc\f[R] and \f[CR]pkgs\f[R].
+.PP
+The flags must make configure compute the ghc flags that the
+package\(cqs own configure computes.
+A mismatch costs recompilation.
+Replace this step where \f[CR]package\-arguments\f[R] or
+\f[CR]overrides\f[R] changes a build way, which the default cannot read.
+.PP
+\f[I]Type:\f[R] function that evaluates to a(n) string
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+<nix\-haskell>/libs/nixpkgs/fine\-grained/configure\-flags.nix
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+args: import \(dq${nix\-haskell\-libs}/nixpkgs/fine\-grained/configure\-flags.nix\(dq { inherit lib; } args
+  + \(dq \-\-ghc\-option=\-fno\-ignore\-asserts\(dq
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
+.SS nixpkgs.options.fine\-grained.ghc\-shim
+The compiler that a plan\(cqs configure records, so that sandstone reads
+the flags Cabal computed.
+It wraps this driver\(cqs ghc.
+.PP
+\f[I]Type:\f[R] package
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+<nix\-haskell>/libs/nixpkgs/fine\-grained/ghc\-shim.nix
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
+.SS nixpkgs.options.fine\-grained.intermediates
+\f[B]A function, not a setting.\f[R] A project calls it and uses the
+result.
+Assign it only to replace what the call does.
+.PP
+Builds one package\(cqs plan, the derivation whose output is the
+derivation that assembles that package\(cqs modules.
+The call carries \f[CR]name\f[R], \f[CR]package\f[R],
+\f[CR]dependencies\f[R], \f[CR]ghc\f[R], \f[CR]shim\f[R],
+\f[CR]tool\f[R], \f[CR]configure\-flags\f[R] and \f[CR]pkgs\f[R].
+.PP
+\f[I]Type:\f[R] function that evaluates to a(n) raw value
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+<nix\-haskell>/libs/nixpkgs/fine\-grained/intermediates.nix
+.EE
+.PP
+\f[I]Example:\f[R]
+.IP
+.EX
+args: import \(dq${nix\-haskell\-libs}/nixpkgs/fine\-grained/intermediates.nix\(dq { inherit lib; }
+  (args // { configure\-flags = args.configure\-flags + \(dq \-\-enable\-tests\(dq; })
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
+.SS nixpkgs.options.fine\-grained.nix
+The Nix that these builds need, with dynamic derivations and the
+\f[CR]builder\-rpc\-v0\f[R] system feature.
+Build it and run it as the daemon, or drive a store of its own with it.
+.PP
+\f[I]Type:\f[R] package
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+<sandstone>.nix
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
+.SS nixpkgs.options.fine\-grained.sandstone
+The sandstone checkout, read with the nixpkgs and the Nix overlay that
+it pins itself.
+Those are not this driver\(cqs, and these builds use only the tool that
+it carries.
+.PP
+\f[I]Type:\f[R] raw value
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+import config.inputs.sandstone {
+  nixpkgsArgs = {
+    localSystem = {
+      system = config.nixpkgs.system;
+    };
+  };
+}
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
+.SS nixpkgs.options.fine\-grained.tool
+The package that carries \f[CR]bin/cabal\-dyn\-drv\f[R], which builds
+every plan.
+.PP
+\f[I]Type:\f[R] package
+.PP
+\f[I]Default:\f[R]
+.IP
+.EX
+<sandstone>.haskellPackages.sandstone
+.EE
+.PP
+\f[I]Declared by:\f[R] \- \c
+.UR file://%3Cnix-haskell%3E/modules/nixpkgs
+/modules/nixpkgs
+.UE \c
 .SS nixpkgs.options.haskell\-packages\-for
 \f[B]A function, not a setting.\f[R] A project calls it and uses the
 result.
@@ -4921,7 +5121,8 @@ This function also builds the set of every cross platform.
 .UE \c
 .SS nixpkgs.options.overrides
 Overlays over the Haskell package set (\f[CR]self: super: { ... }\f[R]),
-applied after everything the driver generates.
+applied after everything the driver generates, and before a
+fine\-grained build wraps the result.
 Use it for anything the common options do not cover.
 .PP
 \f[I]Type:\f[R] list of raw value
@@ -4949,7 +5150,7 @@ Assign it only to replace what the call does.
 .PP
 The overlays that extend the package set.
 The call\(cqs \f[CR]overlays\f[R] field carries every generated overlay,
-with \f[CR]overrides\f[R] last.
+with \f[CR]overrides\f[R] last and a fine\-grained wrap after it.
 Replace it to prepend, reorder, drop or wrap them.
 .PP
 \f[I]Type:\f[R] function that evaluates to a(n) list of raw value

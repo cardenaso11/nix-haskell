@@ -8,6 +8,12 @@
     nixpkgs.url = ./pins/nixpkgs;
     haskell-nix.url = ./pins/haskell-nix;
 
+    # A submodule as well, and it carries no flake of its own.
+    sandstone = {
+      url = ./pins/sandstone;
+      flake = false;
+    };
+
     flake-compat.url = "github:NixOS/flake-compat";
   };
 

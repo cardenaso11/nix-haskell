@@ -3,9 +3,14 @@
 # is meant to work for. The example is built two ways: as the drivers build
 # it, and as a person would inside the project's shell.
 #
+# A stock Nix builds every attribute here. The fine-grained example's
+# library needs one carrying dynamic derivations, so it appears only there,
+# and `fine-grained.run` builds it on any other machine.
+#
 #   nix-build release.nix -A all
 #   nix-build release.nix -A checks
 #   nix-build release.nix -A reflex-todomvc.build.haskell-nix.ghc912.wasi32
+#   nix-build release.nix -A fine-grained.run
 #
 # `all` is a directory of symlinks to every other attribute, so one build
 # realises everything and names what it realised.
@@ -37,6 +42,14 @@ let pkgs = (import ./default.nix { inherit system inputs; } {}).pkgs;
       reflex-todomvc = import ./examples/reflex-todomvc/release.nix {
         inherit system inputs;
       };
+
+      # The tool and the wrapper build anywhere. The library reads
+      # `builtins.outputOf`, so it joins them only where the Nix reading this
+      # carries dynamic derivations, and the wrapper builds it anywhere else.
+      fine-grained =
+        let example = import ./examples/fine-grained { inherit system inputs; };
+        in { inherit (example) nix run; }
+           // lib.optionalAttrs (builtins ? outputOf) { inherit (example) library; };
 
     };
 

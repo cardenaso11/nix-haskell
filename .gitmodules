@@ -2,3 +2,7 @@
 	path = pins/haskell-nix
 	url = https://github.com/input-output-hk/haskell.nix
 	shallow = true
+[submodule "pins/sandstone"]
+	path = pins/sandstone
+	url = https://github.com/obsidiansystems/sandstone.git
+	branch = cabal-build

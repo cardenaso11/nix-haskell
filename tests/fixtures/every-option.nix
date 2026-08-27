@@ -122,6 +122,13 @@
   haskell-nix.packages.every-option.doQuickjump = true;
   nixpkgs.packages.every-option.doHoogle = true;
 
+  # A selection that names no package. The fixture then holds these options
+  # without a Nix that carries dynamic derivations.
+  nixpkgs.options.fine-grained = {
+    enable = true;
+    packages = [];
+  };
+
   inputs.every-option-fixture = ./dep-a;
 
   isGhcjs = false;

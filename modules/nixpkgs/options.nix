@@ -161,8 +161,9 @@ in {
     default = [];
     description = ''
       Overlays over the Haskell package set (`self: super: { ... }`),
-      applied after everything the driver generates. Use it for
-      anything the common options do not cover.
+      applied after everything the driver generates, and before a
+      fine-grained build wraps the result. Use it for anything the
+      common options do not cover.
     '';
     example = fenced-code ''[ (self: super: { my-dep = pkgs.haskell.lib.dontCheck super.my-dep; }) ]'';
   };

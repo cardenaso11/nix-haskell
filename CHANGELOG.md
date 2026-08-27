@@ -131,6 +131,14 @@
 - Examples on the options that teach a shape: the per-package fields, the
   optimizer flag lists, the compiler and toolchain, the shell, the cabal
   project text, and every function-valued option.
+- `nixpkgs.options.fine-grained`, which builds the packages it names one
+  module at a time. Sandstone, pinned at `pins/sandstone`, writes one
+  content-addressed derivation for each module through Nix dynamic
+  derivations, and the package's own build restores them and only links.
+  Off by default: it reads `builtins.outputOf`, and it builds only on a Nix
+  that carries dynamic derivations and the `builder-rpc-v0` system feature,
+  which `nixpkgs.options.fine-grained.nix` provides. `examples/fine-grained`
+  carries a wrapper that runs a build with that Nix.
 
 ### Changed (breaking)
 

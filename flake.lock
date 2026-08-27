@@ -614,8 +614,21 @@
       "inputs": {
         "flake-compat": "flake-compat",
         "haskell-nix": "haskell-nix",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "sandstone": "sandstone"
       }
+    },
+    "sandstone": {
+      "flake": false,
+      "locked": {
+        "path": "pins/sandstone",
+        "type": "path"
+      },
+      "original": {
+        "path": "pins/sandstone",
+        "type": "path"
+      },
+      "parent": []
     },
     "stackage": {
       "flake": false,

@@ -217,8 +217,8 @@ with (import ../../libs/prelude { inherit lib; });
     description = ''
       The overlays that extend the package set. The call's
       `overlays` field carries every generated overlay, with
-      `overrides` last. Replace it to prepend, reorder, drop or
-      wrap them.
+      `overrides` last and a fine-grained wrap after it. Replace
+      it to prepend, reorder, drop or wrap them.
     '';
     example = fenced-code ''{ overlays }: [ (self: super: { chrome-test-utils = null; }) ] ++ overlays'';
   };

@@ -310,8 +310,6 @@ null
 
 ## packages\.\<name>\.closure-compiler\.extraFlags
 
-
-
 Flags appended after the level and the externs, so one of these
 overrides what they set\. Write one flag per element, with its value in
 the same string\. The elements are joined into one command line\.
@@ -623,6 +621,8 @@ null
 
 
 ## packages\.\<name>\.components\.exes\.\<name>\.wasm-opt\.enable
+
+
 
 Whether ` wasm-optimize ` runs wasm-opt and the strip that follows it\.
 When false, ` wasm-optimize ` copies its input through, so a caller
@@ -6907,6 +6907,286 @@ function that evaluates to a(n) raw value
 
 
 
+## nixpkgs\.options\.fine-grained
+
+
+
+Builds the selected packages one module at a time, so that a change
+to one module rebuilds one module\. Evaluation reads
+` builtins.outputOf `, and the builds need the Nix of ` nix ` below\.
+
+The modules hold the ways of one ` Setup build `, so a package that
+keeps ` packages.<name>.enableLibraryProfiling ` on compiles every
+module a second time\. The driver warns when that happens\.
+
+
+
+*Type:*
+submodule
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
+## nixpkgs\.options\.fine-grained\.enable
+
+
+
+Whether to build the packages ` packages ` names module by
+module\. Off leaves the driver’s own build path in place\.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+
+```nix
+false
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
+## nixpkgs\.options\.fine-grained\.packages
+
+
+
+The packages built module by module, by cabal package name\.
+` null ` takes every local package, and ` [] ` takes none\. Cross
+platforms are never built this way\.
+
+
+
+*Type:*
+null or (list of string)
+
+
+
+*Default:*
+every local package
+
+
+
+*Example:*
+
+```nix
+[
+  "frontend"
+  "common"
+]
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
+## nixpkgs\.options\.fine-grained\.configure-flags
+
+
+
+**A function, not a setting\.** A project calls it and uses the
+result\. Assign it only to replace what the call does\.
+
+The configure flags of one package’s plan\. The call carries
+` name `, ` tweaks `, ` ghc-options `, ` ghc ` and ` pkgs `\.
+
+The flags must make configure compute the ghc flags that the
+package’s own configure computes\. A mismatch costs
+recompilation\. Replace this step where ` package-arguments `
+or ` overrides ` changes a build way, which the default cannot
+read\.
+
+
+
+*Type:*
+function that evaluates to a(n) string
+
+
+
+*Default:*
+
+```
+<nix-haskell>/libs/nixpkgs/fine-grained/configure-flags.nix
+```
+
+
+
+*Example:*
+
+```
+args: import "${nix-haskell-libs}/nixpkgs/fine-grained/configure-flags.nix" { inherit lib; } args
+  + " --ghc-option=-fno-ignore-asserts"
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
+## nixpkgs\.options\.fine-grained\.ghc-shim
+
+
+
+The compiler that a plan’s configure records, so that
+sandstone reads the flags Cabal computed\. It wraps this
+driver’s ghc\.
+
+
+
+*Type:*
+package
+
+
+
+*Default:*
+
+```
+<nix-haskell>/libs/nixpkgs/fine-grained/ghc-shim.nix
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
+## nixpkgs\.options\.fine-grained\.intermediates
+
+
+
+**A function, not a setting\.** A project calls it and uses the
+result\. Assign it only to replace what the call does\.
+
+Builds one package’s plan, the derivation whose output is the
+derivation that assembles that package’s modules\. The call
+carries ` name `, ` package `, ` dependencies `, ` ghc `, ` shim `,
+` tool `, ` configure-flags ` and ` pkgs `\.
+
+
+
+*Type:*
+function that evaluates to a(n) raw value
+
+
+
+*Default:*
+
+```
+<nix-haskell>/libs/nixpkgs/fine-grained/intermediates.nix
+```
+
+
+
+*Example:*
+
+```
+args: import "${nix-haskell-libs}/nixpkgs/fine-grained/intermediates.nix" { inherit lib; }
+  (args // { configure-flags = args.configure-flags + " --enable-tests"; })
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
+## nixpkgs\.options\.fine-grained\.nix
+
+
+
+The Nix that these builds need, with dynamic derivations and
+the ` builder-rpc-v0 ` system feature\. Build it and run it as
+the daemon, or drive a store of its own with it\.
+
+
+
+*Type:*
+package
+
+
+
+*Default:*
+
+```
+<sandstone>.nix
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
+## nixpkgs\.options\.fine-grained\.sandstone
+
+
+
+The sandstone checkout, read with the nixpkgs and the Nix
+overlay that it pins itself\. Those are not this driver’s, and
+these builds use only the tool that it carries\.
+
+
+
+*Type:*
+raw value
+
+
+
+*Default:*
+
+```
+import config.inputs.sandstone {
+  nixpkgsArgs = {
+    localSystem = {
+      system = config.nixpkgs.system;
+    };
+  };
+}
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
+## nixpkgs\.options\.fine-grained\.tool
+
+
+
+The package that carries ` bin/cabal-dyn-drv `, which builds
+every plan\.
+
+
+
+*Type:*
+package
+
+
+
+*Default:*
+
+```
+<sandstone>.haskellPackages.sandstone
+```
+
+*Declared by:*
+ - [<nix-haskell>/modules/nixpkgs](file://<nix-haskell>/modules/nixpkgs)
+
+
+
 ## nixpkgs\.options\.haskell-packages-for
 
 
@@ -6955,8 +7235,9 @@ function that evaluates to a(n) raw value
 
 
 Overlays over the Haskell package set (` self: super: { ... } `),
-applied after everything the driver generates\. Use it for
-anything the common options do not cover\.
+applied after everything the driver generates, and before a
+fine-grained build wraps the result\. Use it for anything the
+common options do not cover\.
 
 
 
@@ -6993,8 +7274,8 @@ result\. Assign it only to replace what the call does\.
 
 The overlays that extend the package set\. The call’s
 ` overlays ` field carries every generated overlay, with
-` overrides ` last\. Replace it to prepend, reorder, drop or
-wrap them\.
+` overrides ` last and a fine-grained wrap after it\. Replace
+it to prepend, reorder, drop or wrap them\.
 
 
 
@@ -8915,8 +9196,6 @@ null
 
 ## platforms\.\<name>\.packages\.\<name>\.postConfigure
 
-
-
 Shell code run after the
 configure phase\. ` null ` leaves the default in
 place\.
@@ -9220,6 +9499,8 @@ null
 
 
 ## platforms\.\<name>\.packages\.\<name>\.preInstall
+
+
 
 Shell code run before the
 install phase\. ` null ` leaves the default in

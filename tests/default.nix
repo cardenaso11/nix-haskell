@@ -15,6 +15,9 @@
 #   package-arguments-spec      a raw mkDerivation argument set through
 #                               nixpkgs.options.package-arguments lands on
 #                               the package derivation (pure eval)
+#   fine-grained-spec           a plan's configure flags follow the package's
+#                               own fields, and a selection that names no
+#                               package changes no derivation (pure eval)
 #   cross-target-row-spec       a user-supplied cross-target row is a full
 #                               target: options, registry, node opt-out,
 #                               and settings tolerance (pure eval)
@@ -414,6 +417,57 @@ let eval = import ../eval.nix { inherit system pkgs inputs; };
          else throw "package-arguments: postInstall is ${builtins.toJSON postInstall}";
 
     # ------------------------------------------------------------------------
+    # fine-grained-spec
+    # ------------------------------------------------------------------------
+
+    # A plan's configure flags follow the package's own fields, and a field
+    # the project leaves unset falls back to the nixpkgs default. A selection
+    # that names no package leaves the driver's build path alone. Nothing
+    # here reads `builtins.outputOf`, which needs a Nix that carries dynamic
+    # derivations.
+    fine-grained-spec =
+      let flagsFor = tweaks:
+            import ../libs/nixpkgs/fine-grained/configure-flags.nix { inherit (pkgs) lib; } {
+              name = "hello";
+              inherit tweaks pkgs;
+              ghc-options = [ "-Wall" ];
+              ghc = pkgs.haskellPackages.ghc;
+            };
+
+          # Profiling on would warn, and the warning is not what this reads.
+          quiet = {
+            enableLibraryProfiling = false;
+            doHaddock = false;
+          };
+
+          stated = flagsFor (quiet // { enableDeadCodeElimination = false; });
+
+          fallback = flagsFor quiet;
+
+          selected = selection:
+            (eval [
+              (import ../examples/hello/project.nix)
+              { nixpkgs.options.fine-grained = selection; }
+            ]).config.nixpkgs.project.packages.hello.drvPath;
+
+          expected = {
+            "profiling stated off" = hasInfix "--disable-library-profiling" stated;
+            "documentation stated off" = ! hasInfix "-haddock" stated;
+            "dead code stated off" = hasInfix "--disable-split-sections" stated;
+            "ghc options carried" = hasInfix "--ghc-option=-Wall" stated;
+            "dead code falls back" = hasInfix "--enable-split-sections" fallback;
+            "empty selection changes nothing" =
+              selected { enable = true; packages = []; }
+              == selected { enable = false; };
+          };
+
+          failed = attrNames (filterAttrs (_: holds: ! holds) expected);
+
+      in if failed == []
+         then pkgs.runCommand "fine-grained-spec" {} "echo ok > $out"
+         else throw "fine-grained: ${concatStringsSep ", " failed}";
+
+    # ------------------------------------------------------------------------
     # cross-target-row-spec
     # ------------------------------------------------------------------------
 
@@ -508,7 +562,7 @@ in {
   # --------------------------------------------------------------------------
 
   inherit translation-totality compiler-spec bundle-optimizer-spec bundle-optimizers;
-  inherit package-arguments-spec cross-target-row-spec;
+  inherit package-arguments-spec cross-target-row-spec fine-grained-spec;
 
   every-option-haskell-nix = every-option "haskell-nix";
   every-option-nixpkgs = every-option "nixpkgs";
